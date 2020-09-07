@@ -1,0 +1,705 @@
+﻿using DataAccess.Helper;
+using DataAccess.ViewModels;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataAccess.DataAccess
+{
+    public class ShipmentDataAccess
+    {
+        public string ConStr { get; set; }
+        public ShipmentDataAccess(IConnectionString connectionString)
+        {
+
+            ConStr = connectionString.GetConnectionString();
+        }
+        public bool SaveShipment(ShipmentViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand("p_SaveShipmentDumy", conn);
+                    cmdd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmdd.Parameters.AddWithValue("_ShipmentId", ViewModel.ShipmentId);
+                    cmdd.Parameters.AddWithValue("_VendorId", ViewModel.VendorId);
+                    cmdd.Parameters.AddWithValue("_ShipmentName", ViewModel.ShipmentName);
+                    cmdd.Parameters.AddWithValue("_Notes", ViewModel.Notes);
+                    cmdd.Parameters.AddWithValue("_CreatedOn", ViewModel.CreatedOn);
+                    cmdd.Parameters.AddWithValue("_Type", ViewModel.Type);
+                    cmdd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
+        public long GetShipmentsListCount(int VendorId, string CurrentDate, string PreviousDate, string ShipmentId, string TrakingNumber, string Status, string Type)
+        {
+            if (ShipmentId == null)
+                ShipmentId = "";
+            if (TrakingNumber == null)
+                TrakingNumber = "";
+            if (Status == null)
+                Status = "";
+            if (Type == null)
+                Type = "";
+            long Counter = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentslistCount", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_VendorId", VendorId);
+                    cmd.Parameters.AddWithValue("_ShipmentId", ShipmentId);
+                    cmd.Parameters.AddWithValue("_TrankingNumber", TrakingNumber);
+                    cmd.Parameters.AddWithValue("_Status", Status);
+                    cmd.Parameters.AddWithValue("_Type", Type);
+                    cmd.Parameters.AddWithValue("dateFrom", PreviousDate);
+                    cmd.Parameters.AddWithValue("dateTo", CurrentDate);
+
+                    Counter = (long)cmd.ExecuteScalar();
+                    conn.Close();
+                }
+            }
+            catch (Exception exp)
+            {
+            }
+            return Counter;
+        }
+
+        public List<ShipmentGetDataViewModel> GetShipmentsList(int VendorId, int Limit, int Offset, string CurrentDate, string PreviousDate, string ShipmentId, string TrakingNumber, string Status, string Type)
+        {
+            if (string.IsNullOrEmpty(ShipmentId) || ShipmentId == "undefined")
+                ShipmentId = "";
+            if (string.IsNullOrEmpty(TrakingNumber) || TrakingNumber == "undefined")
+                TrakingNumber = "";
+            if (string.IsNullOrEmpty(Status) || Status == "undefined")
+                Status = "";
+            if (string.IsNullOrEmpty(Type) || Type == "undefined")
+                Type = "";
+            List<ShipmentGetDataViewModel> list = new List<ShipmentGetDataViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentslist", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_VendorId", VendorId);
+                    cmd.Parameters.AddWithValue("_Limit", Limit);
+                    cmd.Parameters.AddWithValue("_OffSet", Offset);
+                    cmd.Parameters.AddWithValue("_ShipmentId", ShipmentId);
+                    cmd.Parameters.AddWithValue("_TrankingNumber", TrakingNumber);
+                    cmd.Parameters.AddWithValue("_Status", Status);
+                    cmd.Parameters.AddWithValue("_Type", Type);
+                    cmd.Parameters.AddWithValue("dateFrom", PreviousDate);
+                    cmd.Parameters.AddWithValue("dateTo", CurrentDate);
+                    DataSet ds = new DataSet();
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    DataTable dt = ds.Tables[0];
+                    DataTable dt2 = ds.Tables[1];
+                    foreach (DataRow reader in dt.Rows)
+                    {
+                        ShipmentGetDataViewModel viewModel = new ShipmentGetDataViewModel
+                        {
+                            ShipmentAutoID = (int)reader["ShipmentAutoID"],
+                            ShipmentId = (string)reader["ShipmentId"],
+                            ShipmentName = reader["ShipmentName"] != DBNull.Value ? (string)reader["ShipmentName"] : "",
+                            Vendor = reader["Vendor"] != DBNull.Value ? (string)reader["Vendor"] : "",
+                            VendorId = (int)reader["VendorId"],
+                            Status = reader["Status"] != DBNull.Value ? Convert.ToInt32(reader["Status"]) : 0,
+                            CreatedOn = (DateTime)reader["CreatedOn"],
+                            Notes = reader["Notes"] != DBNull.Value ? (string)reader["Notes"] : "",
+                            NoOfBoxes = reader["NoOfBoxs"] != DBNull.Value ? Convert.ToInt32(reader["NoOfBoxs"]) : 0,
+                            TrakingNumber = reader["TrakingNumber"] != DBNull.Value ? (string)reader["TrakingNumber"] : "",
+                            CourierCode = reader["CourierCode"] != DBNull.Value ? (string)reader["CourierCode"] : "",
+                            ShippedDate = reader["ShippedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ShippedDate"]) : DateTime.MinValue,
+                            ReceivedDate = reader["ReceivedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ReceivedDate"]) : DateTime.MinValue,
+                            GrossWt = reader["GrossWt"] != DBNull.Value ? Convert.ToDecimal(reader["GrossWt"]) : 0,
+                            Type = reader["Type"] != DBNull.Value ? Convert.ToString(reader["Type"]) : "",
+
+
+                            // NoOfSKUs = reader["NoOfSKUs"] != DBNull.Value ? Convert.ToInt32(reader["NoOfSKUs"]) : 0,
+                            //TotalShipedQty = reader["TotalShipedQty"] != DBNull.Value ? Convert.ToInt32(reader["TotalShipedQty"]) : 0,
+                        };
+                        list.Add(viewModel);
+                    }
+                    foreach (DataRow reader in dt2.Rows)
+                    {
+                        ShipmentGetDataViewModel viewModel = new ShipmentGetDataViewModel
+                        {
+                            ShipmentId = (string)reader["ShipmentId"],
+                            NoOfSKUs = reader["NoOfSKUs"] != DBNull.Value ? Convert.ToInt32(reader["NoOfSKUs"]) : 0,
+                            TotalShipedQty = reader["TotalShipedQty"] != DBNull.Value ? Convert.ToInt32(reader["TotalShipedQty"]) : 0,
+                            NoOfPOs = reader["NoOfPOs"] != DBNull.Value ? Convert.ToInt32(reader["NoOfPOs"]) : 0,
+                            QtyReceived = reader["QtyReceived"] != DBNull.Value ? Convert.ToInt32(reader["QtyReceived"]) : 0,
+                            NoOfBoxes = reader["Boxs"] != DBNull.Value ? Convert.ToInt32(reader["Boxs"]) : 0,
+                            AmountReceived = reader["AmountReceived"] != DBNull.Value ? Convert.ToDecimal(reader["AmountReceived"]) : 0,
+                            RecivedAmountCNY = reader["RecivedAmountCNY"] != DBNull.Value ? Convert.ToDecimal(reader["RecivedAmountCNY"]) : 0,
+                            GrossWt = reader["GrossWt"] != DBNull.Value ? Convert.ToDecimal(reader["GrossWt"]) : 0,
+                        };
+                        var item = list.Where(s => s.ShipmentId == viewModel.ShipmentId).FirstOrDefault();
+                        if (item != null)
+                        {
+                            item.NoOfSKUs = viewModel.NoOfSKUs;
+                            item.TotalShipedQty = viewModel.TotalShipedQty;
+                            item.NoOfPOs = viewModel.NoOfPOs;
+                            item.QtyReceived = viewModel.QtyReceived;
+                            item.AmountReceived = viewModel.AmountReceived;
+                            item.RecivedAmountCNY = viewModel.RecivedAmountCNY;
+                            if (item.NoOfBoxes == 0 && viewModel.NoOfBoxes > 0)
+                            {
+                                item.GrossWt = viewModel.GrossWt;
+                                item.NoOfBoxes = viewModel.NoOfBoxes;
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+
+        public ShipmentHeaderViewModel GetShipmentByShipmentId(string ShipmentId)
+        {
+            ShipmentHeaderViewModel Item = new ShipmentHeaderViewModel();
+            List<ShipmentBoxListViewModel> list = new List<ShipmentBoxListViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentsByShipmentId", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Id", ShipmentId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                ShipmentHeaderViewModel viewModel = new ShipmentHeaderViewModel
+                                {
+                                    ShipmentAutoID = (int)reader["ShipmentAutoID"],
+                                    ShipmentId = (string)reader["ShipmentId"],
+                                    ShipmentName = reader["ShipmentName"] != DBNull.Value ? (string)reader["ShipmentName"] : "",
+                                    Vendor = reader["Vendor"] != DBNull.Value ? (string)reader["Vendor"] : "",
+                                    VendorId = (int)reader["VendorId"],
+                                    Status = reader["Status"] != DBNull.Value ? Convert.ToInt32(reader["Status"]) : 0,
+                                    CreatedOn = (DateTime)reader["CreatedOn"],
+                                    Notes = reader["Notes"] != DBNull.Value ? (string)reader["Notes"] : "",
+
+                                };
+                                Item = viewModel;
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentBoxsByShipmentId", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Id", ShipmentId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                ShipmentBoxListViewModel viewModel = new ShipmentBoxListViewModel
+                                {
+                                    IdShipmentBox = (int)reader["idShipmentBox"],
+                                    ShipmentId = (string)reader["ShipmentId"],
+                                    BoxId = reader["BoxId"] != DBNull.Value ? (string)reader["BoxId"] : "",
+                                    //Vendor = reader["Vendor"] != DBNull.Value ? (string)reader["Vendor"] : "",
+                                    //VendorId = (int)reader["VendorId"],
+                                    //Status = reader["Status"] != DBNull.Value ? (string)reader["Status"] : "",
+                                    //CreatedOn = (DateTime)reader["CreatedOn"],
+                                    Width = reader["Width"] != DBNull.Value ? (Decimal)reader["Width"] : 0,
+                                    Height = reader["Height"] != DBNull.Value ? (Decimal)reader["Height"] : 0,
+                                    Length = reader["Length"] != DBNull.Value ? (Decimal)reader["Length"] : 0,
+                                    Weight = reader["Weight"] != DBNull.Value ? (Decimal)reader["Weight"] : 0,
+                                    TotalShipedQty = reader["TotalShipedQty"] != DBNull.Value ? Convert.ToInt32(reader["TotalShipedQty"]) : 0,
+                                    TotalSKUs = reader["TotalSKUs"] != DBNull.Value ? Convert.ToInt32(reader["TotalSKUs"]) : 0,
+                                    TotalPOs = reader["TotalPOs"] != DBNull.Value ? Convert.ToInt32(reader["TotalPOs"]) : 0,
+                                };
+                                list.Add(viewModel);
+                            }
+                        }
+                    }
+                    conn.Close();
+
+                }
+                Item.List = list;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Item;
+        }
+        public bool UpdateShipment(ShipmentViewModel viewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateShipment", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("Id", viewModel.ShipmentAutoID);
+                    cmd.Parameters.AddWithValue("_Notes", viewModel.Notes);
+                    cmd.Parameters.AddWithValue("_ShipmentName", viewModel.ShipmentName);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    status = true;
+                }
+            }
+            catch (Exception exp)
+            {
+            }
+            return status;
+        }
+        public bool DeleteShipment(string Id)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand("p_DeleteShipment", conn);
+                    cmdd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmdd.Parameters.AddWithValue("_Id", Id);
+                    cmdd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
+        public bool SaveShipmentCourier(ShipmentCourierViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand("p_SaveShipmentCourierDetails", conn);
+                    cmdd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmdd.Parameters.AddWithValue("_ShipmentId", ViewModel.ShipmentId);
+                    cmdd.Parameters.AddWithValue("_CourierCode", ViewModel.CourierCode);
+                    cmdd.Parameters.AddWithValue("_ShipingCompany", ViewModel.ShipingCompany);
+                    cmdd.Parameters.AddWithValue("_TrakingNumber", ViewModel.TrakingNumber);
+                    cmdd.Parameters.AddWithValue("_CreatedAt", ViewModel.CreatedAt);
+                    cmdd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
+        public ShipmentViewHeaderViewModel GetShipmentViewHeaderdetail(string ShipmentId)
+        {
+            var Item = new ShipmentViewHeaderViewModel();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentViewHeader", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Id", ShipmentId);
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    foreach (DataRow reader in dt.Rows)
+                    {
+                        var viewModel = new ShipmentViewHeaderViewModel()
+                        {
+                            ShipingCompany = reader["ShipingCompany"] != DBNull.Value ? Convert.ToString(reader["ShipingCompany"]) : "",
+                            ShipmentId = reader["ShipmentId"] != DBNull.Value ? (string)reader["ShipmentId"] : "",
+                            ShipmentName = reader["ShipmentName"] != DBNull.Value ? (string)reader["ShipmentName"] : "",
+                            Vendor = reader["Vendor"] != DBNull.Value ? (string)reader["Vendor"] : "",
+                            VendorId = (int)reader["VendorId"],
+                            CreatedOn = (DateTime)reader["CreatedOn"],
+                            Notes = reader["Notes"] != DBNull.Value ? (string)reader["Notes"] : "",
+                            Boxes = reader["Boxes"] != DBNull.Value ? Convert.ToInt32(reader["Boxes"]) : 0,
+                            SKUs = reader["SKUs"] != DBNull.Value ? Convert.ToInt32(reader["SKUs"]) : 0,
+                            POs = reader["POs"] != DBNull.Value ? Convert.ToInt32(reader["POs"]) : 0,
+                            Status = reader["Status"] != DBNull.Value ? Convert.ToInt32(reader["Status"]) : 0,
+                            ShipedAmountUSD = reader["ShipedAmountUSD"] != DBNull.Value ? Convert.ToDecimal(reader["ShipedAmountUSD"]) : 0,
+                            ReceivedAmountUSD = reader["ReceivedAmountUSD"] != DBNull.Value ? Convert.ToDecimal(reader["ReceivedAmountUSD"]) : 0,
+                            ShipedAmountCNY = reader["ShipedAmountCNY"] != DBNull.Value ? Convert.ToDecimal(reader["ShipedAmountCNY"]) : 0,
+                            ReceivedAmountCNY = reader["ReceivedAmountCNY"] != DBNull.Value ? Convert.ToDecimal(reader["ReceivedAmountCNY"]) : 0,
+                            TotalReceivedQty = reader["TotalReceivedQty"] != DBNull.Value ? Convert.ToInt32(reader["TotalReceivedQty"]) : 0,
+                            TotalOrderedQty = reader["TotalOrderedQty"] != DBNull.Value ? Convert.ToInt32(reader["TotalOrderedQty"]) : 0,
+                            TotalOpenQty = reader["TotalOpenQty"] != DBNull.Value ? Convert.ToInt32(reader["TotalOpenQty"]) : 0,
+                            TotalShipedQty = reader["TotalShipedQty"] != DBNull.Value ? Convert.ToInt32(reader["TotalShipedQty"]) : 0,
+                            ShippedDate = reader["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedAt"]) : DateTime.MinValue,
+                            ReceivedDate = reader["ReceivedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ReceivedDate"]) : DateTime.MinValue,
+                            TrakingNumber = reader["TrakingNumber"] != DBNull.Value ? (string)reader["TrakingNumber"] : "",
+                            CourierCode = reader["CourierCode"] != DBNull.Value ? (string)reader["CourierCode"] : "",
+                            GrossWt = reader["GrossWt"] != DBNull.Value ? Convert.ToDecimal(reader["GrossWt"]) : 0,
+                            CBM = reader["CBM"] != DBNull.Value ? Convert.ToDecimal(reader["CBM"]) : 0,
+                        };
+                        Item = viewModel;
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return Item;
+        }
+
+        public int GetShipmentViewProductsListCount(string ShipmentId, int POID, string SKU = "", string Title = "", string OpenItem = "", string ReceivedItem = "", string OrderdItem = "")
+        {
+            int counter = 0;
+            try
+            {
+                if (SKU == null)
+                    SKU = "";
+                if (Title == null)
+                    Title = "";
+                if (OpenItem == null)
+                    OpenItem = "";
+                if (ReceivedItem == null)
+                    ReceivedItem = "";
+                if (OrderdItem == null)
+                    OrderdItem = "";
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentViewProductListCount", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Id", ShipmentId);
+                    cmd.Parameters.AddWithValue("_SKU", SKU);
+                    cmd.Parameters.AddWithValue("_Title", Title);
+                    cmd.Parameters.AddWithValue("_OpenItem", OpenItem);
+                    cmd.Parameters.AddWithValue("_OrderedItem", OrderdItem);
+                    cmd.Parameters.AddWithValue("_ReceivedItem", ReceivedItem);
+                    cmd.Parameters.AddWithValue("_POID", POID);
+                    DataTable dt = new DataTable();
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    da.Fill(dt);
+                    conn.Close();
+                    counter = dt.Rows.Count;
+                }
+            }
+            catch (Exception exp)
+            {
+
+            }
+            return counter;
+        }
+
+        public List<ShipmentViewProducListViewModel> GetShipmentViewProductsList(string ShipmentId, int StartLimit, int EndLimit, int POID, string SKU = "", string Title = "", string OpenItem = "", string ReceivedItem = "", string OrderdItem = "")
+        {
+            List<ShipmentViewProducListViewModel> list = new List<ShipmentViewProducListViewModel>();
+            try
+            {
+                if (SKU == null)
+                    SKU = "";
+                if (Title == null)
+                    Title = "";
+                if (OpenItem == null)
+                    OpenItem = "";
+                if (ReceivedItem == null)
+                    ReceivedItem = "";
+                if (OrderdItem == null)
+                    OrderdItem = "";
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentViewProductList", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Id", ShipmentId);
+
+                    cmd.Parameters.AddWithValue("_Limit", StartLimit);
+                    cmd.Parameters.AddWithValue("_OffSet", EndLimit);
+                    cmd.Parameters.AddWithValue("_SKU", SKU);
+                    cmd.Parameters.AddWithValue("_Title", Title);
+                    cmd.Parameters.AddWithValue("_OpenItem", OpenItem);
+                    cmd.Parameters.AddWithValue("_OrderedItem", OrderdItem);
+                    cmd.Parameters.AddWithValue("_ReceivedItem", ReceivedItem);
+                    cmd.Parameters.AddWithValue("_POID", POID);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                ShipmentViewProducListViewModel viewModel = new ShipmentViewProducListViewModel
+                                {
+                                    BoxId = reader["BoxId"] != DBNull.Value ? (string)reader["BoxId"] : "",
+                                    SKU = reader["SKU"] != DBNull.Value ? (string)reader["SKU"] : "",
+                                    Title = reader["title"] != DBNull.Value ? (string)reader["title"] : "",
+                                    Description = reader["description"] != DBNull.Value ? (string)reader["description"] : "",
+                                    CompressedImage = reader["Compress_image"] != DBNull.Value ? (string)reader["Compress_image"] : "",
+                                    ImageName = reader["image_name"] != DBNull.Value ? (string)reader["image_name"] : "",
+                                    POId = reader["POId"] != DBNull.Value ? (int)reader["POId"] : 0,
+                                    OpenQty = reader["QtyOpen"] != DBNull.Value ? (int)reader["QtyOpen"] : 0,
+                                    ShipedQty = reader["ShipedQty"] != DBNull.Value ? (int)reader["ShipedQty"] : 0,
+                                    ReceivedQty = reader["RecivedQty"] != DBNull.Value ? (int)reader["RecivedQty"] : 0,
+                                    OrderedQty = reader["QtyOrdered"] != DBNull.Value ? (int)reader["QtyOrdered"] : 0,
+                                    UnitPrice = reader["UnitPrice"] != DBNull.Value ? Convert.ToDecimal(reader["UnitPrice"]) : 0,
+                                    UnitPriceUSD = reader["UnitPriceUSD"] != DBNull.Value ? Convert.ToDecimal(reader["UnitPriceUSD"]) : 0,
+                                    CurrencyCode = reader["CurrencyCode"] != DBNull.Value ? Convert.ToInt32(reader["CurrencyCode"]) : 0,
+                                    BoxNo = reader["BoxNo"] != DBNull.Value ? Convert.ToInt32(reader["BoxNo"]) : 0,
+                                };
+                                list.Add(viewModel);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+
+        public bool DeleteShipmentCourier(string ShipmentId)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand("p_DeleteShipmentCourierDetails", conn);
+                    cmdd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmdd.Parameters.AddWithValue("_ShipmentId", ShipmentId);
+                    cmdd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
+
+        public List<ProductSKUViewModel> GetAllSKUForAutoComplete(string name, string ShipmentId)
+        {
+            List<ProductSKUViewModel> listViewModel = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetSkuForAutoCompletefromShipment", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_name", name.Trim());
+                    cmd.Parameters.AddWithValue("_Id", ShipmentId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            listViewModel = new List<ProductSKUViewModel>();
+                            while (reader.Read())
+                            {
+                                ProductSKUViewModel ViewModel = new ProductSKUViewModel();
+                                ViewModel.SKU = Convert.ToString(reader["sku"]);
+                                listViewModel.Add(ViewModel);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return listViewModel;
+        }
+
+        public int GetShipmentHistoryCount(string DateTo, string DateFrom, int VendorId, string ShipmentId, string SKU = "", string Title = "", string Status = "")
+        {
+            int counter = 0;
+            try
+            {
+                if (string.IsNullOrEmpty(SKU) || SKU == "undefined")
+                    SKU = "";
+                if (string.IsNullOrEmpty(ShipmentId) || ShipmentId == "undefined")
+                    ShipmentId = "";
+                if (string.IsNullOrEmpty(Title) || Title == "undefined")
+                    Title = "";
+                if (string.IsNullOrEmpty(Status) || Status == "undefined")
+                    Status = "";
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentHistoryCount", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_VendorId", VendorId);
+                    cmd.Parameters.AddWithValue("_SKU", SKU);
+                    cmd.Parameters.AddWithValue("_ShipmentId", ShipmentId);
+                    cmd.Parameters.AddWithValue("_Title", Title);
+                    cmd.Parameters.AddWithValue("_Status", Status);
+                    cmd.Parameters.AddWithValue("dateFrom", DateFrom);
+                    cmd.Parameters.AddWithValue("dateTo", DateTo);
+                    counter = Convert.ToInt32(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+            }
+            catch (Exception exp)
+            {
+
+            }
+            return counter;
+        }
+
+        public List<ShipmentHistoryViewModel> GetShipmentHistoryList(string DateTo, string DateFrom, int VendorId, string ShipmentId, string SKU, string Title, int limit, int offset, string Status)
+        {
+            if (string.IsNullOrEmpty(SKU) || SKU == "undefined")
+                SKU = "";
+            if (string.IsNullOrEmpty(ShipmentId) || ShipmentId == "undefined")
+                ShipmentId = "";
+            if (string.IsNullOrEmpty(Title) || Title == "undefined")
+                Title = "";
+            if (string.IsNullOrEmpty(Status) || Status == "undefined")
+                Status = "";
+            List<ShipmentHistoryViewModel> list = new List<ShipmentHistoryViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentHistoryList", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_VendorId", VendorId);
+                    cmd.Parameters.AddWithValue("_SKU", SKU);
+                    cmd.Parameters.AddWithValue("_ShipmentId", ShipmentId);
+                    cmd.Parameters.AddWithValue("_Title", Title);
+                    cmd.Parameters.AddWithValue("_Status", Status);
+                    cmd.Parameters.AddWithValue("dateFrom", DateFrom);
+                    cmd.Parameters.AddWithValue("dateTo", DateTo);
+                    cmd.Parameters.AddWithValue("_Limit", limit);
+                    cmd.Parameters.AddWithValue("_OffSet", offset);
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                ShipmentHistoryViewModel viewModel = new ShipmentHistoryViewModel
+                                {
+                                    ShipmentId = Convert.ToString(dr["ShipmentId"] != DBNull.Value ? dr["ShipmentId"] : "0"),
+                                    Vendor = Convert.ToString(dr["Vendor"] != DBNull.Value ? dr["Vendor"] : "0"),
+                                    VendorId = Convert.ToInt32(dr["VendorId"] != DBNull.Value ? dr["VendorId"] : "0"),
+                                    SKU = Convert.ToString(dr["SKU"] != DBNull.Value ? dr["SKU"] : "0"),
+                                    Title = Convert.ToString(dr["title"] != DBNull.Value ? dr["title"] : "0"),
+                                    ReceivedDate = Convert.ToDateTime(dr["ReceivedDate"] != DBNull.Value ? dr["ReceivedDate"] : DateTime.MinValue),
+                                    ShippedDate = Convert.ToDateTime(dr["ShipedDate"] != DBNull.Value ? dr["ShipedDate"] : DateTime.MinValue),
+                                    CreatedOn = Convert.ToDateTime(dr["CreatedOn"] != DBNull.Value ? dr["CreatedOn"] : DateTime.MinValue),
+                                    ShipedQty = Convert.ToInt32(dr["ShipedQty"] != DBNull.Value ? dr["ShipedQty"] : "0"),
+                                    ReceivedQty = Convert.ToInt32(dr["RecivedQty"] != DBNull.Value ? dr["RecivedQty"] : "0"),
+                                    CompressedImage = Convert.ToString(dr["Compress_image"] != DBNull.Value ? dr["Compress_image"] : ""),
+                                    ImageName = Convert.ToString(dr["image_name"] != DBNull.Value ? dr["image_name"] : ""),
+                                    Type = Convert.ToString(dr["Type"] != DBNull.Value ? dr["Type"] : ""),
+                                    Status = Convert.ToInt32(dr["Status"] != DBNull.Value ? dr["Status"] : 0),
+                                    POId = Convert.ToInt32(dr["POId"] != DBNull.Value ? dr["POId"] : "0"),
+                                };
+                                list.Add(viewModel);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+
+        public List<ShipmentHistoryViewModel> GetShipmentHistoryBySKU(int POID, string SKU)
+        {
+            if (string.IsNullOrEmpty(SKU) || SKU == "undefined")
+                SKU = "";
+            List<ShipmentHistoryViewModel> list = new List<ShipmentHistoryViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentHistoryBySKU", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_SKU", SKU);
+                    cmd.Parameters.AddWithValue("_POID", POID);
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                ShipmentHistoryViewModel viewModel = new ShipmentHistoryViewModel
+                                {
+                                    ShipmentId = Convert.ToString(dr["ShipmentId"] != DBNull.Value ? dr["ShipmentId"] : "0"),
+                                    Vendor = Convert.ToString(dr["Vendor"] != DBNull.Value ? dr["Vendor"] : "0"),
+                                    VendorId = Convert.ToInt32(dr["VendorId"] != DBNull.Value ? dr["VendorId"] : "0"),
+                                    SKU = Convert.ToString(dr["SKU"] != DBNull.Value ? dr["SKU"] : "0"),
+                                    Title = Convert.ToString(dr["title"] != DBNull.Value ? dr["title"] : "0"),
+                                    ReceivedDate = Convert.ToDateTime(dr["ReceivedDate"] != DBNull.Value ? dr["ReceivedDate"] : DateTime.MinValue),
+                                    ShippedDate = Convert.ToDateTime(dr["ShipedDate"] != DBNull.Value ? dr["ShipedDate"] : DateTime.MinValue),
+                                    CreatedOn = Convert.ToDateTime(dr["CreatedOn"] != DBNull.Value ? dr["CreatedOn"] : DateTime.MinValue),
+                                    ShipedQty = Convert.ToInt32(dr["ShipedQty"] != DBNull.Value ? dr["ShipedQty"] : "0"),
+                                    ReceivedQty = Convert.ToInt32(dr["RecivedQty"] != DBNull.Value ? dr["RecivedQty"] : "0"),
+                                    CompressedImage = Convert.ToString(dr["Compress_image"] != DBNull.Value ? dr["Compress_image"] : ""),
+                                    ImageName = Convert.ToString(dr["image_name"] != DBNull.Value ? dr["image_name"] : ""),
+                                    Type = Convert.ToString(dr["Type"] != DBNull.Value ? dr["Type"] : ""),
+                                    Status = Convert.ToInt32(dr["Status"] != DBNull.Value ? dr["Status"] : 0),
+                                    POId = Convert.ToInt32(dr["POId"] != DBNull.Value ? dr["POId"] : "0"),
+                                };
+                                list.Add(viewModel);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+
+    }
+}

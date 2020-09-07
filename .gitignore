@@ -47,3 +47,10 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+HLD.WebApi/.vs/
+HLD.WebApi/DataAccess/bin/
+HLD.WebApi/packages/
+HLD.WebApi/HLD.WebApi/bin/Debug/netcoreapp2.1/DataAccess.pdb
+HLD.WebApi/HLD.WebApi/bin/
+HLD.WebApi/HLD.WebApi/obj/
+HLD.WebApi/HLD.WebApi/aws-logger-errors.txt

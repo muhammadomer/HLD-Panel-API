@@ -1,0 +1,294 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataAccess.ViewModels
+{
+    public class SellerProductAllOrdersViewModel
+    {
+        public List<OrdersAll> Items { get; set; }
+        public int TotalResults { get; set; }
+    }
+    public class ShippingAddressAll
+    {
+        public bool IsShippingAddress { get; set; }
+        public bool IsBillingAddress { get; set; }
+        public int AddressClassification { get; set; }
+        public string Notes { get; set; }
+        public string HomePhone { get; set; }
+        public string EmailAddress { get; set; }
+        public int AddressStatus { get; set; }
+        public int AddressSource { get; set; }
+        public int ID { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleInitial { get; set; }
+        public string LastName { get; set; }
+        public string CompanyName { get; set; }
+        public string StreetLine1 { get; set; }
+        public string StreetLine2 { get; set; }
+        public string City { get; set; }
+        public string StateName { get; set; }
+        public string StateCode { get; set; }
+        public string PostalCode { get; set; }
+        public string CountryName { get; set; }
+        public string CountryCode { get; set; }
+        public string PhoneNumber { get; set; }
+        public string FaxNumber { get; set; }
+        public string WebSiteURL { get; set; }
+    }
+
+    public class BillingAddressAll
+    {
+        public bool IsShippingAddress { get; set; }
+        public bool IsBillingAddress { get; set; }
+        public int AddressClassification { get; set; }
+        public string Notes { get; set; }
+        public string HomePhone { get; set; }
+        public string EmailAddress { get; set; }
+        public int AddressStatus { get; set; }
+        public int AddressSource { get; set; }
+        public int ID { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleInitial { get; set; }
+        public string LastName { get; set; }
+        public string CompanyName { get; set; }
+        public string StreetLine1 { get; set; }
+        public string StreetLine2 { get; set; }
+        public string City { get; set; }
+        public string StateName { get; set; }
+        public string StateCode { get; set; }
+        public string PostalCode { get; set; }
+        public string CountryName { get; set; }
+        public string CountryCode { get; set; }
+        public string PhoneNumber { get; set; }
+        public string FaxNumber { get; set; }
+        public string WebSiteURL { get; set; }
+    }
+
+    public class ProductsAll
+    {
+        public int ID { get; set; }
+        public int OrderID { get; set; }
+        public string ProductID { get; set; }
+        public int Qty { get; set; }
+        public string DisplayName { get; set; }
+        public double AdjustedSitePrice { get; set; }
+        public int QtyReturned { get; set; }
+        public int QtyShipped { get; set; }
+        public int ID1 { get; set; }
+        public int OrderID1 { get; set; }
+        public string ProductID1 { get; set; }
+        public int Qty1 { get; set; }
+        public string DisplayName1 { get; set; }
+        public double OriginalBasePrice { get; set; }
+        public double SitePrice { get; set; }
+        public double AdjustedSitePrice1 { get; set; }
+        public double SiteCost { get; set; }
+        public int TaxExempt { get; set; }
+        public int TaxClass { get; set; }
+        public int NonShipping { get; set; }
+        public int ShipSeparately { get; set; }
+        public int DropShipMode { get; set; }
+        public int DropShipAddressID { get; set; }
+        public double LineTotal { get; set; }
+        public double LineTaxTotal { get; set; }
+        public int PackageID { get; set; }
+        public int StatusCode { get; set; }
+        public double Weight { get; set; }
+        public double Length { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
+        public int MinimumQty { get; set; }
+        public string DisplayDescription { get; set; }
+        public string ImageURL { get; set; }
+        public string ExtraInformation { get; set; }
+        public int GiftWrap { get; set; }
+        public string GiftWrapMessage { get; set; }
+        public int GiftWrapAllowed { get; set; }
+        public string InventoryKey { get; set; }
+        public double ShippingCost { get; set; }
+        public int QtyShipped1 { get; set; }
+        public int QtyReturned1 { get; set; }
+        public int ParentID { get; set; }
+        public string ReferenceID { get; set; }
+        public string eBayTransactionID { get; set; }
+        public string OriginalOrderSourceID { get; set; }
+        public double PostingFee { get; set; }
+        public double FinalValueFee { get; set; }
+        public bool IsBackOrder { get; set; }
+        public int BackOrderAction { get; set; }
+        public DateTime? BackOrderActionDate { get; set; }
+        public int BackOrderActionBy { get; set; }
+        public DateTime? EstimatedTimeArrival { get; set; }
+        public string ReplacementSKU { get; set; }
+        public int ListingError { get; set; }
+        public string FeedBackID { get; set; }
+        public DateTime? FeedBackReminderSent { get; set; }
+        public int BackOrderQty { get; set; }
+        public DateTime? BackOrderDate { get; set; }
+        public int BackOrderBy { get; set; }
+        public DateTime? EstimatedShipDate { get; set; }
+        public bool NotifyCustomerService { get; set; }
+        public string NotifyCustomer { get; set; }
+        public string DisputeID { get; set; }
+        public string OriginalSKU { get; set; }
+        public bool IsSKUReplaced { get; set; }
+        public double InsuranceCost { get; set; }
+        public bool FeedbackLeft { get; set; }
+        public DateTime? FeedbackLeftOn { get; set; }
+        public string FeedBackLeftID { get; set; }
+        public bool IsDropShipped { get; set; }
+        public DateTime? DropShippedOn { get; set; }
+        public int DropShippedToVendor { get; set; }
+        public string Notes { get; set; }
+        public string ProductIDOriginal { get; set; }
+        public int SalesRepId { get; set; }
+        public int ShipFromWareHouseID { get; set; }
+        public string ShipFromWarehouseName { get; set; }
+        public int FeedBackFailureCount { get; set; }
+        public DateTime? FeedBackLastFailureOn { get; set; }
+        public string FeedBackFailureMessage { get; set; }
+        public string SourceOrderFileName { get; set; }
+        public string eBayItemIDUnique { get; set; }
+        public string eBayTransactionIDUnique { get; set; }
+        public bool DontCountInventory { get; set; }
+        public double ShippingTax { get; set; }
+        public double GiftWrapTax { get; set; }
+        public string DropShippedVendorOrderID { get; set; }
+        public string GiftWrapType { get; set; }
+        public double GiftWrapCharges { get; set; }
+        public double ShippingCostForAccounting { get; set; }
+        public int ReturnedToWarehouseID { get; set; }
+        public double AverageCost { get; set; }
+        public double LastCost { get; set; }
+        public int CreditMemoID { get; set; }
+        public int CreditMemoItemID { get; set; }
+        public bool HasBuyDotCoupon { get; set; }
+        public double BuyDotCouponAmount { get; set; }
+        public int DiscountType { get; set; }
+        public double DiscountAmount { get; set; }
+        public double DiscountTotal { get; set; }
+        public int QtyRequestedByOrderSource { get; set; }
+        public int ProductRebateID { get; set; }
+        public double ProductRebateValue { get; set; }
+        public int Purchaser { get; set; }
+        public string ShippingSourceOrderItemID { get; set; }
+        public string SalesOutlet { get; set; }
+        public int VariantID { get; set; }
+        public string ShippingSourceWarehouseID { get; set; }
+        public string ExportedProductID { get; set; }
+        public string ExportedDocumentNumber { get; set; }
+        public string BatchExportedGUID { get; set; }
+        public string DeliveryDocumentNumber { get; set; }
+        public string BatchExportDeliveryGUID { get; set; }
+        public bool SrcUpdatedForItemShipping { get; set; }
+        public DateTime? SrcUpdatedForItemShippingOn { get; set; }
+        public string ShipType { get; set; }
+        public int DropShippedStatus { get; set; }
+        public int BatchExportedJobID { get; set; }
+        public DateTime? BatchExportedDateTime { get; set; }
+        public int ItemStatusCode { get; set; }
+        public int ItemPaymentStatus { get; set; }
+        public int ItemShippingStatus { get; set; }
+        public int BatchExportDeliveryJobID { get; set; }
+        public DateTime? BatchExportDeliveryDateTime { get; set; }
+        public bool CancellationRequestSentToInnotrac { get; set; }
+        public int ShippingSourceCancellationQty { get; set; }
+        public double TotalRefunded { get; set; }
+        public string ReturnDocumentNumber { get; set; }
+        public object BatchExportReturnGUID { get; set; }
+        public int BatchExportReturnJobID { get; set; }
+        public DateTime? BatchExportReturnDateTime { get; set; }
+        public double ProfitAndLossAdjustmentTotal { get; set; }
+        public string SalesRecordNumber { get; set; }
+        public string ShippingSourceOrderItemSKU { get; set; }
+        public int QtyPerCase { get; set; }
+        public int TotalCases { get; set; }
+        public double PricePerCase { get; set; }
+        public int QtyPicked { get; set; }
+        public string ProductIDRequested { get; set; }
+        public int WholesaleConfirmedQty { get; set; }
+        public DateTime? WholesaleConfirmShipDate { get; set; }
+        public int WholesaleBackOrderQty { get; set; }
+        public DateTime? WholesaleBackOrderShipDate { get; set; }
+        public int WholesaleRefuseQty { get; set; }
+        public int KitItemsCount { get; set; }
+        public double VatRate { get; set; }
+        public double VATTotal { get; set; }
+        public string AmazonShipmentID { get; set; }
+        public int WarehouseBinCartSlotID { get; set; }
+        public int SettlementID { get; set; }
+        public int RoundNumber { get; set; }
+        public int WarehouseBinCartID { get; set; }
+        public object MainItemID { get; set; }
+        public int LinkedToPOItemID { get; set; }
+        public DateTime? OrderItemShipDate { get; set; }
+        public string ProductName { get; set; }
+        public int InventoryAvailableQty { get; set; }
+        public string LocationNotes { get; set; }
+        public string ShadowOf { get; set; }
+        public List<object> BundleItems { get; set; }
+    }
+
+    public class OrdersAll
+    {
+        public int ID { get; set; }
+        public string OrderSourceOrderID { get; set; }
+        public int OrderSource { get; set; }
+        public int OrderSubType { get; set; }
+        public bool bRushOrder { get; set; }
+        public bool IsGiftOrder { get; set; }
+        public int ShippingStatus { get; set; }
+        public int PaymentStatus { get; set; }
+        public int StatusCode { get; set; }
+        public int Dropship { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime TimeOfOrder { get; set; }
+        public double GrandTotal { get; set; }
+        public string CompanyName { get; set; }
+        public int UserID { get; set; }
+        public object ShipDate { get; set; }
+        public DateTime? OrderShippingPromiseDate { get; set; }
+        public int HomeCountryCode { get; set; }
+        public string Country { get; set; }
+        public DateTime? LastUpdated { get; set; }
+        public string DestinationState { get; set; }
+        public string DestinationCountry { get; set; }
+        public ShippingAddressAll ShippingAddress { get; set; }
+        public BillingAddressAll BillingAddress { get; set; }
+        public int OrderSiteCode { get; set; }
+        public int ClientID { get; set; }
+        public int CompanyID { get; set; }
+        public string EBaySellingManagerSalesRecordNumber { get; set; }
+        public string CompletedOrderID { get; set; }
+        public string OrderSourceUrl { get; set; }
+        public List<ProductsAll> Items { get; set; }
+        public double ShippingTotal { get; set; }
+        public string ShippingCarrier { get; set; }
+        public string ShippingService { get; set; }
+        public double OrderDiscountsTotal { get; set; }
+        public double ShippingDiscountsTotal { get; set; }
+        public double InsuranceTotal { get; set; }
+        public double DeclaredValue { get; set; }
+        public double HandlingFee { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        public int OrderCurrencyCode { get; set; }
+        public object TrackingNumber { get; set; }
+        public bool InvoicePrinted { get; set; }
+        public object InvoicePrintedDate { get; set; }
+        public int CustomerServiceStatus { get; set; }
+        public double TaxRate { get; set; }
+        public int ShippingWeightTotalOz { get; set; }
+        public string CustomerEmail { get; set; }
+        public string ShippingState { get; set; }
+        public string ShippingCountry { get; set; }
+        public double FinalShippingFee { get; set; }
+        public double FinalValueTotal { get; set; }
+        public string ProductIDMostExpensiveInOrder { get; set; }
+        public object EstimatedDeliveryDate { get; set; }
+    }
+
+}

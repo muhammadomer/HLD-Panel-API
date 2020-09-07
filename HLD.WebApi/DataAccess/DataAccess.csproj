@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4BEB831A-3747-4037-A21E-4F4BE04B3C6F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.ViewFeatures">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.mvc.viewfeatures\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.ViewFeatures.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=2.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.1.2\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Abstractions, Version=2.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Abstractions.2.1.2\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Relational, Version=2.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Relational.2.1.2\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Memory.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Caching.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.1.1\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.15.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.15\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Interactive.Async, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess\AddOrderToSCDataAccess.cs" />
+    <Compile Include="DataAccess\AliasDataAccess.cs" />
+    <Compile Include="DataAccess\ApprovedPriceDataAccess.cs" />
+    <Compile Include="DataAccess\AuthenticationSellercloud.cs" />
+    <Compile Include="DataAccess\AutoControlDataAccess.cs" />
+    <Compile Include="DataAccess\BestBuyOrderDataAccess.cs" />
+    <Compile Include="DataAccess\BestBuyOrderFromBBDataAccess.cs" />
+    <Compile Include="DataAccess\BestBuyProductDataAccess.cs" />
+    <Compile Include="DataAccess\BestBuyProductQtyMovementDataAcces.cs" />
+    <Compile Include="DataAccess\BestBuyTrackingExportDataAccess.cs" />
+    <Compile Include="DataAccess\BestBuyTrackingUpdateLogDataAccess.cs" />
+    <Compile Include="DataAccess\BrandDataAccess.cs" />
+    <Compile Include="DataAccess\CatageoryMainDataAccess.cs" />
+    <Compile Include="DataAccess\CatageorySub1DataAccess.cs" />
+    <Compile Include="DataAccess\CatageorySub2DataAccess.cs" />
+    <Compile Include="DataAccess\CatageorySub3DataAccess.cs" />
+    <Compile Include="DataAccess\CatageorySub4DataAccess.cs" />
+    <Compile Include="DataAccess\ChannelDecrytionDataAccess.cs" />
+    <Compile Include="DataAccess\ChannelsDataAccess.cs" />
+    <Compile Include="DataAccess\ColorDataAccess.cs" />
+    <Compile Include="DataAccess\CompressImagesFromS3DataAccess.cs" />
+    <Compile Include="DataAccess\ConditionDataAccess.cs" />
+    <Compile Include="DataAccess\CreditCardDetailDataAccess.cs" />
+    <Compile Include="DataAccess\CurrencyExchangeDataAccess.cs" />
+    <Compile Include="DataAccess\DropShipEnableDisableLogDataAccess.cs" />
+    <Compile Include="DataAccess\ExportSkuImgUrlDataAccess.cs" />
+    <Compile Include="DataAccess\FileUploadDataAccess.cs" />
+    <Compile Include="DataAccess\HelpDataAccess.cs" />
+    <Compile Include="DataAccess\HLDHistoryDataAccess.cs" />
+    <Compile Include="DataAccess\HldPanelDataAccess.cs" />
+    <Compile Include="DataAccess\ImportMissingOrderDataAccess.cs" />
+    <Compile Include="DataAccess\OrderNotesDataAccess.cs" />
+    <Compile Include="DataAccess\OrderRelationDataAccess.cs" />
+    <Compile Include="DataAccess\PredictionHistroyDataAccess.cs" />
+    <Compile Include="DataAccess\ProductDataAccess.cs" />
+    <Compile Include="DataAccess\ProductSalesDataAccess.cs" />
+    <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
+    <Compile Include="DataAccess\ProductWarehouseQtyDataAccess.cs" />
+    <Compile Include="DataAccess\PurchaseOrderDataAccess.cs" />
+    <Compile Include="DataAccess\SCOrderPageViewDataAccess.cs" />
+    <Compile Include="DataAccess\SellerCloudOrderDataAccess.cs" />
+    <Compile Include="DataAccess\ShipmentBoxDataAccess.cs" />
+    <Compile Include="DataAccess\ShipmentCasePackDataAccess.cs" />
+    <Compile Include="DataAccess\ShipmentDataAccess.cs" />
+    <Compile Include="DataAccess\ShipmentMultiBoxDataAccess.cs" />
+    <Compile Include="DataAccess\ShipmentProductDataAccess.cs" />
+    <Compile Include="DataAccess\TagDataAccess.cs" />
+    <Compile Include="DataAccess\UploadFilesToS3DataAccess.cs" />
+    <Compile Include="DataAccess\UserDataAccess.cs" />
+    <Compile Include="DataAccess\WarehouseAddressDateAccess.cs" />
+    <Compile Include="DataAccess\ZincAccountsDataAccess.cs" />
+    <Compile Include="DataAccess\ZincDataAccess.cs" />
+    <Compile Include="DataAccess\ZincOrderLogAndDetailDataAccess.cs" />
+    <Compile Include="DataAccess\ZincProxyDataAccess.cs" />
+    <Compile Include="DataAccess\ZincWatchlistJobsDataAccess.cs" />
+    <Compile Include="DataAccess\ZincWathchlistDataAccess.cs" />
+    <Compile Include="EntityModel\AliasModel.cs" />
+    <Compile Include="EntityModel\ConfigurationModel.cs" />
+    <Compile Include="EntityModel\CustomerModel.cs" />
+    <Compile Include="EntityModel\OrderLinesModel.cs" />
+    <Compile Include="EntityModel\OrderModel.cs" />
+    <Compile Include="EntityModel\ShippingModel.cs" />
+    <Compile Include="Helper\ConnectionString.cs" />
+    <Compile Include="Helper\DatetimeExtension.cs" />
+    <Compile Include="Helper\EncDecChannel.cs" />
+    <Compile Include="Helper\IConnectionString.cs" />
+    <Compile Include="Helper\JwtAppSetting.cs" />
+    <Compile Include="Helper\ListToDatatable.cs" />
+    <Compile Include="ViewModels\AcceptBesyBuyOrderViewModel.cs" />
+    <Compile Include="ViewModels\AliasViewModel.cs" />
+    <Compile Include="ViewModels\ApprovedPriceViewModel.cs" />
+    <Compile Include="ViewModels\ASINActiveStatusViewModel.cs" />
+    <Compile Include="ViewModels\AsinAmazonePriceViewModel.cs" />
+    <Compile Include="ViewModels\ASINDetailViewModel.cs" />
+    <Compile Include="ViewModels\ASINProductImageViewModel.cs" />
+    <Compile Include="ViewModels\AsinSkuMappingViewModel.cs" />
+    <Compile Include="ViewModels\AssignTagViewModel.cs" />
+    <Compile Include="ViewModels\AuthenticateSCRestViewModel.cs" />
+    <Compile Include="ViewModels\AuthenticateViewModel.cs" />
+    <Compile Include="ViewModels\AutoControlViewModel.cs" />
+    <Compile Include="ViewModels\BBProductViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyCustomerDetailImportViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyDropShipQtyMovement.cs" />
+    <Compile Include="ViewModels\BestBuyDropShipQtyMovementViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyOrderDetailImportViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyOrderImportViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyOrderSearchTotalCountViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyOrdersImportMainViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyOrdersViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyOrderDetailViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyPriceJobSCViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyTrackingUpdate.cs" />
+    <Compile Include="ViewModels\BestBuyUpdatePriceJobViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyUpdateQty_Update_ViewModel.cs" />
+    <Compile Include="ViewModels\BrandAutoCompleteViewModel.cs" />
+    <Compile Include="ViewModels\BrandViewModel.cs" />
+    <Compile Include="ViewModels\CasePackViewModel.cs" />
+    <Compile Include="ViewModels\CatageoryMainViewModel.cs" />
+    <Compile Include="ViewModels\CatageorySub1ViewModel.cs" />
+    <Compile Include="ViewModels\CatageorySub2ViewModel.cs" />
+    <Compile Include="ViewModels\CatageorySub4ViewModel.cs" />
+    <Compile Include="ViewModels\CatageorySub3ViewModel.cs" />
+    <Compile Include="ViewModels\CatalogViewModel.cs" />
+    <Compile Include="ViewModels\CategoriesAutoCompleteViewModel.cs" />
+    <Compile Include="ViewModels\ChannelLogs.cs" />
+    <Compile Include="ViewModels\CheckProductDropShipStatusViewModel.cs" />
+    <Compile Include="ViewModels\CompressImageViewModel.cs" />
+    <Compile Include="ViewModels\CreateOrderNotesViewModel.cs" />
+    <Compile Include="ViewModels\CreateOrderOnSCViewModel.cs" />
+    <Compile Include="ViewModels\CreditCardDetailViewModel.cs" />
+    <Compile Include="ViewModels\CurrencyExchangeViewModel.cs" />
+    <Compile Include="ViewModels\DeleteProductViewModel.cs" />
+    <Compile Include="ViewModels\DraftPOViewModel.cs" />
+    <Compile Include="ViewModels\DropShipAndQtyOrderViewModel.cs" />
+    <Compile Include="ViewModels\DropShipEnableDisableLogViewModel.cs" />
+    <Compile Include="ViewModels\EmailJobDetailViewModel.cs" />
+    <Compile Include="ViewModels\ExportProductDataViewModel.cs" />
+    <Compile Include="ViewModels\ExportSkuImgUrlViewModel.cs" />
+    <Compile Include="ViewModels\FileJobLogsViewModel.cs" />
+    <Compile Include="ViewModels\FileUploadStatusLogViewModel.cs" />
+    <Compile Include="ViewModels\FileUploadViewModel.cs" />
+    <Compile Include="ViewModels\GetChannelCredViewModel.cs" />
+    <Compile Include="ViewModels\GetChildORderToimportJobViewModel.cs" />
+    <Compile Include="ViewModels\GetFileJobsToRunViewModel.cs" />
+    <Compile Include="ViewModels\GetJobDetailViewModel.cs" />
+    <Compile Include="ViewModels\GetNotesOrderViewModel.cs" />
+    <Compile Include="ViewModels\GetOrdersFromBestBuyViewModel.cs" />
+    <Compile Include="ViewModels\GetOrdersNotFromBBViewModel.cs" />
+    <Compile Include="ViewModels\GetProductTitleViewModel.cs" />
+    <Compile Include="ViewModels\GetStatusFromZincViewModel.cs" />
+    <Compile Include="ViewModels\GetSummaryandCountPOViewModel.cs" />
+    <Compile Include="ViewModels\GetSummaryForPOViewModel.cs" />
+    <Compile Include="ViewModels\GetVendorListViewModel.cs" />
+    <Compile Include="ViewModels\ImportDataFromBestBuy.cs" />
+    <Compile Include="ViewModels\ImportMissingSkuViewModel.cs" />
+    <Compile Include="ViewModels\JobIdReturnViewModel.cs" />
+    <Compile Include="ViewModels\MaunualPaymentOnSellercloudViewCloud.cs" />
+    <Compile Include="ViewModels\MissingOrderReturnViewModel.cs" />
+    <Compile Include="ViewModels\CheckMissingOrderViewModel.cs" />
+    <Compile Include="ViewModels\OrderRelationViewModel.cs" />
+    <Compile Include="ViewModels\Order_SKU_ProfitHistory_CalculationViewmodel.cs" />
+    <Compile Include="ViewModels\Order_SKU_Profit_History.cs" />
+    <Compile Include="ViewModels\POIdViewModel.cs" />
+    <Compile Include="ViewModels\PostDataViewModel.cs" />
+    <Compile Include="ViewModels\PredictionHistroyViewModel.cs" />
+    <Compile Include="ViewModels\PredictionPOViewModel.cs" />
+    <Compile Include="ViewModels\ProductContinueDisContinueViewModel.cs" />
+    <Compile Include="ViewModels\ProductDetailForAPViewModel.cs" />
+    <Compile Include="ViewModels\ProductDisplayInventoryViewModel.cs" />
+    <Compile Include="ViewModels\ProductInventorySearchViewModel.cs" />
+    <Compile Include="ViewModels\ProductSalesViewModel.cs" />
+    <Compile Include="ViewModels\ProductSaveViewModel.cs" />
+    <Compile Include="ViewModels\ProductSetAsKitOrShadowViewModel.cs" />
+    <Compile Include="ViewModels\ProductSkuFromAsinViewModel.cs" />
+    <Compile Include="ViewModels\ProductSKUViewModel.cs" />
+    <Compile Include="ViewModels\ProductStatusViewModel.cs" />
+    <Compile Include="ViewModels\ProductWarehouseQtyForDS_None_SKU_ViewModel.cs" />
+    <Compile Include="ViewModels\ProductWarehouseQtyViewModel.cs" />
+    <Compile Include="ViewModels\ProductZinAsinDetail.cs" />
+    <Compile Include="ViewModels\PurchaseOrderDataViewModel.cs" />
+    <Compile Include="ViewModels\PurchaseOrdersViewModel.cs" />
+    <Compile Include="ViewModels\PurchaseOrderViewModel.cs" />
+    <Compile Include="ViewModels\RelatedOrderModel.cs" />
+    <Compile Include="ViewModels\RestSCCredViewModel.cs" />
+    <Compile Include="ViewModels\S3LogViewModel.cs" />
+    <Compile Include="ViewModels\SalesHistoryDashboardSearchViewModel.cs" />
+    <Compile Include="ViewModels\SaveApprovedPricesViewModel.cs" />
+    <Compile Include="ViewModels\SaveWatchlistViewModel.cs" />
+    <Compile Include="ViewModels\SaveZincOrders.cs" />
+    <Compile Include="ViewModels\SaveZincProxyEmailViewModel.cs" />
+    <Compile Include="ViewModels\SCOrderCreateNewViewModel.cs" />
+    <Compile Include="ViewModels\SCOrderPaymentPageViewModel.cs" />
+    <Compile Include="ViewModels\SC_BB_OrderIDsViewModel.cs" />
+    <Compile Include="ViewModels\searchPOViewModel.cs" />
+    <Compile Include="ViewModels\SearchQueryViewModel.cs" />
+    <Compile Include="ViewModels\SellerCloudOrderIdViewModel.cs" />
+    <Compile Include="ViewModels\SellerProductAllOrdersViewModel.cs" />
+    <Compile Include="ViewModels\SellerProductDataViewModel.cs" />
+    <Compile Include="ViewModels\SendDataZincViewModel.cs" />
+    <Compile Include="ViewModels\SendNewOrderEmail.cs" />
+    <Compile Include="ViewModels\ShipmentCasePackProductHeader.cs" />
+    <Compile Include="ViewModels\ShipmentCasePackProductViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentHistoryViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentMultiBoxViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentBoxDetailViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentBoxListViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentBoxViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentCourierViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentGetDataViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentHeaderViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentProductHeaderViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentProductListViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentProductViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentViewHeaderViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentViewProducListViewModel.cs" />
+    <Compile Include="ViewModels\SKUAndSellerCloudImageURLWhichImagesNotExistsViewModel.cs" />
+    <Compile Include="ViewModels\SKUQTYModelforWebhooks.cs" />
+    <Compile Include="ViewModels\SKUSalesHistoryFromOrders.cs" />
+    <Compile Include="ViewModels\SkuTagOrderViewModel.cs" />
+    <Compile Include="ViewModels\TagViewModel.cs" />
+    <Compile Include="ViewModels\UnCreatedOrderViewModel.cs" />
+    <Compile Include="ViewModels\UpdateAsinSkuDropShipDataJobViewModel.cs" />
+    <Compile Include="ViewModels\UpdateChannelsViewModel.cs" />
+    <Compile Include="ViewModels\UpdatePOAcceptedViewModel.cs" />
+    <Compile Include="ViewModels\UpdateQtyCommentsByJobViewModel.cs" />
+    <Compile Include="ViewModels\UpdateSCDropshipStatusViewModel.cs" />
+    <Compile Include="ViewModels\UpdateTrackingBestbuyViewModel.cs" />
+    <Compile Include="ViewModels\UpdateTrackingShippingJsonViewModel.cs" />
+    <Compile Include="ViewModels\UpdateWatchListViewModel.cs" />
+    <Compile Include="ViewModels\UploadFilesToS3ViewModel.cs" />
+    <Compile Include="ViewModels\WarehouseAddressViewModel.cs" />
+    <Compile Include="ViewModels\WareHouseProductQty.cs" />
+    <Compile Include="ViewModels\WareHouseProductQuantitylistViewModel.cs" />
+    <Compile Include="ViewModels\WareHouseViewModel.cs" />
+    <Compile Include="ViewModels\WatchListSummaryViewModel.cs" />
+    <Compile Include="ViewModels\ZincAccountsViewModel.cs" />
+    <Compile Include="ViewModels\ZincASINOfferDetail.cs" />
+    <Compile Include="ViewModels\ZincOrderIDModelforWebhooks.cs" />
+    <Compile Include="ViewModels\ZincOrderInProcess_OrderRequestSentViewModel.cs" />
+    <Compile Include="ViewModels\ZincOrderInProgressSuccessViewModel.cs" />
+    <Compile Include="ViewModels\ZincOrderLogDetailViewModel.cs" />
+    <Compile Include="ViewModels\ZincOrderLogViewModel.cs" />
+    <Compile Include="ViewModels\ZincProductOfferViewModel.cs" />
+    <Compile Include="ViewModels\ZincProductSaveViewModel.cs" />
+    <Compile Include="ViewModels\ColorAutoCompleteViewModel.cs" />
+    <Compile Include="ViewModels\ColorViewModel.cs" />
+    <Compile Include="ViewModels\ConditionViewModel.cs" />
+    <Compile Include="ViewModels\HldPanelViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ImagesClass.cs" />
+    <Compile Include="ViewModels\ImagesSaveToDatabaseWithURLViewMOdel.cs" />
+    <Compile Include="ViewModels\ProductDisplayViewModel.cs" />
+    <Compile Include="ViewModels\ProductImagesViewModel.cs" />
+    <Compile Include="ViewModels\ProductInsertUpdateViewModel.cs" />
+    <Compile Include="ViewModels\SellerCloudCustomerDetail.cs" />
+    <Compile Include="ViewModels\SellerCloudOrderViewModel.cs" />
+    <Compile Include="ViewModels\SellerCloudOrderDetailViewModel.cs" />
+    <Compile Include="ViewModels\SellerCloudOrder_CustomerViewModel.cs" />
+    <Compile Include="ViewModels\TotalCountWithBestBuyOrderViewModel.cs" />
+    <Compile Include="ViewModels\ZincProxyViewModel.cs" />
+    <Compile Include="ViewModels\ZincWatchListJobViewModel.cs" />
+    <Compile Include="ViewModels\ZincWatchlistLogsViewModel.cs" />
+    <Compile Include="ViewModels\ZincWatchListSummary.cs" />
+    <Compile Include="ViewModels\ZincWatchLogsSearchViewModel.cs" />
+    <Compile Include="ViewModels\ZincWebhooksSuccessResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

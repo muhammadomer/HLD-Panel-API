@@ -1,0 +1,210 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DataAccess;
+using DataAccess.Helper;
+using DataAccess.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace HLD.WebApi.Controllers
+{
+
+    [ApiController]
+    [Authorize]
+    public class PredictionHistroyController : ControllerBase
+    {
+        PredictionHistroyDataAccess _predictionDataAccess;
+        public PredictionHistroyController(IConnectionString connectionString)
+        {
+            _predictionDataAccess = new PredictionHistroyDataAccess(connectionString);
+        }
+
+        [HttpGet]
+        [Route("api/PredictionSummaryCount")]
+        public IActionResult PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, int Type = 0)// get list of job summary
+        {
+            int count = 0;
+            try
+            {
+                count = _predictionDataAccess.PredictionSummaryCount(VendorId, SKU, Title, Approved, Type);
+                return Ok(count);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("api/PredictionHistroy/SavePO")]
+        public IActionResult SavePO(PurchaseOrderDataViewModel viewModel)// get list of job summary
+        {
+            int count = 0;
+            try
+            {
+                count = _predictionDataAccess.SavePO(viewModel);
+                return Ok(count);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost]
+        [Route("api/PredictionHistroy/SavePOItem")]
+        public IActionResult SavePOItem(PredictPOItemViewModel viewModel)// get list of job summary
+        {
+            int count = 0;
+            try
+            {
+                count = _predictionDataAccess.SavePOItem(viewModel);
+                return Ok(count);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/PredictionHistroy")]
+        public IActionResult Get(int startLimit, int offset, int VendorId, string SKU, string Title, bool Approved, string Sort, string SortedType, int Type = 0)
+        {
+            List<PredictionHistroyViewModel> _ViewModels = new List<PredictionHistroyViewModel>();
+            try
+            {
+                _ViewModels = _predictionDataAccess.GetAllPrediction(startLimit, offset, VendorId, SKU, Title, Approved, Sort, SortedType, Type);
+                return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/PredictionHistroy/Item")]
+        public IActionResult GetbyId(int Id)
+        {
+            try
+            {
+                var _ViewModels = _predictionDataAccess.GetAllPredictionbyId(Id);
+                return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/PredictionHistroy/GetInternalPOIdBySku")]
+        public IActionResult GetInternalPOIdBySku(string SKU)
+        {
+            try
+            {
+                var _ViewModels = _predictionDataAccess.GetInternalPOIdBySKU(SKU);
+                return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpDelete]
+        [Route("api/PredictionHistroy/DeletePO")]
+        public IActionResult DeletePO(int Id)
+        {
+            try
+            {
+                var _ViewModels = _predictionDataAccess.DeletePO(Id);
+                return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpDelete]
+        [Route("api/PredictionHistroy/DeletePOItem")]
+        public IActionResult DeletePOItem(int Id)
+        {
+            try
+            {
+                var _ViewModels = _predictionDataAccess.DeletePOItem(Id);
+                return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/PredictionHistroy/GetSoldQtyDays")]
+        public IActionResult GetSoldQtyDays(string SKU)
+        {
+            try
+            {
+                var _ViewModels = _predictionDataAccess.GetSoldQtyDays(SKU);
+                return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/PredictionHistroy/GetSKUDetailBySku")]
+        public IActionResult GetSKUDetailBySku(string SKU)
+        {
+            try
+            {
+                var _ViewModels = _predictionDataAccess.GetSKUDetailBySku(SKU);
+                return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/PredictionHistroy/DraftPOList")]
+        public IActionResult DraftPOList()
+        {
+            try
+            {
+                var _ViewModels = _predictionDataAccess.DraftPOList();
+                return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/PredictionHistroy/GetWareHouseProductQuantitylistBySku")]
+        public IActionResult GetWareHouseProductQuantitylistBySku(string SKU)
+        {
+            try
+            {
+                var _ViewModels = _predictionDataAccess.GetWareHouseProductQuantitylistBySku(SKU);
+                return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    }
+}

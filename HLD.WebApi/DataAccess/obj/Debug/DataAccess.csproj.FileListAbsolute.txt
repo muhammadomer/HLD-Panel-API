@@ -1,0 +1,1428 @@
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll.config
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.pdb
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Win32.Primitives.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\netstandard.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.AppContext.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Concurrent.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.NonGeneric.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Specialized.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.EventBasedAsync.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Primitives.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.TypeConverter.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Console.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Data.Common.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Contracts.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Debug.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Process.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.StackTrace.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TextWriterTraceListener.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tools.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TraceSource.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tracing.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Drawing.Primitives.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Dynamic.Runtime.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Calendars.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Extensions.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.ZipFile.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.DriveInfo.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Primitives.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Watcher.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.IsolatedStorage.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.MemoryMappedFiles.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Pipes.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.UnmanagedMemoryStream.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Expressions.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Parallel.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Queryable.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Http.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NameResolution.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NetworkInformation.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Ping.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Primitives.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Requests.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Security.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Sockets.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebHeaderCollection.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.Client.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ObjectModel.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Extensions.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Primitives.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Reader.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.ResourceManager.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Writer.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.VisualC.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Extensions.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Handles.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Numerics.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Formatters.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Json.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Primitives.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Xml.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Claims.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Algorithms.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Csp.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Encoding.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Primitives.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Principal.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.SecureString.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.Extensions.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.RegularExpressions.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Overlapped.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.Parallel.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Thread.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.ThreadPool.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Timer.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.ReaderWriter.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XDocument.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlDocument.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlSerializer.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.XDocument.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Web.Infrastructure.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Buffers.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Annotations.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.xml
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.dll
+G:\SellerCloud\FirstCopy\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.pdb
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll.config
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.pdb
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Win32.Primitives.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\netstandard.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.AppContext.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Concurrent.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.NonGeneric.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Specialized.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.EventBasedAsync.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Primitives.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.TypeConverter.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Console.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Data.Common.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Contracts.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Debug.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Process.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.StackTrace.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TextWriterTraceListener.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tools.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TraceSource.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tracing.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Drawing.Primitives.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Dynamic.Runtime.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Calendars.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Extensions.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.ZipFile.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.DriveInfo.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Primitives.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Watcher.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.IsolatedStorage.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.MemoryMappedFiles.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Pipes.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.UnmanagedMemoryStream.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Expressions.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Parallel.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Queryable.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Http.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NameResolution.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NetworkInformation.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Ping.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Primitives.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Requests.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Security.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Sockets.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebHeaderCollection.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.Client.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ObjectModel.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Extensions.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Primitives.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Reader.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.ResourceManager.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Writer.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.VisualC.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Extensions.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Handles.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Numerics.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Formatters.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Json.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Primitives.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Xml.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Claims.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Algorithms.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Csp.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Encoding.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Primitives.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Principal.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.SecureString.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.Extensions.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.RegularExpressions.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Overlapped.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.Parallel.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Thread.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.ThreadPool.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Timer.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.ReaderWriter.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XDocument.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlDocument.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlSerializer.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.XDocument.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Web.Infrastructure.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Annotations.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.dll
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.pdb
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Buffers.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll.config
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.pdb
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Win32.Primitives.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\netstandard.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.AppContext.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Concurrent.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.NonGeneric.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Specialized.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.EventBasedAsync.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Primitives.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.TypeConverter.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Console.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Data.Common.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Contracts.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Debug.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Process.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.StackTrace.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TextWriterTraceListener.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tools.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TraceSource.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tracing.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Drawing.Primitives.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Dynamic.Runtime.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Calendars.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Extensions.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.ZipFile.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.DriveInfo.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Primitives.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Watcher.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.IsolatedStorage.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.MemoryMappedFiles.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Pipes.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.UnmanagedMemoryStream.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Expressions.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Parallel.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Queryable.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Http.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NameResolution.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NetworkInformation.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Ping.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Primitives.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Requests.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Security.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Sockets.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebHeaderCollection.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.Client.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ObjectModel.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Extensions.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Primitives.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Reader.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.ResourceManager.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Writer.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.VisualC.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Extensions.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Handles.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Numerics.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Formatters.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Json.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Primitives.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Xml.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Claims.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Algorithms.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Csp.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Encoding.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Primitives.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Principal.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.SecureString.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.Extensions.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.RegularExpressions.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Overlapped.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.Parallel.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Thread.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.ThreadPool.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Timer.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.ReaderWriter.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XDocument.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlDocument.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlSerializer.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.XDocument.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Annotations.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.xml
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.dll
+D:\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.pdb
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+G:\Seller-Git\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll.config
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.pdb
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Win32.Primitives.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\netstandard.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.AppContext.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Concurrent.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.NonGeneric.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Specialized.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.EventBasedAsync.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Primitives.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.TypeConverter.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Console.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Data.Common.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Contracts.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Debug.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Process.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.StackTrace.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TextWriterTraceListener.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tools.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TraceSource.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tracing.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Drawing.Primitives.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Dynamic.Runtime.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Calendars.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Extensions.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.ZipFile.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.DriveInfo.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Primitives.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Watcher.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.IsolatedStorage.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.MemoryMappedFiles.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Pipes.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.UnmanagedMemoryStream.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Expressions.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Parallel.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Queryable.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Http.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NameResolution.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NetworkInformation.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Ping.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Primitives.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Requests.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Security.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Sockets.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebHeaderCollection.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.Client.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ObjectModel.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Extensions.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Primitives.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Reader.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.ResourceManager.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Writer.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.VisualC.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Extensions.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Handles.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Numerics.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Formatters.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Json.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Primitives.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Xml.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Claims.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Algorithms.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Csp.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Encoding.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Primitives.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Principal.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.SecureString.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.Extensions.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.RegularExpressions.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Overlapped.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.Parallel.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Thread.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.ThreadPool.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Timer.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.ReaderWriter.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XDocument.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlDocument.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlSerializer.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.XDocument.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Annotations.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.xml
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.dll
+D:\HLD.WebApi (4)\HLD.WebApi\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.pdb
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll.config
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\DataAccess.pdb
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Win32.Primitives.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\netstandard.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.AppContext.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Concurrent.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Collections.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Collections.NonGeneric.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Specialized.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.EventBasedAsync.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Primitives.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.TypeConverter.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Console.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Data.Common.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Contracts.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Debug.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Process.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.StackTrace.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TextWriterTraceListener.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tools.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TraceSource.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tracing.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Drawing.Primitives.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Dynamic.Runtime.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Calendars.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Extensions.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.ZipFile.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.DriveInfo.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Primitives.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Watcher.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.IsolatedStorage.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.MemoryMappedFiles.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.Pipes.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.IO.UnmanagedMemoryStream.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Linq.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Expressions.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Parallel.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Queryable.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.Http.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.NameResolution.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.NetworkInformation.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.Ping.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.Primitives.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.Requests.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.Security.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.Sockets.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebHeaderCollection.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.Client.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.ObjectModel.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Extensions.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Primitives.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Reader.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Resources.ResourceManager.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Writer.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.VisualC.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Extensions.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Handles.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Numerics.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Formatters.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Json.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Primitives.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Xml.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Security.Claims.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Algorithms.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Csp.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Encoding.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Primitives.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Security.Principal.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Security.SecureString.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.Extensions.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Text.RegularExpressions.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Threading.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Overlapped.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.Parallel.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Thread.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Threading.ThreadPool.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Timer.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Xml.ReaderWriter.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XDocument.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlDocument.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlSerializer.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.XDocument.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Annotations.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Memory.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Memory.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.xml
+D:\SellerCloud\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+D:\SellerCloud\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+D:\SellerCloud\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+D:\SellerCloud\HLD.WebApi\DataAccess\obj\Debug\DataAccess.dll
+D:\SellerCloud\HLD.WebApi\DataAccess\obj\Debug\DataAccess.pdb
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll.config
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\DataAccess.pdb
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Win32.Primitives.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\netstandard.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.AppContext.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Concurrent.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Collections.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Collections.NonGeneric.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Specialized.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.EventBasedAsync.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Primitives.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.TypeConverter.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Console.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Data.Common.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Contracts.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Debug.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Process.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.StackTrace.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TextWriterTraceListener.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tools.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TraceSource.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tracing.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Drawing.Primitives.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Dynamic.Runtime.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Calendars.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Extensions.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.ZipFile.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.DriveInfo.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Primitives.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Watcher.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.IsolatedStorage.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.MemoryMappedFiles.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.Pipes.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.IO.UnmanagedMemoryStream.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Linq.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Expressions.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Parallel.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Queryable.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.Http.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.NameResolution.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.NetworkInformation.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.Ping.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.Primitives.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.Requests.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.Security.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.Sockets.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebHeaderCollection.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.Client.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.ObjectModel.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Extensions.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Primitives.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Reader.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Resources.ResourceManager.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Writer.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.VisualC.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Extensions.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Handles.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Numerics.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Formatters.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Json.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Primitives.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Xml.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Security.Claims.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Algorithms.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Csp.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Encoding.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Primitives.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Security.Principal.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Security.SecureString.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.Extensions.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Text.RegularExpressions.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Threading.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Overlapped.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.Parallel.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Thread.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Threading.ThreadPool.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Timer.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Xml.ReaderWriter.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XDocument.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlDocument.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlSerializer.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.XDocument.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Web.Infrastructure.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Buffers.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Annotations.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Memory.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.dll
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Memory.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.xml
+E:\HLD\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.xml
+E:\HLD\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+E:\HLD\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+E:\HLD\HLD.WebApi\DataAccess\obj\Debug\DataAccess.dll
+E:\HLD\HLD.WebApi\DataAccess\obj\Debug\DataAccess.pdb
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll.config
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.pdb
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Win32.Primitives.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\netstandard.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.AppContext.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Concurrent.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.NonGeneric.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Specialized.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.EventBasedAsync.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Primitives.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.TypeConverter.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Console.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Data.Common.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Contracts.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Debug.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Process.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.StackTrace.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TextWriterTraceListener.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tools.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TraceSource.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tracing.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Drawing.Primitives.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Dynamic.Runtime.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Calendars.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Extensions.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.ZipFile.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.DriveInfo.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Primitives.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Watcher.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.IsolatedStorage.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.MemoryMappedFiles.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Pipes.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.UnmanagedMemoryStream.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Expressions.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Parallel.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Queryable.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Http.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NameResolution.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NetworkInformation.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Ping.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Primitives.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Requests.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Security.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Sockets.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebHeaderCollection.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.Client.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ObjectModel.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Extensions.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Primitives.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Reader.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.ResourceManager.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Writer.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.VisualC.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Extensions.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Handles.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Numerics.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Formatters.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Json.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Primitives.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Xml.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Claims.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Algorithms.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Csp.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Encoding.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Primitives.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Principal.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.SecureString.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.Extensions.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.RegularExpressions.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Overlapped.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.Parallel.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Thread.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.ThreadPool.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Timer.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.ReaderWriter.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XDocument.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlDocument.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlSerializer.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.XDocument.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Web.Infrastructure.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Annotations.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.xml
+E:\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+E:\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+E:\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+E:\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.dll
+E:\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.pdb
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll.config
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.pdb
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Win32.Primitives.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\netstandard.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.AppContext.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Concurrent.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.NonGeneric.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Specialized.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.EventBasedAsync.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Primitives.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.TypeConverter.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Console.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Data.Common.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Contracts.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Debug.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Process.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.StackTrace.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TextWriterTraceListener.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tools.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TraceSource.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tracing.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Drawing.Primitives.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Dynamic.Runtime.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Calendars.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Extensions.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.ZipFile.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.DriveInfo.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Primitives.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Watcher.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.IsolatedStorage.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.MemoryMappedFiles.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Pipes.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.UnmanagedMemoryStream.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Expressions.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Parallel.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Queryable.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Http.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NameResolution.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NetworkInformation.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Ping.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Primitives.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Requests.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Security.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Sockets.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebHeaderCollection.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.Client.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ObjectModel.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Extensions.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Primitives.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Reader.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.ResourceManager.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Writer.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.VisualC.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Extensions.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Handles.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Numerics.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Formatters.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Json.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Primitives.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Xml.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Claims.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Algorithms.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Csp.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Encoding.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Primitives.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Principal.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.SecureString.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.Extensions.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.RegularExpressions.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Overlapped.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.Parallel.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Thread.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.ThreadPool.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Timer.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.ReaderWriter.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XDocument.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlDocument.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlSerializer.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.XDocument.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Web.Infrastructure.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Annotations.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.xml
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.dll
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.pdb
+E:\HLD Latest\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Buffers.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll.config
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\DataAccess.pdb
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Win32.Primitives.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\netstandard.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.AppContext.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Concurrent.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.NonGeneric.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Specialized.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.EventBasedAsync.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Primitives.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.TypeConverter.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Console.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Data.Common.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Contracts.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Debug.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.FileVersionInfo.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Process.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.StackTrace.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TextWriterTraceListener.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tools.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.TraceSource.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.Tracing.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Drawing.Primitives.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Dynamic.Runtime.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Calendars.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Globalization.Extensions.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Compression.ZipFile.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.DriveInfo.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Primitives.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.FileSystem.Watcher.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.IsolatedStorage.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.MemoryMappedFiles.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.Pipes.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.IO.UnmanagedMemoryStream.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Expressions.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Parallel.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Linq.Queryable.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Http.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NameResolution.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.NetworkInformation.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Ping.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Primitives.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Requests.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Security.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.Sockets.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebHeaderCollection.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.Client.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Net.WebSockets.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ObjectModel.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Extensions.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Reflection.Primitives.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Reader.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.ResourceManager.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Resources.Writer.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.VisualC.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Extensions.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Handles.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Numerics.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Formatters.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Json.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Primitives.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.Serialization.Xml.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Claims.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Algorithms.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Csp.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Encoding.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.Primitives.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.Principal.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Security.SecureString.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.Encoding.Extensions.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Text.RegularExpressions.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Overlapped.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Tasks.Parallel.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Thread.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.ThreadPool.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Threading.Timer.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.ReaderWriter.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XDocument.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlDocument.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XmlSerializer.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Xml.XPath.XDocument.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ComponentModel.Annotations.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Google.Protobuf.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Microsoft.Extensions.Logging.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\MySql.Data.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Remotion.Linq.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Collections.Immutable.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Interactive.Async.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Memory.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Numerics.Vectors.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.ValueTuple.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Helpers.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Mvc.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.Razor.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\System.Web.WebPages.Razor.xml
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.dll
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\obj\Debug\DataAccess.pdb
+D:\HLD Latest-03-09-2020\HLD.WebApi\HLD.WebApi\DataAccess\bin\Debug\Newtonsoft.Json.xml
