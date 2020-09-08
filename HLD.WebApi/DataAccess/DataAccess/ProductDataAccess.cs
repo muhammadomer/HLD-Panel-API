@@ -719,7 +719,7 @@ namespace DataAccess.DataAccess
                 {
 
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetAllProducts_WithoutPage_Limit_testCopy", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetAllProducts_WithoutPage_Limit_testCopy1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("dropship", dropship);
                     cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
@@ -891,7 +891,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumy", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopy", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("filters", dropship);
                     cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);

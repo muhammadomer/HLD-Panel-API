@@ -43,79 +43,79 @@ namespace HLD.WebApi.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            _getChannelCredViewModel = new GetChannelCredViewModel();
-            ZincWatchListSummaryViewModal zincWatchListSummary = new ZincWatchListSummaryViewModal();
-            ZincWatchlistLogsViewModel zincWatchListlogs = new ZincWatchlistLogsViewModel();
+            //_getChannelCredViewModel = new GetChannelCredViewModel();
+            //ZincWatchListSummaryViewModal zincWatchListSummary = new ZincWatchListSummaryViewModal();
+            //ZincWatchlistLogsViewModel zincWatchListlogs = new ZincWatchlistLogsViewModel();
 
-            List<BestBuyUpdatePriceJobViewModel> SKUsForJob = new List<BestBuyUpdatePriceJobViewModel>();
-            // get ASIN from local
+            //List<BestBuyUpdatePriceJobViewModel> SKUsForJob = new List<BestBuyUpdatePriceJobViewModel>();
+            //// get ASIN from local
 
-            // if (ASInForJob.Count > 0)
-            {
-                // get zinc key
-                _getChannelCredViewModel = _EncDecChannel.DecryptedData("Zinc");
-                // set job as start
-                int JobID = zincWathchlistDataAccess.GetBestBuyUpdateJobId();
-                SKUsForJob = zincWathchlistDataAccess.P_GetBestBuyUpdateListForJob(JobID);
-                if (JobID > 0)
-                {
-                    zincWatchListSummary.JobID = JobID;
-                    zincWatchListlogs.jobID = JobID;
-                    zincWatchListSummary.Total_ASIN = SKUsForJob.Count;
-                }
-                foreach (var item in SKUsForJob)
-                {
-                    Ranx ranx = new Ranx()
-                    {
-                        price = Convert.ToDouble(item.UpdateSelllingPrice),
-                        quantity_threshold = 10
-                    };
-                    List<Ranx> ranxes = new List<Ranx>();
-                    ranxes.Add(ranx);
-                    Discounts discounts = new Discounts()
-                    {
-                        end_date = DateTime.Now.AddDays(15),
-                        price = Convert.ToDouble(item.UpdateSelllingPrice),
-                        ranges = ranxes,
-                        start_date= DateTime.Now
-                    };
-                    OfferAdditionalField offerAdditionalFields = new OfferAdditionalField()
-                    {
-                        code = "",
-                        value = "",
-                    };
-                    List<OfferAdditionalField> additionalFields = new List<OfferAdditionalField>();
-                    additionalFields.Add(offerAdditionalFields);
-                    Offers offers = new Offers()
-                    {
-                        available_ended = DateTime.Now.AddDays(15),
-                        available_started = DateTime.Now,
-                        description = "",
-                        discount = discounts,
-                        internal_description = "",
-                        logistic_class = "",
-                        min_quantity_alert = 0,
-                        offer_additional_fields = additionalFields,
-                        price=Convert.ToInt32(Math.Round(item.MSRP>item.UpdateSelllingPrice? item.MSRP: item.UpdateSelllingPrice* Convert.ToDecimal(1.30))),
-                        price_additional_info="",
-                        product_id=item.ProductId,
-                        product_id_type="SKU",
-                        quantity=10,
-                        shop_sku=item.SKU,
-                        state_code="11",
-                        update_delete=""
-                    };
+            //// if (ASInForJob.Count > 0)
+            //{
+            //    // get zinc key
+            //    _getChannelCredViewModel = _EncDecChannel.DecryptedData("Zinc");
+            //    // set job as start
+            //    int JobID = zincWathchlistDataAccess.GetBestBuyUpdateJobId();
+            //    SKUsForJob = zincWathchlistDataAccess.P_GetBestBuyUpdateListForJob(JobID);
+            //    if (JobID > 0)
+            //    {
+            //        zincWatchListSummary.JobID = JobID;
+            //        zincWatchListlogs.jobID = JobID;
+            //        zincWatchListSummary.Total_ASIN = SKUsForJob.Count;
+            //    }
+            //    foreach (var item in SKUsForJob)
+            //    {
+            //        Ranx ranx = new Ranx()
+            //        {
+            //            price = Convert.ToDouble(item.UpdateSelllingPrice),
+            //            quantity_threshold = 10
+            //        };
+            //        List<Ranx> ranxes = new List<Ranx>();
+            //        ranxes.Add(ranx);
+            //        Discounts discounts = new Discounts()
+            //        {
+            //            end_date = DateTime.Now.AddDays(15),
+            //            price = Convert.ToDouble(item.UpdateSelllingPrice),
+            //            ranges = ranxes,
+            //            start_date= DateTime.Now
+            //        };
+            //        OfferAdditionalField offerAdditionalFields = new OfferAdditionalField()
+            //        {
+            //            code = "",
+            //            value = "",
+            //        };
+            //        List<OfferAdditionalField> additionalFields = new List<OfferAdditionalField>();
+            //        additionalFields.Add(offerAdditionalFields);
+            //        Offers offers = new Offers()
+            //        {
+            //            available_ended = DateTime.Now.AddDays(15),
+            //            available_started = DateTime.Now,
+            //            description = "",
+            //            discount = discounts,
+            //            internal_description = "",
+            //            logistic_class = "",
+            //            min_quantity_alert = 0,
+            //            offer_additional_fields = additionalFields,
+            //            price=Convert.ToInt32(Math.Round(item.MSRP>item.UpdateSelllingPrice? item.MSRP: item.UpdateSelllingPrice* Convert.ToDecimal(1.30))),
+            //            price_additional_info="",
+            //            product_id=item.ProductId,
+            //            product_id_type="SKU",
+            //            quantity=10,
+            //            shop_sku=item.SKU,
+            //            state_code="11",
+            //            update_delete=""
+            //        };
 
-                    List<Offers> offers1 = new List<Offers>();
-                    offers1.Add(offers);
-                    BestBuyPriceJobSCViewModel bestBuyPrice = new BestBuyPriceJobSCViewModel() { offers=offers1};
-                    // string ImportId= UpdatePriceOnBestBuy(_getChannelCredViewModel.Key, bestBuyPrice);
-                    string ImportId = "xyz";
-                    zincWathchlistDataAccess.SaveBestBuyUpdateLogs(item, JobID, ImportId);
+            //        List<Offers> offers1 = new List<Offers>();
+            //        offers1.Add(offers);
+            //        BestBuyPriceJobSCViewModel bestBuyPrice = new BestBuyPriceJobSCViewModel() { offers=offers1};
+            //        // string ImportId= UpdatePriceOnBestBuy(_getChannelCredViewModel.Key, bestBuyPrice);
+            //        string ImportId = "xyz";
+            //        zincWathchlistDataAccess.SaveBestBuyUpdateLogs(item, JobID, ImportId);
 
-                }
-                zincWathchlistDataAccess.BestBuyUpdateJobUpdateEndTime(JobID);
-            }
+            //    }
+            //    zincWathchlistDataAccess.BestBuyUpdateJobUpdateEndTime(JobID);
+            //}
         }
 
 
