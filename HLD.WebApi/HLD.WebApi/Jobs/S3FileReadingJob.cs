@@ -174,60 +174,66 @@ namespace HLD.WebApi.Jobs
 
                 if (jobdetails.Job_Type.Equals("ImportChildOrderSC"))
                 {
-                    logger.LogInformation("ImportChildOrderSC Job Started At =>" + DateTime.Now.ToString());
-                    int Success = 0;
-                    int error = 0;
-                    List<GetChildORderToimportJobViewModel> viewModels = new List<GetChildORderToimportJobViewModel>();
-                    AuthenticateSCRestViewModel authenticate = new AuthenticateSCRestViewModel();
-                    // get Order of Related Jobs
-                    logger.LogInformation("ImportChildOrderSC Job GetChildOrderToImport");
-                    viewModels = orderRelationDataAccess.GetChildOrderToImport(jobdetails.Job_Id);
-                    logger.LogInformation("ImportChildOrderSC Job list of ChildOrderToImport=>" + JsonConvert.SerializeObject(viewModels));
-                    _getChannelCredViewModel = new GetChannelCredViewModel();
-                    //logger.LogInformation("ImportChildOrderSC Job Get Credentials");
-                    _getChannelCredViewModel = _EncDecChannel.DecryptedData("sellercloud");
-                    // Get Taken Fro SC
-                    authenticate = _EncDecChannel.AuthenticateSCForIMportOrder(_getChannelCredViewModel, ApiURL);
-                    foreach (var itemorder in viewModels)
+                    try
                     {
-                        logger.LogInformation("ImportChildOrderSC Job Order to import =>" + JsonConvert.SerializeObject(itemorder));
-                        OrderRelationViewModel orderRelationViewModel = new OrderRelationViewModel();
-                        //Get relation from SC 
-                        orderRelationViewModel = GetOrdersFromSCRest(itemorder.SC_ChildID, authenticate.access_token);
-
-                        logger.LogInformation("ImportChildOrderSC Job GetOrdersFromSCRest =>" + JsonConvert.SerializeObject(orderRelationViewModel));
-
-                        if (orderRelationViewModel != null)
+                        logger.LogInformation("ImportChildOrderSC Job Started At =>" + DateTime.Now.ToString());
+                        int Success = 0;
+                        int error = 0;
+                        List<GetChildORderToimportJobViewModel> viewModels = new List<GetChildORderToimportJobViewModel>();
+                        AuthenticateSCRestViewModel authenticate = new AuthenticateSCRestViewModel();
+                        // get Order of Related Jobs
+                        logger.LogInformation("ImportChildOrderSC Job GetChildOrderToImport");
+                        viewModels = orderRelationDataAccess.GetChildOrderToImport(jobdetails.Job_Id);
+                        logger.LogInformation("ImportChildOrderSC Job list of ChildOrderToImport=>" + JsonConvert.SerializeObject(viewModels));
+                        _getChannelCredViewModel = new GetChannelCredViewModel();
+                        logger.LogInformation("ImportChildOrderSC Job Get Credentials");
+                        _getChannelCredViewModel = _EncDecChannel.DecryptedData("sellercloud");
+                        // Get Taken Fro SC
+                        authenticate = _EncDecChannel.AuthenticateSCForIMportOrder(_getChannelCredViewModel, ApiURL);
+                        foreach (var itemorder in viewModels)
                         {
-                            bool status = await GetChildOrdersFromSellerCloud(orderRelationViewModel, _getChannelCredViewModel);
-                            // Set Jobs AS Logs
-                            logger.LogInformation("ImportChildOrderSC Job Set Jobs AS Logs");
-                            if (status == true)
+                            logger.LogInformation("ImportChildOrderSC Job Order to import =>" + JsonConvert.SerializeObject(itemorder));
+                            OrderRelationViewModel orderRelationViewModel = new OrderRelationViewModel();
+                            //Get relation from SC 
+                            orderRelationViewModel = GetOrdersFromSCRest(itemorder.SC_ChildID, authenticate.access_token);
+
+                            logger.LogInformation("ImportChildOrderSC Job GetOrdersFromSCRest =>" + JsonConvert.SerializeObject(orderRelationViewModel));
+
+                            if (orderRelationViewModel != null)
                             {
-                                Success++;
-                                UploadFilesToS3.InsertJobLog(Success, error, "", 0, "", jobdetails.Job_Id);
+                                bool status = await GetChildOrdersFromSellerCloud(orderRelationViewModel, _getChannelCredViewModel);
+                                // Set Jobs AS Logs
+                                logger.LogInformation("ImportChildOrderSC Job Set Jobs AS Logs");
+                                if (status == true)
+                                {
+                                    Success++;
+                                    UploadFilesToS3.InsertJobLog(Success, error, "", 0, "", jobdetails.Job_Id);
+                                }
+                                else
+                                {
+                                    logger.LogInformation("ImportChildOrderSC Job Set Error In Order ID => " + jobdetails.Job_Id.ToString() + "Order" + JsonConvert.SerializeObject(itemorder));
+                                    error++;
+                                    UploadFilesToS3.InsertJobLog(Success, error, itemorder.SC_ChildID.ToString(), 0, "Error In Order", jobdetails.Job_Id);
+                                }
                             }
                             else
                             {
                                 logger.LogInformation("ImportChildOrderSC Job Set Error In Order ID => " + jobdetails.Job_Id.ToString() + "Order" + JsonConvert.SerializeObject(itemorder));
                                 error++;
-                                UploadFilesToS3.InsertJobLog(Success, error, itemorder.SC_ChildID.ToString(), 0, "Error In Order", jobdetails.Job_Id);
+                                UploadFilesToS3.InsertJobLog(Success, error, itemorder.SC_ChildID.ToString(), 0, "No Related Order Found", jobdetails.Job_Id);
+
                             }
-                        }
-                        else
-                        {
-                            logger.LogInformation("ImportChildOrderSC Job Set Error In Order ID => " + jobdetails.Job_Id.ToString() + "Order" + JsonConvert.SerializeObject(itemorder));
-                            error++;
-                            UploadFilesToS3.InsertJobLog(Success, error, itemorder.SC_ChildID.ToString(), 0, "No Related Order Found", jobdetails.Job_Id);
+
 
                         }
-
-
+                        logger.LogInformation("ImportChildOrderSC Job => Job Completed ");
+                        UploadFilesToS3.UpdateFileJobsASCompleted(jobdetails.Job_Id);
+                        orderRelationDataAccess.UpdateOrderOrderRelationAsImported(jobdetails.Job_Id);
                     }
-                    logger.LogInformation("ImportChildOrderSC Job => Job Completed ");
-                    UploadFilesToS3.UpdateFileJobsASCompleted(jobdetails.Job_Id);
-                    orderRelationDataAccess.UpdateOrderOrderRelationAsImported(jobdetails.Job_Id);
-
+                    catch(Exception exp)
+                    {
+                        logger.LogInformation("ImportChildOrderSC Job Set Error In Order ID => " + jobdetails.Job_Id.ToString() + "Error => "+exp.Message );
+                    }
                 }
 
                 if (jobdetails.Job_Type.Equals("DS_QTY_COMMENTS"))
@@ -610,12 +616,12 @@ namespace HLD.WebApi.Jobs
                 var X = JObject.Parse(strResponse);
                 if (X != null)
                 {
-                    orderRelationViewModel = new OrderRelationViewModel();
+                    
                     var RelatedOrders = X["RelatedOrders"];
-
-                    if (RelatedOrders != null)
+                    var count = RelatedOrders.Count();
+                    if (RelatedOrders != null && RelatedOrders.Count()>0)
                     {
-
+                        orderRelationViewModel = new OrderRelationViewModel();
                         string relation = RelatedOrders[0].Value<string>("RelationshipType").ToString();
                         if (relation == "1" || relation == "4")
                         {
@@ -687,7 +693,7 @@ namespace HLD.WebApi.Jobs
                 List<int> listOrderID = new List<int>();
                 listOrderID.Add(orderRelationView.SC_ChildID);
                 var ordersDetail = await sCServiceSoap.Orders_GetDatasAsync(authHeader, null, listOrderID.ToArray());
-
+                //No result//7/9/2020
 
                 List<ImagesClass> imagesList = new List<ImagesClass>();
                 List<BestBuyOrdersImportMainViewModel> listBestBuyOrders = new List<BestBuyOrdersImportMainViewModel>();

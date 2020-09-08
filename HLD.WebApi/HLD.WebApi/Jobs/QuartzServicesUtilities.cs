@@ -161,14 +161,36 @@ namespace HLD.WebApi.Jobs
                  .ForJob(job)
                  .WithSimpleSchedule
                   (s =>
-                    s.WithIntervalInHours(12)
+                    s.WithIntervalInMinutes(10)
                      .RepeatForever()
                   )
                  .StartNow()
                  .Build();
                 scheduler.ScheduleJob(job, trigger);
-
             }
+
+            if (jobName == "HLD.WebApi.Jobs.BestBuyPriceUpdateJob")
+            {
+                //var trigger = TriggerBuilder.Create()
+                //    .WithIdentity("watchlist_trigger", "watchlist_group")
+                //     .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(23, 00))
+                //    .ForJob(job)
+                //   .Build();
+
+                //scheduler.ScheduleJob(job, trigger);
+
+                var trigger = TriggerBuilder.Create()
+                 .ForJob(job)
+                 .WithSimpleSchedule
+                  (s =>
+                    s.WithIntervalInMinutes(10)
+                     .RepeatForever()
+                  )
+                 .StartNow()
+                 .Build();
+                scheduler.ScheduleJob(job, trigger);
+            }
+
             if (jobName == "HLD.WebApi.Jobs.ReadExcelFile")
             {
                 var trigger = TriggerBuilder.Create()

@@ -199,5 +199,40 @@ namespace HLD.WebApi.Controllers
                 return Ok(_ViewModels);
             }
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/BestBuyProduct/GetBestBuyUpdate/")]
+        public IActionResult GetBestBuyUpdate(int Offset)// get list of job summary
+        {
+            List<BestBuyUpdateViewModel> WatchlistSummary = new List<BestBuyUpdateViewModel>();
+            try
+            {
+                WatchlistSummary = dataAccess.GetBestBuyUpdate(Offset);
+                return Ok(WatchlistSummary);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+       
+    }
+
+        [HttpGet]
+        [Route("api/BestBuyProduct/getcount")]
+        public IActionResult GetWatchlistSummaryCountupdate()// get list of job summary
+        {
+            int count = 0;
+            try
+            {
+                count = dataAccess.GetWatchlistSummaryCountupdate();
+                return Ok(count);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

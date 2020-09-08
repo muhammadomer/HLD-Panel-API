@@ -72,9 +72,9 @@ namespace HLD.WebApi.Controllers
                 WatchlistSummary = dataAccess.GetWatchlistSummary(offset);
                 return Ok(WatchlistSummary);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
         [HttpGet]
@@ -177,10 +177,6 @@ namespace HLD.WebApi.Controllers
 
 
             return Ok(status);
-
-
-
-
         }
 
 

@@ -109,8 +109,9 @@ namespace HLD.WebApi.Jobs
                     List<Offers> offers1 = new List<Offers>();
                     offers1.Add(offers);
                     BestBuyPriceJobSCViewModel bestBuyPrice = new BestBuyPriceJobSCViewModel() { offers=offers1};
-                    // UpdatePriceOnBestBuy(_getChannelCredViewModel.Key, bestBuyPrice);
-                    zincWathchlistDataAccess.SaveBestBuyUpdateLogs(item, JobID);
+                    // string ImportId= UpdatePriceOnBestBuy(_getChannelCredViewModel.Key, bestBuyPrice);
+                    string ImportId = "xyz";
+                    zincWathchlistDataAccess.SaveBestBuyUpdateLogs(item, JobID, ImportId);
 
                 }
                 zincWathchlistDataAccess.BestBuyUpdateJobUpdateEndTime(JobID);
