@@ -49,6 +49,7 @@ Thumbs.db
 *.wmv
 HLD.WebApi/.vs/
 HLD.WebApi/DataAccess/bin/
+HLD.WebApi/DataAccess/obj/
 HLD.WebApi/packages/
 HLD.WebApi/HLD.WebApi/bin/Debug/netcoreapp2.1/DataAccess.pdb
 HLD.WebApi/HLD.WebApi/bin/

@@ -169,6 +169,7 @@
     <Compile Include="DataAccess\BestBuyProductQtyMovementDataAcces.cs" />
     <Compile Include="DataAccess\BestBuyTrackingExportDataAccess.cs" />
     <Compile Include="DataAccess\BestBuyTrackingUpdateLogDataAccess.cs" />
+    <Compile Include="DataAccess\BestBuyUpdateLogsDataAccess.cs" />
     <Compile Include="DataAccess\BrandDataAccess.cs" />
     <Compile Include="DataAccess\CatageoryMainDataAccess.cs" />
     <Compile Include="DataAccess\CatageorySub1DataAccess.cs" />
@@ -250,8 +251,10 @@
     <Compile Include="ViewModels\BestBuyOrderDetailViewModel.cs" />
     <Compile Include="ViewModels\BestBuyPriceJobSCViewModel.cs" />
     <Compile Include="ViewModels\BestBuyTrackingUpdate.cs" />
+    <Compile Include="ViewModels\BestBuyUpdateLogsViewModel.cs" />
     <Compile Include="ViewModels\BestBuyUpdatePriceJobViewModel.cs" />
     <Compile Include="ViewModels\BestBuyUpdateQty_Update_ViewModel.cs" />
+    <Compile Include="ViewModels\BestBuyUpdateViewModel.cs" />
     <Compile Include="ViewModels\BrandAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\BrandViewModel.cs" />
     <Compile Include="ViewModels\CasePackViewModel.cs" />
