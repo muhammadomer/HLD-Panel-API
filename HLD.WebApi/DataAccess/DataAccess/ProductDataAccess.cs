@@ -1344,7 +1344,7 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
-        public bool GetStausFromZinc(List<GetStatusFromZincViewModel> ListViewModel)
+        public int GetStausFromZinc(List<GetStatusFromZincViewModel> ListViewModel)
         {
             bool status = false;
             int jobId = 0;
@@ -1356,7 +1356,7 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_SaveZincWatchListJob", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     jobId = Convert.ToInt32(cmd.ExecuteScalar());
-                    status = true;
+                   // status = true;
                     conn.Close();
 
                 }
@@ -1370,7 +1370,7 @@ namespace DataAccess.DataAccess
                         cmd.Parameters.AddWithValue("_JobId", jobId);
                         cmd.Parameters.AddWithValue("_Sku",item.SKU);
                         cmd.ExecuteNonQuery();
-                        status = true;
+                       // status = true;
                         conn.Close();
 
                     }
@@ -1382,7 +1382,7 @@ namespace DataAccess.DataAccess
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_JobId", jobId);
                     cmd.ExecuteNonQuery();
-                    status = true;
+                   // status = true;
                     conn.Close();
 
                 }
@@ -1391,7 +1391,7 @@ namespace DataAccess.DataAccess
             {
 
             }
-            return status;
+            return jobId;
         }
 
 

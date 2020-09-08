@@ -953,5 +953,61 @@ namespace DataAccess.DataAccess
         }
 
 
+        public List<BestBuyUpdateViewModel> GetBestBuyUpdate(int offset)
+        {
+            List<BestBuyUpdateViewModel> listModel = null;
+            // List<ZincWatchListSummaryViewModal> listModel = new List<ZincWatchListSummaryViewModal>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand(@"SELECT * FROM bestBuyE2.BestBuyUpdateJob ORDER BY JobId desc limit 25 offset "+ offset ,conn);
+                    cmdd.CommandType = System.Data.CommandType.Text;
+                    MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmdd);
+                    DataTable dt = new DataTable();
+                    mySqlDataAdapter.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        listModel = new List<BestBuyUpdateViewModel>();
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            BestBuyUpdateViewModel model = new BestBuyUpdateViewModel();
+                            model.JobID = Convert.ToInt32(dr["JobId"] != DBNull.Value ? dr["JobId"] : "0");
+                            model.StartTime = Convert.ToDateTime(dr["StartTime"] != DBNull.Value ? dr["StartTime"] : DateTime.MinValue);
+                            model.CompletionTime = Convert.ToDateTime(dr["CompleteTime"] != DBNull.Value ? dr["CompleteTime"] : DateTime.MinValue);
+                            model.TotalProduct = Convert.ToInt32(dr["TotalProduct"] != DBNull.Value ? dr["TotalProduct"] : "0");
+                            listModel.Add(model);
+                        }
+                    }
+                }
+                return listModel;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int GetWatchlistSummaryCountupdate()
+        {
+            int count = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(@"SELECT count(JobID) AS Records FROM bestBuyE2.BestBuyUpdateJob ;", conn);
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    count = Convert.ToInt32(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+                return count;
+            }
+            catch (Exception exp)
+            {
+                throw;
+            }
+        }
+
     }
 }

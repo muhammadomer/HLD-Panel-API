@@ -273,8 +273,8 @@ namespace DataAccess.DataAccess
                         {
                             ZincWatchListSummaryViewModal model = new ZincWatchListSummaryViewModal();
                             model.JobID = Convert.ToInt32(dr["JobID"] != DBNull.Value ? dr["JobID"] : "0");
-                            model.StartTime = Convert.ToDateTime(dr["StartTime"] != DBNull.Value ? dr["StartTime"] : DateTime.Now);
-                            model.CompletionTime = Convert.ToDateTime(dr["CompletionTime"] != DBNull.Value ? dr["CompletionTime"] : DateTime.Now);
+                            model.StartTime = Convert.ToDateTime(dr["StartTime"] != DBNull.Value ? dr["StartTime"] : DateTime.MinValue);
+                            model.CompletionTime = Convert.ToDateTime(dr["CompletionTime"] != DBNull.Value ? dr["CompletionTime"] : DateTime.MinValue);
                             model.Total_ASIN = Convert.ToInt32(dr["Total_ASIN"] != DBNull.Value ? dr["Total_ASIN"] : "0");
                             model.Available = Convert.ToInt32(dr["Available"] != DBNull.Value ? dr["Available"] : "0");
                             model.Prime = Convert.ToInt32(dr["Prime"] != DBNull.Value ? dr["Prime"] : "0");
@@ -769,7 +769,7 @@ namespace DataAccess.DataAccess
             return jobId;
         }
 
-        public int SaveBestBuyUpdateLogs(BestBuyUpdatePriceJobViewModel ViewModel,int jobId)
+        public int SaveBestBuyUpdateLogs(BestBuyUpdatePriceJobViewModel ViewModel,int jobId,string ImportId)
         {
             try
             {
@@ -782,7 +782,8 @@ namespace DataAccess.DataAccess
                         cmd.Parameters.AddWithValue("_Sku", ViewModel.SKU);
                         cmd.Parameters.AddWithValue("_ProductId", ViewModel.ProductId);
                         cmd.Parameters.AddWithValue("_MSRP", ViewModel.MSRP);
-                        cmd.Parameters.AddWithValue("_UpdateSelllingPrice", ViewModel.UpdateSelllingPrice);
+                        cmd.Parameters.AddWithValue("_ImportId", ImportId);
+                        cmd.Parameters.AddWithValue("_UpdateSellingPrice", ViewModel.UpdateSelllingPrice);
                         cmd.ExecuteNonQuery();
                         conn.Close();
 
