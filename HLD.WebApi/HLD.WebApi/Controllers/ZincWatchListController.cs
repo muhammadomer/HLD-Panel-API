@@ -13,6 +13,7 @@ using HLD.WebApi.Jobs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -203,6 +204,14 @@ namespace HLD.WebApi.Controllers
             return Ok(status);
         }
 
+        [HttpPost]
+        [Route("GetWatchlistLogsSelectAllCount")]
+        public int GetWatchlistLogsSelectAllCount(ZincWatchLogsSearchViewModel searchViewModel)// get Logs 
+        {
+            int status = 0;
+            status = dataAccess.GetWatchlistLogsSelectAllCountDA(searchViewModel);
+            return status;
+        }
 
 
         //[HttpGet]
@@ -236,9 +245,11 @@ namespace HLD.WebApi.Controllers
                 // get zinc key
                 _getChannelCredViewModel = _EncDecChannel.DecryptedData("bestbuy");
                 // set job as start
-               // int JobID = zincWathchlistDataAccess.GetBestBuyUpdateJobId();
+                // int JobID = zincWathchlistDataAccess.GetBestBuyUpdateJobId();
                 int JobID = job_Id;
                 SKUsForJob = zincWathchlistDataAccess.P_GetBestBuyUpdateListForJob(JobID);
+                var list = SKUsForJob.GroupBy(s => s.SKU).Select(p => p.OrderBy(x => x.UpdateSelllingPrice).FirstOrDefault()).Distinct().ToList();
+                //var list= .GroupBy()
                 if (JobID > 0)
                 {
                     zincWatchListSummary.JobID = JobID;
@@ -251,7 +262,7 @@ namespace HLD.WebApi.Controllers
                     {
                         Ranxs ranx = new Ranxs()
                         {
-                            price = Convert.ToDouble(item.UpdateSelllingPrice),
+                            price = item.UpdateSelllingPrice,
                             quantity_threshold = 10
                         };
                         List<Ranxs> ranxes = new List<Ranxs>();
@@ -262,7 +273,7 @@ namespace HLD.WebApi.Controllers
                         Discounts discounts = new Discounts()
                         {
                             end_date = DateTime.Now.AddDays(15).ToString("o", CultureInfo.CreateSpecificCulture("de-DE")),
-                            price = Convert.ToDouble(item.UpdateSelllingPrice),
+                            price = item.UpdateSelllingPrice,
                             ranges = ranxes,
                             start_date = DateTime.Now.ToString("o", CultureInfo.CreateSpecificCulture("de-DE"))
                         };
@@ -283,7 +294,7 @@ namespace HLD.WebApi.Controllers
                             logistic_class = "",
                             min_quantity_alert = 0,
                             offer_additional_fields = additionalFields,
-                            price = Convert.ToInt32(Math.Round(item.MSRP > item.UpdateSelllingPrice ? item.MSRP : item.UpdateSelllingPrice * Convert.ToDecimal(1.30))),
+                            price = Math.Round(item.MSRP > item.UpdateSelllingPrice ? item.MSRP : item.UpdateSelllingPrice * Convert.ToDecimal(1.30),2),
                             price_additional_info = "",
                             product_id = item.ProductId,
                             product_id_type = "SKU",
@@ -299,12 +310,19 @@ namespace HLD.WebApi.Controllers
                         string ImportId = UpdatePriceOnBestBuy(_getChannelCredViewModel.Key, bestBuyPrice);
                         //string ImportId = "xyz";
                         zincWathchlistDataAccess.SaveBestBuyUpdateLogs(item, JobID, ImportId);
-
+                        //Code here for submission sp
+                        UpdateImportIdInZincLogViewModel model = new UpdateImportIdInZincLogViewModel();
+                        model.SKU = SKUsForJob.FirstOrDefault().SKU;
+                        model.ImportId =Convert.ToInt32( ImportId);
+                        model.price = bestBuyPrice.offers.FirstOrDefault().discount.price;
+                        model.JobID = JobID;
+                        model.ZincJobID = SKUsForJob.FirstOrDefault().ZincJobID;
+                        zincWathchlistDataAccess.UpdateImportIdInZincLog(model);
                     }
 
                     zincWathchlistDataAccess.BestBuyUpdateJobUpdateEndTime(JobID);
                 }
-                catch(Exception exp)
+                catch (Exception exp)
                 {
 
                 }
@@ -353,6 +371,15 @@ namespace HLD.WebApi.Controllers
 
             }
             return importID;
+        }
+
+        [HttpPost]
+        [Route("GetCount")]
+        public ZincWatchlistCountViewModel GetAllCount(ZincWatchLogsSearchViewModel searchViewModel)
+        {
+            ZincWatchlistCountViewModel obj = new ZincWatchlistCountViewModel();
+            obj = dataAccess.GetCount(searchViewModel);
+            return obj;
         }
 
     }

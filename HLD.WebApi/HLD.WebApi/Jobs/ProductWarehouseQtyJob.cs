@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using WarehouseName = HLD.WebApi.Enum.WarehouseName;
 
 namespace HLD.WebApi.Jobs
 {

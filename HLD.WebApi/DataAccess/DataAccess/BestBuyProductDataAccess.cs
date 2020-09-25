@@ -395,7 +395,8 @@ namespace DataAccess.DataAccess
                             detailViewModel.calculation_ProfitLoss = Math.Round(detailViewModel.calculation_TotalAmountOfUnitPrice - 0 - detailViewModel.caculation_TotalAvgCost - detailViewModel.calculation_Comission, 2);
                             detailViewModel.calculation_ProfitLossPercentage = Math.Round((detailViewModel.calculation_ProfitLoss / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100, 2);
 
-                            List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetProductQtyBySKU_ForOrdersPage(detailViewModel.ProductSKU, mySqlConnection);
+                           // List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetProductQtyBySKU_ForOrdersPage(detailViewModel.ProductSKU, mySqlConnection);
+                            List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetWareHousesQtyList(detailViewModel.ProductSKU);
 
                             detailViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
                             objList.Add(detailViewModel);
@@ -568,9 +569,8 @@ namespace DataAccess.DataAccess
                             detailViewModel.calculation_ProfitLossPercentage = Math.Round((detailViewModel.calculation_ProfitLoss / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100, 2);
 
 
-                            List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetProductQtyBySKU_ForOrdersPage(detailViewModel.ProductSKU, conn);
-
-
+                            //List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetProductQtyBySKU_ForOrdersPage(detailViewModel.ProductSKU, conn);
+                            List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetWareHousesQtyList(detailViewModel.ProductSKU);
                             detailViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
                             objList.Add(detailViewModel);
 
@@ -841,8 +841,8 @@ namespace DataAccess.DataAccess
                             detailViewModel.calculation_ProfitLossPercentage = Math.Round((detailViewModel.calculation_ProfitLoss / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100, 2);
 
 
-                            List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetProductQtyBySKU_ForOrdersPage(detailViewModel.ProductSKU, conn);
-
+                            //List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetProductQtyBySKU_ForOrdersPage(detailViewModel.ProductSKU, conn);
+                            List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetWareHousesQtyList(detailViewModel.ProductSKU);
                             detailViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
                             objList.Add(detailViewModel);
 

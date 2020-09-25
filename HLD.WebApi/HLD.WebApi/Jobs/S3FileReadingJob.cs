@@ -1,10 +1,12 @@
 ﻿using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Amazon.S3.Transfer;
 using AutoMapper.Configuration;
 using DataAccess.DataAccess;
 using DataAccess.Helper;
 using DataAccess.ViewModels;
+using ImageMagick;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,6 +15,8 @@ using Quartz;
 using ServiceReference1;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -25,7 +29,9 @@ namespace HLD.WebApi.Jobs
     public class S3FileReadingJob : IJob
     {
         IConnectionString _connectionString = null;
-
+        private static string _bucketSubdirectory = String.Empty;
+        private string _ImagesbucketName = "upload.hld.erp.images";//this is my Amazon Bucket name
+        private string _ImagesbucketNameCompressed = "upload.hld.erp.images.thumbnail";//this is my compressed Amazon Bucket name
         UploadFilesToS3DataAccess UploadFilesToS3 = null;
         OrderRelationDataAccess orderRelationDataAccess = null;
         EncDecChannel _EncDecChannel = null;
@@ -36,6 +42,8 @@ namespace HLD.WebApi.Jobs
         BestBuyProductDataAccess _bestBuyProductDataAccess = null;
         GetChannelCredViewModel _getChannelCredViewModel = null;
         ProductDataAccess _ProductDataAccess = null;
+        ProductWarehouseQtyDataAccess ProductWHQtyDataAccess;
+        SellerCloudOrderDataAccess cloudOrderDataAccess;
         // Specify your bucket region (an example region is shown).
         ServiceReference1.AuthHeader authHeader = null;
         private AmazonS3Client _s3Client = new AmazonS3Client(RegionEndpoint.USEast2);
@@ -51,6 +59,8 @@ namespace HLD.WebApi.Jobs
             orderRelationDataAccess = new OrderRelationDataAccess(_connectionString);
 
             _ProductDataAccess = new ProductDataAccess(_connectionString);
+            ProductWHQtyDataAccess = new ProductWarehouseQtyDataAccess(_connectionString);
+            cloudOrderDataAccess = new SellerCloudOrderDataAccess(_connectionString);
             ApiURL = "https://lp.api.sellercloud.com/rest/api";
             _EncDecChannel = new EncDecChannel(_connectionString);
             logger = _logger;
@@ -363,53 +373,127 @@ namespace HLD.WebApi.Jobs
                                     //  bool st = UploadFilesToS3.InsertS3BestBuyMIssingSKUFromSellerCloud(jobdetails.Job_Id, SkuMissingmodel);
                                     int Success = 0;
                                     int Fail = 0;
+
                                     foreach (var missingSku in SkuMissingmodel)
                                     {
                                         if (!String.IsNullOrEmpty(missingSku.Product_Sku))
-
                                         {
+
 
                                             int productID = _ProductDataAccess.GetProductIdBySKU(missingSku.Product_Sku);
                                             if (productID > 0)
                                             {
                                                 Fail++;
                                                 UploadFilesToS3.InsertJobLog(Success, Fail, missingSku.Product_Sku, Convert.ToInt32(missingSku.RowNumber), "SKU already exist.", jobdetails.Job_Id);
-
-
                                             }
                                             else
                                             {
+                                                var product = _ProductDataAccess.GetProductInfoFromSellerCloudForMIssingSku(missingSku.Product_Sku);
                                                 ProductInsertUpdateViewModel productInsertUpdate = new ProductInsertUpdateViewModel();
-                                                productInsertUpdate = await GetProductInfoFromSellerCloudForMIssingSku(missingSku.Product_Sku);
-                                                if (productInsertUpdate.ProductSKU == null)
+                                               // productInsertUpdate = await GetProductInfoFromSellerCloudForMIssingSku(missingSku.Product_Sku);
+                                                if (product == null)
                                                 {
+                                                    
                                                     Fail++;
                                                     UploadFilesToS3.InsertJobLog(Success, Fail, missingSku.Product_Sku, Convert.ToInt32(missingSku.RowNumber), "Some error occurred.", jobdetails.Job_Id);
                                                 }
                                                 else
                                                 {
-                                                    _ProductDataAccess.SaveProduct(productInsertUpdate);
+                                                    product.SKU = missingSku.Product_Sku;
+                                                    _ProductDataAccess.SaveProductnew(product);
+                                                    ProductWHQtyDataAccess.GetWarahouseQty(product.SKU);
+
+                                                    var imageURL = product.ImageUrl;
+                                                    if (imageURL != null && imageURL != "")
+                                                    {
+                                                        Image img = DownloadImageFromUrl(imageURL);
+                                                        // save seller cloud order images to prorduct_images table
+                                                        ImagesSaveToDatabaseWithURLViewMOdel databaseImagesURL = new ImagesSaveToDatabaseWithURLViewMOdel();
+                                                        try
+                                                        {
+                                                            if (img != null)
+                                                            {
+
+                                                                string fileName = Guid.NewGuid().ToString() + "-" + product.SKU.Trim() + Path.GetExtension(imageURL);
+                                                                databaseImagesURL.product_Sku = product.SKU.Trim();
+                                                                databaseImagesURL.FileName = fileName;
+                                                                databaseImagesURL.ImageURL = imageURL;
+                                                                databaseImagesURL.isImageExistInSC = true;
+                                                                if (cloudOrderDataAccess.SaveProductImagesFromSellerCloudOrders(databaseImagesURL))
+                                                                {
+                                                                    await uploadToS3(GetStream(img, ImageFormat.Jpeg), fileName);
+
+                                                                    await uploadCompressedToS3(GetStreamOfReducedImage(img), fileName);
+                                                                }
+                                                                //ProductapiAccess.UpdateSCImageStatusInProductTable(ApiURL, token, sku.Trim(), true);
+                                                                //_successCounter++;
+                                                            }
+
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                        }
+                                                    }
+
                                                     Success++;
                                                     UploadFilesToS3.InsertJobLog(Success, Fail, "", 0, "", jobdetails.Job_Id);
                                                 }
-
-
-
                                             }
-
-
                                         }
-
-
                                         else
                                         {
-
                                             Fail++;
                                             UploadFilesToS3.InsertJobLog(Success, Fail, missingSku.Product_Sku, Convert.ToInt32(missingSku.RowNumber), " Contain invalid data in file.", jobdetails.Job_Id);
-
                                         }
-
                                     }
+
+                                    //foreach (var missingSku in SkuMissingmodel)
+                                    //{
+                                    //    if (!String.IsNullOrEmpty(missingSku.Product_Sku))
+
+                                    //    {
+
+                                    //        int productID = _ProductDataAccess.GetProductIdBySKU(missingSku.Product_Sku);
+                                    //        if (productID > 0)
+                                    //        {
+                                    //            Fail++;
+                                    //            UploadFilesToS3.InsertJobLog(Success, Fail, missingSku.Product_Sku, Convert.ToInt32(missingSku.RowNumber), "SKU already exist.", jobdetails.Job_Id);
+
+
+                                    //        }
+                                    //        else
+                                    //        {
+                                    //            ProductInsertUpdateViewModel productInsertUpdate = new ProductInsertUpdateViewModel();
+                                    //            productInsertUpdate = await GetProductInfoFromSellerCloudForMIssingSku(missingSku.Product_Sku);
+                                    //            if (productInsertUpdate.ProductSKU == null)
+                                    //            {
+                                    //                Fail++;
+                                    //                UploadFilesToS3.InsertJobLog(Success, Fail, missingSku.Product_Sku, Convert.ToInt32(missingSku.RowNumber), "Some error occurred.", jobdetails.Job_Id);
+                                    //            }
+                                    //            else
+                                    //            {
+                                    //                _ProductDataAccess.SaveProduct(productInsertUpdate);
+                                    //                Success++;
+                                    //                UploadFilesToS3.InsertJobLog(Success, Fail, "", 0, "", jobdetails.Job_Id);
+                                    //            }
+
+
+
+                                    //        }
+
+
+                                    //    }
+
+
+                                    //    else
+                                    //    {
+
+                                    //        Fail++;
+                                    //        UploadFilesToS3.InsertJobLog(Success, Fail, missingSku.Product_Sku, Convert.ToInt32(missingSku.RowNumber), " Contain invalid data in file.", jobdetails.Job_Id);
+
+                                    //    }
+
+                                    //}
                                     // bool st = true;
 
                                     UploadFilesToS3.UpdateFileJobsASCompleted(jobdetails.Job_Id);
@@ -938,7 +1022,133 @@ namespace HLD.WebApi.Jobs
             model.ProductSKU = productInfo.ID;
             return model;
         }
+        public System.Drawing.Image DownloadImageFromUrl(string imageUrl)
+        {
+            System.Drawing.Image image = null;
 
+            try
+            {
+                Uri ImageUri = new Uri(imageUrl, UriKind.Absolute);
+                System.Net.HttpWebRequest webRequest = (System.Net.HttpWebRequest)System.Net.HttpWebRequest.Create(ImageUri);
+                webRequest.AllowWriteStreamBuffering = true;
+                webRequest.Timeout = 30000;
 
+                System.Net.WebResponse webResponse = webRequest.GetResponse();
+
+                System.IO.Stream stream = webResponse.GetResponseStream();
+
+                image = System.Drawing.Image.FromStream(stream);
+
+                webResponse.Close();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return image;
+        }
+
+        public async Task<bool> uploadToS3(System.IO.Stream stream, string keyName)
+        {
+            bool status = false;
+            try
+            {
+                TransferUtility fileTransferUtility = new TransferUtility(new AmazonS3Client(Amazon.RegionEndpoint.USEast2));
+
+                string bucketName;
+                if (_bucketSubdirectory == "" || _bucketSubdirectory == null)
+                {
+                    bucketName = _ImagesbucketName; //no subdirectory just bucket name  
+                }
+                else
+                {   // subdirectory and bucket name  
+                    bucketName = _ImagesbucketName + @"/" + _bucketSubdirectory;
+                }
+                // 1. Upload a file, file name is used as the object key name.
+                await fileTransferUtility.UploadAsync(stream, bucketName, keyName);
+                status = true;
+                return status;
+            }
+            catch (AmazonS3Exception s3Exception)
+            {
+                Console.WriteLine(s3Exception.Message,
+                                  s3Exception.InnerException);
+            }
+            return status;
+        }
+
+        public async Task<bool> uploadCompressedToS3(System.IO.Stream stream, string keyName)
+        {
+            bool status = false;
+            try
+            {
+                TransferUtility fileTransferUtility = new TransferUtility(new AmazonS3Client(Amazon.RegionEndpoint.USEast2));
+
+                string bucketName;
+                if (_bucketSubdirectory == "" || _bucketSubdirectory == null)
+                {
+                    bucketName = _ImagesbucketNameCompressed; //no subdirectory just bucket name  
+                }
+                else
+                {   // subdirectory and bucket name  
+                    bucketName = _ImagesbucketNameCompressed + @"/" + _bucketSubdirectory;
+                }
+                // 1. Upload a file, file name is used as the object key name.
+                await fileTransferUtility.UploadAsync(stream, bucketName, keyName);
+                status = true;
+                return status;
+            }
+            catch (AmazonS3Exception s3Exception)
+            {
+                Console.WriteLine(s3Exception.Message,
+                                  s3Exception.InnerException);
+            }
+            return status;
+        }
+
+        public Stream GetStream(Image img, ImageFormat format)
+        {
+            var ms = new MemoryStream();
+            img.Save(ms, format);
+            return ms;
+        }
+
+        public Stream GetStreamOfReducedImage(Image inputPath)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            try
+            {
+                var settings = new MagickReadSettings { Format = MagickFormat.Raw };
+                byte[] vs = ImageToByteArray(inputPath);
+                int size = 100;
+                int quality = 75;
+                using (var image = new MagickImage(vs))
+                {
+                    image.Resize(size, size);
+                    image.Strip();
+                    image.Quality = quality;
+                    image.Write(memoryStream, MagickFormat.Jpeg);
+                }
+            }
+            catch (Exception ex)
+            {
+                memoryStream = null;
+            }
+            finally
+            {
+
+            }
+            return memoryStream;
+        }
+
+        public byte[] ImageToByteArray(System.Drawing.Image imageIn)
+        {
+            using (var ms = new MemoryStream())
+            {
+                imageIn.Save(ms, imageIn.RawFormat);
+                return ms.ToArray();
+            }
+        }
     }
 }

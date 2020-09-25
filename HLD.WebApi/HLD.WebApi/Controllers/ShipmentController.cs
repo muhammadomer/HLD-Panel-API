@@ -226,5 +226,23 @@ namespace HLD.WebApi.Controllers
             var list = _DataAccess.GetShipmentHistoryBySKU(POID, SKU);
             return Ok(list);
         }
+        [HttpGet]
+        //[Authorize]
+        [Route("api/Shipment/GetShipmentCourierInfo")]
+        public IActionResult GetShipmentCourierInfo(string ShipmentId)
+        {
+
+            var item = _DataAccess.GetShipmentCourierInfo(ShipmentId);
+            return Ok(item);
+        }
+        [HttpPut]
+        //[Authorize]
+        [Route("api/Shipment/UpdateShipmentCourierInfo")]
+        public IActionResult UpdateShipmentCourierInfo(ShipmentCourierInfoViewModel ViewModel)
+        {
+            bool status = false;
+            status = _DataAccess.UpdateShipmentCourierInfo(ViewModel);
+            return Ok(new { status = status, Message = "Success" });
+        }
     }
 }

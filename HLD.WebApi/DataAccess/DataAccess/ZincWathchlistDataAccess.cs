@@ -295,17 +295,33 @@ namespace DataAccess.DataAccess
 
         public List<ZincWatchlistLogsViewModel> GetWatchlistLogs(ZincWatchLogsSearchViewModel searchViewModel)
         {
+            if (searchViewModel.Available == "Available")
+            {
+                searchViewModel.IsPrime = 1;
+            }
+
+            if (searchViewModel.Available == "Currently Unavailable" || searchViewModel.Available == "Listing Removed")
+            {
+                searchViewModel.IsPrime = 0;
+            }
+
+            if (searchViewModel.Available == null)
+            {
+                searchViewModel.Available = "";
+            }
+
             List<ZincWatchlistLogsViewModel> modelLog = new List<ZincWatchlistLogsViewModel>();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopy", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopyPrime", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_ASIN", searchViewModel.ASIN);
                     cmd.Parameters.AddWithValue("_JobID", searchViewModel.JobID);
                     cmd.Parameters.AddWithValue("_Available", searchViewModel.Available);
+                    cmd.Parameters.AddWithValue("_IsPrime", searchViewModel.IsPrime);
                     cmd.Parameters.AddWithValue("_Offset", searchViewModel.Offset);
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -329,6 +345,11 @@ namespace DataAccess.DataAccess
                                 ViewModel.BBSellingPrice = Convert.ToDecimal(reader["BBSellingPrice"] != DBNull.Value ? reader["BBSellingPrice"] : "0");
                                 ViewModel.UnitOriginPrice_MSRP = Convert.ToDouble(reader["unit_origin_price_MSRP"] != DBNull.Value ? reader["unit_origin_price_MSRP"] : "0");
                                 ViewModel.UnitOriginPrice_Max = Convert.ToDouble(reader["max_price"] != DBNull.Value ? reader["max_price"] : "0");
+                                ViewModel.HLD_CA1 = Convert.ToInt32(reader["HLD_CA1"] != DBNull.Value ? reader["HLD_CA1"] : "0");
+
+                                ViewModel.BBJobID = Convert.ToInt32(reader["BBJobID"] != DBNull.Value ? reader["BBJobID"] : "0");
+                                ViewModel.ImportId = Convert.ToInt32(reader["ImportID"] != DBNull.Value ? reader["ImportID"] : "0");
+                                ViewModel.UpdatedPriceBB = Convert.ToDecimal(reader["UpdatedPriceBB"] != DBNull.Value ? reader["UpdatedPriceBB"] : "0");
                                 modelLog.Add(ViewModel);
                             }
                         }
@@ -393,16 +414,33 @@ namespace DataAccess.DataAccess
         public int GetWatchlistLogsCount(ZincWatchLogsSearchViewModel searchViewModel)
         {
             int Records = 0;
+
+            if (searchViewModel.Available == "Available")
+            {
+                searchViewModel.IsPrime = 1;
+            }
+
+            if (searchViewModel.Available == "Currently Unavailable" || searchViewModel.Available == "Listing Removed")
+            {
+                searchViewModel.IsPrime = 0;
+            }
+
+            if (searchViewModel.Available == null)
+            {
+                searchViewModel.Available = "";
+            }
+
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCount", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCountPrime", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_ASIN", searchViewModel.ASIN);
                     cmd.Parameters.AddWithValue("_JobID", searchViewModel.JobID);
                     cmd.Parameters.AddWithValue("_Available", searchViewModel.Available);
+                    cmd.Parameters.AddWithValue("_IsPrime", searchViewModel.IsPrime);
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)
@@ -419,13 +457,42 @@ namespace DataAccess.DataAccess
                     return Records;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
         }
 
 
+        public int GetWatchlistLogsSelectAllCountDA(ZincWatchLogsSearchViewModel searchViewModel)
+        {
+            int Records = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetWatchlistLogsSelectAllCount", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_JobID", searchViewModel.JobID);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Records = Convert.ToInt32(reader["Records"]);
+                            }
+                        }
+                    }
+                    return Records;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
         public ZincWatchListSummaryViewModal GetWatchlistSummaryByJobID(int JobID)
         {
             ZincWatchListSummaryViewModal model = null;
@@ -569,6 +636,10 @@ namespace DataAccess.DataAccess
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
+                    if (searchViewModel.Available == null)
+                    {
+                        searchViewModel.Available = "";
+                    }
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsForSCUpdate", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -583,21 +654,11 @@ namespace DataAccess.DataAccess
                             while (reader.Read())
                             {
                                 ZincWatchlistLogsViewModel ViewModel = new ZincWatchlistLogsViewModel();
-                                ViewModel.ASIN = Convert.ToString(reader["ASIN"]);
                                 ViewModel.ProductSKU = Convert.ToString(reader["SKU"]);
-                                ViewModel.ZincResponse = Convert.ToString(reader["ZincResponse"]);
-                                ViewModel.SellerName = Convert.ToString(reader["SellerName"]);
-                                ViewModel.Amz_Price = Convert.ToInt32(reader["AMZPrice"] != DBNull.Value ? reader["AMZPrice"] : "0");
                                 ViewModel.jobID = Convert.ToInt32(reader["JobID"] != DBNull.Value ? reader["JobID"] : "0");
-                                ViewModel.IsPrime = Convert.ToInt32(reader["Prime"] != DBNull.Value ? reader["Prime"] : "0");
-                                ViewModel.FulfilledBY = Convert.ToString(reader["FulfilledBy"]);
-                                ViewModel.Compress_image = Convert.ToString(reader["Compress_image"]);
-                                ViewModel.image_name = Convert.ToString(reader["image_name"]);
                                 ViewModel.BBProductId = Convert.ToString(reader["BBProductId"]);
-                                ViewModel.BBSellingPrice = Convert.ToDecimal(reader["BBSellingPrice"] != DBNull.Value ? reader["BBSellingPrice"] : "0");
                                 ViewModel.UnitOriginPrice_MSRP = Convert.ToDouble(reader["unit_origin_price_MSRP"] != DBNull.Value ? reader["unit_origin_price_MSRP"] : "0");
                                 ViewModel.UnitOriginPrice_Max = Convert.ToDouble(reader["max_price"] != DBNull.Value ? reader["max_price"] : "0");
-
                                 modelLog.Add(ViewModel);
                             }
                         }
@@ -634,6 +695,7 @@ namespace DataAccess.DataAccess
                         MySqlCommand cmd = new MySqlCommand("P_SaveBestBuyUpdateList", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("_JobId", jobId);
+                        cmd.Parameters.AddWithValue("_ZincJobId",item.ZincJobId);
                         cmd.Parameters.AddWithValue("_Sku", item.ProductSKU);
                         cmd.Parameters.AddWithValue("_ProductId", item.BBProductId);
                         cmd.Parameters.AddWithValue("_MSRP", item.UnitOriginPrice_MSRP);
@@ -733,7 +795,9 @@ namespace DataAccess.DataAccess
                                 ViewModel.SKU= Convert.ToString(reader["SKU"] != DBNull.Value ? reader["SKU"] : "");
                                 ViewModel.ProductId = Convert.ToInt32(reader["ProductId"] != DBNull.Value ? reader["ProductId"] : "");
                                 ViewModel.MSRP= Convert.ToDecimal(reader["MSRP"] != DBNull.Value ? reader["MSRP"] : 0);
-                                ViewModel.UpdateSelllingPrice = Convert.ToInt32(reader["UpdateSelllingPrice"] != DBNull.Value ? reader["UpdateSelllingPrice"] : 0);
+                                ViewModel.UpdateSelllingPrice = Convert.ToDecimal(reader["UpdateSelllingPrice"] != DBNull.Value ? reader["UpdateSelllingPrice"] : 0);
+
+                                ViewModel.ZincJobID = Convert.ToInt32(reader["ZincJobId"] != DBNull.Value ? reader["ZincJobId"] : 0);
                                 listViewModel.Add(ViewModel);
                             }
                         }
@@ -769,6 +833,32 @@ namespace DataAccess.DataAccess
             return jobId;
         }
 
+        public int UpdateImportIdInZincLog(UpdateImportIdInZincLogViewModel model)
+        {
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateImportIdInZincLog", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Sku", model.SKU);
+                    cmd.Parameters.AddWithValue("_ZincJobId", model.ZincJobID);
+                    cmd.Parameters.AddWithValue("_ImportId", model.ImportId);
+                    cmd.Parameters.AddWithValue("_UpdatedBB", model.price);
+                    cmd.Parameters.AddWithValue("_BBJobID", model.JobID);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return 0;
+        }
+
         public int SaveBestBuyUpdateLogs(BestBuyUpdatePriceJobViewModel ViewModel,int jobId,string ImportId)
         {
             try
@@ -794,6 +884,62 @@ namespace DataAccess.DataAccess
 
             }
             return 0;
+        }
+        public ZincWatchlistCountViewModel GetCount(ZincWatchLogsSearchViewModel searchViewModel)
+        {
+            ZincWatchlistCountViewModel modelview = new ZincWatchlistCountViewModel();
+            if (searchViewModel.Available == "Available")
+            {
+                searchViewModel.IsPrime = 1;
+            }
+
+            if (searchViewModel.Available == "Currently Unavailable" || searchViewModel.Available == "Listing Removed")
+            {
+                searchViewModel.IsPrime = 0;
+            }
+
+            if (searchViewModel.Available == null)
+            {
+                searchViewModel.Available = "";
+            }
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCountPrime1", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_ASIN", searchViewModel.ASIN);
+                    cmd.Parameters.AddWithValue("_JobID", searchViewModel.JobID);
+                    cmd.Parameters.AddWithValue("_Available", searchViewModel.Available);
+                    cmd.Parameters.AddWithValue("_IsPrime", searchViewModel.IsPrime);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+
+                            while (reader.Read())
+                            {
+
+                                ZincWatchlistCountViewModel model = new ZincWatchlistCountViewModel();
+
+                                model.Available = Convert.ToInt32(reader["AvailableCount"] != DBNull.Value ? reader["AvailableCount"] : "0");
+                                model.UnAvailable = Convert.ToInt32(reader["UnavailableCount"] != DBNull.Value ? reader["UnavailableCount"] : "0");
+                                model.TotalCount = Convert.ToInt32(reader["Records"] != DBNull.Value ? reader["Records"] : "0");
+                                model.Total = Convert.ToInt32(reader["Total"] != DBNull.Value ? reader["Total"] : "0");
+                                model.ListingRemoved = Convert.ToInt32(reader["ListingRemovedCount"] != DBNull.Value ? reader["ListingRemovedCount"] : "0");
+                                modelview = model;
+
+                            }
+                        }
+                    }
+                    return modelview;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

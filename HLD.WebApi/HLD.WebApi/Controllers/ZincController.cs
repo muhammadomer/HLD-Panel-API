@@ -297,5 +297,79 @@ namespace HLD.WebApi.Controllers
             status = _zincDataAccess.DeleteProductASIN_Detail_byID(ID);
             return Ok(status);
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/Zinc/SendToZinzProduct")]
+        public IActionResult SendToZinzProduct([FromBody] SendToZincProductViewModel viewModels)
+        {
+            bool status = false;
+            if (_zincDataAccess.SendToZinzProduct(viewModels))
+            {
+                status = true;
+                return Ok(status);
+            }
+            else
+            {
+                return Ok(new { Status = status });
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Zinc/GetSendToZincOrder/{_offset}")]
+        public List<GetSendToZincOrderViewModel> GetSendToZincOrder(int _offset)
+        {
+            List<GetSendToZincOrderViewModel> viewModels = null;
+
+            viewModels = _zincDataAccess.GetSendToZincOrder(_offset);
+            return viewModels;
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("api/Zinc/GetSendToZincOrderCount")]
+        public int GetSendToZincOrderCount()
+        {
+            int count = 0;
+            count = _zincDataAccess.GetSendToZincOrderCount();
+            return count;
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Zinc/GetAddress")]
+        public IActionResult GetAddress()
+        {
+            List<GetAddressViewModel> viewModels = null;
+
+            viewModels = _zincDataAccess.GetAddress();
+
+            if (viewModels == null)
+            {
+                return Ok(new GetAddressViewModel());
+            }
+            else
+            {
+                return Ok(viewModels);
+            }
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/Zinc/SendToZincProduct")]
+        public IActionResult SendToZincProduct([FromBody] SendToZincProductViewModel viewModels)
+        {
+            bool status = false;
+            if (_zincDataAccess.SendToZincProduct(viewModels))
+            {
+                status = true;
+                return Ok(status);
+            }
+            else
+            {
+                return Ok(new { Status = status });
+            }
+        }
     }
 }

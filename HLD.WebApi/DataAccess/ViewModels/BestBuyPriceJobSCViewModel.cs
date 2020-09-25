@@ -50,14 +50,14 @@ namespace DataAccess.ViewModels
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class Ranxs
     {
-        public double price { get; set; }
+        public decimal price { get; set; }
         public int quantity_threshold { get; set; }
     }
 
     public class Discounts
     {
         public String end_date { get; set; }
-        public double price { get; set; }
+        public decimal price { get; set; }
         public List<Ranxs> ranges { get; set; }
         public String start_date { get; set; }
     }
@@ -78,7 +78,7 @@ namespace DataAccess.ViewModels
         public string logistic_class { get; set; }
         public int min_quantity_alert { get; set; }
         public List<OfferAdditionalFields> offer_additional_fields { get; set; }
-        public int price { get; set; }
+        public decimal price { get; set; }
         public string price_additional_info { get; set; }
         public int product_id { get; set; }
         public string product_id_type { get; set; }

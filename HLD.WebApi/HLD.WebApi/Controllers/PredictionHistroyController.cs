@@ -24,12 +24,12 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Route("api/PredictionSummaryCount")]
-        public IActionResult PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, int Type = 0)// get list of job summary
+        public IActionResult PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, bool Excluded, int Type = 0)// get list of job summary
         {
             int count = 0;
             try
             {
-                count = _predictionDataAccess.PredictionSummaryCount(VendorId, SKU, Title, Approved, Type);
+                count = _predictionDataAccess.PredictionSummaryCount(VendorId, SKU, Title, Approved, Excluded, Type);
                 return Ok(count);
             }
             catch (Exception)
@@ -70,15 +70,14 @@ namespace HLD.WebApi.Controllers
                 throw;
             }
         }
-
         [HttpGet]
         [Route("api/PredictionHistroy")]
-        public IActionResult Get(int startLimit, int offset, int VendorId, string SKU, string Title, bool Approved, string Sort, string SortedType, int Type = 0)
+        public IActionResult Get(int startLimit, int offset, int VendorId, string SKU, string Title, bool Approved, bool Excluded, string Sort, string SortedType, int Type = 0)
         {
             List<PredictionHistroyViewModel> _ViewModels = new List<PredictionHistroyViewModel>();
             try
             {
-                _ViewModels = _predictionDataAccess.GetAllPrediction(startLimit, offset, VendorId, SKU, Title, Approved, Sort, SortedType, Type);
+                _ViewModels = _predictionDataAccess.GetAllPrediction(startLimit, offset, VendorId, SKU, Title, Approved, Excluded, Sort, SortedType, Type);
                 return Ok(_ViewModels);
             }
             catch (Exception)
@@ -86,6 +85,7 @@ namespace HLD.WebApi.Controllers
                 throw;
             }
         }
+
 
         [HttpGet]
         [Route("api/PredictionHistroy/Item")]
@@ -200,6 +200,32 @@ namespace HLD.WebApi.Controllers
             {
                 var _ViewModels = _predictionDataAccess.GetWareHouseProductQuantitylistBySku(SKU);
                 return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/PredictionHistroy/PredictIncludedExcluded")]
+        public IActionResult PredictIncludedExcluded([FromBody] List<PredictIncludedExcludedViewModel> ListViewModel)
+        {
+
+
+            var list = _predictionDataAccess.PredictIncludedExcluded(ListViewModel);
+            return Ok(list);
+
+        }
+        [HttpPost]
+        [Route("api/PredictionHistroy/GetDataForPOCreation")]
+        public IActionResult GetDataForPOCreation([FromBody] List<PredictionInternalSKUList> SKUlist)
+        {
+            try
+            {
+                var ViewModels = _predictionDataAccess.GetDataForPOCreation(SKUlist);
+                return Ok(ViewModels);
             }
             catch (Exception)
             {

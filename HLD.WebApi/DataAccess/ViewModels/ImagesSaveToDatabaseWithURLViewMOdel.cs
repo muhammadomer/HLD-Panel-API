@@ -11,5 +11,6 @@ namespace DataAccess.ViewModels
         public string product_Sku { get; set; }
         public string FileName { get; set; }
         public string ImageURL { get; set; }
+        public bool isImageExistInSC { get; set; }
     }
 }

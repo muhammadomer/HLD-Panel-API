@@ -11,7 +11,7 @@ namespace DataAccess.ViewModels
         public string ASIN { get; set; }
         public string JobID { get; set; }
         public string Available { get; set; }
-
+        public int IsPrime { get; set; }
         public int Offset { get; set; }
     }
 }

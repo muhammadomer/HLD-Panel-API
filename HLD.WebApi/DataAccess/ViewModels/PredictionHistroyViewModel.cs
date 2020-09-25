@@ -29,9 +29,12 @@ namespace DataAccess.ViewModels
         public decimal LowStock90 { get; set; }
         public int CoverDays { get; set; }
         public int CoverPhy { get; set; }
+        public int ReservedQty { get; set; }
         public int QtyPerBox { get; set; }
         public string ShadowOf { get; set; }
         public string LocationNotes { get; set; }
+        public bool PredictIncluded { get; set; }
+
         public int InternalPOId { get; set; }
         public List<Vendorlist> list { get; set; }
         public List<int> InternalPOs { get; set; }

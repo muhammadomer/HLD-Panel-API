@@ -240,7 +240,9 @@ namespace DataAccess.DataAccess
                             detailViewModel.calculation_ProfitLossPercentage = Math.Round((detailViewModel.calculation_ProfitLoss / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100, 2);
 
 
-                            List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetProductQtyBySKU_ForOrdersPage(detailViewModel.ProductSKU, conn);
+                            //List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetProductQtyBySKU_ForOrdersPage(detailViewModel.ProductSKU, conn);
+                            List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetWareHousesQtyList(detailViewModel.ProductSKU);
+
                             detailViewModel.ZincAsinDetail = _zincDataAccess.GetProductZincDetailBySKU(detailViewModel.ProductSKU);
                             List<SkuTagOrderViewModel> skuTagOrders = _tagDataAccess.GetTagforSku(detailViewModel.ProductSKU);
                             detailViewModel.skuTags = skuTagOrders;

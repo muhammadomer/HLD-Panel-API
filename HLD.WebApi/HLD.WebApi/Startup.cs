@@ -110,7 +110,6 @@ namespace HLD.WebApi
             //services.UseQuartz(typeof(BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job));
             ////  to update qty on bestbuy
             services.UseQuartz(typeof(BestBuyQuantityUpdateJob)); //never comment
-          //  services.UseQuartz(typeof(BestBuyPriceUpdateJob));
             //services.UseQuartz(typeof(UpdateOrdersFromBestBuyJob));
             //services.UseQuartz(typeof(GetOrdersFromBestBuyJob));
 
@@ -121,11 +120,13 @@ namespace HLD.WebApi
 
             //services.UseQuartz(typeof(GetSellerOrderNotes));
 
-           ///services.UseQuartz(typeof(ZincASINWatchListJob));
             //services.UseQuartz(typeof(CreateOrderInSellerCloud));
 
 
             #endregion
+            //  services.UseQuartz(typeof(BestBuyPriceUpdateJob));
+
+            ///services.UseQuartz(typeof(ZincASINWatchListJob));
 
             //services.UseQuartz(typeof(ZincWatchListJobsNew));
             // services.UseQuartz(typeof(GetOrdersOfAllMarketPlacesJobs));
@@ -166,10 +167,6 @@ namespace HLD.WebApi
             //QuartzServicesUtilities.StartJob<BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job>(schedulerr, "");
 
             QuartzServicesUtilities.StartJob<BestBuyQuantityUpdateJob>(schedulerr, ""); //never comment
-          
-            
-           // QuartzServicesUtilities.StartJob<BestBuyPriceUpdateJob>(schedulerr, "");
-
             //QuartzServicesUtilities.StartJob<UpdateOrdersFromBestBuyJob>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<GetOrdersFromBestBuyJob>(schedulerr, "");
 
@@ -179,11 +176,14 @@ namespace HLD.WebApi
 
             //QuartzServicesUtilities.StartJob<GetSellerOrderNotes>(schedulerr, "");
 
-           //QuartzServicesUtilities.StartJob<ZincASINWatchListJob>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<CreateOrderInSellerCloud>(schedulerr, "");
 
 
             #endregion
+            // QuartzServicesUtilities.StartJob<BestBuyPriceUpdateJob>(schedulerr, "");
+
+            //QuartzServicesUtilities.StartJob<ZincASINWatchListJob>(schedulerr, "");
+
             //QuartzServicesUtilities.StartJob<ZincWatchListJobsNew>(schedulerr, "");
             // QuartzServicesUtilities.StartJob<GetPOOrderUpdatesFromSellerCloudJob>(schedulerr, "");
             // QuartzServicesUtilities.StartJob<GetOrdersOfAllMarketPlacesJobs>(schedulerr, "");

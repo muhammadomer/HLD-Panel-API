@@ -95,7 +95,7 @@ namespace HLD.WebApi.Jobs
                         var days = sale60 > 0 ? Math.Round(WHQ / sale60) : 0;
                         messageBody = messageBody + htmlTrStart;
                         messageBody = messageBody + htmlTdStart +
-                        "<span style=\'width:300px;max-width:350px;\'><a style='' target='_blank' href='https://s3.us-east-2.amazonaws.com/upload.hld.erp.images/" + item.ImageUrl + "'> <img src = 'https://s3.us-east-2.amazonaws.com/upload.hld.erp.images/" + item.ImageUrl + "' class='rounded'width='235'style='border:none;border-right:2px solid black;max-width:100;border-bottom:2px solid black'></a></span><br> " + "<div style=\"max-width:190px!important;width:190px!important;font-weight:100!important;margin-bottom:5px!important;\">" + item.ProductTitle + "</div> " + htmlTdEnd
+                        "<span style=\'width:300px;max-width:350px;\'><a style='' target='_blank' href='https://s3.us-east-2.amazonaws.com/upload.hld.erp.images/" + item.ImageUrl + "'> <img src = 'https://s3.us-east-2.amazonaws.com/upload.hld.erp.images.thumbnail/" + item.ImageUrl + "' class='rounded'width='235'style='border:none;border-right:2px solid black;max-width:100;border-bottom:2px solid black'></a></span><br> " + "<div style=\"max-width:190px!important;width:190px!important;font-weight:100!important;margin-bottom:5px!important;\">" + item.ProductTitle + "</div> " + htmlTdEnd
                         + htmlTdStart + "<span style = 'display:inline;display:flex;'>" + item.ProductSKU + "<span >&nbsp;&nbsp;QTY: " + item.TotalQuantity + "</span></span>" +
                         "<span>Shadow Of: " + product.ShadowOf + " </span><br>" +
 

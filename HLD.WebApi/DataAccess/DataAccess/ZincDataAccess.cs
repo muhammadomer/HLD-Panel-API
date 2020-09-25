@@ -286,6 +286,7 @@ namespace DataAccess.DataAccess
             bool status = false;
             try
             {
+                decimal maxPrice = Convert.ToDecimal(Convert.ToDecimal(ViewModel.itemprice) * Convert.ToDecimal(1.15));
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
@@ -294,6 +295,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_z_asin_ca", ViewModel.ASIN);
                     cmd.Parameters.AddWithValue("_available_quantity", 0);
                     cmd.Parameters.AddWithValue("_amazon_price", ViewModel.itemprice);
+                    cmd.Parameters.AddWithValue("_max_price", maxPrice);
                     cmd.Parameters.AddWithValue("_status", ViewModel.status);
                     cmd.Parameters.AddWithValue("_prime", ViewModel.item_prime_badge);
                     cmd.Parameters.AddWithValue("_reviews", "");
@@ -888,6 +890,27 @@ namespace DataAccess.DataAccess
             return listViewModel;
         }
 
+        public bool UpdateNewAsin(string OldASIN, string NewASIN)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateASINInProductZinc", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_OldASIN", OldASIN);
+                    cmd.Parameters.AddWithValue("_NewASIN", NewASIN);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
 
         public int GetAsinProductDetailCount(string DateTo, string DateFrom, string ASIN = "", string Title = "")
         {
@@ -1153,6 +1176,201 @@ namespace DataAccess.DataAccess
             {
             }
             return modellist;
+        }
+
+        public bool SendToZinzProduct(SendToZincProductViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_SaveSendToZincProduct", conn);
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Asin", ViewModel.Asin);
+                    cmd.Parameters.AddWithValue("_Sku", ViewModel.Sku);
+                    cmd.Parameters.AddWithValue("_ShipDays", ViewModel.Shipdays);
+                    cmd.Parameters.AddWithValue("_AccountDetail", ViewModel.AccountDetail);
+                    cmd.Parameters.AddWithValue("_CreditCardDetail", ViewModel.CreditCardDetail);
+                    cmd.Parameters.AddWithValue("_AddressLine1", ViewModel.Address1);
+                    cmd.Parameters.AddWithValue("_AddressLine2", ViewModel.Address2);
+                    cmd.Parameters.AddWithValue("_PostalCode", ViewModel.PostalCode);
+                    cmd.Parameters.AddWithValue("_City", ViewModel.City);
+                    cmd.Parameters.AddWithValue("_State", ViewModel.State);
+                    cmd.Parameters.AddWithValue("_Phone", ViewModel.Phone);
+                    cmd.Parameters.AddWithValue("_Country", ViewModel.Country);
+                    cmd.Parameters.AddWithValue("_FirstName", ViewModel.FirstName);
+                    cmd.Parameters.AddWithValue("_LastName", ViewModel.LastName);
+                   // cmd.Parameters.AddWithValue("_TrackingNumber", ViewModel.TrackingNumber);
+                  //  cmd.Parameters.AddWithValue("_Date", ViewModel.Date);
+                   // cmd.Parameters.AddWithValue("_Response", ViewModel.Response);
+                   // cmd.Parameters.AddWithValue("_LastUpdate", ViewModel.LastUpdate);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
+
+        public List<GetSendToZincOrderViewModel> GetSendToZincOrder(int _offset)
+        {
+            List<GetSendToZincOrderViewModel> list = new List<GetSendToZincOrderViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetSendToZincProduct", conn);
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_offset", _offset);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            GetSendToZincOrderViewModel viewModel = new GetSendToZincOrderViewModel();
+                            viewModel.Asin = Convert.ToString(reader["Asin"] != DBNull.Value ? reader["Asin"] : "");
+                            viewModel.Sku = Convert.ToString(reader["Sku"] != DBNull.Value ? reader["Sku"] : "");
+                            viewModel.AccountDetail = Convert.ToString(reader["AccountDetail"] != DBNull.Value ? reader["AccountDetail"] : "");
+                            viewModel.Date = Convert.ToDateTime(reader["Date"] != DBNull.Value ? reader["Date"] : DateTime.MinValue);
+                            viewModel.TrackingNumber = Convert.ToString(reader["TrackingNumber"] != DBNull.Value ? reader["TrackingNumber"] : "");
+                            viewModel.Response = Convert.ToString(reader["Response"] != DBNull.Value ? reader["Response"] : "");
+                            viewModel.LastUpdate = Convert.ToDateTime(reader["LastUpdate"] != DBNull.Value ? reader["LastUpdate"] : DateTime.MinValue);
+                            viewModel.Qty = Convert.ToInt32(reader["Qty"] != DBNull.Value ? reader["Qty"] : "");
+                            list.Add(viewModel);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
+        public int GetSendToZincOrderCount()
+        {
+            int count = 0;
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetSendToZincProductCount", conn);
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            count = Convert.ToInt32(reader["Records"] != DBNull.Value ? reader["Records"] : 0);
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return count;
+        }
+
+        public List<GetAddressViewModel> GetAddress()
+        {
+            List<GetAddressViewModel> model = new List<GetAddressViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetWHName", conn);
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            GetAddressViewModel getAddress = new GetAddressViewModel();
+                            getAddress.WH_Name = Convert.ToString(reader["WH_Name"] != DBNull.Value ? reader["WH_Name"] : "");
+                            model.Add(getAddress);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return model;
+        }
+
+        public bool SendToZincProduct(SendToZincProductViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_SaveSendToZincProduct", conn);
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OrderId);
+                    cmd.Parameters.AddWithValue("_Asin", ViewModel.Asin);
+                    cmd.Parameters.AddWithValue("_Sku", ViewModel.Sku);
+                    cmd.Parameters.AddWithValue("_ShipDays", ViewModel.Shipdays);
+                    cmd.Parameters.AddWithValue("_AccountDetail", ViewModel.ZincAccountId);
+                    cmd.Parameters.AddWithValue("_CreditCardDetail", ViewModel.CreditCardId);
+                    cmd.Parameters.AddWithValue("_AddressLine1", ViewModel.Address1);
+                    cmd.Parameters.AddWithValue("_AddressLine2", ViewModel.Address2);
+                    cmd.Parameters.AddWithValue("_PostalCode", ViewModel.PostalCode);
+                    cmd.Parameters.AddWithValue("_City", ViewModel.City);
+                    cmd.Parameters.AddWithValue("_State", ViewModel.State);
+                    cmd.Parameters.AddWithValue("_Phone", ViewModel.Phone);
+                    cmd.Parameters.AddWithValue("_Country", ViewModel.Country);
+                    cmd.Parameters.AddWithValue("_FirstName", ViewModel.FirstName);
+                    cmd.Parameters.AddWithValue("_LastName", ViewModel.LastName);
+                    cmd.Parameters.AddWithValue("_Qty", ViewModel.Qty);
+                    cmd.Parameters.AddWithValue("_ReqId", ViewModel.ReqId);
+                    // cmd.Parameters.AddWithValue("_TrackingNumber", ViewModel.TrackingNumber);
+                    // cmd.Parameters.AddWithValue("_Date", ViewModel.Date);
+                    // cmd.Parameters.AddWithValue("_Response", ViewModel.Response);
+                    cmd.Parameters.AddWithValue("_LastUpdate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("_order_code", ViewModel.Code);
+                    cmd.Parameters.AddWithValue("_order_message", ViewModel.Message);
+                    cmd.Parameters.AddWithValue("_order_type", ViewModel.Type);
+                    cmd.Parameters.AddWithValue("_zinc_order_log_id", ViewModel.ZincOrderLogID);
+                    cmd.Parameters.AddWithValue("_order_data", ViewModel.Data);
+                    cmd.Parameters.AddWithValue("_shpping_date", ViewModel.ShppingDate);
+                    cmd.Parameters.AddWithValue("_tracking_number", ViewModel.TrackingNumber);
+                    cmd.Parameters.AddWithValue("_carrier", ViewModel.Carrier);
+                    cmd.Parameters.AddWithValue("_amazon_tracking", ViewModel.AmazonTracking);
+                    cmd.Parameters.AddWithValue("_17_tracking", ViewModel._17Tracking);
+                    cmd.Parameters.AddWithValue("_order_datetime", ViewModel.OrderDatetime);
+                    cmd.Parameters.AddWithValue("_zinc_order_status_internal", ViewModel.ZincOrderStatusInternal);
+                    cmd.Parameters.AddWithValue("_merchant_order_id", ViewModel.MerchantOrderId);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
         }
     }
 }

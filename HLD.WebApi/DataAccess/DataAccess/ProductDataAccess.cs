@@ -634,8 +634,8 @@ namespace DataAccess.DataAccess
                                 ViewModel.ImageURL = "";
                             }
 
-                            List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetProductQtyBySKU_ForOrdersPage(ViewModel.ProductSKU.Trim(), conn);
-
+                            //List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetProductQtyBySKU_ForOrdersPage(ViewModel.ProductSKU.Trim(), conn);
+                            List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetWareHousesQtyList(ViewModel.ProductSKU);
                             ViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
                             List<SkuTagOrderViewModel> skuTagOrders = _tagDataAccess.GetTagforSkubulk(ViewModel.ProductSKU, conn);
                             ViewModel.skuTags = skuTagOrders;
@@ -770,7 +770,8 @@ namespace DataAccess.DataAccess
 
                             //geting product warehouse quantity
 
-                            List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetProductQtyBySKU_ForOrdersPage(ViewModel.ProductSKU.Trim(), conn);
+                            //List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetProductQtyBySKU_ForOrdersPage(ViewModel.ProductSKU.Trim(), conn);
+                             List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetWareHousesQtyList(ViewModel.ProductSKU);
                             ViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
                             List<SkuTagOrderViewModel> skuTagOrders = _tagDataAccess.GetTagforSkubulk(ViewModel.ProductSKU, conn);
                             ViewModel.skuTags = skuTagOrders;
@@ -1169,6 +1170,45 @@ namespace DataAccess.DataAccess
                 {
                     UpdateProductCatalog(item, SKU);
                 }
+            }
+            catch (Exception exp)
+            {
+                throw;
+            }
+            return item;
+        }
+
+        public ProductSaveViewModel GetProductInfoFromSellerCloudForMIssingSku(string SKU)
+        {
+
+            string ApiURL = "";
+            ApiURL = "https://lp.api.sellercloud.com/rest/api";
+            GetChannelCredViewModel _getChannelCredViewModel = new GetChannelCredViewModel();
+            AuthenticateSCRestViewModel authenticate = new AuthenticateSCRestViewModel();
+            _getChannelCredViewModel = _EncDecChannel.DecryptedData("sellercloud");
+            authenticate = _EncDecChannel.AuthenticateSCForIMportOrder(_getChannelCredViewModel, ApiURL);
+
+            ProductSaveViewModel item = new ProductSaveViewModel();
+            ProductSaveListViewModel responses = new ProductSaveListViewModel();
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest
+                    .Create(ApiURL + "/Catalog?model.sKU=" + SKU);
+                request.Method = "GET";
+                request.Accept = "application/json;";
+                request.ContentType = "application/json";
+                request.Headers["Authorization"] = "Bearer " + authenticate.access_token;
+
+                string strResponse = "";
+                using (WebResponse webResponse = request.GetResponse())
+                {
+                    using (StreamReader stream = new StreamReader(webResponse.GetResponseStream()))
+                    {
+                        strResponse = stream.ReadToEnd();
+                    }
+                }
+                responses = JsonConvert.DeserializeObject<ProductSaveListViewModel>(strResponse);
+                item = responses.Items.FirstOrDefault();
             }
             catch (Exception exp)
             {

@@ -1035,5 +1035,31 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+
+        public bool UpdateTitle(string Sku, string Title)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(DOTconnStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateProductTitle", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_sku", Sku);
+                    cmd.Parameters.AddWithValue("_title", Title);
+
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    status = true;
+                }
+            }
+            catch (Exception exp)
+            {
+            }
+            return status;
+        }
+
+
     }
 }

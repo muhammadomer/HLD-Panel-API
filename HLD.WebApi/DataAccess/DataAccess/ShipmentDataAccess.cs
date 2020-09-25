@@ -700,6 +700,64 @@ namespace DataAccess.DataAccess
             }
             return list;
         }
+        public ShipmentCourierInfoViewModel GetShipmentCourierInfo(string ShipmentId)
+        {
+            var Item = new ShipmentCourierInfoViewModel();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetTrackingNumberForEdit", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_ShipmentId", ShipmentId);
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    foreach (DataRow reader in dt.Rows)
+                    {
+                        var viewModel = new ShipmentCourierInfoViewModel()
+                        {
+                            CourierCode = reader["CourierCode"] != DBNull.Value ? Convert.ToString(reader["CourierCode"]) : "",
+                            TrakingNumber = reader["TrakingNumber"] != DBNull.Value ? (string)reader["TrakingNumber"] : "",
+
+                            CreatedAt = reader["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedAt"]) : DateTime.MinValue,
+                        };
+                        Item = viewModel;
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return Item;
+        }
+
+        public bool UpdateShipmentCourierInfo(ShipmentCourierInfoViewModel viewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateShipmentCourierInfo", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_ShipmentId", viewModel.ShipmentId);
+                    cmd.Parameters.AddWithValue("_CourierCode", viewModel.CourierCode);
+                    cmd.Parameters.AddWithValue("_TrakingNumber", viewModel.TrakingNumber);
+                    cmd.Parameters.AddWithValue("_CreatedAt", viewModel.CreatedAt);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    status = true;
+                }
+            }
+            catch (Exception exp)
+            {
+            }
+            return status;
+        }
 
     }
 }

@@ -9,6 +9,10 @@ namespace DataAccess.ViewModels
     public class ZincWatchlistLogsViewModel
     {
         public int jobID { get; set; }
+        public int ZincJobId { get; set; }
+        public int ImportId { get; set; }
+        public int BBJobID { get; set; }
+        public decimal UpdatedPriceBB { get; set; }
         public string ASIN { get; set; }
         public string ProductSKU { get; set; }
         public string ZincResponse { get; set; }
@@ -22,5 +26,6 @@ namespace DataAccess.ViewModels
         public decimal BBSellingPrice { get; set; }
         public double UnitOriginPrice_MSRP { get; set; }
         public double UnitOriginPrice_Max { get; set; }
+        public int HLD_CA1 { get; set; }
     }
 }

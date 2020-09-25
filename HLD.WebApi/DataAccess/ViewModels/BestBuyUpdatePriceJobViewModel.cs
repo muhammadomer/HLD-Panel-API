@@ -10,6 +10,7 @@ namespace DataAccess.ViewModels
     {
         public string SKU { get; set; }
         public int ProductId{ get; set; }
+        public int ZincJobID{ get; set; }
         public decimal UpdateSelllingPrice { get; set; }
         public decimal MSRP { get; set; }
 

@@ -243,5 +243,18 @@ namespace HLD.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("UpdateTitle")]
+        public IActionResult UpdateTitle(string Sku, string Title)
+        {
+            bool status = false;
+
+            status = _DataAccess.UpdateTitle(Sku, Title);
+
+
+            return Ok(status);
+        }
     }
 }

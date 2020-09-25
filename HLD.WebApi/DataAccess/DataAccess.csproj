@@ -290,6 +290,7 @@
     <Compile Include="ViewModels\GetOrdersFromBestBuyViewModel.cs" />
     <Compile Include="ViewModels\GetOrdersNotFromBBViewModel.cs" />
     <Compile Include="ViewModels\GetProductTitleViewModel.cs" />
+    <Compile Include="ViewModels\GetSendToZincOrderViewModel.cs" />
     <Compile Include="ViewModels\GetStatusFromZincViewModel.cs" />
     <Compile Include="ViewModels\GetSummaryandCountPOViewModel.cs" />
     <Compile Include="ViewModels\GetSummaryForPOViewModel.cs" />
@@ -305,6 +306,7 @@
     <Compile Include="ViewModels\Order_SKU_Profit_History.cs" />
     <Compile Include="ViewModels\POIdViewModel.cs" />
     <Compile Include="ViewModels\PostDataViewModel.cs" />
+    <Compile Include="ViewModels\PredictIncludedExcludedViewModel.cs" />
     <Compile Include="ViewModels\PredictionHistroyViewModel.cs" />
     <Compile Include="ViewModels\PredictionPOViewModel.cs" />
     <Compile Include="ViewModels\ProductContinueDisContinueViewModel.cs" />
@@ -319,6 +321,7 @@
     <Compile Include="ViewModels\ProductStatusViewModel.cs" />
     <Compile Include="ViewModels\ProductWarehouseQtyForDS_None_SKU_ViewModel.cs" />
     <Compile Include="ViewModels\ProductWarehouseQtyViewModel.cs" />
+    <Compile Include="ViewModels\ProductwareHousesViewModel.cs" />
     <Compile Include="ViewModels\ProductZinAsinDetail.cs" />
     <Compile Include="ViewModels\PurchaseOrderDataViewModel.cs" />
     <Compile Include="ViewModels\PurchaseOrdersViewModel.cs" />
@@ -341,8 +344,10 @@
     <Compile Include="ViewModels\SellerProductDataViewModel.cs" />
     <Compile Include="ViewModels\SendDataZincViewModel.cs" />
     <Compile Include="ViewModels\SendNewOrderEmail.cs" />
+    <Compile Include="ViewModels\SendToZinzProductViewModel.cs" />
     <Compile Include="ViewModels\ShipmentCasePackProductHeader.cs" />
     <Compile Include="ViewModels\ShipmentCasePackProductViewModel.cs" />
+    <Compile Include="ViewModels\ShipmentCourierInfoViewModel.cs" />
     <Compile Include="ViewModels\ShipmentHistoryViewModel.cs" />
     <Compile Include="ViewModels\ShipmentMultiBoxViewModel.cs" />
     <Compile Include="ViewModels\ShipmentBoxDetailViewModel.cs" />
@@ -365,6 +370,7 @@
     <Compile Include="ViewModels\UnCreatedOrderViewModel.cs" />
     <Compile Include="ViewModels\UpdateAsinSkuDropShipDataJobViewModel.cs" />
     <Compile Include="ViewModels\UpdateChannelsViewModel.cs" />
+    <Compile Include="ViewModels\UpdateImportIdInZincLogViewModel.cs" />
     <Compile Include="ViewModels\UpdatePOAcceptedViewModel.cs" />
     <Compile Include="ViewModels\UpdateQtyCommentsByJobViewModel.cs" />
     <Compile Include="ViewModels\UpdateSCDropshipStatusViewModel.cs" />
@@ -402,6 +408,7 @@
     <Compile Include="ViewModels\SellerCloudOrder_CustomerViewModel.cs" />
     <Compile Include="ViewModels\TotalCountWithBestBuyOrderViewModel.cs" />
     <Compile Include="ViewModels\ZincProxyViewModel.cs" />
+    <Compile Include="ViewModels\ZincWatchlistCountViewModel.cs" />
     <Compile Include="ViewModels\ZincWatchListJobViewModel.cs" />
     <Compile Include="ViewModels\ZincWatchlistLogsViewModel.cs" />
     <Compile Include="ViewModels\ZincWatchListSummary.cs" />

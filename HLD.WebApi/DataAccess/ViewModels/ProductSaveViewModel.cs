@@ -34,4 +34,9 @@ namespace DataAccess.ViewModels
         public string ProductType { get; set; }
         public string UPC { get; set; }
     }
+    public class ProductSaveListViewModel
+    {
+        public List<ProductSaveViewModel> Items { get; set; }
+        public int TotalResults { get; set; }
+    }
 }

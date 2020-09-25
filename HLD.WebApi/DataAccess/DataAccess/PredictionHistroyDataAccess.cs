@@ -17,7 +17,7 @@ namespace DataAccess
         {
             connStr = connectionString.GetConnectionString();
         }
-        public int PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, int Type = 0)
+        public int PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, bool Excluded, int Type = 0)
         {
             if (string.IsNullOrEmpty(SKU) || SKU == "undefined")
                 SKU = "";
@@ -35,13 +35,14 @@ namespace DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetPredictionHistoryCountCopy", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetPredictionHistoryCountCopyExcluded", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_VendorId", VendorId);
                     cmd.Parameters.AddWithValue("_SKU", SKU);
                     cmd.Parameters.AddWithValue("_Approved", Approved);
                     cmd.Parameters.AddWithValue("_Title", Title);
                     cmd.Parameters.AddWithValue("_Type", Type);
+                    cmd.Parameters.AddWithValue("_Excluded", Excluded);
 
                     MySqlDataAdapter mySqlDataAdap = new MySqlDataAdapter(cmd);
                     DataTable data = new DataTable();
@@ -63,7 +64,6 @@ namespace DataAccess
                 throw;
             }
         }
-
         public int SavePO(PurchaseOrderDataViewModel model)
         {
             int Id = 0;
@@ -131,7 +131,7 @@ namespace DataAccess
             }
         }
 
-        public List<PredictionHistroyViewModel> GetAllPrediction(int startLimit, int offset, int VendorId, string SKU, string Title, bool Approved, string Sort, string SortedType, int Type = 0)
+        public List<PredictionHistroyViewModel> GetAllPrediction(int startLimit, int offset, int VendorId, string SKU, string Title, bool Approved, bool Excluded, string Sort, string SortedType, int Type = 0)
         {
 
             List<PredictionHistroyViewModel> listViewModel = new List<PredictionHistroyViewModel>();
@@ -150,7 +150,7 @@ namespace DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("sp_PredictionHistoryCopy", conn);
+                    MySqlCommand cmd = new MySqlCommand("sp_PredictionHistoryCopyExcluded", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_offset", offset);
                     cmd.Parameters.AddWithValue("_Limit", startLimit);
@@ -162,6 +162,7 @@ namespace DataAccess
                     cmd.Parameters.AddWithValue("_SortedType", SortedType);
                     //cmd.Parameters.AddWithValue("_d_90", d_90);
                     cmd.Parameters.AddWithValue("_Type", Type);
+                    cmd.Parameters.AddWithValue("_Excluded", Excluded);
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -187,10 +188,12 @@ namespace DataAccess
                                 ViewModel.LowStock60 = Convert.ToDecimal(reader["LowStock60"] != DBNull.Value ? reader["LowStock60"] : 0);
                                 ViewModel.LowStock90 = Convert.ToDecimal(reader["LowStock90"] != DBNull.Value ? reader["LowStock90"] : 0);
                                 ViewModel.CoverDays = Convert.ToInt32(reader["CoverDays"] != DBNull.Value ? reader["CoverDays"] : 0);
-                                ViewModel.CoverPhy= Convert.ToInt32(reader["CoverPhy"] != DBNull.Value ? reader["CoverPhy"] : 0);
+                                ViewModel.CoverPhy = Convert.ToInt32(reader["CoverPhy"] != DBNull.Value ? reader["CoverPhy"] : 0);
+                                ViewModel.ReservedQty = Convert.ToInt32(reader["ReservedQty"] != DBNull.Value ? reader["ReservedQty"] : 0);
                                 ViewModel.LocationNotes = reader["LocationNotes"] != DBNull.Value ? (string)reader["LocationNotes"] : "";
                                 ViewModel.InternalPOId = reader["InternalPOId"] != DBNull.Value ? Convert.ToInt32(reader["InternalPOId"]) : 0;
                                 ViewModel.ShadowOf = reader["ShadowOf"] != DBNull.Value ? (string)reader["ShadowOf"] : "";
+                                ViewModel.PredictIncluded = Convert.ToBoolean(reader["PredictIncluded"] != DBNull.Value ? reader["PredictIncluded"] : "false");
                                 listViewModel.Add(ViewModel);
                             }
                             list = listViewModel.GroupBy(s => s.SKU).Select(p => p.FirstOrDefault()).Distinct().ToList();
@@ -217,7 +220,6 @@ namespace DataAccess
             }
             return list;
         }
-
         public PredictionPOViewModel GetAllPredictionbyId(int Id)
         {
 
@@ -243,6 +245,7 @@ namespace DataAccess
                                 ViewModel.SKU = Convert.ToString(reader["sku"]);
                                 ViewModel.ApprovedUnitPrice = Convert.ToDecimal(reader["ApprovedUnitPrice"] != DBNull.Value ? reader["ApprovedUnitPrice"] : 0);
                                 ViewModel.POQty = Convert.ToInt32(reader["POQty"] != DBNull.Value ? reader["POQty"] : 0);
+                                ViewModel.LowStock90 = Convert.ToInt32(reader["LowStock90"] != DBNull.Value ? reader["LowStock90"] : 0);
                                 ViewModel.POstatus = Convert.ToInt32(reader["POstatus"] != DBNull.Value ? reader["POstatus"] : 0);
                                 ViewModel.VendorId = Convert.ToInt32(reader["VendorId"] != DBNull.Value ? reader["VendorId"] : 0);
                                 ViewModel.Vendor = Convert.ToString(reader["Vendor"]);
@@ -252,6 +255,16 @@ namespace DataAccess
                                 ViewModel.SmallImage = reader["SmallImage"] != DBNull.Value ? (string)reader["SmallImage"] : "";
                                 ViewModel.LargImage = reader["LargImage"] != DBNull.Value ? (string)reader["LargImage"] : "";
                                 ViewModel.CasePackQty = reader["CasePackQty"] != DBNull.Value ? Convert.ToInt32(reader["CasePackQty"]) : 0;
+                                ViewModel.PhysicalQty = Convert.ToInt32(reader["PhysicalQty"] != DBNull.Value ? reader["PhysicalQty"] : 0);
+                                ViewModel.QtySold60 = Convert.ToInt32(reader["QtySold60"] != DBNull.Value ? reader["QtySold60"] : 0);
+                                ViewModel.QtySold90 = Convert.ToInt32(reader["QtySold90"] != DBNull.Value ? reader["QtySold90"] : 0);
+                                ViewModel.CoverDays = Convert.ToInt32(reader["CoverDays"] != DBNull.Value ? reader["CoverDays"] : 0);
+                                ViewModel.CoverPhy = Convert.ToInt32(reader["CoverPhy"] != DBNull.Value ? reader["CoverPhy"] : 0);
+                                ViewModel.OnOrder = Convert.ToInt32(reader["OnOrder"] != DBNull.Value ? reader["OnOrder"] : 0);
+                                ViewModel.ReservedQty = Convert.ToInt32(reader["ReservedQty"] != DBNull.Value ? reader["ReservedQty"] : 0);
+                                ViewModel.Velocity = Convert.ToDecimal(reader["Velocity"] != DBNull.Value ? reader["Velocity"] : 0);
+                                ViewModel.CoverDays = Convert.ToInt32(reader["CoverDays"] != DBNull.Value ? reader["CoverDays"] : 0);
+                                //ViewModel.CoverDays = ViewModel.Velocity != 0 ? Convert.ToInt32(Convert.ToDecimal(ViewModel.POQty + ViewModel.PhysicalQty + ViewModel.OnOrder + ViewModel.ReservedQty) / ViewModel.Velocity) : 0;
                                 ViewModel.InternalPOID = Id;
                                 listViewModel.Add(ViewModel);
                             }
@@ -268,6 +281,15 @@ namespace DataAccess
                                     SmallImage = x.SmallImage,
                                     ApprovedUnitPrice = x.ApprovedUnitPrice,
                                     CasePackQty = x.CasePackQty,
+                                    PhysicalQty = x.PhysicalQty,
+                                    QtySold60 = x.QtySold60,
+                                    QtySold90 = x.QtySold90,
+                                    OnOrder = x.OnOrder,
+                                    Velocity = x.Velocity,
+                                    CoverDays = x.CoverDays,
+                                    CoverPhy=x.CoverPhy,
+                                    ReservedQty=x.ReservedQty,
+                                    LowStock90=x.LowStock90,
                                 }).ToList();
 
                                 item.list = Vendors;
@@ -281,7 +303,6 @@ namespace DataAccess
             }
             return list.FirstOrDefault();
         }
-
         public List<PredictionInternalPOList> GetInternalPOIdBySKU(string SKU)
         {
             List<PredictionInternalPOList> list = new List<PredictionInternalPOList>();
@@ -537,6 +558,121 @@ namespace DataAccess
             }
             return list;
         }
+
+        public bool PredictIncludedExcluded(List<PredictIncludedExcludedViewModel> ListViewModel)
+        {
+            bool status = false;
+            try
+            {
+                foreach (var item in ListViewModel)
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connStr))
+                    {
+                        conn.Open();
+                        MySqlCommand cmd = new MySqlCommand("P_UpdatePredictIncludedExcluded", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_SKU", item.SKU);
+                        cmd.Parameters.AddWithValue("_includedexcluded", item.PredictIncludedExcluded);
+
+                        cmd.ExecuteNonQuery();
+                        status = true;
+                        conn.Close();
+
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
+        public PredictionPOViewModel GetDataForPOCreation(List<PredictionInternalSKUList> SKUlist)
+        {
+
+            List<PredictionPOViewModel> listViewModel = new List<PredictionPOViewModel>();
+            PredictionPOViewModel Obj = new PredictionPOViewModel();
+
+            try
+            {
+                foreach (var item in SKUlist)
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connStr))
+                    {
+                        conn.Open();
+                        MySqlCommand cmd = new MySqlCommand("p_GetDataForPOCreation", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_SKU", item.SKU);
+                        cmd.Parameters.AddWithValue("_VendorId", item.VendorId);
+                        using (var reader = cmd.ExecuteReader())
+                            if (reader.HasRows)
+                                while (reader.Read())
+                                {
+                                    var model = new PredictionPOViewModel()
+                                    {
+                                        SKU = Convert.ToString(reader["SKU"]),
+                                        VendorId = Convert.ToInt32(reader["VendorId"] != DBNull.Value ? reader["VendorId"] : 0),
+                                        Vendor = Convert.ToString(reader["VendorAlias"] != DBNull.Value ? reader["VendorAlias"] : 0),
+                                        ApprovedUnitPrice = Convert.ToDecimal(reader["ApprovedUnitPrice"] != DBNull.Value ? reader["ApprovedUnitPrice"] : 0),
+                                        Currency = Convert.ToString(reader["Currency"]),
+                                        POQty = Convert.ToInt32(reader["POQty"] != DBNull.Value ? reader["POQty"] : 0),
+                                        CasePackQty = Convert.ToInt32(reader["CasePackQty"] != DBNull.Value ? reader["CasePackQty"] : 0),
+                                        PhysicalQty = Convert.ToInt32(reader["PhysicalQty"] != DBNull.Value ? reader["PhysicalQty"] : 0),
+                                        QtySold60 = Convert.ToInt32(reader["QtySold60"] != DBNull.Value ? reader["QtySold60"] : 0),
+                                        QtySold90 = Convert.ToInt32(reader["QtySold90"] != DBNull.Value ? reader["QtySold90"] : 0),
+                                        CoverDays = Convert.ToInt32(reader["CoverDays"] != DBNull.Value ? reader["CoverDays"] : 0),
+
+
+                                        Velocity = Convert.ToDecimal(reader["Velocity"] != DBNull.Value ? reader["Velocity"] : 0),
+                                        SmallImage = reader["Compress_image"] != DBNull.Value ? Convert.ToString(reader["Compress_image"]) : "",
+                                        LargImage = reader["image_name"] != DBNull.Value ? Convert.ToString(reader["image_name"]) : "",
+                                        OnOrder = Convert.ToInt32(reader["OnOrder"] != DBNull.Value ? reader["OnOrder"] : 0),
+                                        CoverPhy = Convert.ToInt32(reader["CoverPhy"] != DBNull.Value ? reader["CoverPhy"] : 0),
+                                        ReservedQty = Convert.ToInt32(reader["ReservedQty"] != DBNull.Value ? reader["ReservedQty"] : 0),
+                                        LowStock90 = Convert.ToDecimal(reader["LowStock90"] != DBNull.Value ? reader["LowStock90"] : 0),
+                                    };
+                                    model.CoverDays = model.CoverDays = Convert.ToInt32(reader["CoverDays"] != DBNull.Value ? reader["CoverDays"] : 0);
+                                    listViewModel.Add(model);
+                                }
+                                    
+
+                    }
+                }
+
+                if (listViewModel.Count > 0)
+                {
+                    var list = listViewModel.Select(s => new PredictionSKUs()
+                    {
+                        SKU = s.SKU,
+                        ApprovedUnitPrice = s.ApprovedUnitPrice,
+                        Currency = s.Currency,
+                        POQty = s.POQty,
+                        CasePackQty = s.CasePackQty,
+                        PhysicalQty = s.PhysicalQty,
+                        QtySold60 = s.QtySold60,
+                        QtySold90 = s.QtySold90,
+                        LowStock90=s.LowStock90,
+                        ReservedQty=s.ReservedQty,
+                        CoverPhy=s.CoverPhy,
+
+                        Velocity = s.Velocity,
+                        SmallImage = s.SmallImage,
+                        LargImage = s.LargImage,
+                        OnOrder = s.OnOrder,
+                        CoverDays = s.CoverDays,
+                    }).ToList();
+                    Obj = listViewModel.FirstOrDefault();
+                    Obj.list = list;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+            }
+            return Obj;
+        }
+
     }
 
 

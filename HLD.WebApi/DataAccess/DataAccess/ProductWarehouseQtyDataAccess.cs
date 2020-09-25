@@ -22,7 +22,7 @@ namespace DataAccess.DataAccess
             connStr = connectionString.GetConnectionString();
             _EncDecChannel = new EncDecChannel(connectionString);
         }
-
+        //new Job.
         public bool SaveProductQty(List<ProductWarehouseQtyViewModel> viewModel)
         {
             bool status = false;
@@ -280,11 +280,32 @@ namespace DataAccess.DataAccess
                 }
                 warehouselist = JsonConvert.DeserializeObject<List<WareHouseProductQty>>(strResponse);
 
-                var status = SaveWarehouseProductQty_New(warehouselist);
-                var Item = warehouselist.Where(s => s.WarehouseID != 364 && s.WarehouseID != 365).ToList();
+                ProductwareHousesViewModel viewModel = new ProductwareHousesViewModel();
+                viewModel.SKU = warehouselist[0].ProductID;
 
-                var PhyQtyt = Item.Sum(s => s.PhysicalQty);
-                UpdateProductCatalogByWHSKU(PhyQtyt, SKU);
+                viewModel.DropShip_Canada = warehouselist.Where(s => s.WarehouseID == 364).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.DropShip_USA = warehouselist.Where(s => s.WarehouseID == 365).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.FBA_Canada = warehouselist.Where(s => s.WarehouseID == 368).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.FBA_USA = warehouselist.Where(s => s.WarehouseID == 359).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.HLD_CA1 = warehouselist.Where(s => s.WarehouseID == 358).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.HLD_CA2 = warehouselist.Where(s => s.WarehouseID == 367).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.HLD_CN1 = warehouselist.Where(s => s.WarehouseID == 376).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.HLD_Interim = warehouselist.Where(s => s.WarehouseID == 378).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.HLD_Tech1 = warehouselist.Where(s => s.WarehouseID == 372).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.Interim_FBA_CA = warehouselist.Where(s => s.WarehouseID == 373).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.Interim_FBA_USA = warehouselist.Where(s => s.WarehouseID == 360).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.NY_14305 = warehouselist.Where(s => s.WarehouseID == 369).Select(s => s.AvailableQty).FirstOrDefault();
+                viewModel.Shipito = warehouselist.Where(s => s.WarehouseID == 366).Select(s => s.AvailableQty).FirstOrDefault();
+                SaveProductWareHouses(viewModel);
+
+                var PhyQtyt = viewModel.FBA_Canada + viewModel.FBA_USA + viewModel.HLD_CA1 + viewModel.HLD_CA2 + viewModel.HLD_CN1 + viewModel.HLD_Interim + viewModel.HLD_Tech1 + viewModel.Interim_FBA_CA + viewModel.Interim_FBA_USA + viewModel.NY_14305 + viewModel.Shipito;
+                UpdateProductCatalogByWHSKU(PhyQtyt, viewModel.SKU);
+                
+                //var status = SaveWarehouseProductQty_New(warehouselist);
+                //var Item = warehouselist.Where(s => s.WarehouseID != 364 && s.WarehouseID != 365).ToList();
+
+                //var PhyQtyt = Item.Sum(s => s.PhysicalQty);
+                //UpdateProductCatalogByWHSKU(PhyQtyt, SKU);
             }
             catch (Exception exp)
             {
@@ -483,6 +504,312 @@ namespace DataAccess.DataAccess
             }
             return listViewModel;
         }
+        public bool SaveWarehouseProductQty_New2(List<ProductWarehouseQtyViewModel> viewModel)
+        {
+            try
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.Append("");
+                DataTable dt = new DataTable();
+                dt.Columns.Add(new DataColumn("sku", typeof(System.String)));
+                dt.Columns.Add(new DataColumn("PhysicalQty", typeof(System.Int32)));
+                dt.Columns.Add(new DataColumn("WarehouseID", typeof(System.Int32)));
+                foreach (var item in viewModel)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["sku"] = item.ProductSku;
+                    dr["PhysicalQty"] = item.AvailableQty;
+                    dr["WarehouseID"] = item.WarehouseID;
 
+                    dt.Rows.Add(dr);
+                    //string name = wareHouses.Where(s => s.Id == id).FirstOrDefault().Name;
+                }
+                MySqlConnection con = new MySqlConnection(connStr);
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand("p_InsertUpdateWarehouseProductQuanty", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.UpdatedRowSource = UpdateRowSource.None;
+
+                cmd.Parameters.Add("?_sku", MySqlDbType.String).SourceColumn = "sku";
+                cmd.Parameters.Add("?_PhysicalQty", MySqlDbType.Int32).SourceColumn = "PhysicalQty";
+                cmd.Parameters.Add("?_WarehouseID", MySqlDbType.Decimal).SourceColumn = "WarehouseID";
+
+                MySqlDataAdapter da = new MySqlDataAdapter();
+                da.InsertCommand = cmd;
+                da.UpdateBatchSize = 100;
+                int records = da.Update(dt);
+                con.Close();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool SaveWarehouseProductQty_New4(List<ProductWarehouseQtyViewModel> viewModel)
+        {
+            try
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.Append("");
+                foreach (var item in viewModel)
+                {
+                    stringBuilder.Append("update product_warehouse_qty SET qty_avaiable='" + item.AvailableQty + "',warehouseName='" + item.WarehouseName + "' where sku='" + item.ProductSku + "' and warehouse_id='" + item.WarehouseID + "';");
+                }
+                MySqlConnection con = new MySqlConnection(connStr);
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand mySqlCommand = new MySqlCommand(stringBuilder.ToString(), conn);
+                    mySqlCommand.ExecuteNonQuery();
+                    conn.Close();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool SaveProductWareHouses(ProductwareHousesViewModel viewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_SaveProductWarehouseQtydumy", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_SKU", viewModel.SKU);
+                    cmd.Parameters.AddWithValue("_DropShip_Canada", viewModel.DropShip_Canada);
+                    cmd.Parameters.AddWithValue("_DropShip_USA", viewModel.DropShip_USA);
+                    cmd.Parameters.AddWithValue("_FBA_Canada", viewModel.FBA_Canada);
+                    cmd.Parameters.AddWithValue("_FBA_USA", viewModel.FBA_USA);
+                    cmd.Parameters.AddWithValue("_HLD_CA1", viewModel.HLD_CA1);
+                    cmd.Parameters.AddWithValue("_HLD_CA2", viewModel.HLD_CA2);
+                    cmd.Parameters.AddWithValue("_HLD_CN1", viewModel.HLD_CN1);
+                    cmd.Parameters.AddWithValue("_HLD_Interim", viewModel.HLD_Interim);
+                    cmd.Parameters.AddWithValue("_HLD_Tech1", viewModel.HLD_Tech1);
+                    cmd.Parameters.AddWithValue("_Interim_FBA_CA", viewModel.Interim_FBA_CA);
+                    cmd.Parameters.AddWithValue("_Interim_FBA_USA", viewModel.Interim_FBA_USA);
+                    cmd.Parameters.AddWithValue("_NY_14305", viewModel.NY_14305);
+                    cmd.Parameters.AddWithValue("_Shipito", viewModel.Shipito);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
+
+        public List<ProductWarehouseQtyViewModel> GetWareHousesQtyList(string SKU)
+        {
+            List<ProductWarehouseQtyViewModel> list = new List<ProductWarehouseQtyViewModel>(); ;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetWhareHousesQtyBySKU", conn);
+                    cmd.Parameters.AddWithValue("_SKU", SKU);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            
+                            while (reader.Read())
+                            {
+                                string SKUc = Convert.ToString(reader["SKU"] != DBNull.Value ? reader["SKU"] : "");
+                                string LocationNotes = Convert.ToString(reader["LocationNotes"] != DBNull.Value ? reader["LocationNotes"] : "");
+                                int DropShip_Canadac = Convert.ToInt32(reader["DropShip_Canada"] != DBNull.Value ? reader["DropShip_Canada"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.DropShipCanada;
+                                    model.AvailableQty = DropShip_Canadac;
+                                    model.WarehouseName = "DropShip Canada";
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+                                }
+                                int DropShip_USAc = Convert.ToInt32(reader["DropShip_USA"] != DBNull.Value ? reader["DropShip_USA"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.DropShipUSA;
+                                    model.WarehouseName = "DropShip USA";
+                                    model.AvailableQty = DropShip_USAc;
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+
+                                    
+                                }
+                                int FBA_Canadac = Convert.ToInt32(reader["FBA_Canada"] != DBNull.Value ? reader["FBA_Canada"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.FBACanada;
+                                    model.AvailableQty = FBA_Canadac;
+                                    model.WarehouseName = "FBA Canada";
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+                                   
+                                }
+                                int FBA_USAc = Convert.ToInt32(reader["FBA_USA"] != DBNull.Value ? reader["FBA_USA"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.FBAUSA;
+                                    model.AvailableQty = FBA_USAc;
+                                    model.WarehouseName = "FBA USA";
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+
+                                 
+                                }
+                                int HLD_CA1c = Convert.ToInt32(reader["HLD_CA1"] != DBNull.Value ? reader["HLD_CA1"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.HLDCA1;
+                                    model.AvailableQty = HLD_CA1c;
+                                    model.WarehouseName = "HLD-CA1";
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+
+                                    
+                                }
+                                int HLD_CA2c = Convert.ToInt32(reader["HLD_CA2"] != DBNull.Value ? reader["HLD_CA2"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.HLDCA2;
+                                    model.AvailableQty = HLD_CA2c;
+                                    model.WarehouseName = "HLD-CA2";
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+
+                                    
+                                }
+                                int HLD_CN1c = Convert.ToInt32(reader["HLD_CN1"] != DBNull.Value ? reader["HLD_CN1"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.HLDCN1;
+                                    model.AvailableQty = HLD_CN1c;
+                                    model.WarehouseName = "HLD-CN1";
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+
+                                   
+                                }
+                                int HLD_Interimc = Convert.ToInt32(reader["HLD_Interim"] != DBNull.Value ? reader["HLD_Interim"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.HLDInterim;
+                                    model.AvailableQty = HLD_Interimc;
+                                    model.WarehouseName = "HLD-Interim";
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+
+                                    
+                                }
+                                int HLD_Tech1c = Convert.ToInt32(reader["HLD_Tech1"] != DBNull.Value ? reader["HLD_Tech1"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.HLDTech1;
+                                    model.AvailableQty = HLD_Tech1c;
+                                    model.WarehouseName = "HLD-Tech1";
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+
+                                   
+                                }
+                                int Interim_FBA_CAc = Convert.ToInt32(reader["Interim_FBA_CA"] != DBNull.Value ? reader["Interim_FBA_CA"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.InterimFBACA;
+                                    model.AvailableQty = Interim_FBA_CAc;
+                                    model.WarehouseName = "Interim FBA CA";
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+                                }
+                                int Interim_FBA_USAc = Convert.ToInt32(reader["Interim_FBA_USA"] != DBNull.Value ? reader["Interim_FBA_USA"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.InterimFBAUSA;
+                                    model.AvailableQty = Interim_FBA_USAc;
+                                    model.WarehouseName = "Interim FBA USA";
+                                    model.LocationNotes = LocationNotes;
+                                    model.ProductSku = SKUc;
+                                    list.Add(model);
+                                }
+                                int NY_14305c = Convert.ToInt32(reader["NY_14305"] != DBNull.Value ? reader["NY_14305"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.NY14305;
+                                    model.WarehouseName = "NY-14305";
+                                    model.AvailableQty = NY_14305c;
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+                                }
+                                int Shipitoc = Convert.ToInt32(reader["Shipito"] != DBNull.Value ? reader["Shipito"] : 0);
+                                {
+                                    ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
+                                    model.WarehouseID = (int)WarehouseNames.Shipito;
+                                    model.AvailableQty = Shipitoc;
+                                    model.WarehouseName = "Shipito";
+                                    model.ProductSku = SKUc;
+                                    model.LocationNotes = LocationNotes;
+                                    list.Add(model);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return list;
+        }
+
+    }
+
+    public enum WarehouseNames
+    {
+        DropShipCanada = 1,
+        DropShipUSA = 2,
+        FBACanada = 3,
+        FBAUSA = 4,
+        HLDCA1 = 5,
+        HLDCA2 = 6,
+        HLDCN1 = 7,
+        HLDInterim = 8,
+        HLDTech1 = 9,
+        InterimFBACA = 10,
+        InterimFBAUSA = 11,
+        NY14305 = 12,
+        Shipito = 13
     }
 }

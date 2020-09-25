@@ -551,6 +551,15 @@ namespace HLD.WebApi.Controllers
             return Ok(list);
         }
 
+        [HttpGet]
+        //[Authorize]
+        [Route("api/Product/GetWareHousesQtyList")]
+        public IActionResult GetWareHousesQtyList(string SKU)
+        {
+            var list = QtyDataAccess.GetWareHousesQtyList(SKU);
+            return Ok(list);
+        }
+
         public void TaskExecute(int Job_Id)
         {
             _getChannelCredViewModel = new GetChannelCredViewModel();
@@ -595,11 +604,11 @@ namespace HLD.WebApi.Controllers
                         string greytext = "";
                         // getting all those offers which have fulfilled true
                         var offerids = model.offers.Where(e => e.marketplace_fulfilled.Equals(true)).Select(
-                            e => new
-                            {
-                                offerid = e.offer_id,
-                                offerPrice = e.price
-                            }).ToList();
+                        e => new
+                        {
+                            offerid = e.offer_id,
+                            offerPrice = e.price
+                        }).ToList();
 
                         // based on offerid's list getting minimum price and then select offer from offer's list
 
@@ -609,15 +618,14 @@ namespace HLD.WebApi.Controllers
                             offerID = offerids.Where(e => e.offerPrice.Value == minPriceOfOffer.Value).Select(e => e.offerid).FirstOrDefault();
                         }
                         var models = model.offers.Where(e => e.offer_id == offerID).ToList();
-
+                        zincProductSaveViewModel = new ZincProductSaveViewModel();
+                        zincProductSaveViewModel.timestemp = model.timestamp.HasValue ? model.timestamp.Value : 0;
+                        zincProductSaveViewModel.status = model.status;
+                        zincProductSaveViewModel.ASIN = model.asin;
+                        zincProductSaveViewModel.Product_sku = ASIN_List.ProductSKU;
+                        var status = model.status;
                         if (models != null && models.Count > 0)
                         {
-                            zincProductSaveViewModel = new ZincProductSaveViewModel();
-                            zincProductSaveViewModel.timestemp = model.timestamp.HasValue ? model.timestamp.Value : 0;
-                            zincProductSaveViewModel.status = model.status;
-                            zincProductSaveViewModel.ASIN = model.asin;
-                            zincProductSaveViewModel.Product_sku = ASIN_List.ProductSKU;
-                            var status = model.status;
                             foreach (var item in models)
                             {
                                 zincProductSaveViewModel.sellerName = item.seller.name;
@@ -642,6 +650,7 @@ namespace HLD.WebApi.Controllers
 
                             }
                         }
+
                         zincWatchListlogs.Amz_Price = zincProductSaveViewModel.itemprice;
                         zincWatchListlogs.ASIN = zincProductSaveViewModel.ASIN;
                         zincWatchListlogs.ProductSKU = zincProductSaveViewModel.Product_sku;
@@ -747,7 +756,7 @@ namespace HLD.WebApi.Controllers
                     }
                     else // if available
                     {
-                        CheckProductDropShipStatusViewModel dropshipStatus = productDataAccess.CheckSKuDropShipStatus(ASIN_List.ProductSKU); // enable or disable 
+                        CheckProductDropShipStatusViewModel dropshipStatus = productDataAccess.CheckSKuDropShipStatus(ASIN_List.ProductSKU); // enable or disable
                         if (dropshipStatus.dropship_status == false)// if disable set enable
                         {
                             bool isdone = productDataAccess.UpdateProductDropshipStatusAndQty(DropShipQtyViewModal);
@@ -766,6 +775,10 @@ namespace HLD.WebApi.Controllers
 
                     }
 
+                    if (ASIN_List.ASIN != zincProductSaveViewModel.ASIN)
+                    {
+                        zincDataAccess.UpdateNewAsin(ASIN_List.ASIN, zincProductSaveViewModel.ASIN);
+                    }
 
                     // Save logs
                     zincWathchlistDataAccess.SaveWatchlistLogs(zincWatchListlogs);
