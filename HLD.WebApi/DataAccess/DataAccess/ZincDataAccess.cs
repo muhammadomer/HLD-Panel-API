@@ -1274,9 +1274,14 @@ namespace DataAccess.DataAccess
             }
             return list;
         }
-        public int GetSendToZincOrderCount()
+        public int GetSendToZincOrderCount(string Sku, string Asin, string FromDate = "", string ToDate = "")
         {
             int count = 0;
+            if (string.IsNullOrEmpty(Sku) || Sku == "undefined")
+                Sku = "";
+            if (string.IsNullOrEmpty(Asin) || Asin == "undefined")
+                Asin = "";
+            
 
             try
             {
@@ -1286,15 +1291,21 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_GetSendToZincProductCount", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
+                    cmd.Parameters.AddWithValue("_Sku", Sku);
+                    cmd.Parameters.AddWithValue("_Asin", Asin);
+                    cmd.Parameters.AddWithValue("dateFrom", FromDate);
+                    cmd.Parameters.AddWithValue("dateTo", ToDate);
+                    MySqlDataAdapter mySqlDataAdap = new MySqlDataAdapter(cmd);
+                    DataTable data = new DataTable();
+                    mySqlDataAdap.Fill(data);
+                    if (data.Rows.Count > 0)
                     {
-                        while (reader.Read())
+                        foreach (DataRow datarow in data.Rows)
                         {
-                            count = Convert.ToInt32(reader["Records"] != DBNull.Value ? reader["Records"] : 0);
-
+                            GetSendToZincOrderViewModel model = new GetSendToZincOrderViewModel();
+                            count = Convert.ToInt32(datarow["Records"] != DBNull.Value ? datarow["Records"] : "0");
                         }
+
                     }
                 }
             }

@@ -328,10 +328,10 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/Zinc/GetSendToZincOrderCount")]
-        public int GetSendToZincOrderCount()
+        public int GetSendToZincOrderCount(string Sku, string Asin, string FromDate = "", string ToDate = "")
         {
             int count = 0;
-            count = _zincDataAccess.GetSendToZincOrderCount();
+            count = _zincDataAccess.GetSendToZincOrderCount(Sku,Asin,FromDate,ToDate);
             return count;
         }
 
