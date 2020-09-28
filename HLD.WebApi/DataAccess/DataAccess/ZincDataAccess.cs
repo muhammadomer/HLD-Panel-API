@@ -1218,9 +1218,13 @@ namespace DataAccess.DataAccess
             return status;
         }
 
-        public List<GetSendToZincOrderViewModel> GetSendToZincOrder(int _offset)
+        public List<GetSendToZincOrderViewModel> GetSendToZincOrder(int _offset, string Sku, string Asin, string FromDate = "", string ToDate = "")
         {
             List<GetSendToZincOrderViewModel> list = new List<GetSendToZincOrderViewModel>();
+            if (string.IsNullOrEmpty(Sku) || Sku == "undefined")
+                Sku = "";
+            if (string.IsNullOrEmpty(Asin) || Asin == "undefined")
+                Asin = "";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1230,6 +1234,10 @@ namespace DataAccess.DataAccess
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_offset", _offset);
+                    cmd.Parameters.AddWithValue("_Sku", Sku);
+                    cmd.Parameters.AddWithValue("_Asin", Asin);
+                    cmd.Parameters.AddWithValue("dateFrom", FromDate);
+                    cmd.Parameters.AddWithValue("dateTo", ToDate);
 
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
@@ -1245,7 +1253,17 @@ namespace DataAccess.DataAccess
                             viewModel.Response = Convert.ToString(reader["Response"] != DBNull.Value ? reader["Response"] : "");
                             viewModel.LastUpdate = Convert.ToDateTime(reader["LastUpdate"] != DBNull.Value ? reader["LastUpdate"] : DateTime.MinValue);
                             viewModel.Qty = Convert.ToInt32(reader["Qty"] != DBNull.Value ? reader["Qty"] : "");
+                            if (viewModel.Price !=0) {
+                                viewModel.Price = Convert.ToDecimal(reader["Price"] != DBNull.Value ? reader["Price"] : "") * Convert.ToInt32(reader["Qty"] != DBNull.Value ? reader["Qty"] : "")/100;
+                            }
+                            else
+                            {
+                                viewModel.Price =0;
+                            }
+                            viewModel.CompressedImage = reader["Compress_image"] != DBNull.Value ? (string)reader["Compress_image"] : "";
+                            viewModel.ImageName = reader["image_name"] != DBNull.Value ? (string)reader["image_name"] : "";
                             list.Add(viewModel);
+                            
                         }
                     }
                 }

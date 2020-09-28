@@ -317,12 +317,12 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("api/Zinc/GetSendToZincOrder/{_offset}")]
-        public List<GetSendToZincOrderViewModel> GetSendToZincOrder(int _offset)
+        [Route("api/Zinc/GetSendToZincOrder/")]
+        public List<GetSendToZincOrderViewModel> GetSendToZincOrder(int _offset,string Sku,string Asin,string FromDate = "", string ToDate = "")
         {
             List<GetSendToZincOrderViewModel> viewModels = null;
 
-            viewModels = _zincDataAccess.GetSendToZincOrder(_offset);
+            viewModels = _zincDataAccess.GetSendToZincOrder(_offset,Sku,Asin, FromDate, ToDate);
             return viewModels;
         }
         [HttpGet]

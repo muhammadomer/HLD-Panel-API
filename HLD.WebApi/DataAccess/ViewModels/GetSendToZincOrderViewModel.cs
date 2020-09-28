@@ -18,7 +18,11 @@ namespace DataAccess.ViewModels
         public DateTime Date { get; set; }
         public string TrackingNumber { get; set; }
         public string Response { get; set; }
+        public string CompressedImage { get; set; }
+        public string ImageName { get; set; }
         public DateTime LastUpdate { get; set; }
         public int Qty { get; set; }
+        public decimal Price { get; set; }
+       // public decimal MaxPrice { get; set; }
     }
 }
