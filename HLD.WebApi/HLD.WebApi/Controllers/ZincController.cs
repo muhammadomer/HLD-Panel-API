@@ -371,5 +371,23 @@ namespace HLD.WebApi.Controllers
                 return Ok(new { Status = status });
             }
         }
+        [HttpPost]
+        [Authorize]
+        [Route("api/Zinc/SaveZincOrderBeforeCreating")]
+        public IActionResult SaveZincOrderBeforeCreating([FromBody] SendToZincProductViewModel viewModels)
+        {
+            int orderid =_zincDataAccess.SaveZincOrderBeforeCreating(viewModels);
+            return Ok(orderid);
+           
+        }
+        [HttpPost]
+        [Authorize]
+        [Route("api/Zinc/UpdateReqIDafterOrderOnZinc")]
+        public IActionResult UpdateReqIDafterOrderOnZinc([FromBody] RequestIdUpdateViewModel viewModels)
+        {
+            int orderid =_zincDataAccess.UpdateReqIDafterOrderOnZinc(viewModels);
+            return Ok(orderid);
+           
+        }
     }
 }

@@ -197,6 +197,7 @@
     <Compile Include="DataAccess\ProductSalesDataAccess.cs" />
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
     <Compile Include="DataAccess\ProductWarehouseQtyDataAccess.cs" />
+    <Compile Include="DataAccess\PropductOrderLogAndDetailDataAccess.cs" />
     <Compile Include="DataAccess\PurchaseOrderDataAccess.cs" />
     <Compile Include="DataAccess\SCOrderPageViewDataAccess.cs" />
     <Compile Include="DataAccess\SellerCloudOrderDataAccess.cs" />
@@ -313,6 +314,7 @@
     <Compile Include="ViewModels\ProductDetailForAPViewModel.cs" />
     <Compile Include="ViewModels\ProductDisplayInventoryViewModel.cs" />
     <Compile Include="ViewModels\ProductInventorySearchViewModel.cs" />
+    <Compile Include="ViewModels\ProductOrderIDModelforWebhooks.cs" />
     <Compile Include="ViewModels\ProductSalesViewModel.cs" />
     <Compile Include="ViewModels\ProductSaveViewModel.cs" />
     <Compile Include="ViewModels\ProductSetAsKitOrShadowViewModel.cs" />
@@ -327,6 +329,7 @@
     <Compile Include="ViewModels\PurchaseOrdersViewModel.cs" />
     <Compile Include="ViewModels\PurchaseOrderViewModel.cs" />
     <Compile Include="ViewModels\RelatedOrderModel.cs" />
+    <Compile Include="ViewModels\RequestIdUpdateViewModel.cs" />
     <Compile Include="ViewModels\RestSCCredViewModel.cs" />
     <Compile Include="ViewModels\S3LogViewModel.cs" />
     <Compile Include="ViewModels\SalesHistoryDashboardSearchViewModel.cs" />

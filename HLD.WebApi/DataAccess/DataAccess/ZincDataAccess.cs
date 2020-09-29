@@ -1401,5 +1401,72 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+
+
+
+        public int SaveZincOrderBeforeCreating(SendToZincProductViewModel ViewModel)
+        {
+            int status = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_SaveZincOrderBeforeCreating", conn);
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                 
+                    cmd.Parameters.AddWithValue("_Asin", ViewModel.Asin);
+                    cmd.Parameters.AddWithValue("_Sku", ViewModel.Sku);
+                    cmd.Parameters.AddWithValue("_ShipDays", ViewModel.Shipdays);
+                    cmd.Parameters.AddWithValue("_AccountDetail", ViewModel.ZincAccountId);
+                    cmd.Parameters.AddWithValue("_CreditCardDetail", ViewModel.CreditCardId);
+                    cmd.Parameters.AddWithValue("_AddressLine1", ViewModel.Address1);
+                    cmd.Parameters.AddWithValue("_AddressLine2", ViewModel.Address2);
+                    cmd.Parameters.AddWithValue("_PostalCode", ViewModel.PostalCode);
+                    cmd.Parameters.AddWithValue("_City", ViewModel.City);
+                    cmd.Parameters.AddWithValue("_State", ViewModel.State);
+                    cmd.Parameters.AddWithValue("_Phone", ViewModel.Phone);
+                    cmd.Parameters.AddWithValue("_Country", ViewModel.Country);
+                    cmd.Parameters.AddWithValue("_FirstName", ViewModel.FirstName);
+                    cmd.Parameters.AddWithValue("_LastName", ViewModel.LastName);
+                    cmd.Parameters.AddWithValue("_Qty", ViewModel.Qty);
+                    cmd.Parameters.AddWithValue("_Price", ViewModel.max_price);
+
+                    status = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        } 
+        public int UpdateReqIDafterOrderOnZinc(RequestIdUpdateViewModel ViewModel)
+        {
+            int status = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateReqIDafterOrderOnZinc", conn);
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_OrderId", ViewModel._OrderId);
+                    cmd.Parameters.AddWithValue("_ReqId", ViewModel._ReqId);
+                  
+                    cmd.Parameters.AddWithValue("_order_message", "Order Request Sent");
+
+                    cmd.ExecuteNonQuery();
+                    status = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
     }
 }
