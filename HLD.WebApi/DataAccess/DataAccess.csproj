@@ -380,6 +380,7 @@
     <Compile Include="ViewModels\UpdateTrackingBestbuyViewModel.cs" />
     <Compile Include="ViewModels\UpdateTrackingShippingJsonViewModel.cs" />
     <Compile Include="ViewModels\UpdateWatchListViewModel.cs" />
+    <Compile Include="ViewModels\UpdateZincProductWebhookSuccessViewModal.cs" />
     <Compile Include="ViewModels\UploadFilesToS3ViewModel.cs" />
     <Compile Include="ViewModels\WarehouseAddressViewModel.cs" />
     <Compile Include="ViewModels\WareHouseProductQty.cs" />

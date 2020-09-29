@@ -85,14 +85,12 @@ namespace HLD.WebApi.Controllers
                     model.Type = type.ToString();
                 }
 
-                //if (sci != null)
-                //{
+                if (sci != null)
+                {
 
-                //    model.OurInternalOrderId = sci.ToString();
-                //    logidmodel = _productOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
-                //    model.ZincOrderLogID = logidmodel.product_order_log_id;
-
-                //}
+                    model.OurInternalOrderId = sci.ToString();
+                  
+                }
 
                 if (type != null && code != null)
                 {
@@ -119,7 +117,7 @@ namespace HLD.WebApi.Controllers
 
                 model.OrderDatetime = DateTimeExtensions.ConvertToEST(DateTime.Now);
 
-                _productOrderLogDataAccess.SaveProductOrderLogDetail(model);
+                _productOrderLogDataAccess.UpdateZincProductWebhookFailure(model);
 
 
                 //if (model.ZincOrderStatusInternal == ZincOrderLogInternalStatus.Error.ToString())
@@ -180,18 +178,18 @@ namespace HLD.WebApi.Controllers
                     model.Type = type.ToString();
                 }
 
-                //if (sci != null)
-                //{
+                if (sci != null)
+                {
 
-                //    model.OurInternalOrderId = sci.ToString();
-                //    logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
-                //    model.ZincOrderLogID = logidmodel.zinc_order_log_id;
+                    model.OurInternalOrderId = sci.ToString();
+                    //logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
+                    //model.ZincOrderLogID = logidmodel.zinc_order_log_id;
 
-                //}
+                }
 
                 model.OrderDatetime = DateTimeExtensions.ConvertToEST(DateTime.Now);
 
-                _productOrderLogDataAccess.SaveProductOrderLogDetail(model);
+                _productOrderLogDataAccess.UpdateZincProductWebhookSuccess(model);
 
                 return Ok();
             }
@@ -227,18 +225,14 @@ namespace HLD.WebApi.Controllers
 
                 }
 
-
                 model.Message = commonMessage;
 
-                //if (scid != null)
-                //{
+                if (scid != null)
+                {
 
-                //    model.OurInternalOrderId = scid.ToString();
+                    model.OurInternalOrderId = scid.ToString();
 
-                //    logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
-                //    model.ZincOrderLogID = logidmodel.zinc_order_log_id;
-
-                //}
+                }
 
                 //checking tracking of an zinc order
                 if (tracking != null)

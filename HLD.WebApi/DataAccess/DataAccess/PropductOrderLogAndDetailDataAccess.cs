@@ -70,6 +70,7 @@ namespace DataAccess.DataAccess
             }
             return zincOrderLogDetailID;
         }
+
         //public ProductOrderIDModelforWebhooks GetLogid(string OurInternalID)
         //{
         //    ProductOrderIDModelforWebhooks model = null;
@@ -183,6 +184,88 @@ namespace DataAccess.DataAccess
 
             }
             return model;
+        }
+
+        public int UpdateZincProductWebhookSuccess(SendToZincProductViewModel ViewModel)
+        {
+            int zincOrderLogDetailID = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateZincProductWebhookSuccess", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OrderId);
+                    cmd.Parameters.AddWithValue("_order_type", ViewModel.Type);
+                    cmd.Parameters.AddWithValue("_order_message", ViewModel.ZincOrderStatusInternal);
+                    cmd.Parameters.AddWithValue("_order_datetime", ViewModel.Message);
+                    cmd.ExecuteNonQuery();
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return zincOrderLogDetailID;
+        }
+
+        public int UpdateZincProductWebhookFailure(SendToZincProductViewModel ViewModel)
+        {
+            int zincOrderLogDetailID = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateZincProductWebhookFailure", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OrderId);
+                    cmd.Parameters.AddWithValue("_order_type", ViewModel.Type);
+                    cmd.Parameters.AddWithValue("_order_message", ViewModel.ZincOrderStatusInternal);
+                    cmd.Parameters.AddWithValue("_order_code", ViewModel.Code);
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return zincOrderLogDetailID;
+        }  
+        public int UpdateZincProductWebhookTracking(SendToZincProductViewModel ViewModel)
+        {
+            int zincOrderLogDetailID = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateZincProductWebhookTracking", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OrderId);
+                    cmd.Parameters.AddWithValue("_order_type", ViewModel.Type);
+                    cmd.Parameters.AddWithValue("_order_message", ViewModel.ZincOrderStatusInternal);
+                    cmd.Parameters.AddWithValue("_order_code", ViewModel.Code);
+                    cmd.Parameters.AddWithValue("_TrackingNumber", ViewModel.TrackingNumber);
+                    cmd.Parameters.AddWithValue("_shpping_date", ViewModel.ShppingDate);
+                    cmd.Parameters.AddWithValue("_carrier", ViewModel.Carrier);
+                    cmd.Parameters.AddWithValue("_merchant_order_id", ViewModel.MerchantOrderId);
+                    cmd.Parameters.AddWithValue("_17_tracking", ViewModel._17Tracking);
+                    cmd.Parameters.AddWithValue("_amazon_tracking", ViewModel.AmazonTracking);
+                    cmd.Parameters.AddWithValue("_order_datetime", ViewModel.Message);
+            
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return zincOrderLogDetailID;
         }
     }
 }
