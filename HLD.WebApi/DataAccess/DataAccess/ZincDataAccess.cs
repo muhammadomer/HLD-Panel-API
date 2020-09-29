@@ -1248,13 +1248,25 @@ namespace DataAccess.DataAccess
                             viewModel.Asin = Convert.ToString(reader["Asin"] != DBNull.Value ? reader["Asin"] : "");
                             viewModel.Sku = Convert.ToString(reader["Sku"] != DBNull.Value ? reader["Sku"] : "");
                             viewModel.AccountDetail = Convert.ToString(reader["AccountDetail"] != DBNull.Value ? reader["AccountDetail"] : "");
+                            viewModel.name_on_card = Convert.ToString(reader["name_on_card"] != DBNull.Value ? reader["name_on_card"] : "");
+
+                            viewModel.UserName = Convert.ToString(reader["UserName"] != DBNull.Value ? reader["UserName"] : "");
                             viewModel.Date = Convert.ToDateTime(reader["Date"] != DBNull.Value ? reader["Date"] : DateTime.MinValue);
                             viewModel.TrackingNumber = Convert.ToString(reader["TrackingNumber"] != DBNull.Value ? reader["TrackingNumber"] : "");
                             viewModel.Response = Convert.ToString(reader["Response"] != DBNull.Value ? reader["Response"] : "");
                             viewModel.LastUpdate = Convert.ToDateTime(reader["LastUpdate"] != DBNull.Value ? reader["LastUpdate"] : DateTime.MinValue);
                             viewModel.Qty = Convert.ToInt32(reader["Qty"] != DBNull.Value ? reader["Qty"] : "");
+                            viewModel.OrderId = Convert.ToInt32(reader["OrderId"] != DBNull.Value ? reader["OrderId"] : "");
+                            viewModel.order_type = Convert.ToString(reader["order_type"] != DBNull.Value ? reader["order_type"] : "");
+                            viewModel.amazon_tracking = Convert.ToString(reader["amazon_tracking"] != DBNull.Value ? reader["amazon_tracking"] : "");
+                            viewModel._tracking = Convert.ToString(reader["17_tracking"] != DBNull.Value ? reader["17_tracking"] : "");
+                            viewModel.carrier = Convert.ToString(reader["carrier"] != DBNull.Value ? reader["carrier"] : "");
+                            viewModel.shpping_date = Convert.ToString(reader["shpping_date"] != DBNull.Value ? reader["shpping_date"] : "");
+                            viewModel.merchant_order_id = Convert.ToString(reader["merchant_order_id"] != DBNull.Value ? reader["merchant_order_id"] : "");
+                            viewModel.RequestId = Convert.ToString(reader["RequestId"] != DBNull.Value ? reader["RequestId"] : "");
+                            viewModel.Price = Convert.ToDecimal(reader["Price"] != DBNull.Value ? reader["Price"] : "");
                             if (viewModel.Price !=0) {
-                                viewModel.Price = Convert.ToDecimal(reader["Price"] != DBNull.Value ? reader["Price"] : "") * Convert.ToInt32(reader["Qty"] != DBNull.Value ? reader["Qty"] : "")/100;
+                                viewModel.Price = Convert.ToDecimal(reader["Price"] != DBNull.Value ? reader["Price"] : "")/100;
                             }
                             else
                             {
