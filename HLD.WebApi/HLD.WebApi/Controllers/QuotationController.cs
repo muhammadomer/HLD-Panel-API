@@ -51,10 +51,10 @@ namespace HLD.WebApi.Controllers
             _quotationDataAccess.DeleteQouteImage(Id);
             return 0;
         }
-        [HttpPost("CreateMainSku")]
-        public IActionResult CreateMainSku(DateTime _Todaydate)
+        [HttpPost("GenerateMainSku")]
+        public IActionResult GenerateMainSku()
         {
-            _quotationDataAccess.CreateMainSku(_Todaydate);
+            _quotationDataAccess.GenerateMainSku();
             return Ok();
         }
         public IActionResult CreateSubSku(string _sku, int _mainSkuId)

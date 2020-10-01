@@ -154,7 +154,7 @@ namespace DataAccess.DataAccess
             }
             return 0;
         }
-        public int CreateMainSku(DateTime _Todaydate)
+        public int GenerateMainSku()
         {
             int last_insert_id = 0;
             try
@@ -163,9 +163,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_CreateMainSKU", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_GenerateNewSku", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_Quotation_main_id", _Todaydate);
                     last_insert_id = Convert.ToInt32(cmd.ExecuteScalar());
                     conn.Close();
                 }
