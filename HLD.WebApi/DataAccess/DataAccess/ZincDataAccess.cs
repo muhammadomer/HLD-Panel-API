@@ -1264,6 +1264,9 @@ namespace DataAccess.DataAccess
                             viewModel.shpping_date = Convert.ToString(reader["shpping_date"] != DBNull.Value ? reader["shpping_date"] : "");
                             viewModel.merchant_order_id = Convert.ToString(reader["merchant_order_id"] != DBNull.Value ? reader["merchant_order_id"] : "");
                             viewModel.RequestId = Convert.ToString(reader["RequestId"] != DBNull.Value ? reader["RequestId"] : "");
+
+                            viewModel.RecievedOrderQty = Convert.ToInt32(reader["ReceivedQty"] != DBNull.Value ? reader["ReceivedQty"] : 0);
+                            viewModel.RecievedOrderDate = Convert.ToDateTime(reader["ReceivedDate"] != DBNull.Value ? reader["ReceivedDate"] : DateTime.MinValue);
                             viewModel.Price = Convert.ToDecimal(reader["Price"] != DBNull.Value ? reader["Price"] : "");
                             if (viewModel.Price !=0) {
                                 viewModel.Price = Convert.ToDecimal(reader["Price"] != DBNull.Value ? reader["Price"] : "")/100;
@@ -1477,6 +1480,29 @@ namespace DataAccess.DataAccess
             catch (Exception ex)
             {
 
+            }
+            return status;
+        }
+
+        public bool UpdateZincOrder(UpdateZincOrderViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateZincOrder", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OrderId);
+                    cmd.Parameters.AddWithValue("_ReceivedOrderQty", ViewModel.RecievedOrderQty);
+                    cmd.Parameters.AddWithValue("_ReceivedOrderDate", ViewModel.RecievedOrderDate);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
             }
             return status;
         }

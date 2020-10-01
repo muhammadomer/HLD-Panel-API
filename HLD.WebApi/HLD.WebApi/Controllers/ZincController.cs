@@ -389,5 +389,23 @@ namespace HLD.WebApi.Controllers
             return Ok(orderid);
            
         }
+
+
+        [HttpPut]
+        [Authorize]
+        [Route("api/Zinc/UpdateZincOrder")]
+        public IActionResult UpdateZincOrder(UpdateZincOrderViewModel viewModels)
+        {
+            bool status = false;
+            if (_zincDataAccess.UpdateZincOrder(viewModels))
+            {
+                status = true;
+                return Ok(status);
+            }
+            else
+            {
+                return Ok(status );
+            }
+        }
     }
 }

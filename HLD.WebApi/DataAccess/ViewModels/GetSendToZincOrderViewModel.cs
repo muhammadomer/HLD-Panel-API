@@ -34,6 +34,8 @@ namespace DataAccess.ViewModels
         public DateTime LastUpdate { get; set; }
         public int Qty { get; set; }
         public decimal Price { get; set; }
-       // public decimal MaxPrice { get; set; }
+        public int RecievedOrderQty { get; set; }
+        public DateTime RecievedOrderDate { get; set; }
+        // public decimal MaxPrice { get; set; }
     }
 }
