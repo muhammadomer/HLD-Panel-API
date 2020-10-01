@@ -199,6 +199,7 @@
     <Compile Include="DataAccess\ProductWarehouseQtyDataAccess.cs" />
     <Compile Include="DataAccess\PropductOrderLogAndDetailDataAccess.cs" />
     <Compile Include="DataAccess\PurchaseOrderDataAccess.cs" />
+    <Compile Include="DataAccess\QuotationDataAccess.cs" />
     <Compile Include="DataAccess\SCOrderPageViewDataAccess.cs" />
     <Compile Include="DataAccess\SellerCloudOrderDataAccess.cs" />
     <Compile Include="DataAccess\ShipmentBoxDataAccess.cs" />
@@ -328,12 +329,15 @@
     <Compile Include="ViewModels\PurchaseOrderDataViewModel.cs" />
     <Compile Include="ViewModels\PurchaseOrdersViewModel.cs" />
     <Compile Include="ViewModels\PurchaseOrderViewModel.cs" />
+    <Compile Include="ViewModels\QuotationImagesVM.cs" />
     <Compile Include="ViewModels\RelatedOrderModel.cs" />
     <Compile Include="ViewModels\RequestIdUpdateViewModel.cs" />
     <Compile Include="ViewModels\RestSCCredViewModel.cs" />
     <Compile Include="ViewModels\S3LogViewModel.cs" />
     <Compile Include="ViewModels\SalesHistoryDashboardSearchViewModel.cs" />
     <Compile Include="ViewModels\SaveApprovedPricesViewModel.cs" />
+    <Compile Include="ViewModels\SaveQuotationMainVM.cs" />
+    <Compile Include="ViewModels\SaveQuotationSubVM.cs" />
     <Compile Include="ViewModels\SaveWatchlistViewModel.cs" />
     <Compile Include="ViewModels\SaveZincOrders.cs" />
     <Compile Include="ViewModels\SaveZincProxyEmailViewModel.cs" />
