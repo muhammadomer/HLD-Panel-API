@@ -2,6 +2,8 @@
 using DataAccess.ViewModels;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace DataAccess.DataAccess
 {
@@ -217,6 +219,46 @@ namespace DataAccess.DataAccess
                 throw ex;
             }
             return 0;
+        }
+
+        public List<SaveQuotationMainVM> QuotationList()
+        {
+            List<SaveQuotationMainVM> list = new List<SaveQuotationMainVM>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetMainQuotationDetail", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    DataSet ds = new DataSet();
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    DataTable dt = ds.Tables[0];
+                    foreach (DataRow reader in dt.Rows)
+                    {
+                        SaveQuotationMainVM viewModel = new SaveQuotationMainVM
+                        {
+                           
+                            Sku = reader["Sku"] != DBNull.Value ? (string)reader["Sku"] : "",
+                            Title = reader["Title"] != DBNull.Value ? (string)reader["Title"] : "",
+                            Currency = reader["Currency"] != DBNull.Value ? (string)reader["Currency"] : "",
+                            Notes = reader["Notes"] != DBNull.Value ? (string)reader["Notes"] : "",
+                            Feature = reader["Feature"] != DBNull.Value ? (string)reader["Feature"] : "",
+                            CreationDate = Convert.ToDateTime(reader["CreationDate"] != DBNull.Value ? reader["CreationDate"] : DateTime.MinValue),
+                         
+                           
+                        };
+                        list.Add(viewModel);
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
         }
     }
 }

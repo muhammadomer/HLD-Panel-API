@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using DataAccess.DataAccess;
 using DataAccess.Helper;
 using DataAccess.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HLD.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class QuotationController : ControllerBase
     {
@@ -19,18 +20,20 @@ namespace HLD.WebApi.Controllers
         {
             _quotationDataAccess = new QuotationDataAccess(connectionString);
         }
-        [HttpPost("SaveMainQoute")]
+        [HttpPost ("api/Quotation/SaveMainQoute")]
+       
         public int SaveMainQoute(SaveQuotationMainVM model)
         {
             SaveQuotationSubVM subqoutVM = new SaveQuotationSubVM();
             int last_insert_id = _quotationDataAccess.SaveMainQoute(model);
-             subqoutVM.latestqouteId = last_insert_id;
-            int last_SubQoute_id = _quotationDataAccess.SaveSubQoute(subqoutVM);
+          
+             //subqoutVM.latestqouteId = last_insert_id;
+            //int last_SubQoute_id = _quotationDataAccess.SaveSubQoute(subqoutVM);
             QuotationImagesVM quoteImg = new QuotationImagesVM();
-            quoteImg.LastSubQouteId = last_SubQoute_id;
-            _quotationDataAccess.SaveQouteImage(quoteImg);
+            //quoteImg.LastSubQouteId = last_SubQoute_id;
+            //_quotationDataAccess.SaveQouteImage(quoteImg);
 
-            return 0;
+            return last_insert_id;
         }
 
         [HttpDelete("DeleteMainQoute")]
@@ -57,10 +60,23 @@ namespace HLD.WebApi.Controllers
             _quotationDataAccess.GenerateMainSku();
             return Ok();
         }
+        [HttpPost("CreateSubSku")]
         public IActionResult CreateSubSku(string _sku, int _mainSkuId)
         {
             _quotationDataAccess.CreateSubSku(_sku, _mainSkuId);
             return Ok();
+        }
+
+        [HttpGet ("api/Quotation/list")]
+       
+        public IActionResult QuotationList()
+        {
+            var list = _quotationDataAccess.QuotationList();
+            {
+                return Ok(
+                    list
+                );
+            }
         }
     }
 }
