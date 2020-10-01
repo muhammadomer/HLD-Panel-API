@@ -49,7 +49,7 @@ namespace DataAccess.ViewModels
     }
     public class PurchaseOrderItemsViewModel
     {
-
+        public DateTime OrderedOn { get; set; }
         public int ID { get; set; }
         public int idPurchaseOrdersItems { get; set; }
         public int PurchaseID { get; set; }

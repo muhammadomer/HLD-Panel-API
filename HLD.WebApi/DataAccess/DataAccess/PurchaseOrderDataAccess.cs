@@ -694,7 +694,7 @@ namespace DataAccess.DataAccess
                                     viewModel.VendorID = (int)reader["VendorId"];
                                     viewModel.Compress_image = reader["Compress_image"] != DBNull.Value ? (string)reader["Compress_image"] : "";
                                     viewModel.image_name = reader["image_name"] != DBNull.Value ? (string)reader["image_name"] : "";
-
+                                    viewModel.OrderedOn = Convert.ToDateTime(reader["OrderedOn"] != DBNull.Value ? reader["OrderedOn"] : DateTime.MinValue);
                                     viewModel.Vendor = (string)reader["Vendor"];
                                     viewModel.QtyOrdered = (int)reader["QtyOrdered"];
                                     viewModel.QtyReceived = (int)reader["QtyReceived"];
