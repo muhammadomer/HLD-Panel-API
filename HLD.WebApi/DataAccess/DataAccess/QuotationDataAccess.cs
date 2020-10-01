@@ -1,14 +1,7 @@
 ﻿using DataAccess.Helper;
 using DataAccess.ViewModels;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.DataAccess
 {
