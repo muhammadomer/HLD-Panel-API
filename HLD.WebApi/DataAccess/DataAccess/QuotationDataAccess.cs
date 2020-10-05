@@ -156,9 +156,9 @@ namespace DataAccess.DataAccess
             }
             return 0;
         }
-        public int GenerateMainSku()
+        public string GenerateMainSku()
         {
-            int last_insert_id = 0;
+            string SKU = "";
             try
             {
                
@@ -167,14 +167,14 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_GenerateNewSku", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    last_insert_id = Convert.ToInt32(cmd.ExecuteScalar());
+                    SKU = Convert.ToString(cmd.ExecuteScalar());
                     conn.Close();
                 }
             }
             catch (Exception ex)
             {
             }
-            return last_insert_id;
+            return SKU;
         }
         public int CreateSubSku(string _sku, int _mainSkuId)
         {
