@@ -51,11 +51,12 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_SaveQuotationMain", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_Quotation_main_id", ViewModel.latestqouteId);
+                    cmd.Parameters.AddWithValue("_Quotation_main_id", ViewModel.Quotation_Sub_Id);
                     cmd.Parameters.AddWithValue("_MainSku", ViewModel.MainSku);
                     cmd.Parameters.AddWithValue("_SubSku", ViewModel.SubSku);
                     cmd.Parameters.AddWithValue("_Price", ViewModel.Price);
                     last_insert_id = Convert.ToInt32(cmd.ExecuteScalar());
+
                     conn.Close();
 
                 }
@@ -65,7 +66,47 @@ namespace DataAccess.DataAccess
             }
             return last_insert_id;
         }
+        public SaveQuotationMainVM UpdateEditorData(int id)
+        {
+            SaveQuotationMainVM model = new SaveQuotationMainVM();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetMainQuoteById", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Main_Quote_Id", id);
+                    MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
+                    cmd.ExecuteNonQuery();
+                    DataTable dt = new DataTable();
+                    mySqlDataAdapter.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
 
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            SaveQuotationMainVM modelview = new SaveQuotationMainVM();
+                            
+                            modelview.Sku = dr["Sku"] != DBNull.Value ? (string)dr["Sku"] : "";
+                            modelview.Quotation_main_id = dr["Quotation_main_id"] != DBNull.Value ? (int)dr["Quotation_main_id"] : 0;
+                            modelview.Title = dr["Title"] != DBNull.Value ? (string)dr["Title"] : "";
+                            modelview.Currency = dr["Currency"] != DBNull.Value ? (string)dr["Currency"] : "";
+                            modelview.Notes = dr["Notes"] != DBNull.Value ? (string)dr["Notes"] : "";
+                            modelview.Feature = dr["Feature"] != DBNull.Value ? (string)dr["Feature"] : "";
+                            modelview.CreationDate = Convert.ToDateTime(dr["CreationDate"] != DBNull.Value ? dr["CreationDate"] : DateTime.MinValue);
+                            model = modelview;
+                            
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return model;
+        }
         public int SaveQouteImage(QuotationImagesVM ViewModel)
         {
 
@@ -241,6 +282,7 @@ namespace DataAccess.DataAccess
                         {
                            
                             Sku = reader["Sku"] != DBNull.Value ? (string)reader["Sku"] : "",
+                            Quotation_main_id = reader["Quotation_main_id"] != DBNull.Value ? (int)reader["Quotation_main_id"] : 0,
                             Title = reader["Title"] != DBNull.Value ? (string)reader["Title"] : "",
                             Currency = reader["Currency"] != DBNull.Value ? (string)reader["Currency"] : "",
                             Notes = reader["Notes"] != DBNull.Value ? (string)reader["Notes"] : "",

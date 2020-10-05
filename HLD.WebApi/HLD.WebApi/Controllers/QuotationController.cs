@@ -36,10 +36,10 @@ namespace HLD.WebApi.Controllers
             return last_insert_id;
         }
 
-        [HttpDelete("DeleteMainQoute")]
-        public int DeleteMainQoute(int Id)
+        [HttpGet("api/Quotation/DeleteMainQoute")]
+        public int DeleteMainQoute(int Quotation_main_id)
         {
-            _quotationDataAccess.DeleteMainQoute(Id);
+            _quotationDataAccess.DeleteMainQoute(Quotation_main_id);
             return 0;
         }
         [HttpDelete("DeleteSubQoute")]
@@ -54,17 +54,26 @@ namespace HLD.WebApi.Controllers
             _quotationDataAccess.DeleteQouteImage(Id);
             return 0;
         }
-        [HttpPost("GenerateMainSku")]
+        [HttpPost("api/Quotation/GenerateMainSku")]
         public IActionResult GenerateMainSku()
         {
-            _quotationDataAccess.GenerateMainSku();
-            return Ok();
+            var SKU=_quotationDataAccess.GenerateMainSku();
+            return Ok(SKU);
         }
         [HttpPost("CreateSubSku")]
         public IActionResult CreateSubSku(string _sku, int _mainSkuId)
         {
             _quotationDataAccess.CreateSubSku(_sku, _mainSkuId);
             return Ok();
+        }
+        [HttpGet("api/Quotation/Edit")]
+        public SaveQuotationMainVM Put(int id)
+        {
+
+            SaveQuotationMainVM viewModel = null;
+            viewModel = _quotationDataAccess.UpdateEditorData(id);
+
+            return viewModel;
         }
 
         [HttpGet ("api/Quotation/list")]
