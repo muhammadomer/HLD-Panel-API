@@ -25,6 +25,7 @@ namespace DataAccess.ViewModels
         public string AccountDetail { get; set; }
         public string name_on_card { get; set; }
         public string UserName { get; set; }
+        public string OrderDate { get; set; }
         
         public DateTime Date { get; set; }
         public string TrackingNumber { get; set; }

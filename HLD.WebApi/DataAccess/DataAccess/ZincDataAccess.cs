@@ -1262,6 +1262,7 @@ namespace DataAccess.DataAccess
                             viewModel._tracking = Convert.ToString(reader["17_tracking"] != DBNull.Value ? reader["17_tracking"] : "");
                             viewModel.carrier = Convert.ToString(reader["carrier"] != DBNull.Value ? reader["carrier"] : "");
                             viewModel.shpping_date = Convert.ToString(reader["shpping_date"] != DBNull.Value ? reader["shpping_date"] : "");
+                            viewModel.OrderDate = Convert.ToString(reader["order_datetime"] != DBNull.Value ? reader["order_datetime"] :"");
                             viewModel.merchant_order_id = Convert.ToString(reader["merchant_order_id"] != DBNull.Value ? reader["merchant_order_id"] : "");
                             viewModel.RequestId = Convert.ToString(reader["RequestId"] != DBNull.Value ? reader["RequestId"] : "");
 
