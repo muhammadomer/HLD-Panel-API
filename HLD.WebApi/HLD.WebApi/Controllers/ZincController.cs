@@ -411,10 +411,10 @@ namespace HLD.WebApi.Controllers
         [HttpPut]
         [Authorize]
         [Route("api/Zinc/UpdateZincOrderInternalStatus")]
-        public IActionResult UpdateZincOrderInternalStatus(bool internalStatus, int orderId)
+        public IActionResult UpdateZincOrderInternalStatus(int orderId, bool internalStatus)
         {
             bool status = false;
-            if (_zincDataAccess.UpdateZincOrderInternalStatus(internalStatus, orderId))
+            if (_zincDataAccess.UpdateZincOrderInternalStatus(orderId, internalStatus))
             {
                 status = true;
                 return Ok(status);

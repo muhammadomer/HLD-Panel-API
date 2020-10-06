@@ -1267,6 +1267,10 @@ namespace DataAccess.DataAccess
                             viewModel.RequestId = Convert.ToString(reader["RequestId"] != DBNull.Value ? reader["RequestId"] : "");
 
                             viewModel.RecievedOrderQty = Convert.ToInt32(reader["ReceivedQty"] != DBNull.Value ? reader["ReceivedQty"] : 0);
+                            viewModel.internalStatus = Convert.ToBoolean(reader["internal_status"] != DBNull.Value ? reader["internal_status"] : "true");
+                            viewModel.Tax = Convert.ToDecimal(reader["Tax"] != DBNull.Value ? reader["Tax"] : 0);
+                            viewModel.Shipping = Convert.ToDecimal(reader["Shipping"] != DBNull.Value ? reader["Shipping"] : 0);
+                            viewModel.AmzSubTotal = Convert.ToDecimal(reader["SubTotal"] != DBNull.Value ? reader["SubTotal"] : 0);
                             viewModel.RecievedOrderDate = Convert.ToDateTime(reader["ReceivedDate"] != DBNull.Value ? reader["ReceivedDate"] : DateTime.MinValue);
                             viewModel.Price = Convert.ToDecimal(reader["Price"] != DBNull.Value ? reader["Price"] : "");
                             if (viewModel.Price !=0) {
@@ -1508,7 +1512,7 @@ namespace DataAccess.DataAccess
             return status;
         }
 
-        public bool UpdateZincOrderInternalStatus(bool internalStatus,int orderId)
+        public bool UpdateZincOrderInternalStatus(int orderId,bool internalStatus)
         {
             bool status = false;
             try

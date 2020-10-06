@@ -13,6 +13,7 @@ namespace DataAccess.ViewModels
     public class GetSendToZincOrderViewModel
     {
         public int OrderId { get; set; }
+        public bool internalStatus { get; set; }
         public string order_type { get; set; }
         public string amazon_tracking { get; set; }
         public string _tracking { get; set; }
@@ -26,7 +27,9 @@ namespace DataAccess.ViewModels
         public string name_on_card { get; set; }
         public string UserName { get; set; }
         public string OrderDate { get; set; }
-        
+        public decimal Tax { get; set; }
+        public decimal Shipping { get; set; }
+        public decimal AmzSubTotal { get; set; }
         public DateTime Date { get; set; }
         public string TrackingNumber { get; set; }
         public string Response { get; set; }
