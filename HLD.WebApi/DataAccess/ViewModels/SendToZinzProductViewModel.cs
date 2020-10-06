@@ -47,5 +47,9 @@ namespace DataAccess.ViewModels
         public string ZincOrderStatusInternal { get; set; }
         public string MerchantOrderId { get; set; }
         public string OurInternalOrderId { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal Tax { get; set; }
+        public decimal Shipping { get; set; }
+        public decimal InternalId { get; set; }
     }
 }

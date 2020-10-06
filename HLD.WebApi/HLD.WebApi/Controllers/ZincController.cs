@@ -407,5 +407,22 @@ namespace HLD.WebApi.Controllers
                 return Ok(status );
             }
         }
+
+        [HttpPut]
+        [Authorize]
+        [Route("api/Zinc/UpdateZincOrderInternalStatus")]
+        public IActionResult UpdateZincOrderInternalStatus(bool internalStatus, int orderId)
+        {
+            bool status = false;
+            if (_zincDataAccess.UpdateZincOrderInternalStatus(internalStatus, orderId))
+            {
+                status = true;
+                return Ok(status);
+            }
+            else
+            {
+                return Ok(status);
+            }
+        }
     }
 }

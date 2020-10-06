@@ -201,6 +201,9 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_order_type", ViewModel.Type);
                     cmd.Parameters.AddWithValue("_order_message", ViewModel.ZincOrderStatusInternal);
                     cmd.Parameters.AddWithValue("_order_datetime", ViewModel.Message);
+                    cmd.Parameters.AddWithValue("_tax", ViewModel.Tax);
+                    cmd.Parameters.AddWithValue("_shipping", ViewModel.Shipping);
+                    cmd.Parameters.AddWithValue("_subTotal", ViewModel.SubTotal);
                     cmd.ExecuteNonQuery();
                    
                 }

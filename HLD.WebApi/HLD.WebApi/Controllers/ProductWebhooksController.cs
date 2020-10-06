@@ -147,6 +147,13 @@ namespace HLD.WebApi.Controllers
                 ProductOrderIDModelforWebhooks logidmodel = new ProductOrderIDModelforWebhooks();
                 var X = JObject.Parse(response.ToString());
                 var type = X["_type"];
+                var PriceComponents = X["price_components"];
+                var subTotal = PriceComponents["subtotal"];
+                var tax= PriceComponents["tax"];
+                var shipping= PriceComponents["shipping"];
+                model.SubTotal =Convert.ToDecimal(subTotal);
+                model.Tax =Convert.ToDecimal(tax);
+                model.Shipping =Convert.ToDecimal(shipping);
 
                 string commonMessage = "";
                 var delivery_dates = X["delivery_dates"];

@@ -1507,5 +1507,27 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+
+        public bool UpdateZincOrderInternalStatus(bool internalStatus,int orderId)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateInternalStatusOnZincOrder", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_orderId", orderId);
+                    cmd.Parameters.AddWithValue("_internalStatus", internalStatus);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
     }
 }
