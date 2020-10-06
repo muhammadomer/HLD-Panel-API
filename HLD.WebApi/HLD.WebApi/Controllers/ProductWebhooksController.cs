@@ -280,7 +280,7 @@ namespace HLD.WebApi.Controllers
                 model.OrderDatetime = DateTimeExtensions.ConvertToEST(DateTime.Now);
 
 
-                _productOrderLogDataAccess.SaveProductOrderLogDetail(model);
+                _productOrderLogDataAccess.UpdateZincProductWebhookTracking(model);
 
                 return Ok();
             }

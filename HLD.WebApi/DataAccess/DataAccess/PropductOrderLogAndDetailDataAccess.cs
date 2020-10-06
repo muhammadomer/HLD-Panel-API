@@ -197,7 +197,7 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_UpdateZincProductWebhookSuccess", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OrderId);
+                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OurInternalOrderId);
                     cmd.Parameters.AddWithValue("_order_type", ViewModel.Type);
                     cmd.Parameters.AddWithValue("_order_message", ViewModel.ZincOrderStatusInternal);
                     cmd.Parameters.AddWithValue("_order_datetime", ViewModel.Message);
@@ -222,7 +222,7 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_UpdateZincProductWebhookFailure", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OrderId);
+                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OurInternalOrderId);
                     cmd.Parameters.AddWithValue("_order_type", ViewModel.Type);
                     cmd.Parameters.AddWithValue("_order_message", ViewModel.ZincOrderStatusInternal);
                     cmd.Parameters.AddWithValue("_order_code", ViewModel.Code);
@@ -246,7 +246,7 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_UpdateZincProductWebhookTracking", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OrderId);
+                    cmd.Parameters.AddWithValue("_OrderId", ViewModel.OurInternalOrderId);
                     cmd.Parameters.AddWithValue("_order_type", ViewModel.Type);
                     cmd.Parameters.AddWithValue("_order_message", ViewModel.ZincOrderStatusInternal);
                     cmd.Parameters.AddWithValue("_order_code", ViewModel.Code);
