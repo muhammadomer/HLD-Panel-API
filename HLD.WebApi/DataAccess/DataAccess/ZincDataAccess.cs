@@ -1255,8 +1255,8 @@ namespace DataAccess.DataAccess
                             viewModel.TrackingNumber = Convert.ToString(reader["TrackingNumber"] != DBNull.Value ? reader["TrackingNumber"] : "");
                             viewModel.Response = Convert.ToString(reader["Response"] != DBNull.Value ? reader["Response"] : "");
                             viewModel.LastUpdate = Convert.ToDateTime(reader["LastUpdate"] != DBNull.Value ? reader["LastUpdate"] : DateTime.MinValue);
-                            viewModel.Qty = Convert.ToInt32(reader["Qty"] != DBNull.Value ? reader["Qty"] : "");
-                            viewModel.OrderId = Convert.ToInt32(reader["OrderId"] != DBNull.Value ? reader["OrderId"] : "");
+                            viewModel.Qty = Convert.ToInt32(reader["Qty"] != DBNull.Value ? reader["Qty"] : 0);
+                            viewModel.OrderId = Convert.ToInt32(reader["OrderId"] != DBNull.Value ? reader["OrderId"] : 0);
                             viewModel.order_type = Convert.ToString(reader["order_type"] != DBNull.Value ? reader["order_type"] : "");
                             viewModel.amazon_tracking = Convert.ToString(reader["amazon_tracking"] != DBNull.Value ? reader["amazon_tracking"] : "");
                             viewModel._tracking = Convert.ToString(reader["17_tracking"] != DBNull.Value ? reader["17_tracking"] : "");
@@ -1267,7 +1267,7 @@ namespace DataAccess.DataAccess
                             viewModel.RequestId = Convert.ToString(reader["RequestId"] != DBNull.Value ? reader["RequestId"] : "");
 
                             viewModel.RecievedOrderQty = Convert.ToInt32(reader["ReceivedQty"] != DBNull.Value ? reader["ReceivedQty"] : 0);
-                            viewModel.internalStatus = Convert.ToBoolean(reader["internal_status"] != DBNull.Value ? reader["internal_status"] : "true");
+                            viewModel.internalStatus = Convert.ToInt32(reader["internal_status"] != DBNull.Value ? reader["internal_status"] : 0);
                             viewModel.Tax = Convert.ToDecimal(reader["Tax"] != DBNull.Value ? reader["Tax"] : 0);
                             viewModel.Shipping = Convert.ToDecimal(reader["Shipping"] != DBNull.Value ? reader["Shipping"] : 0);
                             viewModel.AmzSubTotal = Convert.ToDecimal(reader["SubTotal"] != DBNull.Value ? reader["SubTotal"] : 0);
@@ -1512,7 +1512,7 @@ namespace DataAccess.DataAccess
             return status;
         }
 
-        public bool UpdateZincOrderInternalStatus(int orderId,bool internalStatus)
+        public bool UpdateZincOrderInternalStatus(int orderId,int internalStatus)
         {
             bool status = false;
             try
