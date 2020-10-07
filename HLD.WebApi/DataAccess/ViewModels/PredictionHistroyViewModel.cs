@@ -27,6 +27,7 @@ namespace DataAccess.ViewModels
         public int OnOrder { get; set; }
         public decimal LowStock60 { get; set; }
         public decimal LowStock90 { get; set; }
+        public bool Continue { get; set; }
         public int CoverDays { get; set; }
         public int CoverPhy { get; set; }
         public int ReservedQty { get; set; }
