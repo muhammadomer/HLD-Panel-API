@@ -213,6 +213,7 @@
     <Compile Include="DataAccess\SellerCloudOrderDataAccess.cs" />
     <Compile Include="DataAccess\ShipmentBoxDataAccess.cs" />
     <Compile Include="DataAccess\ShipmentCasePackDataAccess.cs" />
+    <Compile Include="DataAccess\ShipmentCourierDataAccess.cs" />
     <Compile Include="DataAccess\ShipmentDataAccess.cs" />
     <Compile Include="DataAccess\ShipmentMultiBoxDataAccess.cs" />
     <Compile Include="DataAccess\ShipmentProductDataAccess.cs" />
@@ -344,6 +345,7 @@
     <Compile Include="ViewModels\RestSCCredViewModel.cs" />
     <Compile Include="ViewModels\S3LogViewModel.cs" />
     <Compile Include="ViewModels\SalesHistoryDashboardSearchViewModel.cs" />
+    <Compile Include="ViewModels\SaveAndEditShipmentCourierVM.cs" />
     <Compile Include="ViewModels\SaveApprovedPricesViewModel.cs" />
     <Compile Include="ViewModels\SaveQuotationMainVM.cs" />
     <Compile Include="ViewModels\SaveQuotationSubVM.cs" />
