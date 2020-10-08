@@ -126,6 +126,7 @@ namespace DataAccess.DataAccess
                             Notes = reader["Notes"] != DBNull.Value ? (string)reader["Notes"] : "",
                             NoOfBoxes = reader["NoOfBoxs"] != DBNull.Value ? Convert.ToInt32(reader["NoOfBoxs"]) : 0,
                             TrakingNumber = reader["TrakingNumber"] != DBNull.Value ? (string)reader["TrakingNumber"] : "",
+                            TrakingURL = reader["TrakingURL"] != DBNull.Value ? (string)reader["TrakingURL"] : "",
                             CourierCode = reader["CourierCode"] != DBNull.Value ? (string)reader["CourierCode"] : "",
                             ShippedDate = reader["ShippedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ShippedDate"]) : DateTime.MinValue,
                             ReceivedDate = reader["ReceivedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ReceivedDate"]) : DateTime.MinValue,
@@ -303,31 +304,7 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
-        public bool SaveShipmentCourier(ShipmentCourierViewModel ViewModel)
-        {
-            bool status = false;
-            try
-            {
-                using (MySqlConnection conn = new MySqlConnection(ConStr))
-                {
-                    conn.Open();
-                    MySqlCommand cmdd = new MySqlCommand("p_SaveShipmentCourierDetails", conn);
-                    cmdd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmdd.Parameters.AddWithValue("_ShipmentId", ViewModel.ShipmentId);
-                    cmdd.Parameters.AddWithValue("_CourierCode", ViewModel.CourierCode);
-                    cmdd.Parameters.AddWithValue("_ShipingCompany", ViewModel.ShipingCompany);
-                    cmdd.Parameters.AddWithValue("_TrakingNumber", ViewModel.TrakingNumber);
-                    cmdd.Parameters.AddWithValue("_CreatedAt", ViewModel.CreatedAt);
-                    cmdd.ExecuteNonQuery();
-                    status = true;
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return status;
-        }
+    
         public ShipmentViewHeaderViewModel GetShipmentViewHeaderdetail(string ShipmentId)
         {
             var Item = new ShipmentViewHeaderViewModel();

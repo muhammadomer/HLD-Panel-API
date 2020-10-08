@@ -27,8 +27,9 @@ namespace HLD.WebApi.Controllers
         [HttpPost("api/ShipmentCourier/SaveAndEditShipmentCourier")]
         public IActionResult SaveAndEditShipmentCourier(SaveAndEditShipmentCourierVM model)
         {
-            _DataAccess.SaveAndEditShipmentCourier(model);
-            return Ok();
+            bool status = false;
+            status=_DataAccess.SaveAndEditShipmentCourier(model);
+            return Ok(status);
         }
         [HttpGet("api/ShipmentCourier/GetShipmentCourierById")]
         public SaveAndEditShipmentCourierVM GetShipmentCourierById(int id)
@@ -46,6 +47,22 @@ namespace HLD.WebApi.Controllers
             var list = _DataAccess.GetShipmentCourierList();
             {
                 return Ok(list);
+            }
+        }
+        [HttpPost]
+        //[Authorize]
+        [Route("api/ShipmentCourier/save")]
+        public IActionResult ShipmentCourier(ShipmentCourierViewModel ViewModel)
+        {
+            bool status = false;
+            status = _DataAccess.SaveShipmentCourier(ViewModel);
+            if (status)
+            {
+                return Ok(new { Status = status, Message = "Save Successfully" });
+            }
+            else
+            {
+                return Ok(new { Status = status, Message = "Some Error Occured" });
             }
         }
     }

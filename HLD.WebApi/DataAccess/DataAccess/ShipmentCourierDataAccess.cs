@@ -114,5 +114,30 @@ namespace DataAccess.DataAccess
             }
             return model;
         }
+        public bool SaveShipmentCourier(ShipmentCourierViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand("p_SaveShipmentCourierDetails", conn);
+                    cmdd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmdd.Parameters.AddWithValue("_ShipmentId", ViewModel.ShipmentId);
+                    cmdd.Parameters.AddWithValue("_CourierCode", ViewModel.CourierCode);
+                    cmdd.Parameters.AddWithValue("_ShipingCompany", ViewModel.ShipingCompany);
+                    cmdd.Parameters.AddWithValue("_TrakingNumber", ViewModel.TrakingNumber);
+                    cmdd.Parameters.AddWithValue("_CreatedAt", ViewModel.CreatedAt);
+                    cmdd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
     }
 }

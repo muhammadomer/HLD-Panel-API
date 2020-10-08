@@ -12,6 +12,7 @@ namespace DataAccess.ViewModels
         public string ShipingCompany { get; set; }
         public string CourierCode { get; set; }
         public string TrakingNumber { get; set; }
+        public string TrakingURL { get; set; }
         public string ShipmentId { get; set; }
         public DateTime CreatedAt { get; set; }
     }

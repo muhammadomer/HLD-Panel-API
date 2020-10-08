@@ -116,22 +116,7 @@ namespace HLD.WebApi.Controllers
             }
         }
 
-        [HttpPost]
-        //[Authorize]
-        [Route("api/ShipmentCourier/save")]
-        public IActionResult ShipmentCourier(ShipmentCourierViewModel ViewModel)
-        {
-            bool status = false;
-            status = _DataAccess.SaveShipmentCourier(ViewModel);
-            if (status)
-            {
-                return Ok(new { Status = status, Message = "Save Successfully" });
-            }
-            else
-            {
-                return Ok(new { Status = status, Message = "Some Error Occured" });
-            }
-        }
+       
 
         [HttpGet]
         [Route("api/Shipment/Detail")]
