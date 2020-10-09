@@ -17,7 +17,7 @@ namespace DataAccess
         {
             connStr = connectionString.GetConnectionString();
         }
-        public int PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, bool Excluded, bool Continue, int Type = 0)
+        public int PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, bool Excluded, bool KitShadowStatus, bool Continue,  int Type = 0)
         {
             if (string.IsNullOrEmpty(SKU) || SKU == "undefined")
                 SKU = "";
@@ -44,6 +44,7 @@ namespace DataAccess
                     cmd.Parameters.AddWithValue("_Type", Type);
                     cmd.Parameters.AddWithValue("_Excluded", Excluded);
                     cmd.Parameters.AddWithValue("_Continue", Continue);
+                    cmd.Parameters.AddWithValue("_KitShadowStatus", KitShadowStatus);
                     MySqlDataAdapter mySqlDataAdap = new MySqlDataAdapter(cmd);
                     DataTable data = new DataTable();
                     mySqlDataAdap.Fill(data);
@@ -131,7 +132,7 @@ namespace DataAccess
             }
         }
 
-        public List<PredictionHistroyViewModel> GetAllPrediction(int startLimit, int offset, int VendorId, string SKU, string Title, bool Approved, bool Excluded, bool Continue, string Sort, string SortedType, int Type = 0)
+        public List<PredictionHistroyViewModel> GetAllPrediction(int startLimit, int offset, int VendorId, string SKU, string Title, bool Approved, bool Excluded, bool KitShadowStatus, bool Continue, string Sort, string SortedType,  int Type = 0)
         {
 
             List<PredictionHistroyViewModel> listViewModel = new List<PredictionHistroyViewModel>();
@@ -164,6 +165,7 @@ namespace DataAccess
                     cmd.Parameters.AddWithValue("_Type", Type);
                     cmd.Parameters.AddWithValue("_Excluded", Excluded);
                     cmd.Parameters.AddWithValue("_Continue", Continue);
+                    cmd.Parameters.AddWithValue("_KitShadowStatus", KitShadowStatus);
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -188,7 +190,6 @@ namespace DataAccess
                                 ViewModel.ImageName = reader["image_name"] != DBNull.Value ? (string)reader["image_name"] : "";
                                 ViewModel.LowStock60 = Convert.ToDecimal(reader["LowStock60"] != DBNull.Value ? reader["LowStock60"] : 0);
                                 ViewModel.LowStock90 = Convert.ToDecimal(reader["LowStock90"] != DBNull.Value ? reader["LowStock90"] : 0);
-
                                 ViewModel.Continue = Convert.ToBoolean(reader["Continue"] != DBNull.Value ? reader["Continue"] : "false");
                                 ViewModel.CoverDays = Convert.ToInt32(reader["CoverDays"] != DBNull.Value ? reader["CoverDays"] : 0);
                                 ViewModel.CoverPhy = Convert.ToInt32(reader["CoverPhy"] != DBNull.Value ? reader["CoverPhy"] : 0);
@@ -197,6 +198,26 @@ namespace DataAccess
                                 ViewModel.InternalPOId = reader["InternalPOId"] != DBNull.Value ? Convert.ToInt32(reader["InternalPOId"]) : 0;
                                 ViewModel.ShadowOf = reader["ShadowOf"] != DBNull.Value ? (string)reader["ShadowOf"] : "";
                                 ViewModel.PredictIncluded = Convert.ToBoolean(reader["PredictIncluded"] != DBNull.Value ? reader["PredictIncluded"] : "false");
+                                //ViewModel.KitShadowStatus = Convert.ToBoolean(reader["ProductDependency"] != DBNull.Value ? reader["ProductDependency"] : "false");
+                                ViewModel.ProductDependency = reader["ProductDependency"] != DBNull.Value ? Convert.ToInt32(reader["ProductDependency"]) : 2;
+                                //ViewModel.ProductDependency = Convert.ToBoolean(reader["ProductDependency"] != DBNull.Value ? reader["ProductDependency"] : "false");
+                                //if (reader["ProductDependency"] == DBNull.Value)
+                                //{
+                                //    ViewModel.ProductType = "";
+                                //}
+                                //else
+                                //{
+                                //    if(ViewModel.ProductDependency==true)
+                                //    {
+                                //        ViewModel.ProductType = "Shadow";
+                                //    }
+                                //    else
+                                //    {
+                                //        ViewModel.ProductType = "Kit";
+
+                                //    }
+                                //}
+                                    
                                 listViewModel.Add(ViewModel);
                             }
                             list = listViewModel.GroupBy(s => s.SKU).Select(p => p.FirstOrDefault()).Distinct().ToList();

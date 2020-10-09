@@ -24,12 +24,12 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Route("api/PredictionSummaryCount")]
-        public IActionResult PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, bool Excluded, bool Continue, int Type = 0)// get list of job summary
+        public IActionResult PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, bool Excluded, bool KitShadowStatus, bool Continue,  int Type = 0)  // get list of job summary
         {
             int count = 0;
             try
             {
-                count = _predictionDataAccess.PredictionSummaryCount(VendorId, SKU, Title, Approved, Excluded, Continue, Type);
+                count = _predictionDataAccess.PredictionSummaryCount(VendorId, SKU, Title, Approved, Excluded, KitShadowStatus, Continue,  Type);
                 return Ok(count);
             }
             catch (Exception)
@@ -72,12 +72,12 @@ namespace HLD.WebApi.Controllers
         }
         [HttpGet]
         [Route("api/PredictionHistroy")]
-        public IActionResult Get(int startLimit, int offset, int VendorId, string SKU, string Title, bool Approved, bool Excluded, bool Continue, string Sort, string SortedType, int Type = 0)
+        public IActionResult Get(int startLimit, int offset, int VendorId, string SKU, string Title, bool Approved, bool Excluded,bool KitShadowStatus, bool Continue, string Sort, string SortedType, int Type = 0)
         {
             List<PredictionHistroyViewModel> _ViewModels = new List<PredictionHistroyViewModel>();
             try
             {
-                _ViewModels = _predictionDataAccess.GetAllPrediction(startLimit, offset, VendorId, SKU, Title, Approved, Excluded, Continue, Sort, SortedType, Type);
+                _ViewModels = _predictionDataAccess.GetAllPrediction(startLimit, offset, VendorId, SKU, Title, Approved, Excluded, KitShadowStatus, Continue, Sort, SortedType, Type);
                 return Ok(_ViewModels);
             }
             catch (Exception)
