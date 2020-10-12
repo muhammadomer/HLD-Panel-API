@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using DataAccess.DataAccess;
 using DataAccess.Helper;
@@ -8,6 +10,7 @@ using DataAccess.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace HLD.WebApi.Controllers
 {
@@ -16,9 +19,14 @@ namespace HLD.WebApi.Controllers
     public class ZincController : ControllerBase
     {
         ZincDataAccess _zincDataAccess;
+        GetChannelCredViewModel _getChannelCredViewModel = null;
+        string ApiURL = null;
+        EncDecChannel _EncDecChannel = null;
         public ZincController(IConnectionString connectionString)
         {
             _zincDataAccess = new ZincDataAccess(connectionString);
+            ApiURL = "https://lp.api.sellercloud.com/rest/api";
+            _EncDecChannel = new EncDecChannel(connectionString);
         }
 
         [HttpPost]
@@ -390,22 +398,46 @@ namespace HLD.WebApi.Controllers
            
         }
 
-
+        //Development By Mehdi
         [HttpPut]
         [Authorize]
         [Route("api/Zinc/UpdateZincOrder")]
         public IActionResult UpdateZincOrder(UpdateZincOrderViewModel viewModels)
         {
             bool status = false;
-            if (_zincDataAccess.UpdateZincOrder(viewModels))
-            {
-                status = true;
-                return Ok(status);
+           var SkuAndSubTotal= _zincDataAccess.GetSkuAndSubTotal(viewModels.OrderId);
+            AuthenticateSCRestViewModel authenticate = new AuthenticateSCRestViewModel();
+            _getChannelCredViewModel = new GetChannelCredViewModel();
+          
+            _getChannelCredViewModel = _EncDecChannel.DecryptedData("sellercloud");
+            authenticate = _EncDecChannel.AuthenticateSCForIMportOrder(_getChannelCredViewModel, ApiURL);
+            AdjustPhysicalInventoryVM inventoryVM = new AdjustPhysicalInventoryVM();
+            inventoryVM.WarehouseID = 358;
+            inventoryVM.ProductID = SkuAndSubTotal.Sku;
+            inventoryVM.Qty = viewModels.RecievedOrderQty;
+            inventoryVM.AdjustmentType = 1;
+            inventoryVM.Reason = "Updated From Panel";
+            inventoryVM.InventoryCost = SkuAndSubTotal.SubTotal/100;
+            inventoryVM.SiteCost = 0;
+            inventoryVM.PinCode = "1295";
+          int resData=  _zincDataAccess.UpdateAdjustMentOnSellercloud(authenticate, inventoryVM, ApiURL);
+            if (resData==200) {
+
+                if (_zincDataAccess.UpdateZincOrder(viewModels))
+                {
+                    status = true;
+                    return Ok(status);
+                }
+                else
+                {
+                    return Ok(status);
+                }
             }
             else
             {
-                return Ok(status );
+                return Ok(resData);
             }
+            
         }
 
         [HttpPut]
@@ -424,5 +456,9 @@ namespace HLD.WebApi.Controllers
                 return Ok(status);
             }
         }
+
+   
+       
+     
     }
 }

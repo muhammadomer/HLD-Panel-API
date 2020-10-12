@@ -5,7 +5,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -1532,6 +1534,75 @@ namespace DataAccess.DataAccess
             {
             }
             return status;
+        }
+
+
+        public GetSkuAndSubtotalVM GetSkuAndSubTotal(int orderId)
+        {
+            GetSkuAndSubtotalVM model = new GetSkuAndSubtotalVM();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetSKUAndSubTotal", conn);
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_OrderId", orderId);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            model.Sku = Convert.ToString(reader["Sku"] != DBNull.Value ? reader["Sku"] : "");
+                            model.SubTotal = Convert.ToDecimal(reader["SubTotal"] != DBNull.Value ? reader["SubTotal"] : "");
+                           
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return model;
+        }
+
+        public int UpdateAdjustMentOnSellercloud(AuthenticateSCRestViewModel token, AdjustPhysicalInventoryVM adjust, string aPiURL)
+        {
+            int StatusCode = 0;
+            try
+            {
+                var data = JsonConvert.SerializeObject(adjust);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(aPiURL + "/Inventory/AdjustPhysicalInventory");
+                request.Method = "PUT";
+                request.Accept = "application/json;";
+                request.ContentType = "application/json";
+                request.Headers["Authorization"] = "Bearer " + token.access_token;
+
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    streamWriter.Write(data);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
+                var response = (HttpWebResponse)request.GetResponse();
+                string strResponse = "";
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    strResponse = sr.ReadToEnd();
+
+                }
+                StatusCode = (int)response.StatusCode;
+            }
+            catch (Exception ex)
+            {
+
+                StatusCode = 500;
+                throw;
+            }
+            return StatusCode;
         }
     }
 }
