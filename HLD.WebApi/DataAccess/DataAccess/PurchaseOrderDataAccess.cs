@@ -637,8 +637,8 @@ namespace DataAccess.DataAccess
         }
 
 
-        //PO 
-        public List<PurchaseOrderItemsViewModel> GetPOProductDetails(int VendorId, string CurrentDate, string PreviousDate, int StartLimit, int EndLimit, int POID, string SKU = "", string Title = "", string OpenItem = "", string ReceivedItem = "", string OrderdItem = "", string NotShipped = "")
+        //PO  list
+        public List<PurchaseOrderItemsViewModel> GetPOProductDetails(int VendorId, string CurrentDate, string PreviousDate, int StartLimit, int EndLimit, int POID, string SKU = "", string Title = "", string OpenItem = "", string ReceivedItem = "", string OrderdItem = "", string NotShipped = "", string ShippedButNotReceived = "")
         {
             if (SKU == null)
                 SKU = "";
@@ -652,6 +652,8 @@ namespace DataAccess.DataAccess
                 OrderdItem = "";
             if (NotShipped == null)
                 NotShipped = "";
+            if (ShippedButNotReceived == null)
+                ShippedButNotReceived = "";
 
             List<PurchaseOrderItemsViewModel> list = new List<PurchaseOrderItemsViewModel>();
             try
@@ -670,6 +672,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_OrderedItem", OrderdItem);
                     cmd.Parameters.AddWithValue("_ReceivedItem", ReceivedItem);
                     cmd.Parameters.AddWithValue("_NotShipped", NotShipped);
+                    cmd.Parameters.AddWithValue("_ShippedButNotReceived", ShippedButNotReceived);
                     cmd.Parameters.AddWithValue("_POID", POID);
                     cmd.Parameters.AddWithValue("dateFrom", PreviousDate);
                     cmd.Parameters.AddWithValue("dateTo", CurrentDate);
@@ -723,8 +726,8 @@ namespace DataAccess.DataAccess
         }
 
 
-        //PO COUNT
-        public GetSummaryandCountPOViewModel GetCount(int VendorId, string CurrentDate, string PreviousDate, int POID = 0, string SKU = "", string Title = "", string OpenItem = "", string ReceivedItem = "", string OrderdItem = "", string NotShipped = "")
+        //PO COUNT pc
+        public GetSummaryandCountPOViewModel GetCount(int VendorId, string CurrentDate, string PreviousDate, int POID = 0, string SKU = "", string Title = "", string OpenItem = "", string ReceivedItem = "", string OrderdItem = "", string NotShipped = "",string ShippedButNotReceived = "")
         {
             if (SKU == null)
                 SKU = "";
@@ -739,6 +742,8 @@ namespace DataAccess.DataAccess
 
             if (NotShipped == null)
                 NotShipped = "";
+            if (ShippedButNotReceived == null)
+                ShippedButNotReceived = "";
             GetSummaryandCountPOViewModel Counter = new GetSummaryandCountPOViewModel();
             try
             {
@@ -754,6 +759,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_OrderedItem", OrderdItem);
                     cmd.Parameters.AddWithValue("_ReceivedItem", ReceivedItem);
                     cmd.Parameters.AddWithValue("_NotShipped", NotShipped);
+                    cmd.Parameters.AddWithValue("_ShippedButNotReceived", ShippedButNotReceived);
                     cmd.Parameters.AddWithValue("_POID", POID);
                     cmd.Parameters.AddWithValue("dateFrom", PreviousDate);
                     cmd.Parameters.AddWithValue("dateTo", CurrentDate);

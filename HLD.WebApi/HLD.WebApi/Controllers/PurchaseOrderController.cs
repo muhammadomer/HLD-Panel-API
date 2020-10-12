@@ -127,14 +127,14 @@ namespace HLD.WebApi.Controllers
             data = _DataAccess.CheckPurchaseOrderOrderINDB(OrderList);
             return data;
         }
-        //get po count
+        //get po count gpd
         [Route("GetPOProductDetails")]
-        public IActionResult GetPOProductDetails(int VendorId, string CurrentDate, string PreviousDate, int limit, int offSet, int POID, string SKU = "", string title = "", string OpenItem = "", string ReceivedItem = "", string OrderdItem = "", string NotShipped = "")
+        public IActionResult GetPOProductDetails(int VendorId, string CurrentDate, string PreviousDate, int limit, int offSet, int POID, string SKU = "", string title = "", string OpenItem = "", string ReceivedItem = "", string OrderdItem = "", string NotShipped = "", string ShippedButNotReceived = "")
         {
             //bool _status = false;
             //_status = dataAccess.updateSCImageStatusInProductTable(Sku, status);
 
-            var list = _DataAccess.GetPOProductDetails(VendorId, CurrentDate, PreviousDate, limit, offSet, POID, SKU, title, OpenItem, ReceivedItem, OrderdItem, NotShipped);
+            var list = _DataAccess.GetPOProductDetails(VendorId, CurrentDate, PreviousDate, limit, offSet, POID, SKU, title, OpenItem, ReceivedItem, OrderdItem, NotShipped, ShippedButNotReceived);
             {
                 return Ok(
                     list
@@ -145,11 +145,11 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Route("GetCount")]
         //get po count
-        public IActionResult GetCount(int VendorId, string CurrentDate, string PreviousDate, int POID, string SKU, string title, string OpenItem, string ReceivedItem, string OrderdItem, string NotShipped)
+        public IActionResult GetCount(int VendorId, string CurrentDate, string PreviousDate, int POID, string SKU, string title, string OpenItem, string ReceivedItem, string OrderdItem, string NotShipped, string ShippedButNotReceived = "")
         {
             long Count = 0;
             GetSummaryandCountPOViewModel status = new GetSummaryandCountPOViewModel();
-            status = _DataAccess.GetCount(VendorId, CurrentDate, PreviousDate, POID, SKU, title, OpenItem, ReceivedItem, OrderdItem, NotShipped);
+            status = _DataAccess.GetCount(VendorId, CurrentDate, PreviousDate, POID, SKU, title, OpenItem, ReceivedItem, OrderdItem, NotShipped, ShippedButNotReceived);
 
             return Ok(status);
 
