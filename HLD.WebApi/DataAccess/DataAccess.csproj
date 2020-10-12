@@ -240,6 +240,7 @@
     <Compile Include="Helper\JwtAppSetting.cs" />
     <Compile Include="Helper\ListToDatatable.cs" />
     <Compile Include="ViewModels\AcceptBesyBuyOrderViewModel.cs" />
+    <Compile Include="ViewModels\AdjustPhysicalInventoryVM.cs" />
     <Compile Include="ViewModels\AliasViewModel.cs" />
     <Compile Include="ViewModels\ApprovedPriceViewModel.cs" />
     <Compile Include="ViewModels\ASINActiveStatusViewModel.cs" />
@@ -303,6 +304,7 @@
     <Compile Include="ViewModels\GetOrdersNotFromBBViewModel.cs" />
     <Compile Include="ViewModels\GetProductTitleViewModel.cs" />
     <Compile Include="ViewModels\GetSendToZincOrderViewModel.cs" />
+    <Compile Include="ViewModels\GetSkuAndSubtotalVM.cs" />
     <Compile Include="ViewModels\GetStatusFromZincViewModel.cs" />
     <Compile Include="ViewModels\GetSummaryandCountPOViewModel.cs" />
     <Compile Include="ViewModels\GetSummaryForPOViewModel.cs" />
