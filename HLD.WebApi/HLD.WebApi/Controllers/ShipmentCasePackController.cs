@@ -17,9 +17,11 @@ namespace HLD.WebApi.Controllers
     public class ShipmentCasePackController : ControllerBase
     {
         ShipmentCasePackDataAccess _DataAccess;
+        PurchaseOrderDataAccess _dataAccess;
         public ShipmentCasePackController(IConnectionString connectionString)
         {
             _DataAccess = new ShipmentCasePackDataAccess(connectionString);
+            _dataAccess = new PurchaseOrderDataAccess(connectionString);
         }
 
         [HttpPost]
@@ -37,9 +39,29 @@ namespace HLD.WebApi.Controllers
         [Route("api/ShipmentCasePackProduct/Update")]
         public IActionResult Update(ShipmentCasePackProductViewModel ViewModel)
         {
-            int Id = 0;
-            Id = _DataAccess.Update(ViewModel);
-            return Ok(Id);
+            try
+            {
+                int Id = 0;
+                List<POIdViewModel> list = new List<POIdViewModel>();
+                list = _dataAccess.GetPOIdBySku(ViewModel.SKU, ViewModel.VendorId);
+                var balQty = list.FirstOrDefault().BalanceQty+ ViewModel.ShipedQty;
+                var opnQty = list.FirstOrDefault().OpenQty;
+                if (balQty <= opnQty)
+                {
+                    Id = _DataAccess.Update(ViewModel);
+                    return Ok(Id);
+                }
+                else
+                {
+                    return Ok(Id=0);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         [HttpGet]

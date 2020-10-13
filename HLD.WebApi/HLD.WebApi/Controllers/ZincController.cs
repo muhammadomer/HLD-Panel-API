@@ -416,7 +416,7 @@ namespace HLD.WebApi.Controllers
             inventoryVM.ProductID = SkuAndSubTotal.Sku;
             inventoryVM.Qty = viewModels.RecievedOrderQty;
             inventoryVM.AdjustmentType = 1;
-            inventoryVM.Reason = "Updated From Panel";
+            inventoryVM.Reason = "Updated from Panel Order ID # "+ viewModels.OrderId;
             inventoryVM.InventoryCost = SkuAndSubTotal.SubTotal/100;
             inventoryVM.SiteCost = 0;
             inventoryVM.PinCode = "1295";

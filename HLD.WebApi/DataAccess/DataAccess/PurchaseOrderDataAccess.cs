@@ -962,7 +962,7 @@ namespace DataAccess.DataAccess
         }
         public List<POIdViewModel> GetPOIdBySku(string name, int VendorId)
         {
-            List<POIdViewModel> list = null;
+            List<POIdViewModel> list = new List<POIdViewModel>();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(DOTconnStr))
@@ -976,7 +976,7 @@ namespace DataAccess.DataAccess
                     {
                         if (reader.HasRows)
                         {
-                            list = new List<POIdViewModel>();
+                            
                             while (reader.Read())
                             {
                                 POIdViewModel viewModel = new POIdViewModel();
