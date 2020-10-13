@@ -345,6 +345,7 @@ namespace DataAccess.DataAccess
                             ShippedDate = reader["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedAt"]) : DateTime.MinValue,
                             ReceivedDate = reader["ReceivedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ReceivedDate"]) : DateTime.MinValue,
                             TrakingNumber = reader["TrakingNumber"] != DBNull.Value ? (string)reader["TrakingNumber"] : "",
+                            TrakingURL = reader["TrakingURL"] != DBNull.Value ? (string)reader["TrakingURL"] : "",
                             CourierCode = reader["CourierCode"] != DBNull.Value ? (string)reader["CourierCode"] : "",
                             GrossWt = reader["GrossWt"] != DBNull.Value ? Convert.ToDecimal(reader["GrossWt"]) : 0,
                             CBM = reader["CBM"] != DBNull.Value ? Convert.ToDecimal(reader["CBM"]) : 0,

@@ -31,6 +31,7 @@ namespace DataAccess.ViewModels
         public int TotalOpenQty { get; set; }
         public int TotalReceivedQty { get; set; }
         public string TrakingNumber { get; set; }
+        public string TrakingURL { get; set; }
         public string CourierCode { get; set; }
         public DateTime ReceivedDate { get; set; }
         public DateTime ShippedDate { get; set; }
