@@ -1434,6 +1434,160 @@ namespace DataAccess.DataAccess
             return jobId;
         }
 
+        public string SaveParentSKU(SaveParentSkuVM model)
+        {
+            string _status = "";
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_SaveAndEditParentSku", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_product_id", model.product_id);
+                    cmd.Parameters.AddWithValue("_Sku", model.Sku);
+                    cmd.Parameters.AddWithValue("_ProductTitle", model.ProductTitle);
+                    cmd.Parameters.AddWithValue("_ConditionId", model.ConditionId);
+                    cmd.Parameters.AddWithValue("_CatagoryName", model.CatagoryName);
+                    cmd.Parameters.AddWithValue("_ShipWt", model.ShipWt);
+                    cmd.Parameters.AddWithValue("_ShipLt", model.ShipLt);
+                    cmd.Parameters.AddWithValue("_ShipHt", model.ShipHt);
+                    cmd.Parameters.AddWithValue("_Menufacture", model.Menufacture);
+                    cmd.Parameters.AddWithValue("_MenufactureModel", model.MenufactureModel);
+                    cmd.Parameters.AddWithValue("_Style", model.Style);
+                    cmd.Parameters.AddWithValue("_IsCreatedOnSC", model.IsCreatedOnSC);
+                    cmd.Parameters.AddWithValue("_Feature", model.Feature);
+                    cmd.Parameters.AddWithValue("_Description", model.Description);
+                    cmd.Parameters.AddWithValue("_DeviceModel", model.DeviceModel);
+                    cmd.ExecuteNonQuery();
 
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return _status;
+        }
+
+        
+
+        public List<SaveParentSkuVM> GetAllParentSKU()
+        {
+            List<SaveParentSkuVM> ViewModel = new List<SaveParentSkuVM>();
+            
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetAllParentSku", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                SaveParentSkuVM skuVM = new SaveParentSkuVM();
+                                skuVM.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
+                                skuVM.ProductTitle = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
+                                skuVM.ConditionId = Convert.ToInt32(reader["condition_id"] != DBNull.Value ? reader["condition_id"] : 0);
+                                skuVM.CatagoryName = Convert.ToString(reader["category_name"] != DBNull.Value ? reader["category_name"] : "");
+                                skuVM.ShipLt = Convert.ToDecimal(reader["ship_length"] != DBNull.Value ? reader["ship_length"] : "0");
+                                skuVM.ShipWt = Convert.ToDecimal(reader["ship_width"] != DBNull.Value ? reader["ship_width"] : "0");
+                                skuVM.ShipHt = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] : "0");
+                                skuVM.Menufacture = Convert.ToString(reader["Manufacture"] != DBNull.Value ? reader["Manufacture"] : "");
+                                skuVM.MenufactureModel = Convert.ToString(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : "");
+                                skuVM.Style = Convert.ToString(reader["Style"] != DBNull.Value ? reader["Style"] : "0");
+
+                                skuVM.IsCreatedOnSC = Convert.ToBoolean(reader["IsCreatedOnSC"] != DBNull.Value ? reader["IsCreatedOnSC"] : "false");
+                                skuVM.Feature = Convert.ToString(reader["Feature"] != DBNull.Value ? reader["Feature"] : "0");
+                                skuVM.Description = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "0");
+                                skuVM.DeviceModel = Convert.ToString(reader["_DeviceModel"] != DBNull.Value ? reader["_DeviceModel"] : "0");
+                                ViewModel.Add(skuVM);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ViewModel;
+        }
+
+        public int DeleteParentSKU(int Id)
+        {
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_DeleteParentSku", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Id", Id);
+                    cmd.ExecuteScalar();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return 0;
+        }
+
+        public SaveParentSkuVM GetParentSkuWithId(int id)
+        {
+            SaveParentSkuVM model = new SaveParentSkuVM();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetParentSkuById", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_product_id", id);
+                    MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
+                    cmd.ExecuteNonQuery();
+                    DataTable dt = new DataTable();
+                    mySqlDataAdapter.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+
+                        foreach (DataRow reader in dt.Rows)
+                        {
+                            SaveParentSkuVM skuVM = new SaveParentSkuVM();
+
+                            skuVM.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
+                            skuVM.ProductTitle = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
+                            skuVM.ConditionId = Convert.ToInt32(reader["condition_id"] != DBNull.Value ? reader["condition_id"] : 0);
+                            skuVM.CatagoryName = Convert.ToString(reader["category_name"] != DBNull.Value ? reader["category_name"] : "");
+                            skuVM.ShipLt = Convert.ToDecimal(reader["ship_length"] != DBNull.Value ? reader["ship_length"] : "0");
+                            skuVM.ShipWt = Convert.ToDecimal(reader["ship_width"] != DBNull.Value ? reader["ship_width"] : "0");
+                            skuVM.ShipHt = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] : "0");
+                            skuVM.Menufacture = Convert.ToString(reader["Manufacture"] != DBNull.Value ? reader["Manufacture"] : "");
+                            skuVM.MenufactureModel = Convert.ToString(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : "");
+                            skuVM.Style = Convert.ToString(reader["Style"] != DBNull.Value ? reader["Style"] : "0");
+
+                            skuVM.IsCreatedOnSC = Convert.ToBoolean(reader["IsCreatedOnSC"] != DBNull.Value ? reader["IsCreatedOnSC"] : "false");
+                            skuVM.Feature = Convert.ToString(reader["Feature"] != DBNull.Value ? reader["Feature"] : "0");
+                            skuVM.Description = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "0");
+                            skuVM.DeviceModel = Convert.ToString(reader["_DeviceModel"] != DBNull.Value ? reader["_DeviceModel"] : "0");
+                            model = skuVM;
+
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return model;
+        }
     }
 }

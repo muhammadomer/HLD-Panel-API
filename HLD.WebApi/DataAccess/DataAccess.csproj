@@ -349,6 +349,7 @@
     <Compile Include="ViewModels\SalesHistoryDashboardSearchViewModel.cs" />
     <Compile Include="ViewModels\SaveAndEditShipmentCourierVM.cs" />
     <Compile Include="ViewModels\SaveApprovedPricesViewModel.cs" />
+    <Compile Include="ViewModels\SaveParentSkuVM.cs" />
     <Compile Include="ViewModels\SaveQuotationMainVM.cs" />
     <Compile Include="ViewModels\SaveQuotationSubVM.cs" />
     <Compile Include="ViewModels\SaveWatchlistViewModel.cs" />

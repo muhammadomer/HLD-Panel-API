@@ -840,7 +840,39 @@ namespace HLD.WebApi.Controllers
 
 
         }
+        //Below API's Created By Mehdi
+        [HttpPost]
+        [Authorize]
+        [Route("api/Product/SaveParentSKU")]
+        public IActionResult SaveParentSKU(SaveParentSkuVM model)
+        {
+            string status = "";
+            status = DataAccess.SaveParentSKU(model);
+            return Ok(new { Status = status });
+        }
+        [HttpGet]
+        [Route("api/Product/GetAllParentSKU")]
+        public IActionResult GetAllParentSKU()
+        {
+            var list = DataAccess.GetAllParentSKU();
+            return Ok(list);
+        }
 
+        [HttpGet("api/Product/DeleteParentSKU")]
+        public int DeleteParentSKU(int Id)
+        {
+            DataAccess.DeleteParentSKU(Id);
+            return 0;
+        }
+        [HttpGet("api/Product/GetParentSkuWithId")]
+        public SaveParentSkuVM GetParentSkuWithId(int id)
+        {
+
+            SaveParentSkuVM viewModel = null;
+            viewModel = DataAccess.GetParentSkuWithId(id);
+
+            return viewModel;
+        }
     }
 
 
