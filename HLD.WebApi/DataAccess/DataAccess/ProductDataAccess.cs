@@ -1590,6 +1590,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_productTitle", model.ProductTitle);
                     cmd.Parameters.AddWithValue("_upc", model.Upc);
                     cmd.Parameters.AddWithValue("_productStatus", model.ProductStatus);
+                    cmd.Parameters.AddWithValue("_colorId", model.ColorId);
                     cmd.ExecuteNonQuery();
 
                 }
