@@ -1470,8 +1470,6 @@ namespace DataAccess.DataAccess
             return _status;
         }
 
-        
-
         public List<SaveParentSkuVM> GetAllParentSKU()
         {
             List<SaveParentSkuVM> ViewModel = new List<SaveParentSkuVM>();

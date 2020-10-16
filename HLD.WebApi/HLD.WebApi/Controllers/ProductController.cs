@@ -840,7 +840,7 @@ namespace HLD.WebApi.Controllers
 
 
         }
-        //Below API's Created By Mehdi
+        //Below  API's of ParentSku Created
         [HttpPost]
         [Authorize]
         [Route("api/Product/SaveParentSKU")]
@@ -873,6 +873,8 @@ namespace HLD.WebApi.Controllers
 
             return viewModel;
         }
+        //Below  API's of Child Sku Created
+
     }
 
 

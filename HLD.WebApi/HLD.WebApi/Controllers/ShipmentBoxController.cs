@@ -112,5 +112,30 @@ namespace HLD.WebApi.Controllers
             }
 
         }
+
+        [HttpPut]
+        [Route("api/ShipmentBox/UpdateNotes")]
+        public IActionResult UpdateNotes(string ShipmentId,string Notes)
+        {
+            try
+            {
+                bool status = false;
+                status = _DataAccess.UpdateNotes(ShipmentId, Notes);
+                if (status)
+                {
+                    return Ok(new { Status = status, Message = "Update Successfully" });
+                }
+                else
+                {
+                    return Ok(new { Status = status, Message = "Some Error Occured" });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+        }
     }
 }

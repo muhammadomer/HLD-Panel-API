@@ -210,5 +210,29 @@ namespace DataAccess.DataAccess
             return Item;
         }
 
+        public bool UpdateNotes(string ShipmentId, string Notes)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand("P_UpdateShipmentNote", conn);
+                    cmdd.CommandType = System.Data.CommandType.StoredProcedure;
+                    
+                    cmdd.Parameters.AddWithValue("_shipmentId", ShipmentId);
+                    cmdd.Parameters.AddWithValue("_shipmentNotes", Notes);
+                    cmdd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
+
     }
 }
