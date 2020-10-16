@@ -1000,6 +1000,8 @@ namespace DataAccess.DataAccess
                                 ViewModel.Brand = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] : "");
                                 ViewModel.Category = Convert.ToString(reader["category_name"] != DBNull.Value ? reader["category_name"] : "");
                                 ViewModel.Color = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
+                                ViewModel.ColorAlias = Convert.ToString(reader["color_alias"] != DBNull.Value ? reader["color_alias"] : "");
+                                
                                 ViewModel.ConditionId = Convert.ToInt32(reader["condition_id"] != DBNull.Value ? reader["condition_id"] : "0");
                                 if (!Convert.IsDBNull(reader["description"]))
                                 {
@@ -1434,9 +1436,9 @@ namespace DataAccess.DataAccess
             return jobId;
         }
 
-        public string SaveParentSKU(SaveParentSkuVM model)
+        public bool SaveParentSKU(SaveParentSkuVM model)
         {
-            string _status = "";
+            bool status = false;
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1459,15 +1461,16 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_Feature", model.Feature);
                     cmd.Parameters.AddWithValue("_Description", model.Description);
                     cmd.Parameters.AddWithValue("_DeviceModel", model.DeviceModel);
+                    cmd.Parameters.AddWithValue("_productstatus", model.productstatus=1);
                     cmd.ExecuteNonQuery();
-
+                    status = true;
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return _status;
+            return status;
         }
 
         public List<SaveParentSkuVM> GetAllParentSKU()
@@ -1490,19 +1493,14 @@ namespace DataAccess.DataAccess
                                 SaveParentSkuVM skuVM = new SaveParentSkuVM();
                                 skuVM.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                                 skuVM.ProductTitle = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
-                                skuVM.ConditionId = Convert.ToInt32(reader["condition_id"] != DBNull.Value ? reader["condition_id"] : 0);
-                                skuVM.CatagoryName = Convert.ToString(reader["category_name"] != DBNull.Value ? reader["category_name"] : "");
-                                skuVM.ShipLt = Convert.ToDecimal(reader["ship_length"] != DBNull.Value ? reader["ship_length"] : "0");
-                                skuVM.ShipWt = Convert.ToDecimal(reader["ship_width"] != DBNull.Value ? reader["ship_width"] : "0");
-                                skuVM.ShipHt = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] : "0");
-                                skuVM.Menufacture = Convert.ToString(reader["Manufacture"] != DBNull.Value ? reader["Manufacture"] : "");
-                                skuVM.MenufactureModel = Convert.ToString(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : "");
-                                skuVM.Style = Convert.ToString(reader["Style"] != DBNull.Value ? reader["Style"] : "0");
-
-                                skuVM.IsCreatedOnSC = Convert.ToBoolean(reader["IsCreatedOnSC"] != DBNull.Value ? reader["IsCreatedOnSC"] : "false");
-                                skuVM.Feature = Convert.ToString(reader["Feature"] != DBNull.Value ? reader["Feature"] : "0");
-                                skuVM.Description = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "0");
-                                skuVM.DeviceModel = Convert.ToString(reader["_DeviceModel"] != DBNull.Value ? reader["_DeviceModel"] : "0");
+                                skuVM.Color = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
+                                skuVM.ColorAlias = Convert.ToString(reader["color_alias"] != DBNull.Value ? reader["color_alias"] : "");
+                                skuVM.ColorId = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : "0");
+                                skuVM.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
+                                skuVM.product_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
+                                skuVM.CompressedImage = reader["Compress_image"] != DBNull.Value ? (string)reader["Compress_image"] : "";
+                                skuVM.ImageName = reader["image_name"] != DBNull.Value ? (string)reader["image_name"] : "";
+                                skuVM.Upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "0");
                                 ViewModel.Add(skuVM);
                             }
                         }
@@ -1538,9 +1536,9 @@ namespace DataAccess.DataAccess
             return 0;
         }
 
-        public SaveParentSkuVM GetParentSkuWithId(int id)
+        public GetParentSkuById GetParentSkuWithId(int id)
         {
-            SaveParentSkuVM model = new SaveParentSkuVM();
+            GetParentSkuById model = new GetParentSkuById();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1558,23 +1556,12 @@ namespace DataAccess.DataAccess
 
                         foreach (DataRow reader in dt.Rows)
                         {
-                            SaveParentSkuVM skuVM = new SaveParentSkuVM();
+                            GetParentSkuById skuVM = new GetParentSkuById();
 
                             skuVM.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                             skuVM.ProductTitle = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
-                            skuVM.ConditionId = Convert.ToInt32(reader["condition_id"] != DBNull.Value ? reader["condition_id"] : 0);
-                            skuVM.CatagoryName = Convert.ToString(reader["category_name"] != DBNull.Value ? reader["category_name"] : "");
-                            skuVM.ShipLt = Convert.ToDecimal(reader["ship_length"] != DBNull.Value ? reader["ship_length"] : "0");
-                            skuVM.ShipWt = Convert.ToDecimal(reader["ship_width"] != DBNull.Value ? reader["ship_width"] : "0");
-                            skuVM.ShipHt = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] : "0");
-                            skuVM.Menufacture = Convert.ToString(reader["Manufacture"] != DBNull.Value ? reader["Manufacture"] : "");
-                            skuVM.MenufactureModel = Convert.ToString(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : "");
-                            skuVM.Style = Convert.ToString(reader["Style"] != DBNull.Value ? reader["Style"] : "0");
-
-                            skuVM.IsCreatedOnSC = Convert.ToBoolean(reader["IsCreatedOnSC"] != DBNull.Value ? reader["IsCreatedOnSC"] : "false");
-                            skuVM.Feature = Convert.ToString(reader["Feature"] != DBNull.Value ? reader["Feature"] : "0");
-                            skuVM.Description = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "0");
-                            skuVM.DeviceModel = Convert.ToString(reader["_DeviceModel"] != DBNull.Value ? reader["_DeviceModel"] : "0");
+                            skuVM.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
+                            skuVM.product_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
                             model = skuVM;
 
                         }

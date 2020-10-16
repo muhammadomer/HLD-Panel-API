@@ -16,6 +16,7 @@ namespace DataAccess.ViewModels
         public int ConditionId { get; set; }
         public IEnumerable<SelectListItem> Condition { get; set; }                
         public String Color { get; set; }
+        public string ColorAlias { get; set; }
         public int ColorId { get; set; }
         public int BrandId { get; set; }
         public String Brand { get; set; }       

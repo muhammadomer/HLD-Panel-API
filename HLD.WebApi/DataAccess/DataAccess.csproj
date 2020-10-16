@@ -302,6 +302,7 @@
     <Compile Include="ViewModels\GetNotesOrderViewModel.cs" />
     <Compile Include="ViewModels\GetOrdersFromBestBuyViewModel.cs" />
     <Compile Include="ViewModels\GetOrdersNotFromBBViewModel.cs" />
+    <Compile Include="ViewModels\GetParentSkuById.cs" />
     <Compile Include="ViewModels\GetProductTitleViewModel.cs" />
     <Compile Include="ViewModels\GetSendToZincOrderViewModel.cs" />
     <Compile Include="ViewModels\GetSkuAndSubtotalVM.cs" />

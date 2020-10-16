@@ -119,6 +119,7 @@ namespace DataAccess.DataAccess
                                 ColorAutoCompleteViewModel colorViewModel = new ColorAutoCompleteViewModel();
                                 colorViewModel.ID = Convert.ToInt32(reader["color_id"]);
                                 colorViewModel.Name = Convert.ToString(reader["color_name"]);
+                                colorViewModel.ColorAlias = Convert.ToString(reader["color_alias"]);
                                 listcolorViewModel.Add(colorViewModel);
                             }
                         }

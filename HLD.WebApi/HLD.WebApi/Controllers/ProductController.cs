@@ -552,7 +552,7 @@ namespace HLD.WebApi.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [Route("api/Product/GetWareHousesQtyList")]
         public IActionResult GetWareHousesQtyList(string SKU)
         {
@@ -844,14 +844,14 @@ namespace HLD.WebApi.Controllers
         [HttpPost]
         [Authorize]
         [Route("api/Product/SaveParentSKU")]
-        public IActionResult SaveParentSKU(SaveParentSkuVM model)
+        public IActionResult SaveParentSKU([FromBody] SaveParentSkuVM model)
         {
-            string status = "";
+            bool status = false;
             status = DataAccess.SaveParentSKU(model);
-            return Ok(new { Status = status });
+            return Ok(status);
         }
         [HttpGet]
-        [Route("api/Product/GetAllParentSKU")]
+        [Route("api/Product/GetAllParentSKUList")]
         public IActionResult GetAllParentSKU()
         {
             var list = DataAccess.GetAllParentSKU();
@@ -865,10 +865,10 @@ namespace HLD.WebApi.Controllers
             return 0;
         }
         [HttpGet("api/Product/GetParentSkuWithId")]
-        public SaveParentSkuVM GetParentSkuWithId(int id)
+        public GetParentSkuById GetParentSkuWithId(int id)
         {
 
-            SaveParentSkuVM viewModel = null;
+            GetParentSkuById viewModel = null;
             viewModel = DataAccess.GetParentSkuWithId(id);
 
             return viewModel;

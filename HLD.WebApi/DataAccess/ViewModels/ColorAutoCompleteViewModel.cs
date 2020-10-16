@@ -10,5 +10,6 @@ namespace DataAccess.ViewModels
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public string ColorAlias { get; set; }
     }
 }
