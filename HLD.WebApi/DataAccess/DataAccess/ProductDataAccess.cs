@@ -1587,5 +1587,31 @@ namespace DataAccess.DataAccess
             }
             return model;
         }
+
+        public string SaveChildSKU(SaveChildSkuVM model)
+        {
+            string _status = "";
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_saveAndEditChildSku", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_productId", model.product_id);
+                    cmd.Parameters.AddWithValue("_sku", model.Sku);
+                    cmd.Parameters.AddWithValue("_productTitle", model.ProductTitle);
+                    cmd.Parameters.AddWithValue("_upc", model.Upc);
+                    cmd.Parameters.AddWithValue("_productStatus", model.ProductStatus);
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return _status;
+        }
     }
 }

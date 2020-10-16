@@ -874,6 +874,15 @@ namespace HLD.WebApi.Controllers
             return viewModel;
         }
         //Below  API's of Child Sku Created
+        [HttpPost]
+        [Authorize]
+        [Route("api/Product/SaveChildSKU")]
+        public IActionResult SaveChildSKU(SaveChildSkuVM model)
+        {
+            string status = "";
+            status = DataAccess.SaveChildSKU(model);
+            return Ok(new { Status = status });
+        }
 
     }
 
