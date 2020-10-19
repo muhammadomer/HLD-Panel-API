@@ -874,18 +874,27 @@ namespace HLD.WebApi.Controllers
             return viewModel;
         }
         //Below  API's of Child Sku Created
+        //[HttpPost]
+        //[Authorize]
+        //[Route("api/Product/SaveChildSKUList")]
+        //public List<SaveChildSkuVM> SaveChildSKU()
+        //{
+        //    List<SaveChildSkuVM> list = new List<SaveChildSkuVM>();
+            
+        //    var status = DataAccess.SaveChildSKU(list);
+        //    return Ok(status);
+        //}
         [HttpPost]
         [Authorize]
-        [Route("api/Product/SaveChildSKU")]
-        public IActionResult SaveChildSKU(SaveChildSkuVM model)
+        [Route("api/Product/SaveChildSKUList")]
+        public IActionResult SaveChildSKU([FromBody] List<SaveChildSkuVM> ListViewModel)
         {
-            string status = "";
-            status = DataAccess.SaveChildSKU(model);
-            return Ok(new { Status = status });
+            var list = DataAccess.SaveChildSKU(ListViewModel);
+            return Ok(list);
         }
 
         [HttpGet]
-        [Route("api/Product/GetAllChildSKU")]
+        [Route("api/Product/GetAllChildSKUList")]
         public IActionResult GetAllChildSKU()
         {
             var list = DataAccess.GetAllChildSKU();
@@ -894,19 +903,13 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("api/Product/DeleteChildSku/{id}")]
-        public IActionResult DeleteChildSku(int id)
+        [Route("api/Product/DeleteChildSku")]
+        public int DeleteChildSku(int product_id)
         {
-            bool status = false;
-            status = DataAccess.DeleteChildSku(id);
-            if (status == false)
-            {
-                return Ok(new { Status = false, Message = "Some error occured" });
-            }
-            else
-            {
-                return Ok(new { Status = true, Message = "Delete Successfully" });
-            }
+            
+            DataAccess.DeleteChildSku(product_id);
+            return 0;
+            
 
         }
 

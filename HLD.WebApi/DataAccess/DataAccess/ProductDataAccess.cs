@@ -1575,31 +1575,65 @@ namespace DataAccess.DataAccess
             return model;
         }
 
-        public string SaveChildSKU(SaveChildSkuVM model)
+        //public bool SaveChildSKU(SaveChildSkuVM model)
+        //{
+        //    bool status = false;
+        //    try
+        //    {
+        //        using (MySqlConnection conn = new MySqlConnection(connStr))
+        //        {
+        //            conn.Open();
+        //            MySqlCommand cmd = new MySqlCommand("P_saveAndEditChildSku", conn);
+        //            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+        //            cmd.Parameters.AddWithValue("_productId", model.product_id);
+        //            cmd.Parameters.AddWithValue("_sku", model.Sku);
+        //            cmd.Parameters.AddWithValue("_productTitle", model.ProductTitle);
+        //            cmd.Parameters.AddWithValue("_upc", model.Upc);
+        //            cmd.Parameters.AddWithValue("_productStatus", model.ProductStatus);
+        //            cmd.Parameters.AddWithValue("_colorId", model.ColorId);
+        //            cmd.ExecuteNonQuery();
+        //            status = true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return status;
+        //}
+
+        public bool SaveChildSKU(List<SaveChildSkuVM> ListViewModel)
         {
-            string _status = "";
+            bool status = false;
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(connStr))
+                foreach (var item in ListViewModel)
                 {
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_saveAndEditChildSku", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_productId", model.product_id);
-                    cmd.Parameters.AddWithValue("_sku", model.Sku);
-                    cmd.Parameters.AddWithValue("_productTitle", model.ProductTitle);
-                    cmd.Parameters.AddWithValue("_upc", model.Upc);
-                    cmd.Parameters.AddWithValue("_productStatus", model.ProductStatus);
-                    cmd.Parameters.AddWithValue("_colorId", model.ColorId);
-                    cmd.ExecuteNonQuery();
+                    using (MySqlConnection conn = new MySqlConnection(connStr))
+                    {
+                        conn.Open();
+                        MySqlCommand cmd = new MySqlCommand("P_saveAndEditChildSku", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_productId", item.product_id);
+                        cmd.Parameters.AddWithValue("_sku", item.Sku);
+                        cmd.Parameters.AddWithValue("_productTitle", item.title);
+                        cmd.Parameters.AddWithValue("_upc", item.upc);
+                        cmd.Parameters.AddWithValue("_productStatus", item.productstatus);
+                        cmd.Parameters.AddWithValue("_colorId", item.ColorIds);
+                        cmd.ExecuteNonQuery();
+                        status = true;
+                        
+                        conn.Close();
 
+                    }
                 }
+
             }
             catch (Exception ex)
             {
-                throw ex;
+
             }
-            return _status;
+            return status;
         }
 
         public List<SaveChildSkuVM> GetAllChildSKU()
@@ -1621,10 +1655,10 @@ namespace DataAccess.DataAccess
                             {
                                 SaveChildSkuVM skuVM = new SaveChildSkuVM();
                                 skuVM.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
-                                skuVM.ProductTitle = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
-                                skuVM.Upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
-                                skuVM.ProductStatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
-                                skuVM.ColorId = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
+                                skuVM.title = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
+                                skuVM.upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
+                                skuVM.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
+                                skuVM.ColorIds = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
                                 
                                 ViewModel.Add(skuVM);
                             }
@@ -1639,9 +1673,9 @@ namespace DataAccess.DataAccess
             return ViewModel;
         }
 
-        public bool DeleteChildSku(int id)
+        public int DeleteChildSku(int product_id)
         {
-            bool status = false;
+           
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1649,21 +1683,22 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_DeleteChildSku", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_productId", id);
-                    cmd.ExecuteNonQuery();
-                    status = true;
+                    cmd.Parameters.AddWithValue("_productId", product_id);
+                    cmd.ExecuteScalar();
+                    conn.Close();
+
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return status;
+            return 0;
         }
 
         public List<SaveChildSkuVM> GetChildSkuById(int id)
         {
-            List<SaveChildSkuVM> listModel = null;
+            List<SaveChildSkuVM> listModel = new List<SaveChildSkuVM>();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1677,18 +1712,19 @@ namespace DataAccess.DataAccess
                     {
                         if (reader.HasRows)
                         {
-                            listModel = new List<SaveChildSkuVM>();
+                           
                             while (reader.Read())
                             {
                                 SaveChildSkuVM model = new SaveChildSkuVM();
                                 model.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "0");
-                                model.ProductTitle = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
+                                model.title = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
 
-                                model.Upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
+                                model.upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
 
-                                model.ProductStatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
-
-                                model.ColorId = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : "");
+                                model.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
+                                model.product_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
+                                model.ColorIds = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
+                                model.Colorname = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
                                 listModel.Add(model);
                             }
                         }

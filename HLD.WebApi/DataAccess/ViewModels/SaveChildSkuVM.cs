@@ -9,10 +9,11 @@ namespace DataAccess.ViewModels
    public class SaveChildSkuVM
     {
         public int product_id { get; set; }
-        public int ColorId { get; set; }
+        public int ColorIds { get; set; }
+        public string Colorname { get; set; }
         public string Sku { get; set; }
-        public string ProductTitle { get; set; }
-        public string Upc { get; set; }
-        public int ProductStatus { get; set; }
+        public string title { get; set; }
+        public string upc { get; set; }
+        public int productstatus { get; set; }
     }
 }
