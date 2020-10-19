@@ -1601,5 +1601,63 @@ namespace DataAccess.DataAccess
             }
             return _status;
         }
+
+        public List<SaveChildSkuVM> GetAllChildSKU()
+        {
+            List<SaveChildSkuVM> ViewModel = new List<SaveChildSkuVM>();
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetAllChildSku", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                SaveChildSkuVM skuVM = new SaveChildSkuVM();
+                                skuVM.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
+                                skuVM.ProductTitle = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
+                                skuVM.Upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
+                                skuVM.ProductStatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
+                                skuVM.ColorId = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
+                                
+                                ViewModel.Add(skuVM);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ViewModel;
+        }
+
+        public bool DeleteChildSku(int id)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_DeleteChildSku", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_productId", id);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return status;
+        }
     }
 }

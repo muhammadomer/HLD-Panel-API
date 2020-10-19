@@ -884,6 +884,31 @@ namespace HLD.WebApi.Controllers
             return Ok(new { Status = status });
         }
 
+        [HttpGet]
+        [Route("api/Product/GetAllChildSKU")]
+        public IActionResult GetAllChildSKU()
+        {
+            var list = DataAccess.GetAllChildSKU();
+            return Ok(list);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/DeleteChildSku/{id}")]
+        public IActionResult DeleteChildSku(int id)
+        {
+            bool status = false;
+            status = DataAccess.DeleteChildSku(id);
+            if (status == false)
+            {
+                return Ok(new { Status = false, Message = "Some error occured" });
+            }
+            else
+            {
+                return Ok(new { Status = true, Message = "Delete Successfully" });
+            }
+
+        }
     }
 
 

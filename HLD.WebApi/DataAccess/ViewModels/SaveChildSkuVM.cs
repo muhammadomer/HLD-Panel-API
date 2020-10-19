@@ -13,6 +13,6 @@ namespace DataAccess.ViewModels
         public string Sku { get; set; }
         public string ProductTitle { get; set; }
         public string Upc { get; set; }
-        public bool ProductStatus { get; set; }
+        public int ProductStatus { get; set; }
     }
 }
