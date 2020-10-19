@@ -934,7 +934,7 @@ namespace HLD.WebApi.Controllers
         [HttpPut]
         [Authorize]
         [Route("api/Product/UpdateChildSKU")]
-        public IActionResult UpdateChildSKU(List<SaveChildSkuVM> model)
+        public IActionResult UpdateChildSKU(SaveChildSkuVM model)
         {
             string status = "";
             status = DataAccess.UpdateChildSKU(model);

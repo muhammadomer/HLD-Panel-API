@@ -1741,7 +1741,7 @@ namespace DataAccess.DataAccess
             return listModel;
         }
 
-        public string UpdateChildSKU(List<SaveChildSkuVM> model)
+        public string UpdateChildSKU(SaveChildSkuVM model)
         {
             string _status = "";
             try
@@ -1750,17 +1750,16 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_EditChildSku", conn);
-                    foreach (var item in model)
-                    {
+                    
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("_productId", item.product_id);
-                        cmd.Parameters.AddWithValue("_sku", item.Sku);
-                        cmd.Parameters.AddWithValue("_productTitle", item.ProductTitle);
-                        cmd.Parameters.AddWithValue("_upc", item.Upc);
-                        cmd.Parameters.AddWithValue("_productStatus", item.ProductStatus);
-                        cmd.Parameters.AddWithValue("_colorId", item.ColorId);
+                        cmd.Parameters.AddWithValue("_productId", model.product_id);
+                        cmd.Parameters.AddWithValue("_sku", model.Sku);
+                        cmd.Parameters.AddWithValue("_productTitle", model.ProductTitle);
+                        cmd.Parameters.AddWithValue("_upc", model.Upc);
+                        cmd.Parameters.AddWithValue("_productStatus", model.ProductStatus);
+                        cmd.Parameters.AddWithValue("_colorId", model.ColorId);
                         cmd.ExecuteNonQuery();
-                    }
+                   
                     
 
                 }
