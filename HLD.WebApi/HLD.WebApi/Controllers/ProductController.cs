@@ -928,6 +928,15 @@ namespace HLD.WebApi.Controllers
             }
 
         }
+        [HttpPut]
+        [Authorize]
+        [Route("api/Product/UpdateChildSKU")]
+        public IActionResult UpdateChildSKU(List<SaveChildSkuVM> model)
+        {
+            string status = "";
+            status = DataAccess.UpdateChildSKU(model);
+            return Ok(new { Status = status });
+        }
     }
 
 
