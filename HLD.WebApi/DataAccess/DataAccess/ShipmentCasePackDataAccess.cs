@@ -35,7 +35,7 @@ namespace DataAccess.DataAccess
                     cmdd.Parameters.AddWithValue("_ShipmentId", ViewModel.ShipmentId);
                     cmdd.Parameters.AddWithValue("_VendorId", ViewModel.VendorId);
                     cmdd.Parameters.AddWithValue("_POId", ViewModel.POId);
-                    cmdd.Parameters.AddWithValue("_SKU", ViewModel.SKU);
+                    cmdd.Parameters.AddWithValue("_SKU",ViewModel.SKU.Trim());
                     cmdd.Parameters.AddWithValue("_ShipedQty", ViewModel.ShipedQty);
                     cmdd.Parameters.AddWithValue("_QtyPerBox", ViewModel.QtyPerBox);
                     cmdd.Parameters.AddWithValue("_Heigth", ViewModel.Height);

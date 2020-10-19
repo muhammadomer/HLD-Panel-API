@@ -1654,10 +1654,55 @@ namespace DataAccess.DataAccess
                     status = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                throw ex;
             }
             return status;
+        }
+
+        public List<SaveChildSkuVM> GetChildSkuById(int id)
+        {
+            List<SaveChildSkuVM> listModel = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("GetChildSkuById", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_productId", id);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            listModel = new List<SaveChildSkuVM>();
+                            while (reader.Read())
+                            {
+                                SaveChildSkuVM model = new SaveChildSkuVM();
+                                model.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "0");
+                                model.ProductTitle = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
+
+                                model.Upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
+
+                                model.ProductStatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
+
+                                model.ColorId = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : "");
+                                listModel.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return listModel;
         }
     }
 }

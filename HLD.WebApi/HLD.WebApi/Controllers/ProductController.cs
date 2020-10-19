@@ -909,6 +909,25 @@ namespace HLD.WebApi.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/GetChildSkuById")]
+        public List<SaveChildSkuVM> GetChildSkuById(int id)
+        {
+            List<SaveChildSkuVM> viewlList = new List<SaveChildSkuVM>();
+            try
+            {
+                viewlList = DataAccess.GetChildSkuById(id);
+                return viewlList;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 
 
