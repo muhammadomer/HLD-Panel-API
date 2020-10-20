@@ -8,8 +8,10 @@ namespace DataAccess.ViewModels
 {
    public class GetParentSkuById
     {
-        public int product_id { get; set; }
+        public int Parentproduct_id { get; set; }
+        public int Childproduct_id { get; set; }
         public int productstatus { get; set; }
+        public int ColorIds { get; set; }
         public string Sku { get; set; }
         public string ProductTitle { get; set; }
     }

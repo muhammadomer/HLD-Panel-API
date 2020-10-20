@@ -9,7 +9,7 @@ namespace DataAccess.ViewModels
 {
    public class SaveParentSkuVM
     {
-        public int product_id { get; set; }
+        public int Parentproduct_id { get; set; }
         public int productstatus { get; set; }
         public string Sku { get; set; }
         public string ProductTitle { get; set; }

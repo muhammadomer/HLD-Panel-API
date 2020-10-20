@@ -1446,7 +1446,7 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_SaveAndEditParentSku", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_product_id", model.product_id);
+                    cmd.Parameters.AddWithValue("_Parentproduct_id", model.Parentproduct_id);
                     cmd.Parameters.AddWithValue("_Sku", model.Sku);
                     cmd.Parameters.AddWithValue("_ProductTitle", model.ProductTitle);
                     cmd.Parameters.AddWithValue("_ConditionId", model.ConditionId);
@@ -1497,7 +1497,7 @@ namespace DataAccess.DataAccess
                                 skuVM.ColorAlias = Convert.ToString(reader["color_alias"] != DBNull.Value ? reader["color_alias"] : "");
                                 skuVM.ColorId = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : "0");
                                 skuVM.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
-                                skuVM.product_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
+                                skuVM.Parentproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
                                 //skuVM.CompressedImage = reader["Compress_image"] != DBNull.Value ? (string)reader["Compress_image"] : "";
                                 //skuVM.ImageName = reader["image_name"] != DBNull.Value ? (string)reader["image_name"] : "";
                                 skuVM.Upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "0");
@@ -1561,7 +1561,9 @@ namespace DataAccess.DataAccess
                             skuVM.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                             skuVM.ProductTitle = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
                             skuVM.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
-                            skuVM.product_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
+                            skuVM.Parentproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : 0);
+                            skuVM.Childproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : 0);
+                            skuVM.ColorIds = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
                             model = skuVM;
 
                         }
@@ -1614,7 +1616,8 @@ namespace DataAccess.DataAccess
                         conn.Open();
                         MySqlCommand cmd = new MySqlCommand("P_saveChildSku", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("_productId", item.product_id);
+                        cmd.Parameters.AddWithValue("_childProductId", item.Childproduct_id);
+                        cmd.Parameters.AddWithValue("_parentProductId", item.Parentproduct_id);
                         cmd.Parameters.AddWithValue("_sku", item.Sku);
                         cmd.Parameters.AddWithValue("_productTitle", item.title);
                         cmd.Parameters.AddWithValue("_upc", item.upc);
@@ -1673,7 +1676,7 @@ namespace DataAccess.DataAccess
             return ViewModel;
         }
 
-        public int DeleteChildSku(int product_id)
+        public int DeleteChildSku(int child_id)
         {
            
             try
@@ -1683,7 +1686,7 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_DeleteChildSku", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_productId", product_id);
+                    cmd.Parameters.AddWithValue("_productId", child_id);
                     cmd.ExecuteScalar();
                     conn.Close();
 
@@ -1722,7 +1725,8 @@ namespace DataAccess.DataAccess
                                 model.upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
 
                                 model.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
-                                model.product_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
+                                model.Parentproduct_id = Convert.ToInt32(reader["ParentID"] != DBNull.Value ? reader["ParentID"] : "");
+                                model.Childproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
                                 model.ColorIds = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
                                 model.Colorname = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
                                 listModel.Add(model);
@@ -1753,7 +1757,7 @@ namespace DataAccess.DataAccess
 
                    
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("_productId", model.product_id);
+                        cmd.Parameters.AddWithValue("_productId", model.Parentproduct_id);
                         cmd.Parameters.AddWithValue("_sku", model.Sku);
                         cmd.Parameters.AddWithValue("_productTitle", model.title);
                         cmd.Parameters.AddWithValue("_upc", model.upc);

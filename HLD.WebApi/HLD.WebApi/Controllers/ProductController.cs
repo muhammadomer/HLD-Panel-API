@@ -904,10 +904,10 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/Product/DeleteChildSku")]
-        public int DeleteChildSku(int product_id)
+        public int DeleteChildSku(int child_id)
         {
             
-            DataAccess.DeleteChildSku(product_id);
+            DataAccess.DeleteChildSku(child_id);
             return 0;
             
 
