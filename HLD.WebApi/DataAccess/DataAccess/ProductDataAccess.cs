@@ -1498,8 +1498,8 @@ namespace DataAccess.DataAccess
                                 skuVM.ColorId = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : "0");
                                 skuVM.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
                                 skuVM.product_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
-                                skuVM.CompressedImage = reader["Compress_image"] != DBNull.Value ? (string)reader["Compress_image"] : "";
-                                skuVM.ImageName = reader["image_name"] != DBNull.Value ? (string)reader["image_name"] : "";
+                                //skuVM.CompressedImage = reader["Compress_image"] != DBNull.Value ? (string)reader["Compress_image"] : "";
+                                //skuVM.ImageName = reader["image_name"] != DBNull.Value ? (string)reader["image_name"] : "";
                                 skuVM.Upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "0");
                                 ViewModel.Add(skuVM);
                             }
@@ -1612,17 +1612,17 @@ namespace DataAccess.DataAccess
                     using (MySqlConnection conn = new MySqlConnection(connStr))
                     {
                         conn.Open();
-                        MySqlCommand cmd = new MySqlCommand("P_saveAndEditChildSku", conn);
+                        MySqlCommand cmd = new MySqlCommand("P_saveChildSku", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("_productId", item.product_id);
                         cmd.Parameters.AddWithValue("_sku", item.Sku);
                         cmd.Parameters.AddWithValue("_productTitle", item.title);
                         cmd.Parameters.AddWithValue("_upc", item.upc);
-                        cmd.Parameters.AddWithValue("_productStatus", item.productstatus);
+                        cmd.Parameters.AddWithValue("_productStatus", 0);
                         cmd.Parameters.AddWithValue("_colorId", item.ColorIds);
                         cmd.ExecuteNonQuery();
                         status = true;
-                        
+
                         conn.Close();
 
                     }
@@ -1750,16 +1750,18 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_EditChildSku", conn);
-                    
+
+                   
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("_productId", model.product_id);
                         cmd.Parameters.AddWithValue("_sku", model.Sku);
-                        cmd.Parameters.AddWithValue("_productTitle", model.ProductTitle);
-                        cmd.Parameters.AddWithValue("_upc", model.Upc);
-                        cmd.Parameters.AddWithValue("_productStatus", model.ProductStatus);
-                        cmd.Parameters.AddWithValue("_colorId", model.ColorId);
+                        cmd.Parameters.AddWithValue("_productTitle", model.title);
+                        cmd.Parameters.AddWithValue("_upc", model.upc);
+                        cmd.Parameters.AddWithValue("_productStatus", model.productstatus);
+                        cmd.Parameters.AddWithValue("_colorId", model.ColorIds);
                         cmd.ExecuteNonQuery();
-                   
+                    
+
                     
 
                 }
