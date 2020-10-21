@@ -934,11 +934,11 @@ namespace HLD.WebApi.Controllers
         [HttpPut]
         [Authorize]
         [Route("api/Product/UpdateChildSKU")]
-        public IActionResult UpdateChildSKU(SaveChildSkuVM model)
+        public IActionResult UpdateChildSKU([FromBody] SaveChildSkuVM model)
         {
-            string status = "";
-            status = DataAccess.UpdateChildSKU(model);
-            return Ok(new { Status = status });
+            bool status = false;
+             status = DataAccess.UpdateChildSKU(model);
+            return Ok(status);
         }
 
         [HttpGet]

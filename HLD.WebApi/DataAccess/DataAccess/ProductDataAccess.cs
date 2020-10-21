@@ -1747,9 +1747,9 @@ namespace DataAccess.DataAccess
             return listModel;
         }
 
-        public string UpdateChildSKU(SaveChildSkuVM model)
+        public bool UpdateChildSKU(SaveChildSkuVM model)
         {
-            string _status = "";
+            bool status = false; ;
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1759,16 +1759,18 @@ namespace DataAccess.DataAccess
 
                    
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("_productId", model.Parentproduct_id);
+                        cmd.Parameters.AddWithValue("_productId", model.Childproduct_id);
                         cmd.Parameters.AddWithValue("_sku", model.Sku);
                         cmd.Parameters.AddWithValue("_productTitle", model.title);
                         cmd.Parameters.AddWithValue("_upc", model.upc);
                         cmd.Parameters.AddWithValue("_productStatus", model.productstatus);
                         cmd.Parameters.AddWithValue("_colorId", model.ColorIds);
-                        cmd.ExecuteNonQuery();
-                    
+                        cmd.ExecuteScalar();
+                        status = true;
+                        conn.Close();
 
-                    
+
+
 
                 }
             }
@@ -1776,7 +1778,7 @@ namespace DataAccess.DataAccess
             {
                 throw ex;
             }
-            return _status;
+            return status;
         }
 
         public List<MarketPlaceShadowViewModel> GetMarketPlaceShadow()
