@@ -916,9 +916,9 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/Product/GetChildSkuById")]
-        public List<SaveChildSkuVM> GetChildSkuById(int id)
+        public List<GetChildSkuVM> GetChildSkuById(int id)
         {
-            List<SaveChildSkuVM> viewlList = new List<SaveChildSkuVM>();
+            List<GetChildSkuVM> viewlList = new List<GetChildSkuVM>();
             try
             {
                 viewlList = DataAccess.GetChildSkuById(id);
@@ -939,6 +939,15 @@ namespace HLD.WebApi.Controllers
             string status = "";
             status = DataAccess.UpdateChildSKU(model);
             return Ok(new { Status = status });
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/GetMarketPlaceShadow")]
+        public IActionResult GetMarketPlaceShadow()
+        {
+            var list = DataAccess.GetMarketPlaceShadow();
+            return Ok(list);
         }
     }
 

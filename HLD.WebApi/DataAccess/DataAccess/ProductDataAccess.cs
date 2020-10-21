@@ -1699,9 +1699,9 @@ namespace DataAccess.DataAccess
             return 0;
         }
 
-        public List<SaveChildSkuVM> GetChildSkuById(int id)
+        public List<GetChildSkuVM> GetChildSkuById(int id)
         {
-            List<SaveChildSkuVM> listModel = new List<SaveChildSkuVM>();
+            List<GetChildSkuVM> listModel = new List<GetChildSkuVM>();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1718,7 +1718,7 @@ namespace DataAccess.DataAccess
                            
                             while (reader.Read())
                             {
-                                SaveChildSkuVM model = new SaveChildSkuVM();
+                                GetChildSkuVM model = new GetChildSkuVM();
                                 model.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "0");
                                 model.title = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
 
@@ -1729,6 +1729,8 @@ namespace DataAccess.DataAccess
                                 model.Childproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
                                 model.ColorIds = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
                                 model.Colorname = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
+                                model.ImageName = Convert.ToString(reader["image_name"] != DBNull.Value ? reader["image_name"] : "");
+                                model.CompressedImage = Convert.ToString(reader["Compress_image"] != DBNull.Value ? reader["Compress_image"] : "");
                                 listModel.Add(model);
                             }
                         }
@@ -1775,6 +1777,39 @@ namespace DataAccess.DataAccess
                 throw ex;
             }
             return _status;
+        }
+
+        public List<MarketPlaceShadowViewModel> GetMarketPlaceShadow()
+        {
+            List<MarketPlaceShadowViewModel> ViewModel = new List<MarketPlaceShadowViewModel>();
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetAllChildSku", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                MarketPlaceShadowViewModel skuVM = new MarketPlaceShadowViewModel();
+                                skuVM.CompanyId = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
+                                skuVM.Shadow_Key = Convert.ToString(reader["Shadow_Key"] != DBNull.Value ? reader["Shadow_Key"] : "");
+                                ViewModel.Add(skuVM);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ViewModel;
         }
     }
 }
