@@ -1577,33 +1577,6 @@ namespace DataAccess.DataAccess
             return model;
         }
 
-        //public bool SaveChildSKU(SaveChildSkuVM model)
-        //{
-        //    bool status = false;
-        //    try
-        //    {
-        //        using (MySqlConnection conn = new MySqlConnection(connStr))
-        //        {
-        //            conn.Open();
-        //            MySqlCommand cmd = new MySqlCommand("P_saveAndEditChildSku", conn);
-        //            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-        //            cmd.Parameters.AddWithValue("_productId", model.product_id);
-        //            cmd.Parameters.AddWithValue("_sku", model.Sku);
-        //            cmd.Parameters.AddWithValue("_productTitle", model.ProductTitle);
-        //            cmd.Parameters.AddWithValue("_upc", model.Upc);
-        //            cmd.Parameters.AddWithValue("_productStatus", model.ProductStatus);
-        //            cmd.Parameters.AddWithValue("_colorId", model.ColorId);
-        //            cmd.ExecuteNonQuery();
-        //            status = true;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    return status;
-        //}
-
         public bool SaveChildSKU(List<SaveChildSkuVM> ListViewModel)
         {
             bool status = false;
@@ -1812,6 +1785,44 @@ namespace DataAccess.DataAccess
                 throw ex;
             }
             return ViewModel;
+        }
+
+        public bool SaveAndEditChildShadow(SaveAndEditChildShadowViewModel model)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_SaveAndEditChildShadow", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Parentproduct_id", model.Parentproduct_id);
+                    cmd.Parameters.AddWithValue("_Sku", model.Sku);
+                    cmd.Parameters.AddWithValue("_ProductTitle", model.ProductTitle);
+                    cmd.Parameters.AddWithValue("_ConditionId", model.ConditionId);
+                    cmd.Parameters.AddWithValue("_CatagoryName", model.CatagoryName);
+                    cmd.Parameters.AddWithValue("_ShipWt", model.ShipWt);
+                    cmd.Parameters.AddWithValue("_ShipLt", model.ShipLt);
+                    cmd.Parameters.AddWithValue("_ShipHt", model.ShipHt);
+                    cmd.Parameters.AddWithValue("_Menufacture", model.Menufacture);
+                    cmd.Parameters.AddWithValue("_MenufactureModel", model.MenufactureModel);
+                    cmd.Parameters.AddWithValue("_Style", model.Style);
+                    cmd.Parameters.AddWithValue("_IsCreatedOnSC", model.IsCreatedOnSC);
+                    cmd.Parameters.AddWithValue("_Feature", model.Feature);
+                    cmd.Parameters.AddWithValue("_Description", model.Description);
+                    cmd.Parameters.AddWithValue("_DeviceModel", model.DeviceModel);
+                    cmd.Parameters.AddWithValue("_productstatus", model.productstatus = 1);
+                    cmd.Parameters.AddWithValue("_ShadowOf", model.ShadowOf);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
         }
     }
 }

@@ -949,6 +949,16 @@ namespace HLD.WebApi.Controllers
             var list = DataAccess.GetMarketPlaceShadow();
             return Ok(list);
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/Product/SaveAndEditChildShadow")]
+        public IActionResult SaveAndEditChildShadow([FromBody] SaveAndEditChildShadowViewModel model)
+        {
+            bool status = false;
+            status = DataAccess.SaveAndEditChildShadow(model);
+            return Ok(status);
+        }
     }
 
 

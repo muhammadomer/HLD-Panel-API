@@ -297,6 +297,7 @@
     <Compile Include="ViewModels\FileUploadViewModel.cs" />
     <Compile Include="ViewModels\GetChannelCredViewModel.cs" />
     <Compile Include="ViewModels\GetChildORderToimportJobViewModel.cs" />
+    <Compile Include="ViewModels\GetChildSkuVM.cs" />
     <Compile Include="ViewModels\GetFileJobsToRunViewModel.cs" />
     <Compile Include="ViewModels\GetJobDetailViewModel.cs" />
     <Compile Include="ViewModels\GetNotesOrderViewModel.cs" />
@@ -313,6 +314,7 @@
     <Compile Include="ViewModels\ImportDataFromBestBuy.cs" />
     <Compile Include="ViewModels\ImportMissingSkuViewModel.cs" />
     <Compile Include="ViewModels\JobIdReturnViewModel.cs" />
+    <Compile Include="ViewModels\MarketPlaceShadowViewModel.cs" />
     <Compile Include="ViewModels\MaunualPaymentOnSellercloudViewCloud.cs" />
     <Compile Include="ViewModels\MissingOrderReturnViewModel.cs" />
     <Compile Include="ViewModels\CheckMissingOrderViewModel.cs" />
@@ -348,6 +350,7 @@
     <Compile Include="ViewModels\RestSCCredViewModel.cs" />
     <Compile Include="ViewModels\S3LogViewModel.cs" />
     <Compile Include="ViewModels\SalesHistoryDashboardSearchViewModel.cs" />
+    <Compile Include="ViewModels\SaveAndEditChildShadowViewModel.cs" />
     <Compile Include="ViewModels\SaveAndEditShipmentCourierVM.cs" />
     <Compile Include="ViewModels\SaveApprovedPricesViewModel.cs" />
     <Compile Include="ViewModels\SaveChildSkuVM.cs" />
