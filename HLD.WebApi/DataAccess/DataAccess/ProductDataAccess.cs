@@ -1703,6 +1703,7 @@ namespace DataAccess.DataAccess
                                 model.ColorIds = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
                                 model.Colorname = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
                                 model.ImageName = Convert.ToString(reader["image_name"] != DBNull.Value ? reader["image_name"] : "");
+                                model.CompressedImage = Convert.ToString(reader["Compress_image"] != DBNull.Value ? reader["Compress_image"] : "");
                                 model.ShadowOff = Convert.ToString(reader["ShadowOf"] != DBNull.Value ? reader["ShadowOf"] : "");
                                 listModel.Add(model);
                             }
