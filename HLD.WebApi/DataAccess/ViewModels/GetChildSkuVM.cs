@@ -18,5 +18,6 @@ namespace DataAccess.ViewModels
         public int productstatus { get; set; }
         public string ImageName { get; set; }
         public string CompressedImage { get; set; }
+        public string ShadowOff { get; set; }
     }
 }
