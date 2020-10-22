@@ -961,7 +961,7 @@ namespace HLD.WebApi.Controllers
         }
 
         [HttpPost]
-       // [Authorize]
+        [Authorize]
         [Route("api/Product/SaveChildSkuShadow")]
         public IActionResult SaveChildSkuShadow([FromBody] SaveSkuShadowViewModel model)
         {
