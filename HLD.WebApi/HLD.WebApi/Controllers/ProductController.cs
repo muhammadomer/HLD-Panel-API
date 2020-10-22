@@ -959,6 +959,16 @@ namespace HLD.WebApi.Controllers
             status = DataAccess.SaveAndEditChildShadow(model);
             return Ok(status);
         }
+
+        [HttpPost]
+       // [Authorize]
+        [Route("api/Product/SaveChildSkuShadow")]
+        public IActionResult SaveChildSkuShadow([FromBody] SaveSkuShadowViewModel model)
+        {
+            bool status = false;
+            status = DataAccess.SaveChildSkuShadow(model);
+            return Ok(status);
+        }
     }
 
 

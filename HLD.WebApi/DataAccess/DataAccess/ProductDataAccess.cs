@@ -1824,5 +1824,42 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+
+        public bool SaveChildSkuShadow(SaveSkuShadowViewModel model)
+        {
+            bool status = false;
+            try
+            {
+                
+                List<MarketPlaceShadowViewModel> marketplaceshadow = new List<MarketPlaceShadowViewModel>();
+                marketplaceshadow = GetMarketPlaceShadow();
+                
+                foreach (var childsku in model.list)
+                {
+                    foreach (var item in marketplaceshadow)
+                    {
+                        using (MySqlConnection conn = new MySqlConnection(connStr))
+                        {
+                            conn.Open();
+
+                            MySqlCommand cmd = new MySqlCommand("P_SaveChildSkuShadow", conn);
+                            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("_Parentproduct_id", model.ParentId);
+                            cmd.Parameters.AddWithValue("_ShadowSku", childsku.Sku+"-"+item.Shadow_Key);
+                            cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);
+                
+                            cmd.ExecuteNonQuery();
+                            status = true;
+                        }
+                    }
+                }
+           
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
     }
 }

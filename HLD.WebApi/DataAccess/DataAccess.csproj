@@ -199,6 +199,7 @@
     <Compile Include="DataAccess\HLDHistoryDataAccess.cs" />
     <Compile Include="DataAccess\HldPanelDataAccess.cs" />
     <Compile Include="DataAccess\ImportMissingOrderDataAccess.cs" />
+    <Compile Include="DataAccess\ManufactureDataAccess.cs" />
     <Compile Include="DataAccess\OrderNotesDataAccess.cs" />
     <Compile Include="DataAccess\OrderRelationDataAccess.cs" />
     <Compile Include="DataAccess\PredictionHistroyDataAccess.cs" />
@@ -298,8 +299,11 @@
     <Compile Include="ViewModels\GetChannelCredViewModel.cs" />
     <Compile Include="ViewModels\GetChildORderToimportJobViewModel.cs" />
     <Compile Include="ViewModels\GetChildSkuVM.cs" />
+    <Compile Include="ViewModels\GetDeviceModelViewMdel.cs" />
     <Compile Include="ViewModels\GetFileJobsToRunViewModel.cs" />
     <Compile Include="ViewModels\GetJobDetailViewModel.cs" />
+    <Compile Include="ViewModels\GetManufactureModelViewModel.cs" />
+    <Compile Include="ViewModels\GetManufactureViewModel.cs" />
     <Compile Include="ViewModels\GetNotesOrderViewModel.cs" />
     <Compile Include="ViewModels\GetOrdersFromBestBuyViewModel.cs" />
     <Compile Include="ViewModels\GetOrdersNotFromBBViewModel.cs" />
@@ -357,6 +361,7 @@
     <Compile Include="ViewModels\SaveParentSkuVM.cs" />
     <Compile Include="ViewModels\SaveQuotationMainVM.cs" />
     <Compile Include="ViewModels\SaveQuotationSubVM.cs" />
+    <Compile Include="ViewModels\SaveSkuShadowViewModel.cs" />
     <Compile Include="ViewModels\SaveWatchlistViewModel.cs" />
     <Compile Include="ViewModels\SaveZincOrders.cs" />
     <Compile Include="ViewModels\SaveZincProxyEmailViewModel.cs" />
