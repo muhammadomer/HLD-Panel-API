@@ -980,6 +980,19 @@ namespace HLD.WebApi.Controllers
             status = DataAccess.SaveChildSkuShadow(model);
             return Ok(status);
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/Product/SaveProductImages")]
+        [RequestSizeLimit(524288000)]
+        public IActionResult GetSellerCludOrders([FromBody]  ImagesSaveToDatabaseWithURLViewMOdel viewModel)
+        {
+            bool status = false;
+            status = DataAccess.SaveProductImagesFromSellerCloudOrders(viewModel);
+            //dataAccess.UpdateProductImages();
+            return Ok(status);
+
+        }
     }
 
 

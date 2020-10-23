@@ -1887,5 +1887,41 @@ namespace DataAccess.DataAccess
             return status;
         }
 
+        public bool SaveProductImagesFromSellerCloudOrders(ImagesSaveToDatabaseWithURLViewMOdel Data)
+        {
+            bool status = false;
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_SaveProductImagesOfSellerCloudOrdersCopy", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("imageName", Data.FileName);
+                    cmd.Parameters.AddWithValue("_product_sku", Data.product_Sku);
+                    cmd.Parameters.AddWithValue("_imageURL", Data.ImageURL);
+                    cmd.Parameters.Add("_status", MySqlDbType.Int32, 500);
+                    cmd.Parameters["_status"].Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    int ID = Convert.ToInt32(cmd.Parameters["_status"].Value);
+                    if (ID == 1)
+                    {
+                        status = true;
+                    }
+                    else
+                    {
+                        status = true;
+                    }
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
+
     }
 }
