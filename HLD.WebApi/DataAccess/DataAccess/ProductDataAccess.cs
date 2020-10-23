@@ -1853,30 +1853,42 @@ namespace DataAccess.DataAccess
             bool status = false;
             try
             {
-                
+                GetChildSkuImages getChildSkuImages = new GetChildSkuImages();
                 List<MarketPlaceShadowViewModel> marketplaceshadow = new List<MarketPlaceShadowViewModel>();
                 marketplaceshadow = GetMarketPlaceShadow();
                 
                 foreach (var childsku in model)
                 {
-                    foreach (var item in marketplaceshadow)
-                    {
-                        using (MySqlConnection conn = new MySqlConnection(connStr))
+                  
+                    
+                        foreach (var item in marketplaceshadow)
                         {
-                            conn.Open();
+                            using (MySqlConnection conn = new MySqlConnection(connStr))
+                            {
+                                conn.Open();
 
-                            MySqlCommand cmd = new MySqlCommand("P_SaveChildSkuShadow", conn);
-                            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("_Parentproduct_id", childsku.ParentId);
-                            cmd.Parameters.AddWithValue("_ShadowSku", childsku.Sku+"-"+item.Shadow_Key);
-                            cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);
-                            cmd.Parameters.AddWithValue("_CompanyName", item.CompanyName);
-                            cmd.Parameters.AddWithValue("_CompanyId", item.CompanyId);
-                
-                            cmd.ExecuteNonQuery();
-                            status = true;
-                        }
+                                MySqlCommand cmd = new MySqlCommand("P_SaveChildSkuShadow", conn);
+                                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("_Parentproduct_id", childsku.ParentId);
+                                cmd.Parameters.AddWithValue("_ShadowSku", childsku.Sku + "-" + item.Shadow_Key);
+                                cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);
+                                cmd.Parameters.AddWithValue("_CompanyName", item.CompanyName);
+                                cmd.Parameters.AddWithValue("_CompanyId", item.CompanyId);
+                                //cmd.Parameters.AddWithValue("_CompanyId", getChildSkuImages.FirstOrDefault().ImageName);
+
+                                cmd.ExecuteNonQuery();
+                                status = true;
+
+                                getChildSkuImages = GetChildSkuImages(childsku.ChildId);
+                            if (getChildSkuImages!=null)
+                            { SaveShadowImages(getChildSkuImages.ImageName, childsku.Sku + "-" + item.Shadow_Key); }
+                               
+                            }
+                        
+                      
+
                     }
+                    
                 }
            
             }
@@ -1919,6 +1931,63 @@ namespace DataAccess.DataAccess
 
             catch (Exception ex)
             {
+            }
+            return status;
+        }
+        public GetChildSkuImages GetChildSkuImages(int childSkuProductId)
+        {
+
+            GetChildSkuImages childSkuImages = new GetChildSkuImages();
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetChildSkuImages", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_childProductId", childSkuProductId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                               
+                                childSkuImages.ImageName = Convert.ToString(reader["image_name"] != DBNull.Value ? reader["image_name"] :"");
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return childSkuImages;
+        }
+
+        public bool SaveShadowImages(string image , string shadow)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_SaveShadowImages", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    
+                    cmd.Parameters.AddWithValue("_ShadowSku", shadow);
+                    cmd.Parameters.AddWithValue("_ImageName", image);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return status;
         }

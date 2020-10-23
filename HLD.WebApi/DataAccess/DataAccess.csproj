@@ -298,6 +298,7 @@
     <Compile Include="ViewModels\FileUploadViewModel.cs" />
     <Compile Include="ViewModels\GetChannelCredViewModel.cs" />
     <Compile Include="ViewModels\GetChildORderToimportJobViewModel.cs" />
+    <Compile Include="ViewModels\GetChildSkuImages.cs" />
     <Compile Include="ViewModels\GetChildSkuVM.cs" />
     <Compile Include="ViewModels\GetDeviceModelViewMdel.cs" />
     <Compile Include="ViewModels\GetFileJobsToRunViewModel.cs" />
@@ -357,6 +358,7 @@
     <Compile Include="ViewModels\SaveAndEditChildShadowViewModel.cs" />
     <Compile Include="ViewModels\SaveAndEditShipmentCourierVM.cs" />
     <Compile Include="ViewModels\SaveApprovedPricesViewModel.cs" />
+    <Compile Include="ViewModels\SaveChildSkuShadowImage.cs" />
     <Compile Include="ViewModels\SaveChildSkuVM.cs" />
     <Compile Include="ViewModels\SaveParentSkuVM.cs" />
     <Compile Include="ViewModels\SaveQuotationMainVM.cs" />
