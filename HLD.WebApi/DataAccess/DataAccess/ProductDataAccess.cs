@@ -1764,7 +1764,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_GetAllChildSku", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_GetMarketPlaceShadows", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -1826,7 +1826,7 @@ namespace DataAccess.DataAccess
             return status;
         }
 
-        public bool SaveChildSkuShadow(SaveSkuShadowViewModel model)
+        public bool SaveChildSkuShadow(List<SaveSkuShadowViewModel> model)
         {
             bool status = false;
             try
@@ -1835,7 +1835,7 @@ namespace DataAccess.DataAccess
                 List<MarketPlaceShadowViewModel> marketplaceshadow = new List<MarketPlaceShadowViewModel>();
                 marketplaceshadow = GetMarketPlaceShadow();
                 
-                foreach (var childsku in model.list)
+                foreach (var childsku in model)
                 {
                     foreach (var item in marketplaceshadow)
                     {
@@ -1845,7 +1845,7 @@ namespace DataAccess.DataAccess
 
                             MySqlCommand cmd = new MySqlCommand("P_SaveChildSkuShadow", conn);
                             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("_Parentproduct_id", model.ParentId);
+                            cmd.Parameters.AddWithValue("_Parentproduct_id", childsku.ParentId);
                             cmd.Parameters.AddWithValue("_ShadowSku", childsku.Sku+"-"+item.Shadow_Key);
                             cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);
                 
