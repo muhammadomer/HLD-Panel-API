@@ -1671,7 +1671,28 @@ namespace DataAccess.DataAccess
             }
             return 0;
         }
+        public int DeleteChildImage(int ChildImage)
+        {
 
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_DeleteChildSkuImage", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_productId", ChildImage);
+                    cmd.ExecuteScalar();
+                    conn.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return 0;
+        }
         public List<GetChildSkuVM> GetChildSkuById(int id)
         {
             List<GetChildSkuVM> listModel = new List<GetChildSkuVM>();
@@ -1775,6 +1796,7 @@ namespace DataAccess.DataAccess
                                 MarketPlaceShadowViewModel skuVM = new MarketPlaceShadowViewModel();
                                 skuVM.CompanyId = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
                                 skuVM.Shadow_Key = Convert.ToString(reader["Shadow_Key"] != DBNull.Value ? reader["Shadow_Key"] : "");
+                                skuVM.CompanyName = Convert.ToString(reader["CompanyName"] != DBNull.Value ? reader["CompanyName"] : "");
                                 ViewModel.Add(skuVM);
                             }
                         }
@@ -1848,6 +1870,8 @@ namespace DataAccess.DataAccess
                             cmd.Parameters.AddWithValue("_Parentproduct_id", childsku.ParentId);
                             cmd.Parameters.AddWithValue("_ShadowSku", childsku.Sku+"-"+item.Shadow_Key);
                             cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);
+                            cmd.Parameters.AddWithValue("_CompanyName", item.CompanyName);
+                            cmd.Parameters.AddWithValue("_CompanyId", item.CompanyId);
                 
                             cmd.ExecuteNonQuery();
                             status = true;

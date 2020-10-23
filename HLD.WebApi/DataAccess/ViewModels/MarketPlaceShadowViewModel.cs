@@ -10,5 +10,6 @@ namespace DataAccess.ViewModels
     {
         public int CompanyId { get; set; }
         public string Shadow_Key { get; set; }
+        public string CompanyName { get; set; }
     }
 }

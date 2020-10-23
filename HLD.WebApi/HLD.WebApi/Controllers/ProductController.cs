@@ -912,7 +912,18 @@ namespace HLD.WebApi.Controllers
             
 
         }
+       
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/DeleteChildImage")]
+        public int DeleteChildImage(int ChildImage)
+        {
 
+            DataAccess.DeleteChildImage(ChildImage);
+            return 0;
+
+
+        }
         [HttpGet]
         [Authorize]
         [Route("api/Product/GetChildSkuById")]
