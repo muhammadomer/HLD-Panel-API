@@ -1992,5 +1992,28 @@ namespace DataAccess.DataAccess
             return status;
         }
 
+        public bool UpdateProductStatusWhenProductCreatedOnSC(string sku)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateProductStatusWhenProductCreatedOnSC", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("_sku", sku);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+
     }
 }

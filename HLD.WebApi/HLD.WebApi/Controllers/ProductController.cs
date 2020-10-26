@@ -993,6 +993,16 @@ namespace HLD.WebApi.Controllers
             return Ok(status);
 
         }
+
+        [HttpPut]
+        [Authorize]
+        [Route("api/Product/UpdateProductStatusWhenProductCreatedOnSC")]
+        public IActionResult UpdateProductStatusWhenProductCreatedOnSC([FromBody] string sku)
+        {
+            bool status = false;
+            status = DataAccess.UpdateProductStatusWhenProductCreatedOnSC(sku);
+            return Ok(status);
+        }
     }
 
 
