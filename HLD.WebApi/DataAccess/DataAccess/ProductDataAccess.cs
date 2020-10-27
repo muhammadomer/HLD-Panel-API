@@ -1694,6 +1694,7 @@ namespace DataAccess.DataAccess
             return 0;
         }
         public List<GetChildSkuVM> GetChildSkuById(int id)
+        
         {
             List<GetChildSkuVM> listModel = new List<GetChildSkuVM>();
             try
@@ -1713,19 +1714,21 @@ namespace DataAccess.DataAccess
                             while (reader.Read())
                             {
                                 GetChildSkuVM model = new GetChildSkuVM();
-                                model.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "0");
+                                model.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                                 model.title = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
 
                                 model.upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
 
-                                model.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
-                                model.Parentproduct_id = Convert.ToInt32(reader["ParentID"] != DBNull.Value ? reader["ParentID"] : "");
-                                model.Childproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : "");
+                                model.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : 0);
+                                model.Parentproduct_id = Convert.ToInt32(reader["ParentID"] != DBNull.Value ? reader["ParentID"] : 0);
+                                model.Childproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : 0);
                                 model.ColorIds = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
                                 model.Colorname = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
                                 model.ImageName = Convert.ToString(reader["image_name"] != DBNull.Value ? reader["image_name"] : "");
                                 model.CompressedImage = Convert.ToString(reader["Compress_image"] != DBNull.Value ? reader["Compress_image"] : "");
                                 model.ShadowOff = Convert.ToString(reader["ShadowOf"] != DBNull.Value ? reader["ShadowOf"] : "");
+                                model.IsCreatedOnSC = Convert.ToInt32(reader["IsCreatedOnSC"] != DBNull.Value ? reader["IsCreatedOnSC"] : 0);
+                                model.CompanyId = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
                                 listModel.Add(model);
                             }
                         }
@@ -1869,7 +1872,7 @@ namespace DataAccess.DataAccess
                                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                                 cmd.Parameters.AddWithValue("_Parentproduct_id", childsku.ParentId);
                                 cmd.Parameters.AddWithValue("_ShadowSku", childsku.Sku + "-" + item.Shadow_Key);
-                                cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);
+                                cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);                               
                                 cmd.Parameters.AddWithValue("_CompanyName", item.CompanyName);
                                 cmd.Parameters.AddWithValue("_CompanyId", item.CompanyId);
                                 cmd.ExecuteNonQuery();

@@ -20,6 +20,7 @@ namespace DataAccess.ViewModels
         public string CompressedImage { get; set; }
         public string ShadowOff { get; set; }
         public int CompanyId { get; set; }
+        public int IsCreatedOnSC { get; set; }
         public string Shadow_Key { get; set; }
         public string CompanyName { get; set; }
     }
