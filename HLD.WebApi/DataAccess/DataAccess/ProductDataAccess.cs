@@ -2066,6 +2066,46 @@ namespace DataAccess.DataAccess
                                 GetShadowsOfChildViewModel model = new GetShadowsOfChildViewModel();
                                 model.sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                                 model.title = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
+                                model.CompanyId = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
+                                listModel.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return listModel;
+        }
+
+        public List<FileContents> GetShadowsOfChildForXls(string childSku)
+        {
+            List<FileContents> listModel = new List<FileContents>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetShadowsOfChildSkuForXls", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_childSku", childSku);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+
+                            while (reader.Read())
+                            {
+                                FileContents model = new FileContents();
+                                model.ParentSKU = Convert.ToString(reader["ShadowOf"] != DBNull.Value ? reader["ShadowOf"] : "");
+                                model.ShadowSKU = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
+                                model.CompanyID = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
                                 listModel.Add(model);
                             }
                         }

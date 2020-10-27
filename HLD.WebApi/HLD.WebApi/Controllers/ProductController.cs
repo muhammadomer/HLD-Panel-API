@@ -994,10 +994,10 @@ namespace HLD.WebApi.Controllers
 
         }
 
-        [HttpPut]
+        [HttpGet]
         [Authorize]
         [Route("api/Product/UpdateProductStatusWhenProductCreatedOnSC")]
-        public IActionResult UpdateProductStatusWhenProductCreatedOnSC([FromBody] string sku)
+        public IActionResult UpdateProductStatusWhenProductCreatedOnSC(string sku)
         {
             bool status = false;
             status = DataAccess.UpdateProductStatusWhenProductCreatedOnSC(sku);
@@ -1023,13 +1023,33 @@ namespace HLD.WebApi.Controllers
                 viewlList = DataAccess.GetShadowsOfChild(childSku);
                 return viewlList;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/GetShadowsOfChildForXls")]
+        public List<FileContents> GetShadowsOfChildForXls(string childSku)
+        {
+            List<FileContents> viewlList = new List<FileContents>();
+            try
+            {
+                viewlList = DataAccess.GetShadowsOfChildForXls(childSku);
+                return viewlList;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
     }
 
 
