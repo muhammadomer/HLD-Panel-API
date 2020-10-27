@@ -2041,7 +2041,7 @@ namespace DataAccess.DataAccess
             return model;
         }
 
-        public List<GetShadowsOfChildViewModel> GetShadowOfChildSku(string childSku)
+        public List<GetShadowsOfChildViewModel> GetShadowsOfChild(string childSku)
         {
             List<GetShadowsOfChildViewModel> listModel = new List<GetShadowsOfChildViewModel>();
             try
@@ -2049,7 +2049,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("GetChildSkuById", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_GetShadowOfChildSku", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_childSku", childSku);
 

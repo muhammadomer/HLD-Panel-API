@@ -1014,13 +1014,13 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("api/Product/GetChildSkuById")]
-        public List<GetShadowsOfChildViewModel> GetShadowOfChildSku(string childSku)
+        [Route("api/Product/GetShadowsOfChild")]
+        public List<GetShadowsOfChildViewModel> GetShadowsOfChild(string childSku)
         {
             List<GetShadowsOfChildViewModel> viewlList = new List<GetShadowsOfChildViewModel>();
             try
             {
-                viewlList = DataAccess.GetShadowOfChildSku(childSku);
+                viewlList = DataAccess.GetShadowsOfChild(childSku);
                 return viewlList;
             }
             catch (Exception)
