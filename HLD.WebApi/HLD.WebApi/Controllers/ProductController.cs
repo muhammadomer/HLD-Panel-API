@@ -1003,6 +1003,33 @@ namespace HLD.WebApi.Controllers
             status = DataAccess.UpdateProductStatusWhenProductCreatedOnSC(sku);
             return Ok(status);
         }
+
+        [HttpGet]
+        [Route("api/Product/CheckChildOrShadowCreatedOnSC")]
+        public IActionResult CheckChildOrShadowCreatedOnSC(string sku)
+        {
+            var list = DataAccess.CheckChildOrShadowCreatedOnSC(sku);
+            return Ok(list);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/GetChildSkuById")]
+        public List<GetShadowsOfChildViewModel> GetShadowOfChildSku(string childSku)
+        {
+            List<GetShadowsOfChildViewModel> viewlList = new List<GetShadowsOfChildViewModel>();
+            try
+            {
+                viewlList = DataAccess.GetShadowOfChildSku(childSku);
+                return viewlList;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 
 

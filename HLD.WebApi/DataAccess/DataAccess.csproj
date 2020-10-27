@@ -280,6 +280,7 @@
     <Compile Include="ViewModels\CatalogViewModel.cs" />
     <Compile Include="ViewModels\CategoriesAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\ChannelLogs.cs" />
+    <Compile Include="ViewModels\CheckChildOrShadowCreatedOnSCViewModel.cs" />
     <Compile Include="ViewModels\CheckProductDropShipStatusViewModel.cs" />
     <Compile Include="ViewModels\CompressImageViewModel.cs" />
     <Compile Include="ViewModels\CreateOrderNotesViewModel.cs" />
@@ -311,6 +312,7 @@
     <Compile Include="ViewModels\GetParentSkuById.cs" />
     <Compile Include="ViewModels\GetProductTitleViewModel.cs" />
     <Compile Include="ViewModels\GetSendToZincOrderViewModel.cs" />
+    <Compile Include="ViewModels\GetShadowsOfChildViewModel.cs" />
     <Compile Include="ViewModels\GetSkuAndSubtotalVM.cs" />
     <Compile Include="ViewModels\GetStatusFromZincViewModel.cs" />
     <Compile Include="ViewModels\GetSummaryandCountPOViewModel.cs" />

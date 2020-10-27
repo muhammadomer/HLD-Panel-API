@@ -1859,8 +1859,6 @@ namespace DataAccess.DataAccess
                 
                 foreach (var childsku in model)
                 {
-                  
-                    
                         foreach (var item in marketplaceshadow)
                         {
                             using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1874,23 +1872,15 @@ namespace DataAccess.DataAccess
                                 cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);
                                 cmd.Parameters.AddWithValue("_CompanyName", item.CompanyName);
                                 cmd.Parameters.AddWithValue("_CompanyId", item.CompanyId);
-                                //cmd.Parameters.AddWithValue("_CompanyId", getChildSkuImages.FirstOrDefault().ImageName);
-
                                 cmd.ExecuteNonQuery();
                                 status = true;
-
-                                getChildSkuImages = GetChildSkuImages(childsku.ChildId);
+                             getChildSkuImages = GetChildSkuImages(childsku.ChildId);
                             if (getChildSkuImages!=null)
                             { SaveShadowImages(getChildSkuImages.ImageName, childsku.Sku + "-" + item.Shadow_Key); }
                                
                             }
-                        
-                      
-
-                    }
-                    
+                        }
                 }
-           
             }
             catch (Exception ex)
             {
@@ -2015,5 +2005,78 @@ namespace DataAccess.DataAccess
             return status;
         }
 
+
+        public CheckChildOrShadowCreatedOnSCViewModel CheckChildOrShadowCreatedOnSC(string sku)
+        {
+            CheckChildOrShadowCreatedOnSCViewModel model = new CheckChildOrShadowCreatedOnSCViewModel();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_ChildSkuCreateOrNotOnSC", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_checkSku", sku);
+                    MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
+                    cmd.ExecuteNonQuery();
+                    DataTable dt = new DataTable();
+                    mySqlDataAdapter.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow reader in dt.Rows)
+                        {
+                           CheckChildOrShadowCreatedOnSCViewModel skuVM = new CheckChildOrShadowCreatedOnSCViewModel();
+
+                            skuVM.IsCreatedOnSC = Convert.ToInt32(reader["IsCreatedOnSC"] != DBNull.Value ? reader["IsCreatedOnSC"] : 0);
+                            model = skuVM;
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return model;
+        }
+
+        public List<GetShadowsOfChildViewModel> GetShadowOfChildSku(string childSku)
+        {
+            List<GetShadowsOfChildViewModel> listModel = new List<GetShadowsOfChildViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("GetChildSkuById", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_childSku", childSku);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+
+                            while (reader.Read())
+                            {
+                                GetShadowsOfChildViewModel model = new GetShadowsOfChildViewModel();
+                                model.sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
+                                model.title = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
+                                listModel.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return listModel;
+        }
     }
 }
