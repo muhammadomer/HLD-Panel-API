@@ -1050,9 +1050,42 @@ namespace HLD.WebApi.Controllers
 
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/GetChildSkuImageUrl")]
+        public List<GetImageUrlOfChildSkuViewModel> GetChildSkuImageUrl(string childSku)
+        {
+            List<GetImageUrlOfChildSkuViewModel> viewlList = new List<GetImageUrlOfChildSkuViewModel>();
+            try
+            {
+                viewlList = DataAccess.GetChildSkuImageUrl(childSku);
+                return viewlList;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        [HttpGet]
+        [Route("api/Product/CheckChildSkuImageUpdatedOnSC")]
+        public IActionResult CheckChildSkuImageUpdatedOnSC(string sku)
+        {
+            var list = DataAccess.CheckChildSkuImageUpdatedOnSC(sku);
+            return Ok(list);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/UpdateImageStatusWhenImageUpdatedOnSC")]
+        public IActionResult UpdateImageStatusWhenImageUpdatedOnSC(string sku)
+        {
+            bool status = false;
+            status = DataAccess.UpdateImageStatusWhenImageUpdatedOnSC(sku);
+            return Ok(status);
+        }
     }
-
-
 }
 
 

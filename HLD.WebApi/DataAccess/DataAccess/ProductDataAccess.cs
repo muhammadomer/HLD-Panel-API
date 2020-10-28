@@ -2121,5 +2121,100 @@ namespace DataAccess.DataAccess
             }
             return listModel;
         }
+
+        public List<GetImageUrlOfChildSkuViewModel> GetChildSkuImageUrl(string childSku)
+        {
+            List<GetImageUrlOfChildSkuViewModel> listModel = new List<GetImageUrlOfChildSkuViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetImageOfChildSku", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_childSku", childSku);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+
+                            while (reader.Read())
+                            {
+                                GetImageUrlOfChildSkuViewModel model = new GetImageUrlOfChildSkuViewModel();
+                                model.ChildSkuImageUrl = Convert.ToString(reader["image_name"] != DBNull.Value ? reader["image_name"] : "");
+                                listModel.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return listModel;
+        }
+
+        public CheckChildSkuImageUpdatedOnSCViewModel CheckChildSkuImageUpdatedOnSC(string sku)
+        {
+            CheckChildSkuImageUpdatedOnSCViewModel model = new CheckChildSkuImageUpdatedOnSCViewModel();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_CheckChildSkuImageUpdatedOnSC", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_checkSku", sku);
+                    MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
+                    cmd.ExecuteNonQuery();
+                    DataTable dt = new DataTable();
+                    mySqlDataAdapter.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow reader in dt.Rows)
+                        {
+                            CheckChildSkuImageUpdatedOnSCViewModel skuVM = new CheckChildSkuImageUpdatedOnSCViewModel();
+
+                            skuVM.IsImageUpdateOnSC = Convert.ToInt32(reader["IsImageUpdatedOnSC"] != DBNull.Value ? reader["IsImageUpdatedOnSC"] : 0);
+                            model = skuVM;
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return model;
+        }
+
+        public bool UpdateImageStatusWhenImageUpdatedOnSC(string sku)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateImageStatusWhenImageUpdatedOnSC", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("_sku", sku);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
     }
 }

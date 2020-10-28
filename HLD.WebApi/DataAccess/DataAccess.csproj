@@ -281,6 +281,7 @@
     <Compile Include="ViewModels\CategoriesAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\ChannelLogs.cs" />
     <Compile Include="ViewModels\CheckChildOrShadowCreatedOnSCViewModel.cs" />
+    <Compile Include="ViewModels\CheckChildSkuImageUpdatedOnSCViewModel.cs" />
     <Compile Include="ViewModels\CheckProductDropShipStatusViewModel.cs" />
     <Compile Include="ViewModels\CompressImageViewModel.cs" />
     <Compile Include="ViewModels\CreateOrderNotesViewModel.cs" />
@@ -303,6 +304,7 @@
     <Compile Include="ViewModels\GetChildSkuVM.cs" />
     <Compile Include="ViewModels\GetDeviceModelViewMdel.cs" />
     <Compile Include="ViewModels\GetFileJobsToRunViewModel.cs" />
+    <Compile Include="ViewModels\GetImageUrlOfChildSkuViewModel.cs" />
     <Compile Include="ViewModels\GetJobDetailViewModel.cs" />
     <Compile Include="ViewModels\GetManufactureModelViewModel.cs" />
     <Compile Include="ViewModels\GetManufactureViewModel.cs" />
