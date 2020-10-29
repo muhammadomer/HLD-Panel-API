@@ -148,11 +148,8 @@ namespace HLD.WebApi.Jobs
                                                 DropShipComments = worksheet.Cells[row, 8].Value == null ? "" : worksheet.Cells[row, 8].Value.ToString().Trim(),
 
                                                 RowNumber = row.ToString(),
-
                                             });
                                         }
-
-
                                     }
 
                                     bool st = UploadFilesToS3.InsertS3FileDataOfSkuAsinDropship(jobdetails.Job_Id, SkuAsinmodel);

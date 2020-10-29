@@ -909,8 +909,6 @@ namespace HLD.WebApi.Controllers
             
             DataAccess.DeleteChildSku(child_id);
             return 0;
-            
-
         }
        
         [HttpGet]

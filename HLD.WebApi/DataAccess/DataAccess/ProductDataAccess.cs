@@ -1877,12 +1877,14 @@ namespace DataAccess.DataAccess
                                 cmd.Parameters.AddWithValue("_CompanyId", item.CompanyId);
                                 cmd.ExecuteNonQuery();
                                 status = true;
-                             getChildSkuImages = GetChildSkuImages(childsku.ChildId);
-                            if (getChildSkuImages!=null)
-                            { SaveShadowImages(getChildSkuImages.ImageName, childsku.Sku + "-" + item.Shadow_Key); }
+
+                            // getChildSkuImages = GetChildSkuImages(childsku.ChildId);
+                            //if (getChildSkuImages!=null)
+                            //{  }
                                
                             }
                         }
+                    SaveShadowImages(childsku.Sku);
                 }
             }
             catch (Exception ex)
@@ -1961,7 +1963,7 @@ namespace DataAccess.DataAccess
             return childSkuImages;
         }
 
-        public bool SaveShadowImages(string image , string shadow)
+        public bool SaveShadowImages(string shadow)
         {
             bool status = false;
             try
@@ -1972,8 +1974,8 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_SaveShadowImages", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     
-                    cmd.Parameters.AddWithValue("_ShadowSku", shadow);
-                    cmd.Parameters.AddWithValue("_ImageName", image);
+                    cmd.Parameters.AddWithValue("_ChildSku", shadow);
+                   // cmd.Parameters.AddWithValue("_ImageName", image);
                     cmd.ExecuteNonQuery();
                     status = true;
                 }
