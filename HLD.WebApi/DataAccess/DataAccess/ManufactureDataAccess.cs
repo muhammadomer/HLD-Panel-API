@@ -129,6 +129,49 @@ namespace DataAccess.DataAccess
             return listModel;
         }
 
+        public bool AddManufacture(AddManufactureViewModel model)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_AddManufacturer", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_manufacturer", model.Manufacturer);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
 
+        public bool AddManufacturerModel(AddManufacturerModelViewModel model)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_AddManufacturerModel", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_manufacturerModel", model.ManufacturerModel);
+                    cmd.Parameters.AddWithValue("_manufactureId", model.ManufactureId);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
     }
 }

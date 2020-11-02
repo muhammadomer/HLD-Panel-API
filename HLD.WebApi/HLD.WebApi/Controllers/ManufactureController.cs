@@ -78,5 +78,25 @@ namespace HLD.WebApi.Controllers
             }
 
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/Manufacture/AddManufacturer")]
+        public IActionResult AddManufacturer([FromBody] AddManufactureViewModel model)
+        {
+            bool status = false;
+            status = DataAccess.AddManufacture(model);
+            return Ok(status);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/Manufacture/AddManufacturerModel")]
+        public IActionResult AddManufacturerModel([FromBody] AddManufacturerModelViewModel model)
+        {
+            bool status = false;
+            status = DataAccess.AddManufacturerModel(model);
+            return Ok(status);
+        }
     }
 }
