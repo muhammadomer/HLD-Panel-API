@@ -1029,15 +1029,15 @@ namespace HLD.WebApi.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         [Route("api/Product/GetShadowsOfChildForXls")]
-        public List<FileContents> GetShadowsOfChildForXls(string childSku)
+        public List<FileContents> GetShadowsOfChildForXls([FromBody] List<CreateProductOnSallerCloudViewModel> dataSKU)
         {
             List<FileContents> viewlList = new List<FileContents>();
             try
             {
-                viewlList = DataAccess.GetShadowsOfChildForXls(childSku);
+                viewlList = DataAccess.GetShadowsOfChildForXls(dataSKU);
                 return viewlList;
             }
             catch (Exception ex)

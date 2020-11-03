@@ -241,6 +241,8 @@
     <Compile Include="Helper\JwtAppSetting.cs" />
     <Compile Include="Helper\ListToDatatable.cs" />
     <Compile Include="ViewModels\AcceptBesyBuyOrderViewModel.cs" />
+    <Compile Include="ViewModels\AddManufacturerModelViewModel.cs" />
+    <Compile Include="ViewModels\AddManufactureViewModel.cs" />
     <Compile Include="ViewModels\AdjustPhysicalInventoryVM.cs" />
     <Compile Include="ViewModels\AliasViewModel.cs" />
     <Compile Include="ViewModels\ApprovedPriceViewModel.cs" />
@@ -286,6 +288,7 @@
     <Compile Include="ViewModels\CompressImageViewModel.cs" />
     <Compile Include="ViewModels\CreateOrderNotesViewModel.cs" />
     <Compile Include="ViewModels\CreateOrderOnSCViewModel.cs" />
+    <Compile Include="ViewModels\CreateProductOnSallerCloudViewModel.cs" />
     <Compile Include="ViewModels\CreditCardDetailViewModel.cs" />
     <Compile Include="ViewModels\CurrencyExchangeViewModel.cs" />
     <Compile Include="ViewModels\DeleteProductViewModel.cs" />

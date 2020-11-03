@@ -24,7 +24,6 @@ namespace HLD.WebApi.Controllers
         {
             return View();
         }
-
         [HttpGet]
         [Authorize]
         [Route("api/Manufacture/GetManufacture")]
@@ -76,7 +75,6 @@ namespace HLD.WebApi.Controllers
             {
                 throw ex;
             }
-
         }
 
         [HttpPost]
@@ -98,5 +96,32 @@ namespace HLD.WebApi.Controllers
             status = DataAccess.AddManufacturerModel(model);
             return Ok(status);
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/Manufacture/AddDeviceModel")]
+        public IActionResult AddDeviceModel([FromBody] AddDeviceModelView model)
+        {
+            bool status = false;
+            status = DataAccess.AddDeviceModel(model);
+            return Ok(status);
+        }
+        //[HttpGet]
+        //[Authorize]
+        //[Route("api/Manufacture/CheckManufactureExistOrNot")]
+        //public List<GetManufactureModelViewModel> CheckManufactureExistOrNot(string manufacture)
+        //{
+        //    try
+        //    {
+        //        List<GetManufactureModelViewModel> _ViewModels = new List<GetManufactureModelViewModel>();
+        //        _ViewModels = DataAccess.GetManufactureModel(manufacture);
+        //        return _ViewModels;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+
+        //}
     }
 }

@@ -2085,7 +2085,7 @@ namespace DataAccess.DataAccess
             return listModel;
         }
 
-        public List<FileContents> GetShadowsOfChildForXls(string childSku)
+        public List<FileContents> GetShadowsOfChildForXls(List<CreateProductOnSallerCloudViewModel> childSku)
         {
             List<FileContents> listModel = new List<FileContents>();
             try
@@ -2093,29 +2093,29 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_GetShadowsOfChildSkuForXls", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_childSku", childSku);
-
-                    using (var reader = cmd.ExecuteReader())
+                    foreach (var item in childSku)
                     {
-                        if (reader.HasRows)
+                        MySqlCommand cmd = new MySqlCommand("P_GetShadowsOfChildSkuForXls", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_childSku", childSku.FirstOrDefault().ProductSKU);
+                        using (var reader = cmd.ExecuteReader())
                         {
-
-                            while (reader.Read())
+                            if (reader.HasRows)
                             {
-                                FileContents model = new FileContents();
-                                model.ParentSKU = Convert.ToString(reader["ShadowOf"] != DBNull.Value ? reader["ShadowOf"] : "");
-                                model.ShadowSKU = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
-                                model.CompanyID = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
-                                listModel.Add(model);
+                                while (reader.Read())
+                                {
+                                    FileContents model = new FileContents();
+                                    model.ParentSKU = Convert.ToString(reader["ShadowOf"] != DBNull.Value ? reader["ShadowOf"] : "");
+                                    model.ShadowSKU = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
+                                    model.CompanyID = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
+                                    listModel.Add(model);
+                                }
                             }
                         }
                     }
+                   
                 }
             }
-
-
             catch (Exception ex)
             {
 

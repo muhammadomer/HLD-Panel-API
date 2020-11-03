@@ -173,5 +173,30 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+
+        public bool AddDeviceModel(AddDeviceModelView model)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_AddDeviceModel", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_manufacturerModelId", model.ManufactureModelId);
+                    cmd.Parameters.AddWithValue("_deviceModel", model.DeviceModel);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+
+
     }
 }
