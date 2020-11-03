@@ -8,6 +8,6 @@ namespace DataAccess.ViewModels
 {
    public class AddManufactureViewModel
     {
-        public string Manufacturer { get; set; }
+        public string ManufactureName { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HLD.WebApi.Controllers
 {
+   
     public class ManufactureController : Controller
     {
         ManufactureDataAccess DataAccess;
@@ -24,33 +25,56 @@ namespace HLD.WebApi.Controllers
         {
             return View();
         }
+
+
+        //[HttpGet]
+        //[Authorize]
+        //[Route("api/Manufacture/GetManufacture")]
+        //public List<GetManufactureViewModel> GetManufacture()
+        //{
+        //    try
+        //    {
+        //        List<GetManufactureViewModel> _ViewModels = new List<GetManufactureViewModel>();
+        //        _ViewModels = DataAccess.GetManufacture();
+        //            return _ViewModels;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+
+        //}
+
+
         [HttpGet]
         [Authorize]
         [Route("api/Manufacture/GetManufacture")]
-        public List<GetManufactureViewModel> GetManufacture()
+        public IActionResult GetAllColorByName()
         {
-            try
+            List<GetManufactureViewModel> _ViewModels = null;
+
+            _ViewModels = DataAccess.GetManufacturelist();
+
+            if (_ViewModels == null)
             {
-                List<GetManufactureViewModel> _ViewModels = new List<GetManufactureViewModel>();
-                _ViewModels = DataAccess.GetManufacture();
-                    return _ViewModels;
+                return Ok(null);
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
+                return Ok(_ViewModels);
             }
-           
         }
+
 
         [HttpGet]
         [Authorize]
         [Route("api/Manufacture/GetManufactureModel")]
-        public List<GetManufactureModelViewModel> GetManufactureModel( int Id)
+        public List<GetManufactureModelViewModel> GetManufactureModel( int ManufactureId)
         {
             try
             {
                 List<GetManufactureModelViewModel> _ViewModels = new List<GetManufactureModelViewModel>();
-                _ViewModels = DataAccess.GetManufactureModel(Id);
+                _ViewModels = DataAccess.GetManufactureModel(ManufactureId);
                 return _ViewModels;
             }
             catch (Exception ex)
@@ -63,12 +87,12 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/Manufacture/GetDeviceModelModel")]
-        public List<GetDeviceModelViewMdel> GetDeviceModelModel(int Id)
+        public List<GetDeviceModelViewMdel> GetDeviceModelModel(int ManufactureModel)
         {
             try
             {
                 List<GetDeviceModelViewMdel> _ViewModels = new List<GetDeviceModelViewMdel>();
-                _ViewModels = DataAccess.GetDeviceModelModel(Id);
+                _ViewModels = DataAccess.GetDeviceModelModel(ManufactureModel);
                 return _ViewModels;
             }
             catch (Exception ex)
@@ -123,5 +147,23 @@ namespace HLD.WebApi.Controllers
         //    }
 
         //}
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Manufacture/CheckManufactureExists/{name}")]
+        public IActionResult CheckManufactureExists(string name)
+        {
+            bool status = false;
+            if (DataAccess.CheckManufactureExists(name))
+            {
+                status = true;
+                return Ok(new { Status = status, Message = "Manufacture exists ,please select another" });
+            }
+            else
+            {
+                return Ok(new { Status = status, Message = "Manufacture Not Exists" });
+            }
+        }
+
     }
 }

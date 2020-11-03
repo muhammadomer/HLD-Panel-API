@@ -8,7 +8,7 @@ namespace DataAccess.ViewModels
 {
   public  class AddManufacturerModelViewModel
     {
-        public string ManufacturerModel { get; set; }
+        public string ManufactureModel { get; set; }
         public int ManufactureId { get; set; }
     }
 }

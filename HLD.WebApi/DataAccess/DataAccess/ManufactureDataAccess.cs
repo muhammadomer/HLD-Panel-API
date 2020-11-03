@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace DataAccess.DataAccess
 {
-   public class ManufactureDataAccess
+    public class ManufactureDataAccess
     {
         public string connStr { get; set; }
-        
+
         public ManufactureDataAccess(IConnectionString connectionString)
         {
             connStr = connectionString.GetConnectionString();
@@ -52,8 +52,39 @@ namespace DataAccess.DataAccess
             }
             return listModel;
         }
+        public List<GetManufactureViewModel> GetManufacturelist()
+        {
+            List<GetManufactureViewModel> listViewModel = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetMenufactureList", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-        public List<GetManufactureModelViewModel> GetManufactureModel(int Id)
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            listViewModel = new List<GetManufactureViewModel>();
+                            while (reader.Read())
+                            {
+                                GetManufactureViewModel model = new GetManufactureViewModel();
+                                model.ManufactureId = Convert.ToInt32(reader["ManufacturesId"] != DBNull.Value ? reader["ManufacturesId"] : 0);
+                                model.ManufactureName = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : " ");
+                                listViewModel.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return listViewModel;
+        }
+        public List<GetManufactureModelViewModel> GetManufactureModel(int ManufactureId)
         {
             List<GetManufactureModelViewModel> listModel = new List<GetManufactureModelViewModel>();
             try
@@ -63,7 +94,7 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_GetManufactureModels", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("Id", Id);
+                    cmd.Parameters.AddWithValue("_manufactureId", ManufactureId);
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -91,7 +122,7 @@ namespace DataAccess.DataAccess
             return listModel;
         }
 
-        public List<GetDeviceModelViewMdel> GetDeviceModelModel(int Id)
+        public List<GetDeviceModelViewMdel> GetDeviceModelModel(int ManufactureModel)
         {
             List<GetDeviceModelViewMdel> listModel = new List<GetDeviceModelViewMdel>();
             try
@@ -101,7 +132,7 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_GetDevicModelList", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("Id", Id);
+                    cmd.Parameters.AddWithValue("_manufacturerModelId", ManufactureModel);
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -139,7 +170,7 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_AddManufacturer", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_manufacturer", model.Manufacturer);
+                    cmd.Parameters.AddWithValue("_manufacturer", model.ManufactureName);
                     cmd.ExecuteNonQuery();
                     status = true;
                 }
@@ -161,7 +192,7 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_AddManufacturerModel", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_manufacturerModel", model.ManufacturerModel);
+                    cmd.Parameters.AddWithValue("_manufacturerModel", model.ManufactureModel);
                     cmd.Parameters.AddWithValue("_manufactureId", model.ManufactureId);
                     cmd.ExecuteNonQuery();
                     status = true;
@@ -174,6 +205,7 @@ namespace DataAccess.DataAccess
             return status;
         }
 
+
         public bool AddDeviceModel(AddDeviceModelView model)
         {
             bool status = false;
@@ -182,21 +214,56 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
+
                     MySqlCommand cmd = new MySqlCommand("P_AddDeviceModel", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_manufacturerModelId", model.ManufactureModelId);
+                    cmd.Parameters.AddWithValue("_manufacturerModelId", model.ManufactureId);
                     cmd.Parameters.AddWithValue("_deviceModel", model.DeviceModel);
                     cmd.ExecuteNonQuery();
                     status = true;
                 }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return status;
+
+        }
+
+        public bool CheckManufactureExists(string name)
+        {
+
+            bool status = false;
+            try
+            {
+
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_CheckManufactureExists", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Manufacturer", name.Trim());
+                    cmd.Parameters.Add("Statues", MySqlDbType.Bit, 10);
+                    cmd.Parameters["Statues"].Direction = System.Data.ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();
+                    status = Convert.ToBoolean(cmd.Parameters["Statues"].Value);
+                }
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
             return status;
         }
 
 
+
     }
+
 }
+

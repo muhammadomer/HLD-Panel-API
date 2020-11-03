@@ -241,6 +241,7 @@
     <Compile Include="Helper\JwtAppSetting.cs" />
     <Compile Include="Helper\ListToDatatable.cs" />
     <Compile Include="ViewModels\AcceptBesyBuyOrderViewModel.cs" />
+    <Compile Include="ViewModels\AddDeviceModelView.cs" />
     <Compile Include="ViewModels\AddManufacturerModelViewModel.cs" />
     <Compile Include="ViewModels\AddManufactureViewModel.cs" />
     <Compile Include="ViewModels\AdjustPhysicalInventoryVM.cs" />

@@ -8,7 +8,7 @@ namespace DataAccess.ViewModels
 {
    public class AddDeviceModelView
     {
-        public int ManufactureModelId { get; set; }
+        public int ManufactureId { get; set; }
         public string DeviceModel { get; set; }
     }
 }
