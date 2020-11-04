@@ -413,6 +413,7 @@
     <Compile Include="ViewModels\UpdateAsinSkuDropShipDataJobViewModel.cs" />
     <Compile Include="ViewModels\UpdateChannelsViewModel.cs" />
     <Compile Include="ViewModels\UpdateImportIdInZincLogViewModel.cs" />
+    <Compile Include="ViewModels\UpdateIsRelationViewModel.cs" />
     <Compile Include="ViewModels\UpdatePOAcceptedViewModel.cs" />
     <Compile Include="ViewModels\UpdateQtyCommentsByJobViewModel.cs" />
     <Compile Include="ViewModels\UpdateSCDropshipStatusViewModel.cs" />

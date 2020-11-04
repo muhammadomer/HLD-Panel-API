@@ -87,12 +87,12 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/Manufacture/GetDeviceModelModel")]
-        public List<GetDeviceModelViewMdel> GetDeviceModelModel(int ManufactureModel)
+        public List<GetDeviceModelViewMdel> GetDeviceModelModel(int ManufactureModel,int ManufactureId)
         {
             try
             {
                 List<GetDeviceModelViewMdel> _ViewModels = new List<GetDeviceModelViewMdel>();
-                _ViewModels = DataAccess.GetDeviceModelModel(ManufactureModel);
+                _ViewModels = DataAccess.GetDeviceModelModel(ManufactureModel, ManufactureId);
                 return _ViewModels;
             }
             catch (Exception ex)

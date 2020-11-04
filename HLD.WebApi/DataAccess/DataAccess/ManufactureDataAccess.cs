@@ -122,7 +122,7 @@ namespace DataAccess.DataAccess
             return listModel;
         }
 
-        public List<GetDeviceModelViewMdel> GetDeviceModelModel(int ManufactureModel)
+        public List<GetDeviceModelViewMdel> GetDeviceModelModel(int ManufactureModel,int ManufactureId)
         {
             List<GetDeviceModelViewMdel> listModel = new List<GetDeviceModelViewMdel>();
             try
@@ -133,6 +133,7 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_GetDevicModelList", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_manufacturerModelId", ManufactureModel);
+                    cmd.Parameters.AddWithValue("_manufactureId", ManufactureId);
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -142,8 +143,9 @@ namespace DataAccess.DataAccess
                             while (reader.Read())
                             {
                                 GetDeviceModelViewMdel model = new GetDeviceModelViewMdel();
-                                model.ManufactureId = Convert.ToInt32(reader["ManufacturesId"] != DBNull.Value ? reader["ManufacturesId"] : 0);
-                                model.DeviceModel = Convert.ToString(reader["DeviceModel"] != DBNull.Value ? reader["DeviceModel"] : "0");
+                                model.Manufacture = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : "");
+                                model.ManufactureModel = Convert.ToString(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : "");
+                                model.DeviceModel = Convert.ToString(reader["DeviceModel"] != DBNull.Value ? reader["DeviceModel"] : "");
                                 listModel.Add(model);
                             }
                         }
@@ -217,7 +219,8 @@ namespace DataAccess.DataAccess
 
                     MySqlCommand cmd = new MySqlCommand("P_AddDeviceModel", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_manufacturerModelId", model.ManufactureId);
+                    cmd.Parameters.AddWithValue("_manufactureId", model.ManufactureId);
+                    cmd.Parameters.AddWithValue("_manufacturerModelId", model.ManufactureModelId);
                     cmd.Parameters.AddWithValue("_deviceModel", model.DeviceModel);
                     cmd.ExecuteNonQuery();
                     status = true;

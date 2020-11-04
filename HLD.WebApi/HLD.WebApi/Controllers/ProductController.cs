@@ -1083,6 +1083,16 @@ namespace HLD.WebApi.Controllers
             status = DataAccess.UpdateImageStatusWhenImageUpdatedOnSC(sku);
             return Ok(status);
         }
+
+        [HttpPut]
+        [Authorize]
+        [Route("api/Product/UpdateRelation")]
+        public IActionResult UpdateRelation([FromBody] UpdateIsRelationViewModel relationViewModel )
+        {
+            bool status = false;
+            status = DataAccess.UpdateRelation(relationViewModel);
+            return Ok(status);
+        }
     }
 }
 
