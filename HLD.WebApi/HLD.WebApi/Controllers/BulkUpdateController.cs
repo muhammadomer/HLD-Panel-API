@@ -32,10 +32,8 @@ namespace HLD.WebApi.Controllers
             List<BulkUpdateViewModel> viewlList = new List<BulkUpdateViewModel>();
             try
             {
-               
-                    viewlList = DataAccess.GetBulkUpdate(shadowSku);
-                
-                
+                viewlList = DataAccess.GetBulkUpdate(shadowSku);
+
                 return viewlList;
             }
             catch (Exception ex)
@@ -43,6 +41,17 @@ namespace HLD.WebApi.Controllers
 
                 throw ex;
             }
+
+        }
+
+        [HttpPut]
+        [Authorize]
+        [Route("api/BulkUpdate/EditBulkUpdate")]
+        public IActionResult EditBulkUpdate([FromBody] BulkUpdateViewModel ViewModel)
+        {
+            bool status = false;
+            status = DataAccess.EditBulkUpdate(ViewModel);
+            return Ok(status);
 
         }
     }
