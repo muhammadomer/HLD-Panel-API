@@ -1454,8 +1454,8 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_ShipWt", model.ShipWt);
                     cmd.Parameters.AddWithValue("_ShipLt", model.ShipLt);
                     cmd.Parameters.AddWithValue("_ShipHt", model.ShipHt);
-                    cmd.Parameters.AddWithValue("_Menufacture", model.Menufacture);
-                    cmd.Parameters.AddWithValue("_MenufactureModel", model.MenufactureModel);
+                    cmd.Parameters.AddWithValue("_Menufacture", model.ManufactureName);
+                    cmd.Parameters.AddWithValue("_MenufactureModel", model.ManufactureModel);
                     cmd.Parameters.AddWithValue("_Style", model.Style);
                     cmd.Parameters.AddWithValue("_IsCreatedOnSC", model.IsCreatedOnSC);
                     cmd.Parameters.AddWithValue("_Feature", model.Feature);
@@ -1729,6 +1729,13 @@ namespace DataAccess.DataAccess
                                 model.ShadowOff = Convert.ToString(reader["ShadowOf"] != DBNull.Value ? reader["ShadowOf"] : "");
                                 model.IsCreatedOnSC = Convert.ToInt32(reader["IsCreatedOnSC"] != DBNull.Value ? reader["IsCreatedOnSC"] : 0);
                                 model.CompanyId = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
+                                model.IsRelated = Convert.ToString(reader["IsRelated"] != DBNull.Value ? reader["IsRelated"] : "");
+                                model.AmazonMerchantSKU = Convert.ToString(reader["AmazonMerchantSKU"] != DBNull.Value ? reader["AmazonMerchantSKU"] : "");
+                                model.AmazonEnabled = Convert.ToString(reader["AmazonEnabled"] != DBNull.Value ? reader["AmazonEnabled"] : "");
+                                model.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
+                                model.FulfilledBy = Convert.ToString(reader["FulfilledBy"] != DBNull.Value ? reader["FulfilledBy"] : "");
+                                model.AmazonFBASKU = Convert.ToString(reader["AmazonFBASKU"] != DBNull.Value ? reader["AmazonFBASKU"] : "");
+                                model.WebsiteEnabled = Convert.ToString(reader["WebsiteEnabled"] != DBNull.Value ? reader["WebsiteEnabled"] : "");
                                 listModel.Add(model);
                             }
                         }

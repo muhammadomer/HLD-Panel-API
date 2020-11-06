@@ -23,5 +23,13 @@ namespace DataAccess.ViewModels
         public int IsCreatedOnSC { get; set; }
         public string Shadow_Key { get; set; }
         public string CompanyName { get; set; }
+        public string IsRelated { get; set; }
+        //bulk update colums
+        public string AmazonMerchantSKU { get; set; }
+        public string AmazonEnabled { get; set; }
+        public string ASIN { get; set; }
+        public string FulfilledBy { get; set; }
+        public string AmazonFBASKU { get; set; }
+        public string WebsiteEnabled { get; set; }
     }
 }

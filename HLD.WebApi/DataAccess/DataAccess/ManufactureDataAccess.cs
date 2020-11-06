@@ -112,6 +112,45 @@ namespace DataAccess.DataAccess
                     }
                 }
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return listModel;
+        }
+
+
+        public List<ProductManufactureListViewModel> GetManufactureList(int ManufactureId)
+        {
+            List<ProductManufactureListViewModel> listModel = new List<ProductManufactureListViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetAllManufactredModelList", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_ManufacturesId", ManufactureId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            listModel = new List<ProductManufactureListViewModel>();
+                            while (reader.Read())
+                            {
+                                ProductManufactureListViewModel model = new ProductManufactureListViewModel();
+                                model.ManufactureId = Convert.ToInt32(reader["ManufacturesId"] != DBNull.Value ? reader["ManufacturesId"] : 0);
+                                model.ManufactureName = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : "");
+                                model.DeviceModel = Convert.ToString(reader["DeviceModel"] != DBNull.Value ? reader["DeviceModel"] : "");
+                                model.ManufactureModel = Convert.ToString(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : "");
+                                listModel.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
 
 
             catch (Exception ex)
@@ -122,7 +161,9 @@ namespace DataAccess.DataAccess
             return listModel;
         }
 
-        public List<GetDeviceModelViewMdel> GetDeviceModelModel(int ManufactureModel,int ManufactureId)
+
+        public List<GetDeviceModelViewMdel> GetDeviceModelModel(int ManufactureModel, int ManufactureId)
+
         {
             List<GetDeviceModelViewMdel> listModel = new List<GetDeviceModelViewMdel>();
             try

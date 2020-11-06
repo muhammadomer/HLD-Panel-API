@@ -63,25 +63,28 @@ namespace DataAccess.DataAccess
             return listModel;
         }
 
-        public bool EditBulkUpdate(EditBulkUpdateViewModel viewModel)
+        public bool EditBulkUpdate(List<EditBulkUpdateViewModel> viewModel)
         {
             bool status = false;
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(connStr))
+                foreach (var item in viewModel)
                 {
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_EditBulkUpdate", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_amazonMerchantSKU", viewModel.AmazonMerchantSKU);
-                    cmd.Parameters.AddWithValue("_amazonEnabled", viewModel.AmazonEnabled);
-                    cmd.Parameters.AddWithValue("_aSIN", viewModel.ASIN);
-                    cmd.Parameters.AddWithValue("_fulfilledBy", viewModel.FulfilledBy);
-                    cmd.Parameters.AddWithValue("_amazonFBASKU", viewModel.AmazonFBASKU);
-                    cmd.Parameters.AddWithValue("_websiteEnabled", viewModel.WebsiteEnabled);
-                    cmd.Parameters.AddWithValue("_shadowSku", viewModel.ShadowSku);
-                    cmd.ExecuteNonQuery();
-                    status = true;
+                    using (MySqlConnection conn = new MySqlConnection(connStr))
+                    {
+                        conn.Open();
+                        MySqlCommand cmd = new MySqlCommand("P_EditBulkUpdate", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_amazonMerchantSKU", item.AmazonMerchantSKU);
+                        cmd.Parameters.AddWithValue("_amazonEnabled", item.AmazonEnabled);
+                        cmd.Parameters.AddWithValue("_aSIN", item.ASIN);
+                        cmd.Parameters.AddWithValue("_fulfilledBy", item.FulfilledBy);
+                        cmd.Parameters.AddWithValue("_amazonFBASKU", item.AmazonFBASKU);
+                        cmd.Parameters.AddWithValue("_websiteEnabled", item.WebsiteEnabled);
+                        cmd.Parameters.AddWithValue("_shadowSku", item.ShadowSku);
+                        cmd.ExecuteNonQuery();
+                        status = true;
+                    }
                 }
             }
             catch (Exception ex)

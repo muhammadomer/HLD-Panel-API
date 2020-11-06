@@ -180,6 +180,7 @@
     <Compile Include="DataAccess\BestBuyTrackingUpdateLogDataAccess.cs" />
     <Compile Include="DataAccess\BestBuyUpdateLogsDataAccess.cs" />
     <Compile Include="DataAccess\BrandDataAccess.cs" />
+    <Compile Include="DataAccess\BulkUpdateDataAccess.cs" />
     <Compile Include="DataAccess\CatageoryMainDataAccess.cs" />
     <Compile Include="DataAccess\CatageorySub1DataAccess.cs" />
     <Compile Include="DataAccess\CatageorySub2DataAccess.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Helper\IConnectionString.cs" />
     <Compile Include="Helper\JwtAppSetting.cs" />
     <Compile Include="Helper\ListToDatatable.cs" />
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" />
     <Compile Include="ViewModels\AcceptBesyBuyOrderViewModel.cs" />
     <Compile Include="ViewModels\AddDeviceModelView.cs" />
     <Compile Include="ViewModels\AddManufacturerModelViewModel.cs" />
@@ -274,6 +276,7 @@
     <Compile Include="ViewModels\BestBuyUpdateViewModel.cs" />
     <Compile Include="ViewModels\BrandAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\BrandViewModel.cs" />
+    <Compile Include="ViewModels\BulkUpdateViewModel.cs" />
     <Compile Include="ViewModels\CasePackViewModel.cs" />
     <Compile Include="ViewModels\CatageoryMainViewModel.cs" />
     <Compile Include="ViewModels\CatageorySub1ViewModel.cs" />
@@ -296,6 +299,7 @@
     <Compile Include="ViewModels\DraftPOViewModel.cs" />
     <Compile Include="ViewModels\DropShipAndQtyOrderViewModel.cs" />
     <Compile Include="ViewModels\DropShipEnableDisableLogViewModel.cs" />
+    <Compile Include="ViewModels\EditBulkUpdateViewModel.cs" />
     <Compile Include="ViewModels\EmailJobDetailViewModel.cs" />
     <Compile Include="ViewModels\ExportProductDataViewModel.cs" />
     <Compile Include="ViewModels\ExportSkuImgUrlViewModel.cs" />
@@ -344,6 +348,7 @@
     <Compile Include="ViewModels\ProductDetailForAPViewModel.cs" />
     <Compile Include="ViewModels\ProductDisplayInventoryViewModel.cs" />
     <Compile Include="ViewModels\ProductInventorySearchViewModel.cs" />
+    <Compile Include="ViewModels\ProductManufactureListViewModel.cs" />
     <Compile Include="ViewModels\ProductOrderIDModelforWebhooks.cs" />
     <Compile Include="ViewModels\ProductSalesViewModel.cs" />
     <Compile Include="ViewModels\ProductSaveViewModel.cs" />

@@ -47,7 +47,7 @@ namespace HLD.WebApi.Controllers
         [HttpPut]
         [Authorize]
         [Route("api/BulkUpdate/EditBulkUpdate")]
-        public IActionResult EditBulkUpdate([FromBody] BulkUpdateViewModel ViewModel)
+        public IActionResult EditBulkUpdate([FromBody] List<EditBulkUpdateViewModel> ViewModel)
         {
             bool status = false;
             status = DataAccess.EditBulkUpdate(ViewModel);

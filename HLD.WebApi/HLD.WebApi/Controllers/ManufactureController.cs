@@ -81,6 +81,22 @@ namespace HLD.WebApi.Controllers
             {
                 throw ex;
             }
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("api/Manufacture/GetManufactureList")]
+        public List<ProductManufactureListViewModel> GetManufactureList(int ManufactureId)
+        {
+            try
+            {
+                List<ProductManufactureListViewModel> _ViewModels = new List<ProductManufactureListViewModel>();
+                _ViewModels = DataAccess.GetManufactureList(ManufactureId);
+                return _ViewModels;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
