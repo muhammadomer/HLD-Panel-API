@@ -933,10 +933,10 @@ namespace HLD.WebApi.Controllers
                 viewlList = DataAccess.GetChildSkuById(id);
                 return viewlList;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
         }

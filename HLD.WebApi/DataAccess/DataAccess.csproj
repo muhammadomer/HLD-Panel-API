@@ -246,6 +246,7 @@
     <Compile Include="ViewModels\AddDeviceModelView.cs" />
     <Compile Include="ViewModels\AddManufacturerModelViewModel.cs" />
     <Compile Include="ViewModels\AddManufactureViewModel.cs" />
+    <Compile Include="ViewModels\AddStyleViewModel.cs" />
     <Compile Include="ViewModels\AdjustPhysicalInventoryVM.cs" />
     <Compile Include="ViewModels\AliasViewModel.cs" />
     <Compile Include="ViewModels\ApprovedPriceViewModel.cs" />
@@ -300,6 +301,7 @@
     <Compile Include="ViewModels\DropShipAndQtyOrderViewModel.cs" />
     <Compile Include="ViewModels\DropShipEnableDisableLogViewModel.cs" />
     <Compile Include="ViewModels\EditBulkUpdateViewModel.cs" />
+    <Compile Include="ViewModels\EditManufactureListModelView.cs" />
     <Compile Include="ViewModels\EmailJobDetailViewModel.cs" />
     <Compile Include="ViewModels\ExportProductDataViewModel.cs" />
     <Compile Include="ViewModels\ExportSkuImgUrlViewModel.cs" />

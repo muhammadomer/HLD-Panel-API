@@ -81,6 +81,7 @@ namespace DataAccess.DataAccess
             }
             catch (Exception ex)
             {
+                throw ex;
             }
             return listViewModel;
         }
@@ -268,10 +269,10 @@ namespace DataAccess.DataAccess
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
             return status;
 
@@ -305,8 +306,129 @@ namespace DataAccess.DataAccess
             return status;
         }
 
+        public bool EditManufactureList(EditManufactureListModelView model)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+
+                    MySqlCommand cmd = new MySqlCommand("P_EditManufactureList", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_manufacturerId", model.ManufactureId);
+                    cmd.Parameters.AddWithValue("_manufacturer", model.Manufacturer);
+                    cmd.Parameters.AddWithValue("_manufactureModel", model.ManufactureModel);
+                    cmd.Parameters.AddWithValue("_deviceModel", model.DeviceModel);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return status;
+
+        }
+        public bool AddStyle(AddStyleViewModel model)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_AddStyle", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_styleId", model.StyleId);
+                    cmd.Parameters.AddWithValue("_styleName", model.StyleName);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+
+        public List<AddStyleViewModel> GetAllStyle()
+        {
+            List<AddStyleViewModel> listViewModel = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetAllStyle", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            listViewModel = new List<AddStyleViewModel>();
+                            while (reader.Read())
+                            {
+                                AddStyleViewModel model = new AddStyleViewModel();
+                                model.StyleId = Convert.ToInt32(reader["StyleId"] != DBNull.Value ? reader["StyleId"] : 0);
+                                model.StyleName = Convert.ToString(reader["StyleName"] != DBNull.Value ? reader["StyleName"] : " ");
+                                listViewModel.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return listViewModel;
+        }
+
+        public List<AddStyleViewModel> GetStyleWithId(int styleId)
+
+        {
+            List<AddStyleViewModel> listModel = new List<AddStyleViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetStyleWithId", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_styleId", styleId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            listModel = new List<AddStyleViewModel>();
+                            while (reader.Read())
+                            {
+                                AddStyleViewModel model = new AddStyleViewModel();
+                                model.StyleId = Convert.ToInt32(reader["StyleId"] != DBNull.Value ? reader["StyleId"] : 0);
+                                model.StyleName = Convert.ToString(reader["StyleName"] != DBNull.Value ? reader["StyleName"] : "");
+                                listModel.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
 
 
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return listModel;
+        }
     }
 
 }

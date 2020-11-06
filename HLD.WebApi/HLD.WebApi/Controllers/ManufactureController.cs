@@ -181,5 +181,60 @@ namespace HLD.WebApi.Controllers
             }
         }
 
+        [HttpPut]
+        [Authorize]
+        [Route("api/Manufacture/EditManufactureList")]
+        public IActionResult EditManufactureList([FromBody] EditManufactureListModelView model)
+        {
+            bool status = false;
+            status = DataAccess.EditManufactureList(model);
+            return Ok(status);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/Manufacture/AddStyle")]
+        public IActionResult AddStyle([FromBody] AddStyleViewModel model)
+        {
+            bool status = false;
+            status = DataAccess.AddStyle(model);
+            return Ok(status);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Manufacture/GetAllStyle")]
+        public IActionResult GetAllStyle()
+        {
+            List<AddStyleViewModel> _ViewModels = null;
+
+            _ViewModels = DataAccess.GetAllStyle();
+
+            if (_ViewModels == null)
+            {
+                return Ok(null);
+            }
+            else
+            {
+                return Ok(_ViewModels);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Manufacture/GetStyleWithId")]
+        public List<AddStyleViewModel> GetStyleWithId(int styleId)
+        {
+            try
+            {
+                List<AddStyleViewModel> _ViewModels = new List<AddStyleViewModel>();
+                _ViewModels = DataAccess.GetStyleWithId(styleId);
+                return _ViewModels;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
