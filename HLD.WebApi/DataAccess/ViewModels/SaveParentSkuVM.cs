@@ -34,5 +34,6 @@ namespace DataAccess.ViewModels
         public string ImageName { get; set; }
         public string Upc { get; set; }
         public string CompressedImage { get; set; }
+        public DateTime SkuCreationDate { get; set; }
     }
 }

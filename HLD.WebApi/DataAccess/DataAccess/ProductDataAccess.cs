@@ -1462,6 +1462,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_Description", model.Description);
                     cmd.Parameters.AddWithValue("_DeviceModel", model.DeviceModel);
                     cmd.Parameters.AddWithValue("_productstatus", model.productstatus=1);
+                    cmd.Parameters.AddWithValue("_skuCreationDate", model.SkuCreationDate=DateTime.Now);
                     cmd.ExecuteNonQuery();
                     status = true;
                 }
@@ -1501,6 +1502,7 @@ namespace DataAccess.DataAccess
                                 //skuVM.CompressedImage = reader["Compress_image"] != DBNull.Value ? (string)reader["Compress_image"] : "";
                                 //skuVM.ImageName = reader["image_name"] != DBNull.Value ? (string)reader["image_name"] : "";
                                 skuVM.Upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "0");
+                                skuVM.SkuCreationDate = Convert.ToDateTime(reader["SkuCreationDate"] != DBNull.Value ? reader["SkuCreationDate"] : (DateTime?)null);
                                 ViewModel.Add(skuVM);
                             }
                         }
@@ -1582,26 +1584,51 @@ namespace DataAccess.DataAccess
             bool status = false;
             try
             {
+                
                 foreach (var item in ListViewModel)
                 {
-                    using (MySqlConnection conn = new MySqlConnection(connStr))
-                    {
-                        conn.Open();
-                        MySqlCommand cmd = new MySqlCommand("P_saveChildSku", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("_childProductId", item.Childproduct_id);
-                        cmd.Parameters.AddWithValue("_parentProductId", item.Parentproduct_id);
-                        cmd.Parameters.AddWithValue("_sku", item.Sku);
-                        cmd.Parameters.AddWithValue("_productTitle", item.title);
-                        cmd.Parameters.AddWithValue("_upc", item.upc);
-                        cmd.Parameters.AddWithValue("_productStatus", 0);
-                        cmd.Parameters.AddWithValue("_colorId", item.ColorIds);
-                        cmd.ExecuteNonQuery();
-                        status = true;
+                    if (item.Childproduct_id==0) {
+                        using (MySqlConnection conn = new MySqlConnection(connStr))
+                        {
+                            conn.Open();
+                            MySqlCommand cmd = new MySqlCommand("P_saveChildSku", conn);
+                            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("_childProductId", item.Childproduct_id);
+                            cmd.Parameters.AddWithValue("_parentProductId", item.Parentproduct_id);
+                            cmd.Parameters.AddWithValue("_sku", item.Sku);
+                            cmd.Parameters.AddWithValue("_productTitle", item.title);
+                            cmd.Parameters.AddWithValue("_upc", item.upc);
+                            cmd.Parameters.AddWithValue("_productStatus", 0);
+                            cmd.Parameters.AddWithValue("_colorId", item.ColorIds);
+                            cmd.ExecuteNonQuery();
+                            status = true;
 
-                        conn.Close();
+                            conn.Close();
 
+                        }
                     }
+                    else
+                    {
+                        using (MySqlConnection conn = new MySqlConnection(connStr))
+                        {
+                            conn.Open();
+                            MySqlCommand cmd = new MySqlCommand("P_saveChildSku", conn);
+                            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("_childProductId", item.Childproduct_id);
+                            cmd.Parameters.AddWithValue("_parentProductId", item.Parentproduct_id);
+                            cmd.Parameters.AddWithValue("_sku", item.Sku);
+                            cmd.Parameters.AddWithValue("_productTitle", item.title);
+                            cmd.Parameters.AddWithValue("_upc", item.upc);
+                            cmd.Parameters.AddWithValue("_productStatus", 1);
+                            cmd.Parameters.AddWithValue("_colorId", item.ColorIds);
+                            cmd.ExecuteNonQuery();
+                            status = true;
+
+                            conn.Close();
+
+                        }
+                    }
+                    
                 }
 
             }
@@ -2104,7 +2131,7 @@ namespace DataAccess.DataAccess
                     {
                         MySqlCommand cmd = new MySqlCommand("P_GetShadowsOfChildSkuForXls", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("_childSku", childSku.FirstOrDefault().ProductSKU);
+                        cmd.Parameters.AddWithValue("_childSku", item.ProductSKU);
                         using (var reader = cmd.ExecuteReader())
                         {
                             if (reader.HasRows)
