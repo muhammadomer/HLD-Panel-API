@@ -391,10 +391,10 @@ namespace DataAccess.DataAccess
             return listViewModel;
         }
 
-        public List<AddStyleViewModel> GetStyleWithId(int styleId)
+        public AddStyleViewModel GetStyleWithId(int styleId)
 
         {
-            List<AddStyleViewModel> listModel = new List<AddStyleViewModel>();
+           AddStyleViewModel listModel = new AddStyleViewModel();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -408,13 +408,13 @@ namespace DataAccess.DataAccess
                     {
                         if (reader.HasRows)
                         {
-                            listModel = new List<AddStyleViewModel>();
+                            
                             while (reader.Read())
                             {
                                 AddStyleViewModel model = new AddStyleViewModel();
                                 model.StyleId = Convert.ToInt32(reader["StyleId"] != DBNull.Value ? reader["StyleId"] : 0);
                                 model.StyleName = Convert.ToString(reader["StyleName"] != DBNull.Value ? reader["StyleName"] : "");
-                                listModel.Add(model);
+                                listModel=model;
                             }
                         }
                     }

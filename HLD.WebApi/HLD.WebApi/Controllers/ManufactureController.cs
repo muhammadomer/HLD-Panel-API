@@ -223,11 +223,11 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/Manufacture/GetStyleWithId")]
-        public List<AddStyleViewModel> GetStyleWithId(int styleId)
+        public AddStyleViewModel GetStyleWithId(int styleId)
         {
             try
             {
-                List<AddStyleViewModel> _ViewModels = new List<AddStyleViewModel>();
+                AddStyleViewModel _ViewModels = null;
                 _ViewModels = DataAccess.GetStyleWithId(styleId);
                 return _ViewModels;
             }
@@ -236,5 +236,6 @@ namespace HLD.WebApi.Controllers
                 throw ex;
             }
         }
+
     }
 }
