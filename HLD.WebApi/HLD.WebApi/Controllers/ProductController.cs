@@ -1093,6 +1093,18 @@ namespace HLD.WebApi.Controllers
             status = DataAccess.UpdateRelation(relationViewModel);
             return Ok(status);
         }
+
+        [HttpPut]
+        [Authorize]
+        [Route("api/Product/UpdateShadowSingleColoumn")]
+        public IActionResult UpdateShadowSingleColoumn([FromBody] UpdateShadowSingleColoumnViewModel updateShadowSingleColoumnViewModel)
+        {
+            bool status = false;
+            status = DataAccess.UpdateShadowSingleColoumn(updateShadowSingleColoumnViewModel);
+            return Ok(status);
+        }
+
+
     }
 }
 

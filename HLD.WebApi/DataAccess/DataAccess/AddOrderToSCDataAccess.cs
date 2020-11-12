@@ -51,6 +51,7 @@ WHERE orders.`inSellerCloud`= 0 and `customer`.`city` <>'';", conn);
             }
             catch (Exception ex)
             {
+                throw ex;
             }
             return listModel;
         }

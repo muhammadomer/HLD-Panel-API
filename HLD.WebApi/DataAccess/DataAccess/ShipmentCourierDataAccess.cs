@@ -135,7 +135,7 @@ namespace DataAccess.DataAccess
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             return status;
         }

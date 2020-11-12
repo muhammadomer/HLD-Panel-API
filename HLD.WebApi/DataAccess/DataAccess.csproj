@@ -424,6 +424,7 @@
     <Compile Include="ViewModels\UpdatePOAcceptedViewModel.cs" />
     <Compile Include="ViewModels\UpdateQtyCommentsByJobViewModel.cs" />
     <Compile Include="ViewModels\UpdateSCDropshipStatusViewModel.cs" />
+    <Compile Include="ViewModels\UpdateShadowSingleColoumnViewModel.cs" />
     <Compile Include="ViewModels\UpdateTrackingBestbuyViewModel.cs" />
     <Compile Include="ViewModels\UpdateTrackingShippingJsonViewModel.cs" />
     <Compile Include="ViewModels\UpdateWatchListViewModel.cs" />

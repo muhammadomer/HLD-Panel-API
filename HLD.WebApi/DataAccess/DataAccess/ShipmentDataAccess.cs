@@ -74,8 +74,9 @@ namespace DataAccess.DataAccess
                     conn.Close();
                 }
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
+                throw ex;
             }
             return Counter;
         }
