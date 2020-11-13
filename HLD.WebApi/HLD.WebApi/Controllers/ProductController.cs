@@ -1048,6 +1048,25 @@ namespace HLD.WebApi.Controllers
 
         }
 
+        [HttpPost]
+        [Authorize]
+        [Route("api/Product/GetDataForBulkUpdate")]
+        public List<BulkUpdateFileContents> GetDataForBulkUpdate([FromBody] List<GetBulkUpdateSkuViewModel> dataSKU)
+        {
+            List<BulkUpdateFileContents> viewlList = new List<BulkUpdateFileContents>();
+            try
+            {
+                viewlList = DataAccess.GetDataForBulkUpdate(dataSKU);
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return viewlList;
+        }
+
         [HttpGet]
         [Authorize]
         [Route("api/Product/GetChildSkuImageUrl")]

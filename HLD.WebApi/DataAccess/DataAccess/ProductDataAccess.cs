@@ -2158,6 +2158,58 @@ namespace DataAccess.DataAccess
             return listModel;
         }
 
+        public List<BulkUpdateFileContents> GetDataForBulkUpdate(List<GetBulkUpdateSkuViewModel> Sku)
+        {
+            List<BulkUpdateFileContents> listModel = new List<BulkUpdateFileContents>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    foreach (var item in Sku)
+                    {
+                        MySqlCommand cmd = new MySqlCommand("P_GetDataForBulkUpdate", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_sku", item.Sku);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    BulkUpdateFileContents model = new BulkUpdateFileContents();
+                                    model.brand_name = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] :"");
+                                    model.ProductID = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
+                                    model.UPC = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
+                                    model.Manufacturer = Convert.ToString(reader["Manufacture"] != DBNull.Value ? reader["Manufacture"] : "");
+                                    model.PackageWeightOz = Convert.ToBoolean(reader["ship_weight_oz"] != DBNull.Value ? reader["ship_weight_oz"] : false);
+                                    model.ShippingWidth = Convert.ToBoolean(reader["ship_width"] != DBNull.Value ? reader["ship_width"] : false);
+                                    model.ShippingHeight = Convert.ToBoolean(reader["ship_height"] != DBNull.Value ? reader["ship_height"] :false);
+                                    model.ShippingLength = Convert.ToBoolean(reader["ship_length"] != DBNull.Value ? reader["ship_length"] : "");
+                                    model.ShortDescription = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
+                                    model.LongDescription = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "");
+                                    model.AmazonEnabled = Convert.ToBoolean(reader["AmazonEnabled"] != DBNull.Value ? reader["AmazonEnabled"] : false);
+                                    model.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
+                                    model.ManufacturerSKU = Convert.ToString(reader["AmazonMerchantSKU"] != DBNull.Value ? reader["AmazonMerchantSKU"] :"");
+                                    model.FulfilledBy = Convert.ToString(reader["FulfilledBy"] != DBNull.Value ? reader["FulfilledBy"] : 0);
+                                    model.AmazonFBASKU = Convert.ToString(reader["AmazonFBASKU"] != DBNull.Value ? reader["AmazonFBASKU"] : 0);
+                                    model.CompanyID = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
+                                    listModel.Add(model);
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return listModel;
+        }
+
         public List<GetImageUrlOfChildSkuViewModel> GetChildSkuImageUrl(string childSku)
         {
             List<GetImageUrlOfChildSkuViewModel> listModel = new List<GetImageUrlOfChildSkuViewModel>();
