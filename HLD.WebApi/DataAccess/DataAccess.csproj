@@ -277,6 +277,7 @@
     <Compile Include="ViewModels\BestBuyUpdateViewModel.cs" />
     <Compile Include="ViewModels\BrandAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\BrandViewModel.cs" />
+    <Compile Include="ViewModels\BulkUpdateFileContents.cs" />
     <Compile Include="ViewModels\BulkUpdateViewModel.cs" />
     <Compile Include="ViewModels\CasePackViewModel.cs" />
     <Compile Include="ViewModels\CatageoryMainViewModel.cs" />
@@ -308,6 +309,7 @@
     <Compile Include="ViewModels\FileJobLogsViewModel.cs" />
     <Compile Include="ViewModels\FileUploadStatusLogViewModel.cs" />
     <Compile Include="ViewModels\FileUploadViewModel.cs" />
+    <Compile Include="ViewModels\GetBulkUpdateSkuViewModel.cs" />
     <Compile Include="ViewModels\GetChannelCredViewModel.cs" />
     <Compile Include="ViewModels\GetChildORderToimportJobViewModel.cs" />
     <Compile Include="ViewModels\GetChildSkuImages.cs" />

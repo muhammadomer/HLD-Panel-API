@@ -13,10 +13,10 @@ namespace DataAccess.ViewModels
         public string BrandName { get; set; }
         public string Manufacturer { get; set; }
         public string ManufacturerSKU { get; set; }
-        public bool PackageWeightOz { get; set; }
-        public bool ShippingWidth { get; set; }
-        public bool ShippingHeight { get; set; }
-        public bool ShippingLength { get; set; }
+        public decimal PackageWeightOz { get; set; }
+        public decimal ShippingWidth { get; set; }
+        public decimal ShippingHeight { get; set; }
+        public decimal ShippingLength { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
         public bool AmazonEnabled { get; set; }

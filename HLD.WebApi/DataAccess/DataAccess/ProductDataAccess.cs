@@ -2182,10 +2182,10 @@ namespace DataAccess.DataAccess
                                     model.ProductID = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                                     model.UPC = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
                                     model.Manufacturer = Convert.ToString(reader["Manufacture"] != DBNull.Value ? reader["Manufacture"] : "");
-                                    model.PackageWeightOz = Convert.ToBoolean(reader["ship_weight_oz"] != DBNull.Value ? reader["ship_weight_oz"] : false);
-                                    model.ShippingWidth = Convert.ToBoolean(reader["ship_width"] != DBNull.Value ? reader["ship_width"] : false);
-                                    model.ShippingHeight = Convert.ToBoolean(reader["ship_height"] != DBNull.Value ? reader["ship_height"] :false);
-                                    model.ShippingLength = Convert.ToBoolean(reader["ship_length"] != DBNull.Value ? reader["ship_length"] : "");
+                                    model.PackageWeightOz = Convert.ToDecimal(reader["ship_weight_oz"] != DBNull.Value ? reader["ship_weight_oz"] : 0);
+                                    model.ShippingWidth = Convert.ToDecimal(reader["ship_width"] != DBNull.Value ? reader["ship_width"] : 0);
+                                    model.ShippingHeight = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] :0);
+                                    model.ShippingLength = Convert.ToDecimal(reader["ship_length"] != DBNull.Value ? reader["ship_length"] : 0);
                                     model.ShortDescription = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
                                     model.LongDescription = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "");
                                     model.AmazonEnabled = Convert.ToBoolean(reader["AmazonEnabled"] != DBNull.Value ? reader["AmazonEnabled"] : false);
