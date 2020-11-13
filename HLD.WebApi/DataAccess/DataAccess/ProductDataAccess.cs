@@ -2301,5 +2301,35 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+        public bool UpdateShadowSingleColoumnForistAsin(List<UpdateShadowSingleColoumnViewModel> ListViewModel)
+        {
+            bool status = false;
+            try
+            {
+                foreach (var item in ListViewModel)
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connStr))
+                    {
+                        conn.Open();
+                        MySqlCommand cmd = new MySqlCommand("P_UpdateShadowSingleColoumn", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_coloumnName", item.ColoumnName);
+                        cmd.Parameters.AddWithValue("_coloumnValue", item.ColoumnValue);
+                        cmd.Parameters.AddWithValue("_shadowSku", item.ShadowSKU);
+
+                        cmd.ExecuteNonQuery();
+                        status = true;
+                        conn.Close();
+
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
     }
 }
