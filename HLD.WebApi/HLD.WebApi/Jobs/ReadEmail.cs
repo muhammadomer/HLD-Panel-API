@@ -26,7 +26,7 @@ namespace HLD.WebApi.Jobs
                     // Download mail messages from the default mailbox.
                     IEnumerable<MailMessage> messages = client.GetMessages(uids);
                     foreach(var item in messages)
-                        {
+                    {
                     
 
                        
