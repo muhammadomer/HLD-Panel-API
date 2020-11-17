@@ -1141,24 +1141,24 @@ namespace HLD.WebApi.Controllers
             return Ok(status);
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //[Route("api/Product/GetDataForBulkUpdateJob")]
-        //public List<BulkUpdateFileContents> GetDataForBulkUpdateJob()
-        //{
-        //    List<GetDataForBulkUpdateJobViewModel> viewlList = new List<GetDataForBulkUpdateJobViewModel>();
-        //    try
-        //    {
-        //        viewlList = DataAccess.GetDataForBulkUpdateJob();
+        [HttpPost]
+        [Authorize]
+        [Route("api/Product/GetDataForBulkUpdateJob")]
+        public List<GetDataForBulkUpdateJobViewModel> GetDataForBulkUpdateJob(string ParentID)
+        {
+            List<GetDataForBulkUpdateJobViewModel> viewlList = new List<GetDataForBulkUpdateJobViewModel>();
+            try
+            {
+                viewlList = DataAccess.GetDataForBulkUpdateJob(ParentID);
 
-        //    }
-        //    catch (Exception ex)
-        //    {
+            }
+            catch (Exception ex)
+            {
 
-        //        throw ex;
-        //    }
-        //    return viewlList;
-        //}
+                throw ex;
+            }
+            return viewlList;
+        }
 
     }
 }
