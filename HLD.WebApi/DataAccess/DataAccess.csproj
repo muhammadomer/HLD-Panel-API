@@ -314,6 +314,7 @@
     <Compile Include="ViewModels\GetChildORderToimportJobViewModel.cs" />
     <Compile Include="ViewModels\GetChildSkuImages.cs" />
     <Compile Include="ViewModels\GetChildSkuVM.cs" />
+    <Compile Include="ViewModels\GetDataForBulkUpdateViewModel.cs" />
     <Compile Include="ViewModels\GetDeviceModelViewMdel.cs" />
     <Compile Include="ViewModels\GetFileJobsToRunViewModel.cs" />
     <Compile Include="ViewModels\GetImageUrlOfChildSkuViewModel.cs" />
@@ -423,6 +424,7 @@
     <Compile Include="ViewModels\UpdateChannelsViewModel.cs" />
     <Compile Include="ViewModels\UpdateImportIdInZincLogViewModel.cs" />
     <Compile Include="ViewModels\UpdateIsRelationViewModel.cs" />
+    <Compile Include="ViewModels\UpdateJobForBulkUpdateViewModel.cs" />
     <Compile Include="ViewModels\UpdatePOAcceptedViewModel.cs" />
     <Compile Include="ViewModels\UpdateQtyCommentsByJobViewModel.cs" />
     <Compile Include="ViewModels\UpdateSCDropshipStatusViewModel.cs" />

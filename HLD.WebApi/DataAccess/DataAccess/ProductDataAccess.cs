@@ -2383,5 +2383,71 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+
+        public bool UpdateJobIdForBulkUpdate(UpdateJobIdForBulkUpdateViewModel model)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateJobIdForBulkUpdate", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("_jobId", model.JobId);
+                    cmd.Parameters.AddWithValue("_jobId", model.JobId);
+                    cmd.Parameters.AddWithValue("_createdDate", model.CreatedDate);
+                    cmd.Parameters.AddWithValue("_s3FilePath", model.S3FilePath);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+
+        public List<GetDataForBulkUpdateJobViewModel> GetDataForBulkUpdateJob()
+        {
+            List<GetDataForBulkUpdateJobViewModel> listModel = new List<GetDataForBulkUpdateJobViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                   
+                        MySqlCommand cmd = new MySqlCommand("P_GetDataForBulkUpdate", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                       // cmd.Parameters.AddWithValue("_sku", item.Sku);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                GetDataForBulkUpdateJobViewModel model = new GetDataForBulkUpdateJobViewModel();
+                                    model.JobId = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : 0);
+                                    model.JobType = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
+                                    model.File = Convert.ToString(reader["JobIdForBulkUpdate"] != DBNull.Value ? reader["JobIdForBulkUpdate"] : "");
+                                    model.StartTime = Convert.ToDateTime(reader["StartTime"] != DBNull.Value ? reader["StartTime"] : "");
+                                  //  model.Status = Convert.ToDecimal(reader["ship_weight_oz"] != DBNull.Value ? reader["ship_weight_oz"] : 0);
+                                    listModel.Add(model);
+                                }
+                            }
+                        }
+                    
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return listModel;
+        }
     }
 }
