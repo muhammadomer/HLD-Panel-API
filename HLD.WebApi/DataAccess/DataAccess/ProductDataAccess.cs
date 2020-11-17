@@ -2395,10 +2395,12 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_UpdateJobIdForBulkUpdate", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("_jobId", model.JobId);
-                    cmd.Parameters.AddWithValue("_jobId", model.JobId);
+                    cmd.Parameters.AddWithValue("_jobId", model.ID);
+                    cmd.Parameters.AddWithValue("_queuedJobLink", model.QueuedJobLink);
                     cmd.Parameters.AddWithValue("_createdDate", model.CreatedDate);
                     cmd.Parameters.AddWithValue("_s3FilePath", model.S3FilePath);
+                    cmd.Parameters.AddWithValue("_status", model.Status="Completed");
+                    cmd.Parameters.AddWithValue("_sku", model.Sku);
                     cmd.ExecuteNonQuery();
                     status = true;
                 }

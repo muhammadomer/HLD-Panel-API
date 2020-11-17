@@ -185,6 +185,7 @@ namespace DataAccess.DataAccess
                             while (reader.Read())
                             {
                                 GetDeviceModelViewMdel model = new GetDeviceModelViewMdel();
+                                model.ManufactureId = Convert.ToInt32(reader["ManufacturesId"] != DBNull.Value ? reader["ManufacturesId"] : 0);
                                 model.Manufacture = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : "");
                                 model.ManufactureModel = Convert.ToString(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : "");
                                 model.DeviceModel = Convert.ToString(reader["DeviceModel"] != DBNull.Value ? reader["DeviceModel"] : "");
