@@ -1755,9 +1755,7 @@ namespace DataAccess.DataAccess
                                 GetChildSkuVM model = new GetChildSkuVM();
                                 model.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                                 model.title = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
-
                                 model.upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
-
                                 model.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : 0);
                                 model.Parentproduct_id = Convert.ToInt32(reader["ParentID"] != DBNull.Value ? reader["ParentID"] : 0);
                                 model.Childproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : 0);
@@ -1772,7 +1770,7 @@ namespace DataAccess.DataAccess
                                 model.IsRelated = Convert.ToString(reader["IsRelated"] != DBNull.Value ? reader["IsRelated"] : "");
                                 model.AmazonMerchantSKU = Convert.ToString(reader["AmazonMerchantSKU"] != DBNull.Value ? reader["AmazonMerchantSKU"] : "");
                                 model.AmazonEnabled = Convert.ToString(reader["AmazonEnabled"] != DBNull.Value ? reader["AmazonEnabled"] : "");
-                                model.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
+                                model.ASIN = Convert.ToString(reader["z_asin_ca"] != DBNull.Value ? reader["z_asin_ca"] : "");
                                 model.FulfilledBy = Convert.ToString(reader["FulfilledBy"] != DBNull.Value ? reader["FulfilledBy"] : "");
                                 model.AmazonFBASKU = Convert.ToString(reader["AmazonFBASKU"] != DBNull.Value ? reader["AmazonFBASKU"] : "");
                                 model.WebsiteEnabled = Convert.ToString(reader["WebsiteEnabled"] != DBNull.Value ? reader["WebsiteEnabled"] : "");
@@ -2340,7 +2338,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_status", relationViewModel.Status);
                     cmd.Parameters.AddWithValue("_jobType", relationViewModel.JobType);
                     cmd.Parameters.AddWithValue("_fileDirectory", relationViewModel.FileDirectory);
-                    cmd.Parameters.AddWithValue("_fileName", relationViewModel.FileName);
+                    cmd.Parameters.AddWithValue("_fileNames", relationViewModel.FileName);
                     cmd.Parameters.AddWithValue("_JobCreationTime", relationViewModel.JobCreationTime);
                     cmd.ExecuteNonQuery();
                     status = true;
@@ -2401,6 +2399,30 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+        public bool UpdateShadowSingleColoumnASIN(UpdateShadowSingleColoumnViewModel updateShadowSingleColoumnViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateShadowSingleOrMultipleColoumnASINBestBuyProductZincTable", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("_coloumnName", updateShadowSingleColoumnViewModel.ColoumnName);
+                    cmd.Parameters.AddWithValue("_coloumnValue", updateShadowSingleColoumnViewModel.ColoumnValue);
+                    cmd.Parameters.AddWithValue("_shadowSku", updateShadowSingleColoumnViewModel.ShadowSKU);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
         public bool UpdateShadowSingleColoumnForistAsin(List<UpdateShadowSingleColoumnViewModel> ListViewModel)
         {
             bool status = false;
@@ -2411,7 +2433,7 @@ namespace DataAccess.DataAccess
                     using (MySqlConnection conn = new MySqlConnection(connStr))
                     {
                         conn.Open();
-                        MySqlCommand cmd = new MySqlCommand("P_UpdateShadowSingleColoumn", conn);
+                        MySqlCommand cmd = new MySqlCommand("P_UpdateShadowSingleOrMultipleColoumnASINBestBuyProductZincTable", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("_coloumnName", item.ColoumnName);
                         cmd.Parameters.AddWithValue("_coloumnValue", item.ColoumnValue);
