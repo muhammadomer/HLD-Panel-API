@@ -841,6 +841,39 @@ namespace DataAccess.DataAccess
             }
             return ViewModel;
         }
+        public string GetParentOfThisSku(String SKU)
+        {
+            
+            try
+            {
+                var getParentSku = "";
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetParentSkuForThis", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_sku", SKU);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                getParentSku = Convert.ToString(reader["sku"]);
+                                
+                                
+                            }
+                        }
+                    }
+                }
+                return getParentSku;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
 
         public List<AsinAmazonePriceViewModel> GetProductBySKuAmazoneprice(string sku)
         {

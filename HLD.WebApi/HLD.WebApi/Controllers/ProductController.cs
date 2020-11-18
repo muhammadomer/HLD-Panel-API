@@ -129,6 +129,18 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Authorize]
+        [Route("api/Product/GetParentOfThisSku")]
+        public IActionResult GetParentOfThisSku(string sku)
+        {
+           var getParentSku= DataAccess.GetParentOfThisSku(sku);
+
+            
+                return Ok(getParentSku);
+           
+        }
+
+        [HttpGet]
+        [Authorize]
         [Route("api/Product/GetProductBySKuAmazoneprice/{sku}")]
         public List<AsinAmazonePriceViewModel> GetProductBySKuAmazoneprice(string sku)
         {
