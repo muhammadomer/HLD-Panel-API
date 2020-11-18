@@ -16,5 +16,6 @@ namespace DataAccess.ViewModels
         public string title { get; set; }
         public string upc { get; set; }
         public int productstatus { get; set; }
+        public int CompanyId { get; set; }
     }
 }

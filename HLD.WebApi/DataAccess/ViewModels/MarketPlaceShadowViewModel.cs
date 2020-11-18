@@ -11,5 +11,8 @@ namespace DataAccess.ViewModels
         public int CompanyId { get; set; }
         public string Shadow_Key { get; set; }
         public string CompanyName { get; set; }
+        public bool AmazonEnabled { get; set; }
+        public string FulfilledBy { get; set; }
+        public bool WebsiteEnabled { get; set; }
     }
 }

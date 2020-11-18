@@ -1600,6 +1600,12 @@ namespace DataAccess.DataAccess
                             cmd.Parameters.AddWithValue("_upc", item.upc);
                             cmd.Parameters.AddWithValue("_productStatus", 0);
                             cmd.Parameters.AddWithValue("_colorId", item.ColorIds);
+                            cmd.Parameters.AddWithValue("_companyId", 512);
+                            cmd.Parameters.AddWithValue("_companyName", "USA-FBA");
+                            cmd.Parameters.AddWithValue("_amazonMerchantSKU", item.Sku);
+                            cmd.Parameters.AddWithValue("_amazonEnabled", 1);
+                            cmd.Parameters.AddWithValue("_websiteEnabled", 0);
+                            cmd.Parameters.AddWithValue("_fullfiledBy", "Merchant");
                             cmd.ExecuteNonQuery();
                             status = true;
 
@@ -1621,6 +1627,12 @@ namespace DataAccess.DataAccess
                             cmd.Parameters.AddWithValue("_upc", item.upc);
                             cmd.Parameters.AddWithValue("_productStatus", 1);
                             cmd.Parameters.AddWithValue("_colorId", item.ColorIds);
+                            cmd.Parameters.AddWithValue("_companyId", 512);
+                            cmd.Parameters.AddWithValue("_companyName", "USA-FBA");
+                            cmd.Parameters.AddWithValue("_amazonMerchantSKU", item.Sku);
+                            cmd.Parameters.AddWithValue("_amazonEnabled", 1);
+                            cmd.Parameters.AddWithValue("_websiteEnabled", 0);
+                            cmd.Parameters.AddWithValue("_fullfiledBy", "Merchant");
                             cmd.ExecuteNonQuery();
                             status = true;
 
@@ -1756,6 +1768,7 @@ namespace DataAccess.DataAccess
                                 model.ShadowOff = Convert.ToString(reader["ShadowOf"] != DBNull.Value ? reader["ShadowOf"] : "");
                                 model.IsCreatedOnSC = Convert.ToInt32(reader["IsCreatedOnSC"] != DBNull.Value ? reader["IsCreatedOnSC"] : 0);
                                 model.CompanyId = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
+                                model.CompanyName = Convert.ToString(reader["CompanyName"] != DBNull.Value ? reader["CompanyName"] : "");
                                 model.IsRelated = Convert.ToString(reader["IsRelated"] != DBNull.Value ? reader["IsRelated"] : "");
                                 model.AmazonMerchantSKU = Convert.ToString(reader["AmazonMerchantSKU"] != DBNull.Value ? reader["AmazonMerchantSKU"] : "");
                                 model.AmazonEnabled = Convert.ToString(reader["AmazonEnabled"] != DBNull.Value ? reader["AmazonEnabled"] : "");
@@ -1834,6 +1847,9 @@ namespace DataAccess.DataAccess
                                 skuVM.CompanyId = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
                                 skuVM.Shadow_Key = Convert.ToString(reader["Shadow_Key"] != DBNull.Value ? reader["Shadow_Key"] : "");
                                 skuVM.CompanyName = Convert.ToString(reader["CompanyName"] != DBNull.Value ? reader["CompanyName"] : "");
+                                skuVM.AmazonEnabled = Convert.ToBoolean(reader["AmazonEnabled"] != DBNull.Value ? reader["AmazonEnabled"] : false);
+                                skuVM.FulfilledBy = Convert.ToString(reader["FulfilledBy"] != DBNull.Value ? reader["FulfilledBy"] : "");
+                                skuVM.WebsiteEnabled = Convert.ToBoolean(reader["WebsiteEnabled"] != DBNull.Value ? reader["WebsiteEnabled"] : false);
                                 ViewModel.Add(skuVM);
                             }
                         }
@@ -1909,6 +1925,9 @@ namespace DataAccess.DataAccess
                                 cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);                               
                                 cmd.Parameters.AddWithValue("_CompanyName", item.CompanyName);
                                 cmd.Parameters.AddWithValue("_CompanyId", item.CompanyId);
+                                cmd.Parameters.AddWithValue("_AmazonEnabled", item.AmazonEnabled);
+                                cmd.Parameters.AddWithValue("_FulfilledBy", item.FulfilledBy);
+                                cmd.Parameters.AddWithValue("_WebsiteEnabled", item.WebsiteEnabled);
                                 cmd.ExecuteNonQuery();
                                 status = true;
 
@@ -2190,9 +2209,9 @@ namespace DataAccess.DataAccess
                                     model.LongDescription = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "");
                                     model.AmazonEnabled = Convert.ToBoolean(reader["AmazonEnabled"] != DBNull.Value ? reader["AmazonEnabled"] : false);
                                     model.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
-                                    model.ManufacturerSKU = Convert.ToString(reader["AmazonMerchantSKU"] != DBNull.Value ? reader["AmazonMerchantSKU"] :"");
+                                    model.AmazonMerchantSKU = Convert.ToString(reader["AmazonMerchantSKU"] != DBNull.Value ? reader["AmazonMerchantSKU"] :"");
                                     model.FulfilledBy = Convert.ToString(reader["FulfilledBy"] != DBNull.Value ? reader["FulfilledBy"] : 0);
-                                    model.AmazonFBASKU = Convert.ToString(reader["AmazonFBASKU"] != DBNull.Value ? reader["AmazonFBASKU"] : 0);
+                                    model.AmazonFBASKU = Convert.ToString(reader["AmazonFBASKU"] != DBNull.Value ? reader["AmazonFBASKU"] : "");
                                     model.CompanyID = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
                                     listModel.Add(model);
                                 }
@@ -2305,7 +2324,7 @@ namespace DataAccess.DataAccess
             return status;
         }
 
-        public bool UpdateRelation(UpdateIsRelationViewModel relationViewModel)
+        public bool UpdateRelationInBulkUpdateTable(UpdateIsRelationViewModel relationViewModel)
         {
             bool status = false;
             try
@@ -2313,10 +2332,39 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_UpdateIsRelation", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateIsRelationInBulkUpdateTable", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("_childSku", relationViewModel.shadow);
+                    cmd.Parameters.AddWithValue("_parentSku", relationViewModel.ParentSKU);
+                    cmd.Parameters.AddWithValue("_queuedJobLink", relationViewModel.QueuedJobLink);
+                    cmd.Parameters.AddWithValue("_status", relationViewModel.Status);
+                    cmd.Parameters.AddWithValue("_jobType", relationViewModel.JobType);
+                    cmd.Parameters.AddWithValue("_fileDirectory", relationViewModel.FileDirectory);
+                    cmd.Parameters.AddWithValue("_fileName", relationViewModel.FileName);
+                    cmd.Parameters.AddWithValue("_JobCreationTime", relationViewModel.JobCreationTime);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+
+        public bool UpdateRelationInProductTable(UpdateIsRelationViewModel relationViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateRelationInProductTable", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("_childSku", relationViewModel.ParentSKU);
                     cmd.Parameters.AddWithValue("_queuedJobLink", relationViewModel.QueuedJobLink);
                     cmd.ExecuteNonQuery();
                     status = true;
@@ -2395,11 +2443,38 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_UpdateJobIdForBulkUpdate", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("_jobId", model.ID);
                     cmd.Parameters.AddWithValue("_queuedJobLink", model.QueuedJobLink);
+                    cmd.Parameters.AddWithValue("_iD", model.ID);
                     cmd.Parameters.AddWithValue("_createdDate", model.CreatedDate);
-                    cmd.Parameters.AddWithValue("_s3FilePath", model.S3FilePath);
-                    cmd.Parameters.AddWithValue("_status", model.Status="Completed");
+                    cmd.Parameters.AddWithValue("_sku", model.Sku);
+                    cmd.Parameters.AddWithValue("_s3FileDirectoryPath", model.S3FileDirectoryPath);
+                    cmd.Parameters.AddWithValue("_fileNames", model.FileNames);
+                    cmd.Parameters.AddWithValue("_jobType", model.JobType);
+                    cmd.Parameters.AddWithValue("_status", model.Status);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+
+        public bool BulkUpdateJobIdForProductData(UpdateJobIdForBulkUpdateViewModel model)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_BulkUpdateJobIdForProductData", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("_queuedJobLink", model.QueuedJobLink);
+                    cmd.Parameters.AddWithValue("_iD", model.ID);
                     cmd.Parameters.AddWithValue("_sku", model.Sku);
                     cmd.ExecuteNonQuery();
                     status = true;
@@ -2411,7 +2486,7 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
-        
+
         public List<GetDataForBulkUpdateJobViewModel> GetDataForBulkUpdateJob(string ParentID)
         {
             List<GetDataForBulkUpdateJobViewModel> listModel = new List<GetDataForBulkUpdateJobViewModel>();
@@ -2431,10 +2506,15 @@ namespace DataAccess.DataAccess
                                 while (reader.Read())
                                 {
                                     GetDataForBulkUpdateJobViewModel model = new GetDataForBulkUpdateJobViewModel();
-                                    model.JobType = Convert.ToString(reader["JobIdForBulkUpdate"] != DBNull.Value ? reader["JobIdForBulkUpdate"] : "");
-                                    model.File = Convert.ToString(reader["BulkUpdateS3FilePath"] != DBNull.Value ? reader["sku"] : "");
-                                    model.Status = Convert.ToString(reader["BulkUpdateStatus"] != DBNull.Value ? reader["BulkUpdateStatus"] : "");
-                                    model.StartTime = Convert.ToDateTime(reader["BulkUpdateIdCreationDate"] != DBNull.Value ? reader["BulkUpdateIdCreationDate"] : (DateTime?)null);
+                                    model.BulkUpdateId = Convert.ToInt32(reader["BulkUpdateId"] != DBNull.Value ? reader["BulkUpdateId"] : 0);
+                                    model.ProductSku = Convert.ToString(reader["ProductSku"] != DBNull.Value ? reader["ProductSku"] : "");
+                                    model.FileDirectory = Convert.ToString(reader["FileDirectory"] != DBNull.Value ? reader["FileDirectory"] : "");
+                                    model.FileName = Convert.ToString(reader["FileName"] != DBNull.Value ? reader["FileName"] : "");
+                                    model.CreationDate = Convert.ToDateTime(reader["CreationDate"] != DBNull.Value ? reader["CreationDate"] : (DateTime?)null);
+                                    model.JobType = Convert.ToString(reader["JobType"] != DBNull.Value ? reader["JobType"] : "");
+                                    model.Status = Convert.ToString(reader["Status"] != DBNull.Value ? reader["Status"] : "");
+                                    model.QueuedJobLink = Convert.ToString(reader["QueuedJobLink"] != DBNull.Value ? reader["QueuedJobLink"] : "");
+                                    model.QueuedJobLinkId = Convert.ToInt32(reader["QueuedJobLinkId"] != DBNull.Value ? reader["QueuedJobLinkId"] : 0);
                                    
                                     listModel.Add(model);
                                 }

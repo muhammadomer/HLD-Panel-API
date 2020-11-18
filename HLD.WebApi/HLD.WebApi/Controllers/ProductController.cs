@@ -1105,11 +1105,21 @@ namespace HLD.WebApi.Controllers
 
         [HttpPut]
         [Authorize]
-        [Route("api/Product/UpdateRelation")]
-        public IActionResult UpdateRelation([FromBody] UpdateIsRelationViewModel relationViewModel )
+        [Route("api/Product/UpdateRelationInBulkUpdateTable")]
+        public IActionResult UpdateRelationInBulkUpdateTable([FromBody] UpdateIsRelationViewModel relationViewModel )
         {
             bool status = false;
-            status = DataAccess.UpdateRelation(relationViewModel);
+            status = DataAccess.UpdateRelationInBulkUpdateTable(relationViewModel);
+            return Ok(status);
+        }
+
+        [HttpPut]
+        [Authorize]
+        [Route("api/Product/UpdateRelationInProductTable")]
+        public IActionResult UpdateRelationInProductTable([FromBody] UpdateIsRelationViewModel relationViewModel)
+        {
+            bool status = false;
+            status = DataAccess.UpdateRelationInProductTable(relationViewModel);
             return Ok(status);
         }
 
@@ -1138,6 +1148,16 @@ namespace HLD.WebApi.Controllers
         {
             bool status = false;
             status = DataAccess.UpdateJobIdForBulkUpdate(model);
+            return Ok(status);
+        }
+
+        [HttpPut]
+        [Authorize]
+        [Route("api/Product/BulkUpdateJobIdForProductData")]
+        public IActionResult BulkUpdateJobIdForProductData([FromBody] UpdateJobIdForBulkUpdateViewModel model)
+        {
+            bool status = false;
+            status = DataAccess.BulkUpdateJobIdForProductData(model);
             return Ok(status);
         }
 
