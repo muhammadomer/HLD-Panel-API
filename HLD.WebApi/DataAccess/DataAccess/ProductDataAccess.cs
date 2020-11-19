@@ -1802,11 +1802,11 @@ namespace DataAccess.DataAccess
                                 model.CompanyName = Convert.ToString(reader["CompanyName"] != DBNull.Value ? reader["CompanyName"] : "");
                                 model.IsRelated = Convert.ToString(reader["IsRelated"] != DBNull.Value ? reader["IsRelated"] : "");
                                 model.AmazonMerchantSKU = Convert.ToString(reader["AmazonMerchantSKU"] != DBNull.Value ? reader["AmazonMerchantSKU"] : "");
-                                model.AmazonEnabled = Convert.ToString(reader["AmazonEnabled"] != DBNull.Value ? reader["AmazonEnabled"] : "");
+                                model.AmazonEnabled = Convert.ToBoolean(reader["AmazonEnabled"] != DBNull.Value ? reader["AmazonEnabled"] : "false");
                                 model.ASIN = Convert.ToString(reader["z_asin_ca"] != DBNull.Value ? reader["z_asin_ca"] : "");
                                 model.FulfilledBy = Convert.ToString(reader["FulfilledBy"] != DBNull.Value ? reader["FulfilledBy"] : "");
                                 model.AmazonFBASKU = Convert.ToString(reader["AmazonFBASKU"] != DBNull.Value ? reader["AmazonFBASKU"] : "");
-                                model.WebsiteEnabled = Convert.ToString(reader["WebsiteEnabled"] != DBNull.Value ? reader["WebsiteEnabled"] : "");
+                                model.WebsiteEnabled = Convert.ToBoolean(reader["WebsiteEnabled"] != DBNull.Value ? reader["WebsiteEnabled"] : "false");
                                 listModel.Add(model);
                             }
                         }

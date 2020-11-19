@@ -1186,7 +1186,7 @@ namespace HLD.WebApi.Controllers
         [HttpPost]
         [Authorize]
         [Route("api/Product/GetDataForBulkUpdateJob")]
-        public List<GetDataForBulkUpdateJobViewModel> GetDataForBulkUpdateJob(string ParentID)
+        public IActionResult GetDataForBulkUpdateJob(string ParentID)
         {
             List<GetDataForBulkUpdateJobViewModel> viewlList = new List<GetDataForBulkUpdateJobViewModel>();
             try
@@ -1199,7 +1199,7 @@ namespace HLD.WebApi.Controllers
 
                 throw ex;
             }
-            return viewlList;
+            return Ok(viewlList);
         }
 
     }
