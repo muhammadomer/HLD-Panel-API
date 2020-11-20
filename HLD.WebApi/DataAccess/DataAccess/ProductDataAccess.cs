@@ -1480,10 +1480,11 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_SaveAndEditParentSku", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_Parentproduct_id", model.Parentproduct_id);
-                    cmd.Parameters.AddWithValue("_Sku", model.Sku);
+                    cmd.Parameters.AddWithValue("_Sku", model.Sku.ToUpper());
                     cmd.Parameters.AddWithValue("_ProductTitle", model.ProductTitle);
                     cmd.Parameters.AddWithValue("_ConditionId", model.ConditionId);
                     cmd.Parameters.AddWithValue("_CatagoryName", model.CatagoryName);
+                    cmd.Parameters.AddWithValue("_ShipmentWeight", model.ShipmentWeight);
                     cmd.Parameters.AddWithValue("_ShipWt", model.ShipWt);
                     cmd.Parameters.AddWithValue("_ShipLt", model.ShipLt);
                     cmd.Parameters.AddWithValue("_ShipHt", model.ShipHt);
@@ -2231,7 +2232,7 @@ namespace DataAccess.DataAccess
                                     model.brand_name = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] :"");
                                     model.ProductID = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                                     model.UPC = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
-                                    model.Manufacturer = Convert.ToString(reader["Manufacture"] != DBNull.Value ? reader["Manufacture"] : "");
+                                    model.Manufacturer = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : "");
                                     model.PackageWeightOz = Convert.ToDecimal(reader["ship_weight_oz"] != DBNull.Value ? reader["ship_weight_oz"] : 0);
                                     model.ShippingWidth = Convert.ToDecimal(reader["ship_width"] != DBNull.Value ? reader["ship_width"] : 0);
                                     model.ShippingHeight = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] :0);

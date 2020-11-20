@@ -16,6 +16,7 @@ namespace DataAccess.ViewModels
         public int ConditionId { get; set; }
         public IEnumerable<SelectListItem> Condition { get; set; }
         public string CatagoryName { get; set; }
+        public decimal ShipmentWeight { get; set; }
         public decimal ShipWt { get; set; }
         public decimal ShipLt { get; set; }
         public decimal ShipHt { get; set; }
