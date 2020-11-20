@@ -886,7 +886,7 @@ namespace HLD.WebApi.Controllers
 
             return viewModel;
         }
-
+        [HttpGet("api/Product/EditParentSku")]
         public EditParentViewModel EditParentSku(int id)
         {
 

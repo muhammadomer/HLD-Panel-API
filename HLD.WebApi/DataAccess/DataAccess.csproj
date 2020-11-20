@@ -303,6 +303,7 @@
     <Compile Include="ViewModels\DropShipEnableDisableLogViewModel.cs" />
     <Compile Include="ViewModels\EditBulkUpdateViewModel.cs" />
     <Compile Include="ViewModels\EditManufactureListModelView.cs" />
+    <Compile Include="ViewModels\EditParentViewModel.cs" />
     <Compile Include="ViewModels\EmailJobDetailViewModel.cs" />
     <Compile Include="ViewModels\ExportProductDataViewModel.cs" />
     <Compile Include="ViewModels\ExportSkuImgUrlViewModel.cs" />
