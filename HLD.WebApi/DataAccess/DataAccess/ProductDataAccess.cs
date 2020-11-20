@@ -2201,6 +2201,40 @@ namespace DataAccess.DataAccess
             return model;
         }
 
+        public CheckShadowCreatedOnHLDViewModel CheckShadowCreatedOnHLD(string sku)
+        {
+            CheckShadowCreatedOnHLDViewModel model = new CheckShadowCreatedOnHLDViewModel();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_CheckShadowCreatedOnHLD", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_checkSku", sku);
+                    MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
+                    cmd.ExecuteNonQuery();
+                    DataTable dt = new DataTable();
+                    mySqlDataAdapter.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow reader in dt.Rows)
+                        {
+                            CheckShadowCreatedOnHLDViewModel skuVM = new CheckShadowCreatedOnHLDViewModel();
+                            skuVM.ShadowOf = Convert.ToString(reader["ShadowOf"] != DBNull.Value ? reader["ShadowOf"] :"");
+                            model = skuVM;
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return model;
+        }
+
         public List<GetShadowsOfChildViewModel> GetShadowsOfChild(string childSku)
         {
             List<GetShadowsOfChildViewModel> listModel = new List<GetShadowsOfChildViewModel>();

@@ -1033,6 +1033,14 @@ namespace HLD.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("api/Product/CheckShadowCreatedOnHLD")]
+        public IActionResult CheckShadowCreatedOnHLD(string sku)
+        {
+            var list = DataAccess.CheckShadowCreatedOnHLD(sku);
+            return Ok(list);
+        }
+
+        [HttpGet]
         [Authorize]
         [Route("api/Product/GetShadowsOfChild")]
         public List<GetShadowsOfChildViewModel> GetShadowsOfChild(string childSku)
