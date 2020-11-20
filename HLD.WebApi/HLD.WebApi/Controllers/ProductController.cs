@@ -886,6 +886,15 @@ namespace HLD.WebApi.Controllers
 
             return viewModel;
         }
+
+        public EditParentViewModel EditParentSku(int id)
+        {
+
+            EditParentViewModel viewModel = null;
+            viewModel = DataAccess.EditParentSku(id);
+
+            return viewModel;
+        }
         //Below  API's of Child Sku Created
         //[HttpPost]
         //[Authorize]
@@ -893,7 +902,7 @@ namespace HLD.WebApi.Controllers
         //public List<SaveChildSkuVM> SaveChildSKU()
         //{
         //    List<SaveChildSkuVM> list = new List<SaveChildSkuVM>();
-            
+
         //    var status = DataAccess.SaveChildSKU(list);
         //    return Ok(status);
         //}
