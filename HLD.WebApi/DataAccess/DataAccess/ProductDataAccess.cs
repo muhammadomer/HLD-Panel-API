@@ -1621,9 +1621,9 @@ namespace DataAccess.DataAccess
             return model;
         }
 
-        public EditParentViewModel EditParentSku(int id)
+        public SaveParentSkuVM EditParentSku(int id)
         {
-            EditParentViewModel model = new EditParentViewModel();
+            SaveParentSkuVM model = new SaveParentSkuVM();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1641,35 +1641,32 @@ namespace DataAccess.DataAccess
 
                         foreach (DataRow reader in dt.Rows)
                         {
-                            EditParentViewModel skuVM = new EditParentViewModel();
+                            SaveParentSkuVM skuVM = new SaveParentSkuVM();
                             skuVM.Parentproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : 0);
                             skuVM.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : 0);
                             skuVM.Sku = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                             skuVM.ProductTitle = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
                             skuVM.ConditionId = Convert.ToInt32(reader["condition_id"] != DBNull.Value ? reader["condition_id"] : 0);
-                            skuVM.ConditionName = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
+                            //skuVM.ConditionName = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
                             skuVM.CatagoryName = Convert.ToString(reader["category_name"] != DBNull.Value ? reader["category_name"] : "");
                             skuVM.ShipmentWeight = Convert.ToDecimal(reader["ship_weight_oz"] != DBNull.Value ? reader["ship_weight_oz"] : 0);
                             skuVM.ShipWt = Convert.ToDecimal(reader["ship_width"] != DBNull.Value ? reader["ship_width"] : 0);
                             skuVM.ShipLt = Convert.ToDecimal(reader["ship_length"] != DBNull.Value ? reader["ship_length"] : 0);
-                            skuVM.ShipHt = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] : "");
-                            skuVM.ManufactureId = Convert.ToInt32(reader["Manufacture"] != DBNull.Value ? reader["Manufacture"] : 0);
-                            skuVM.ManufactureName = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : "");
-                            skuVM.ManufactureModelId = Convert.ToInt32(reader["ManufactureModelId"] != DBNull.Value ? reader["ManufactureModelId"] : 0);
-                            skuVM.ManufactureModelName = Convert.ToString(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : "");
-                            skuVM.DeviceModelId = Convert.ToInt32(reader["DeviceModelId"] != DBNull.Value ? reader["DeviceModelId"] : 0);
-                            skuVM.DeviceModelName = Convert.ToString(reader["DeviceModel"] != DBNull.Value ? reader["DeviceModel"] : "");
-                            skuVM.StyleId = Convert.ToInt32(reader["StyleId"] != DBNull.Value ? reader["StyleId"] : 0);
-                            skuVM.StyleName = Convert.ToString(reader["StyleName"] != DBNull.Value ? reader["StyleName"] : "");
+                            skuVM.ShipHt = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] : 0);
+                            skuVM.ManufactureModel = Convert.ToInt32(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : 0);
+                            skuVM.ManufactureName = Convert.ToInt32(reader["Manufacture"] != DBNull.Value ? reader["Manufacture"] : 0);                                                      
+                            skuVM.DeviceModel = Convert.ToInt32(reader["DeviceModel"] != DBNull.Value ? reader["DeviceModel"] : 0);
+                            skuVM.Style = Convert.ToInt32(reader["Style"] != DBNull.Value ? reader["Style"] : 0);
+                            //skuVM.StyleName = Convert.ToString(reader["StyleName"] != DBNull.Value ? reader["StyleName"] : "");
                           //  skuVM.IsCreatedOnSC = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
                             skuVM.Description = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "");
                             skuVM.Color = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
                            // skuVM.ColorAlias = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
                             skuVM.ColorId = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
                             skuVM.Upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
-                            skuVM.SkuCreationDate = Convert.ToDateTime(reader["SkuCreationDate"] != DBNull.Value ? reader["SkuCreationDate"] : "");
+                            //skuVM.SkuCreationDate = Convert.ToDateTime(reader["SkuCreationDate"] != DBNull.Value ? reader["SkuCreationDate"] : (DateTime?)null);
                             skuVM.BrandId = Convert.ToInt32(reader["brand_id"] != DBNull.Value ? reader["brand_id"] : 0);
-                            skuVM.BrandName = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] : "");
+                            skuVM.Brand = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] : "");
                             model = skuVM;
 
                         }

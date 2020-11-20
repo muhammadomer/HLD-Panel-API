@@ -401,6 +401,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
+
                     MySqlCommand cmd = new MySqlCommand("P_GetStyleWithId", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_styleId", styleId);

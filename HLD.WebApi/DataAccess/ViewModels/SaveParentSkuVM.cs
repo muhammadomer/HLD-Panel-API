@@ -37,6 +37,7 @@ namespace DataAccess.ViewModels
         public string CompressedImage { get; set; }
         public DateTime SkuCreationDate { get; set; }
         public int BrandId { get; set; }
-       
+        public string Brand { get; set; }
+
     }
 }
