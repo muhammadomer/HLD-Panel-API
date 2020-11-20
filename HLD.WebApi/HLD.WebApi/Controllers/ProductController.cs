@@ -859,8 +859,9 @@ namespace HLD.WebApi.Controllers
         public IActionResult SaveParentSKU([FromBody] SaveParentSkuVM model)
         {
             bool status = false;
-            status = DataAccess.SaveParentSKU(model);
-            return Ok(status);
+            
+                status = DataAccess.SaveParentSKU(model);
+                return Ok(status);
         }
         [HttpGet]
         [Route("api/Product/GetAllParentSKUList")]

@@ -1497,6 +1497,8 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_DeviceModel", model.DeviceModel);
                     cmd.Parameters.AddWithValue("_productstatus", model.productstatus=1);
                     cmd.Parameters.AddWithValue("_skuCreationDate", model.SkuCreationDate=DateTime.Now);
+                    cmd.Parameters.AddWithValue("_brandId", model.BrandId);
+                    cmd.Parameters.AddWithValue("_colorId", model.ColorId);
                     cmd.ExecuteNonQuery();
                     status = true;
                 }
@@ -1600,6 +1602,12 @@ namespace DataAccess.DataAccess
                             skuVM.Parentproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : 0);
                             skuVM.Childproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : 0);
                             skuVM.ColorIds = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
+                            skuVM.ManufactureName = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : "");
+                            skuVM.Style = Convert.ToString(reader["StyleName"] != DBNull.Value ? reader["StyleName"] : "");
+                            skuVM.Feature = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "");
+                            skuVM.Color = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
+                            skuVM.Brand = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] : "");
+                            skuVM.Condition = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
                             model = skuVM;
 
                         }

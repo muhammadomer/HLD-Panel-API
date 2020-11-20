@@ -14,5 +14,11 @@ namespace DataAccess.ViewModels
         public int ColorIds { get; set; }
         public string Sku { get; set; }
         public string ProductTitle { get; set; }
+        public string ManufactureName { get; set; }
+        public string Style { get; set; }
+        public string Feature { get; set; }
+        public String Color { get; set; }
+        public String Brand { get; set; }
+        public string Condition { get; set; }
     }
 }
