@@ -1032,13 +1032,13 @@ namespace HLD.WebApi.Controllers
             return Ok(list);
         }
 
-        [HttpGet]
-        [Route("api/Product/CheckShadowCreatedOnHLD")]
-        public IActionResult CheckShadowCreatedOnHLD(string sku)
-        {
-            var list = DataAccess.CheckShadowCreatedOnHLD(sku);
-            return Ok(list);
-        }
+        //[HttpGet]
+        //[Route("api/Product/CheckShadowCreatedOnHLD")]
+        //public IActionResult CheckShadowCreatedOnHLD(string sku)
+        //{
+        //    var list = DataAccess.CheckShadowCreatedOnHLD(sku);
+        //    return Ok(list);
+        //}
 
         [HttpGet]
         [Authorize]
