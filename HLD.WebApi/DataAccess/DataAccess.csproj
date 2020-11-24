@@ -291,6 +291,7 @@
     <Compile Include="ViewModels\CheckChildOrShadowCreatedOnSCViewModel.cs" />
     <Compile Include="ViewModels\CheckChildSkuImageUpdatedOnSCViewModel.cs" />
     <Compile Include="ViewModels\CheckProductDropShipStatusViewModel.cs" />
+    <Compile Include="ViewModels\CheckShadowCreatedOnHLDViewModel.cs" />
     <Compile Include="ViewModels\CompressImageViewModel.cs" />
     <Compile Include="ViewModels\CreateOrderNotesViewModel.cs" />
     <Compile Include="ViewModels\CreateOrderOnSCViewModel.cs" />
@@ -327,6 +328,7 @@
     <Compile Include="ViewModels\GetOrdersNotFromBBViewModel.cs" />
     <Compile Include="ViewModels\GetParentSkuById.cs" />
     <Compile Include="ViewModels\GetProductTitleViewModel.cs" />
+    <Compile Include="ViewModels\GetQuedJobStatusViewModel.cs" />
     <Compile Include="ViewModels\GetSendToZincOrderViewModel.cs" />
     <Compile Include="ViewModels\GetShadowsOfChildForXlsViewModel.cs" />
     <Compile Include="ViewModels\GetShadowsOfChildViewModel.cs" />

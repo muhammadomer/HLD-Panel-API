@@ -87,6 +87,21 @@ namespace HLD.WebApi.Jobs
 
                 scheduler.ScheduleJob(job, trigger);
             }
+            if (jobName == "HLD.WebApi.Jobs.UpdateQueuedJobLinkStatus")
+            {
+                var trigger = TriggerBuilder.Create()
+             .ForJob(job)
+             .WithSimpleSchedule
+              (s =>
+                s.WithIntervalInMinutes(5)
+                 .RepeatForever()
+              )
+             .StartNow()
+             .Build();
+
+                scheduler.ScheduleJob(job, trigger);
+            }
+
             if (jobName == "HLD.WebApi.Jobs.S3FileReadingJob")
             {
                 var trigger = TriggerBuilder.Create()

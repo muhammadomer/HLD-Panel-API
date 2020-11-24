@@ -2692,5 +2692,62 @@ namespace DataAccess.DataAccess
             }
             return listModel;
         }
+
+        public List<GetQuedJobStatusViewModel> GetQuedfJobStatus()
+        {
+            List<GetQuedJobStatusViewModel> ViewModel = new List<GetQuedJobStatusViewModel>();
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetQuedJobStatus", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                GetQuedJobStatusViewModel skuVM = new GetQuedJobStatusViewModel();
+                               skuVM.QuedJobId = Convert.ToInt32(reader["BulkUpdateId"] != DBNull.Value ? reader["BulkUpdateId"] : 0);
+                                skuVM.QuedJobLink = Convert.ToString(reader["QueuedJobLink"] != DBNull.Value ? reader["QueuedJobLink"] : "");
+                                ViewModel.Add(skuVM);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ViewModel;
+        }
+
+        public bool UpdateQuedJob(int Id,string Status)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateQuedJobStatus", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("_id", Id);
+                    cmd.Parameters.AddWithValue("_status", Status);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
     }
 }

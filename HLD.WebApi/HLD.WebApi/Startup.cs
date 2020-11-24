@@ -106,10 +106,11 @@ namespace HLD.WebApi
             //services.UseQuartz(typeof(InsertOrderSKU_ProfitHistory));
             //// update Local sellercloud order status and payment status 
             //services.UseQuartz(typeof(UpdateSCOrderStatusJob));
+            services.UseQuartz(typeof(UpdateQueuedJobLinkStatus));
             //// to get sku qty for dropship none sku. from seller cloud
             //services.UseQuartz(typeof(BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job));
             ////  to update qty on bestbuy
-            services.UseQuartz(typeof(BestBuyQuantityUpdateJob)); //never comment
+           // services.UseQuartz(typeof(BestBuyQuantityUpdateJob)); //never comment
             //services.UseQuartz(typeof(UpdateOrdersFromBestBuyJob));
             //services.UseQuartz(typeof(GetOrdersFromBestBuyJob));
 
@@ -163,10 +164,11 @@ namespace HLD.WebApi
             //QuartzServicesUtilities.StartJob<InsertOrderSKU_ProfitHistory>(schedulerr, "");
 
             //QuartzServicesUtilities.StartJob<UpdateSCOrderStatusJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<UpdateQueuedJobLinkStatus>(schedulerr, "");
 
             //QuartzServicesUtilities.StartJob<BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job>(schedulerr, "");
 
-            QuartzServicesUtilities.StartJob<BestBuyQuantityUpdateJob>(schedulerr, ""); //never comment
+          //  QuartzServicesUtilities.StartJob<BestBuyQuantityUpdateJob>(schedulerr, ""); //never comment
             //QuartzServicesUtilities.StartJob<UpdateOrdersFromBestBuyJob>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<GetOrdersFromBestBuyJob>(schedulerr, "");
 
