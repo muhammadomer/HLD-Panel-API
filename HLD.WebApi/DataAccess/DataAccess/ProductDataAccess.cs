@@ -2334,7 +2334,7 @@ namespace DataAccess.DataAccess
                                 while (reader.Read())
                                 {
                                     BulkUpdateFileContents model = new BulkUpdateFileContents();
-                                    model.brand_name = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] :"");
+                                    model.BrandName = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] :"");
                                     model.ProductID = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                                     model.UPC = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
                                     model.Manufacturer = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : "");
