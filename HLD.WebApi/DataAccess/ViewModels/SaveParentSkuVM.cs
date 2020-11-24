@@ -38,6 +38,7 @@ namespace DataAccess.ViewModels
         public DateTime SkuCreationDate { get; set; }
         public int BrandId { get; set; }
         public string Brand { get; set; }
+        public string StyleName { get; set; }
 
     }
 }

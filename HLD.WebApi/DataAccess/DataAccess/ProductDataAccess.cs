@@ -1603,6 +1603,8 @@ namespace DataAccess.DataAccess
                             skuVM.Childproduct_id = Convert.ToInt32(reader["product_id"] != DBNull.Value ? reader["product_id"] : 0);
                             skuVM.ColorIds = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
                             skuVM.ManufactureName = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : "");
+                            skuVM.ManufactureModel = Convert.ToString(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : "");
+                            skuVM.DeviceModel = Convert.ToString(reader["DeviceModel"] != DBNull.Value ? reader["DeviceModel"] : "");
                             skuVM.Style = Convert.ToString(reader["StyleName"] != DBNull.Value ? reader["StyleName"] : "");
                             skuVM.Feature = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "");
                             skuVM.Color = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
@@ -1658,7 +1660,8 @@ namespace DataAccess.DataAccess
                             skuVM.DeviceModel = Convert.ToInt32(reader["DeviceModel"] != DBNull.Value ? reader["DeviceModel"] : 0);
                             skuVM.Style = Convert.ToInt32(reader["Style"] != DBNull.Value ? reader["Style"] : 0);
                             //skuVM.StyleName = Convert.ToString(reader["StyleName"] != DBNull.Value ? reader["StyleName"] : "");
-                          //  skuVM.IsCreatedOnSC = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
+                            //skuVM.StyleName = Convert.ToString(reader["StyleName"] != DBNull.Value ? reader["StyleName"] : "");
+                            //skuVM.IsCreatedOnSC = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
                             skuVM.Description = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "");
                             skuVM.Color = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
                            // skuVM.ColorAlias = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
@@ -1667,6 +1670,7 @@ namespace DataAccess.DataAccess
                             //skuVM.SkuCreationDate = Convert.ToDateTime(reader["SkuCreationDate"] != DBNull.Value ? reader["SkuCreationDate"] : (DateTime?)null);
                             skuVM.BrandId = Convert.ToInt32(reader["brand_id"] != DBNull.Value ? reader["brand_id"] : 0);
                             skuVM.Brand = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] : "");
+                           
                             model = skuVM;
 
                         }
@@ -2198,39 +2202,39 @@ namespace DataAccess.DataAccess
             return model;
         }
 
-        public CheckShadowCreatedOnHLDViewModel CheckShadowCreatedOnHLD(string sku)
-        {
-            CheckShadowCreatedOnHLDViewModel model = new CheckShadowCreatedOnHLDViewModel();
-            try
-            {
-                using (MySqlConnection conn = new MySqlConnection(connStr))
-                {
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_CheckShadowCreatedOnHLD", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_checkSku", sku);
-                    MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
-                    cmd.ExecuteNonQuery();
-                    DataTable dt = new DataTable();
-                    mySqlDataAdapter.Fill(dt);
-                    if (dt.Rows.Count > 0)
-                    {
-                        foreach (DataRow reader in dt.Rows)
-                        {
-                            CheckShadowCreatedOnHLDViewModel skuVM = new CheckShadowCreatedOnHLDViewModel();
-                            skuVM.ShadowOf = Convert.ToString(reader["ShadowOf"] != DBNull.Value ? reader["ShadowOf"] :"");
-                            model = skuVM;
+        //public CheckShadowCreatedOnHLDViewModel CheckShadowCreatedOnHLD(string sku)
+        //{
+        //    CheckShadowCreatedOnHLDViewModel model = new CheckShadowCreatedOnHLDViewModel();
+        //    try
+        //    {
+        //        using (MySqlConnection conn = new MySqlConnection(connStr))
+        //        {
+        //            conn.Open();
+        //            MySqlCommand cmd = new MySqlCommand("P_CheckShadowCreatedOnHLD", conn);
+        //            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+        //            cmd.Parameters.AddWithValue("_checkSku", sku);
+        //            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
+        //            cmd.ExecuteNonQuery();
+        //            DataTable dt = new DataTable();
+        //            mySqlDataAdapter.Fill(dt);
+        //            if (dt.Rows.Count > 0)
+        //            {
+        //                foreach (DataRow reader in dt.Rows)
+        //                {
+        //                    CheckShadowCreatedOnHLDViewModel skuVM = new CheckShadowCreatedOnHLDViewModel();
+        //                    skuVM.ShadowOf = Convert.ToString(reader["ShadowOf"] != DBNull.Value ? reader["ShadowOf"] :"");
+        //                    model = skuVM;
 
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return model;
-        }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return model;
+        //}
 
         public List<GetShadowsOfChildViewModel> GetShadowsOfChild(string childSku)
         {

@@ -15,6 +15,8 @@ namespace DataAccess.ViewModels
         public string Sku { get; set; }
         public string ProductTitle { get; set; }
         public string ManufactureName { get; set; }
+        public string ManufactureModel { get; set; }
+        public string DeviceModel { get; set; }
         public string Style { get; set; }
         public string Feature { get; set; }
         public String Color { get; set; }
