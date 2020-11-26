@@ -168,7 +168,7 @@ namespace HLD.WebApi
 
             //QuartzServicesUtilities.StartJob<BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job>(schedulerr, "");
 
-          //  QuartzServicesUtilities.StartJob<BestBuyQuantityUpdateJob>(schedulerr, ""); //never comment
+           // QuartzServicesUtilities.StartJob<BestBuyQuantityUpdateJob>(schedulerr, ""); //never comment
             //QuartzServicesUtilities.StartJob<UpdateOrdersFromBestBuyJob>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<GetOrdersFromBestBuyJob>(schedulerr, "");
 

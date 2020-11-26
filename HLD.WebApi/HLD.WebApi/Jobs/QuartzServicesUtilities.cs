@@ -93,7 +93,7 @@ namespace HLD.WebApi.Jobs
              .ForJob(job)
              .WithSimpleSchedule
               (s =>
-                s.WithIntervalInMinutes(5)
+                s.WithIntervalInMinutes(2)
                  .RepeatForever()
               )
              .StartNow()

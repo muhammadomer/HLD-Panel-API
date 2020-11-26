@@ -38,32 +38,32 @@ namespace HLD.WebApi.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            int status = channelDecrytionDataAccess.CheckZincJobsStatus("qtyupdater");
-            if (status == 1)
-            {
-                List<BestBuyDropShipQtyMovementViewModel> list = _bestBuyOrderDataAccess.GetBestBuyDropShipQtyForUpdateOnBB();
-                if (list != null)
-                {
-                    GetChannelCredViewModel _getChannelCred = new GetChannelCredViewModel();
-                    _getChannelCred = _EncDecChannel.DecryptedData("bestbuy");
+            //int status = channelDecrytionDataAccess.CheckZincJobsStatus("qtyupdater");
+            //if (status == 1)
+            //{
+            //    List<BestBuyDropShipQtyMovementViewModel> list = _bestBuyOrderDataAccess.GetBestBuyDropShipQtyForUpdateOnBB();
+            //    if (list != null)
+            //    {
+            //        GetChannelCredViewModel _getChannelCred = new GetChannelCredViewModel();
+            //        _getChannelCred = _EncDecChannel.DecryptedData("bestbuy");
 
-                    foreach (var item in list)
-                    {
-                        try
-                        {
-                            RootObject rootObject = GetBestBuyOfferDetailBySKU("https://marketplace.bestbuy.ca/api/offers", _getChannelCred.Key, item.ProductSku, item.DropShipQuantity, item.DropShipQtyMovementID);
-                        }
-                        catch (Exception ex)
-                        {
-                            continue;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                _bestBuyOrderDataAccess.UpdateBestBuyQtyWhenJobDisabled();
-            }
+            //        foreach (var item in list)
+            //        {
+            //            try
+            //            {
+            //                RootObject rootObject = GetBestBuyOfferDetailBySKU("https://marketplace.bestbuy.ca/api/offers", _getChannelCred.Key, item.ProductSku, item.DropShipQuantity, item.DropShipQtyMovementID);
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                continue;
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    _bestBuyOrderDataAccess.UpdateBestBuyQtyWhenJobDisabled();
+            //}
             await Task.CompletedTask;
         }
 

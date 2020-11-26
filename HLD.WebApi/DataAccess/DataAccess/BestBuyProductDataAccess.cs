@@ -262,7 +262,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
 
-                    MySqlCommand cmd = new MySqlCommand("p_GetBestBuyOrders", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetBestBuyOrdersCopy", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("startLimit", startLimit);
@@ -381,6 +381,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.ZincOrderStatusInternal = Convert.ToString(dataRow["zinc_order_status_internal"] != DBNull.Value ? dataRow["zinc_order_status_internal"] : "");
                             detailViewModel.IsTrackingUpdateToSC = Convert.ToBoolean(dataRow["is_tracking_updated"] != DBNull.Value ? dataRow["is_tracking_updated"] : false);
                             detailViewModel.DropshipStatus = Convert.ToBoolean(dataRow["dropship_status"] != DBNull.Value ? dataRow["dropship_status"] : false);
+                            detailViewModel.OnOrder = Convert.ToInt32(dataRow["OnOrder"] != DBNull.Value ? dataRow["OnOrder"] : 0);
                             detailViewModel.DropshipQty = Convert.ToInt32(dataRow["dropship_Qty"] != DBNull.Value ? dataRow["dropship_Qty"] : "0");
                             detailViewModel.BestBuyPorductID = Convert.ToString(dataRow["bb_product_ID"] != DBNull.Value ? dataRow["bb_product_ID"] : "0");
 
@@ -554,6 +555,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.ZincOrderStatusInternal = Convert.ToString(dataRow["zinc_order_status_internal"] != DBNull.Value ? dataRow["zinc_order_status_internal"] : "");
                             detailViewModel.IsTrackingUpdateToSC = Convert.ToBoolean(dataRow["is_tracking_updated"] != DBNull.Value ? dataRow["is_tracking_updated"] : false);
                             detailViewModel.DropshipStatus = Convert.ToBoolean(dataRow["dropship_status"] != DBNull.Value ? dataRow["dropship_status"] : false);
+                            detailViewModel.OnOrder = Convert.ToInt32(dataRow["OnOrder"] != DBNull.Value ? dataRow["OnOrder"] : 0);
                             detailViewModel.DropshipQty = Convert.ToInt32(dataRow["dropship_Qty"] != DBNull.Value ? dataRow["dropship_Qty"] : "0");
                             detailViewModel.BestBuyPorductID = Convert.ToString(dataRow["bb_product_ID"] != DBNull.Value ? dataRow["bb_product_ID"] : "0");
 
@@ -825,6 +827,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.ZincOrderStatusInternal = Convert.ToString(dataRow["zinc_order_status_internal"] != DBNull.Value ? dataRow["zinc_order_status_internal"] : "");
                             detailViewModel.IsTrackingUpdateToSC = Convert.ToBoolean(dataRow["is_tracking_updated"] != DBNull.Value ? dataRow["is_tracking_updated"] : false);
                             detailViewModel.DropshipStatus = Convert.ToBoolean(dataRow["dropship_status"] != DBNull.Value ? dataRow["dropship_status"] : false);
+                            detailViewModel.OnOrder = Convert.ToInt32(dataRow["OnOrder"] != DBNull.Value ? dataRow["OnOrder"] : 0);
                             detailViewModel.DropshipQty = Convert.ToInt32(dataRow["dropship_Qty"] != DBNull.Value ? dataRow["dropship_Qty"] : "0");
                             detailViewModel.BestBuyPorductID = Convert.ToString(dataRow["bb_product_ID"] != DBNull.Value ? dataRow["bb_product_ID"] : "0");
 

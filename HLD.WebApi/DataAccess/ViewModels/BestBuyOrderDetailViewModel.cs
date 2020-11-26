@@ -35,6 +35,7 @@ namespace DataAccess.ViewModels
         public string ZincOrderStatusInternal { get; set; }
         public bool IsTrackingUpdateToSC { get; set; }
         public bool DropshipStatus { get; set; }
+        public int OnOrder { get; set; }
         public int DropshipQty { get; set; }
         public string BestBuyPorductID { get; set; }
         public string PaymentStatus { get; set; }
