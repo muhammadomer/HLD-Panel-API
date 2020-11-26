@@ -237,5 +237,15 @@ namespace HLD.WebApi.Controllers
             }
         }
 
+        [HttpPut]
+        [Authorize]
+        [Route("api/Product/UpdateManufactureGenerically")]
+        public IActionResult UpdateManufactureGenerically([FromBody] UpdateManufactureGenericallyViewModel updateManufactureGenericallyViewModel)
+        {
+            bool status = false;
+            status = DataAccess.UpdateManufactureGenerically(updateManufactureGenericallyViewModel);
+            return Ok(status);
+        }
+
     }
 }
