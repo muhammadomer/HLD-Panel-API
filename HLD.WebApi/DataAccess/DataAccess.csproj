@@ -332,6 +332,7 @@
     <Compile Include="ViewModels\GetSendToZincOrderViewModel.cs" />
     <Compile Include="ViewModels\GetShadowsOfChildForXlsViewModel.cs" />
     <Compile Include="ViewModels\GetShadowsOfChildViewModel.cs" />
+    <Compile Include="ViewModels\GetShipedAndRecQtyViewModel.cs" />
     <Compile Include="ViewModels\GetSkuAndSubtotalVM.cs" />
     <Compile Include="ViewModels\GetStatusFromZincViewModel.cs" />
     <Compile Include="ViewModels\GetSummaryandCountPOViewModel.cs" />

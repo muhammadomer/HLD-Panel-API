@@ -527,9 +527,11 @@ namespace DataAccess.DataAccess
             return listViewModel;
         }
 
-        public int GetShipmentHistoryCount(string DateTo, string DateFrom, int VendorId, string ShipmentId, string SKU = "", string Title = "", string Status = "")
+        public GetShipedAndRecQtyViewModel GetShipmentHistoryCount(string DateTo, string DateFrom, int VendorId, string ShipmentId, string SKU = "", string Title = "", string Status = "")
         {
             int counter = 0;
+            GetShipedAndRecQtyViewModel model = new GetShipedAndRecQtyViewModel();
+
             try
             {
                 if (string.IsNullOrEmpty(SKU) || SKU == "undefined")
@@ -552,7 +554,23 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_Status", Status);
                     cmd.Parameters.AddWithValue("dateFrom", DateFrom);
                     cmd.Parameters.AddWithValue("dateTo", DateTo);
-                    counter = Convert.ToInt32(cmd.ExecuteScalar());
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                GetShipedAndRecQtyViewModel viewModel = new GetShipedAndRecQtyViewModel()
+                                {
+                                   ShipedQty = Convert.ToDouble(dr["shipedqty"] != DBNull.Value ? dr["shipedqty"] : 0),
+                                   RecivedQty = Convert.ToDouble(dr["receivedqty"] != DBNull.Value ? dr["receivedqty"] : 0),
+                                   TotalCount = Convert.ToDouble(dr["counter"] != DBNull.Value ? dr["counter"] : 0),
+                                };
+                                model = viewModel;
+                            }
+                        }
+
+                    }
                     conn.Close();
                 }
             }
@@ -560,7 +578,7 @@ namespace DataAccess.DataAccess
             {
 
             }
-            return counter;
+            return model;
         }
 
         public List<ShipmentHistoryViewModel> GetShipmentHistoryList(string DateTo, string DateFrom, int VendorId, string ShipmentId, string SKU, string Title, int limit, int offset, string Status)

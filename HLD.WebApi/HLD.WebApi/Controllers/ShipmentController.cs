@@ -192,8 +192,9 @@ namespace HLD.WebApi.Controllers
         public IActionResult GetShipmentHistoryCount(string DateTo, string DateFrom, int VendorId, string ShipmentId, string SKU = "", string Title = "", string Status = "")
         {
             long count = 0;
-            count = _DataAccess.GetShipmentHistoryCount(DateTo, DateFrom, VendorId, ShipmentId, SKU, Title, Status);
-            return Ok(count);
+            GetShipedAndRecQtyViewModel model = new GetShipedAndRecQtyViewModel();
+            model = _DataAccess.GetShipmentHistoryCount(DateTo, DateFrom, VendorId, ShipmentId, SKU, Title, Status);
+            return Ok(model);
         }
 
         [HttpGet]

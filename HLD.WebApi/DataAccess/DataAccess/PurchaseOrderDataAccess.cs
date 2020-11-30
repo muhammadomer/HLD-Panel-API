@@ -28,7 +28,6 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmdd = new MySqlCommand("P_savePurchaseOrder", conn);
                     cmdd.CommandType = System.Data.CommandType.StoredProcedure;
-
                     cmdd.Parameters.AddWithValue("_POId", purchaseOrderData.POId);
                     cmdd.Parameters.AddWithValue("_CompanyId", purchaseOrderData.CompanyId);
                     cmdd.Parameters.AddWithValue("_VendorId", purchaseOrderData.VendorId);
@@ -36,7 +35,6 @@ namespace DataAccess.DataAccess
                     cmdd.Parameters.AddWithValue("_DefaultWarehouseID", purchaseOrderData.DefaultWarehouseID);
                     cmdd.Parameters.AddWithValue("_CurrencyCode", purchaseOrderData.CurrencyCode);
                     cmdd.Parameters.AddWithValue("_POStatus", purchaseOrderData.POStatus);
-
                     cmdd.ExecuteNonQuery();
 
                 }
@@ -83,9 +81,7 @@ namespace DataAccess.DataAccess
                 con.Open();
                 MySqlCommand cmd = new MySqlCommand("P_savePurchaseOrderItems", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-
                 cmd.UpdatedRowSource = UpdateRowSource.None;
-
                 cmd.Parameters.Add("?_POId", MySqlDbType.Int32).SourceColumn = "POId";
                 cmd.Parameters.Add("?_VendorId", MySqlDbType.Int32).SourceColumn = "VendorId";
                 cmd.Parameters.Add("?_ID", MySqlDbType.Int32).SourceColumn = "ID";
@@ -108,7 +104,7 @@ namespace DataAccess.DataAccess
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
             return status;
         }
@@ -124,7 +120,6 @@ namespace DataAccess.DataAccess
                 OrderdItem = "";
             if (NotShipped == null)
                 NotShipped = "";
-
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(DOTconnStr))
@@ -140,8 +135,6 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_NotShipped", NotShipped);
                     cmd.Parameters.AddWithValue("dateFrom", PreviousDate);
                     cmd.Parameters.AddWithValue("dateTo", CurrentDate);
-
-
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -149,8 +142,9 @@ namespace DataAccess.DataAccess
                     conn.Close();
                 }
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
+                throw ex;
             }
             return count;
         }
@@ -209,7 +203,6 @@ namespace DataAccess.DataAccess
         //PURCAHSE list
         public List<PurchaseOrdersViewModel> GetAllPurchaseOrders(int VendorId, string CurrentDate, string PreviousDate, int StartLimit, int EndLimit, int POID = 0, string OpenItem = "", string ReceivedItem = "", string OrderdItem = "", string NotShipped = "")
         {
-
             if (OpenItem == null)
                 OpenItem = "";
             if (ReceivedItem == null)
@@ -218,18 +211,14 @@ namespace DataAccess.DataAccess
                 OrderdItem = "";
             if (NotShipped == null)
                 NotShipped = "";
-
             List<PurchaseOrdersViewModel> _ViewModels = new List<PurchaseOrdersViewModel>();
-
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(DOTconnStr))
                 {
-
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_GetPOOrdersForVendorSearch", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
                     cmd.Parameters.AddWithValue("_OpenItem", OpenItem);
                     cmd.Parameters.AddWithValue("_OrderedItem", OrderdItem);
                     cmd.Parameters.AddWithValue("_ReceivedItem", ReceivedItem);
@@ -240,15 +229,12 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("endLimit", EndLimit);
                     cmd.Parameters.AddWithValue("_vendorID", VendorId);
                     cmd.Parameters.AddWithValue("_POID", POID);
-
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     if (dt.Rows.Count > 0)
                     {
-
                         _ViewModels = new List<PurchaseOrdersViewModel>();
-
                         foreach (DataRow reader in dt.Rows)
                         {
                             PurchaseOrdersViewModel ViewModel = new PurchaseOrdersViewModel();
