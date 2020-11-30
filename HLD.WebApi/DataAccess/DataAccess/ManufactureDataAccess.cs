@@ -215,7 +215,7 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_AddManufacturer", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_manufacturer", model.ManufactureName);
+                    cmd.Parameters.AddWithValue("_manufacturer", model.ManufactureName.ToUpper());
                     cmd.ExecuteNonQuery();
                     status = true;
                 }
