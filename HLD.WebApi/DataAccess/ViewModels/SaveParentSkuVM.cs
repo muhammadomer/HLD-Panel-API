@@ -22,7 +22,8 @@ namespace DataAccess.ViewModels
         public decimal ShipHt { get; set; }
         //public string Menufacture { get; set; }
         //public string MenufactureModel { get; set; }
-        public int ManufactureName { get; set; }
+        public string ManufactureName { get; set; }
+        public int ManufactureId { get; set; }
         public int ManufactureModel { get; set; }
         public int DeviceModel { get; set; }
         public int Style { get; set; }

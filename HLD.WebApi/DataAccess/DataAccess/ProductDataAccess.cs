@@ -1656,7 +1656,8 @@ namespace DataAccess.DataAccess
                             skuVM.ShipLt = Convert.ToDecimal(reader["ship_length"] != DBNull.Value ? reader["ship_length"] : 0);
                             skuVM.ShipHt = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] : 0);
                             skuVM.ManufactureModel = Convert.ToInt32(reader["ManufactureModel"] != DBNull.Value ? reader["ManufactureModel"] : 0);
-                            skuVM.ManufactureName = Convert.ToInt32(reader["Manufacture"] != DBNull.Value ? reader["Manufacture"] : 0);                                                      
+                            skuVM.ManufactureId = Convert.ToInt32(reader["ManufactureId"] != DBNull.Value ? reader["ManufactureId"] : 0);
+                            skuVM.ManufactureName = Convert.ToString(reader["ManufactureId"] != DBNull.Value ? reader["ManufactureId"] : "");
                             skuVM.DeviceModel = Convert.ToInt32(reader["DeviceModel"] != DBNull.Value ? reader["DeviceModel"] : 0);
                             skuVM.Style = Convert.ToInt32(reader["Style"] != DBNull.Value ? reader["Style"] : 0);
                             //skuVM.StyleName = Convert.ToString(reader["StyleName"] != DBNull.Value ? reader["StyleName"] : "");
