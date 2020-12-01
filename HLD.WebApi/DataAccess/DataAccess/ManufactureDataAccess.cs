@@ -85,6 +85,40 @@ namespace DataAccess.DataAccess
             }
             return listViewModel;
         }
+
+        public List<GetManufactureViewModel> GetManufactureName(string name)
+        {
+            List<GetManufactureViewModel> listViewModel = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetAllManuFacByName", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Manuname", name.Trim());
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            listViewModel = new List<GetManufactureViewModel>();
+                            while (reader.Read())
+                            {
+                                GetManufactureViewModel model = new GetManufactureViewModel();
+                                model.ManufactureId = Convert.ToInt32(reader["ManufacturesId"]);
+                                model.ManufactureName = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : "");
+                                listViewModel.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return listViewModel;
+        }
         public List<GetManufactureModelViewModel> GetManufactureModel(int ManufactureId)
         {
             List<GetManufactureModelViewModel> listModel = new List<GetManufactureModelViewModel>();

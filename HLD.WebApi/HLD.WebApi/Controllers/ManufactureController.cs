@@ -65,6 +65,26 @@ namespace HLD.WebApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("api/Manufacture/GetManufactureName/{name}")]
+        public IActionResult GetAllManuByName(string name)
+        {
+            List<GetManufactureViewModel> _ViewModels = null;
+
+            _ViewModels = DataAccess.GetManufactureName(name);
+
+            if (_ViewModels == null)
+            {
+                return Ok(null);
+            }
+            else
+            {
+                return Ok(_ViewModels);
+            }
+        }
+
+
 
         [HttpGet]
         [Authorize]

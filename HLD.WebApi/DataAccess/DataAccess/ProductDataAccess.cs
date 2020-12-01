@@ -1488,7 +1488,8 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_ShipWt", model.ShipWt);
                     cmd.Parameters.AddWithValue("_ShipLt", model.ShipLt);
                     cmd.Parameters.AddWithValue("_ShipHt", model.ShipHt);
-                    cmd.Parameters.AddWithValue("_Menufacture", model.ManufactureName);
+                    cmd.Parameters.AddWithValue("_Menufacture", model.ManufactureId);
+                  
                     cmd.Parameters.AddWithValue("_MenufactureModel", model.ManufactureModel);
                     cmd.Parameters.AddWithValue("_Style", model.Style);
                     cmd.Parameters.AddWithValue("_IsCreatedOnSC", model.IsCreatedOnSC);

@@ -23,6 +23,7 @@ namespace DataAccess.ViewModels
         //public string Menufacture { get; set; }
         //public string MenufactureModel { get; set; }
         public string ManufactureName { get; set; }
+
         public int ManufactureId { get; set; }
         public int ManufactureModel { get; set; }
         public int DeviceModel { get; set; }
