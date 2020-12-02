@@ -125,6 +125,7 @@ namespace DataAccess.DataAccess
 
 
                         var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
+                       // var shippingfee = list.Select(a=>Convert.ToDecimal( a.Field<decimal>("ShippingFee")));
                         var totalPrice = (list.Sum(e => Convert.ToDouble(e.Field<string>("total_price"))));
                         var total_commission = list.Sum(e => Convert.ToDouble(e.Field<string>("total_commission")));
                         var totalGst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxGST")));
@@ -202,6 +203,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.ZincStatus = Convert.ToString(dataRow["drop_ship_status"] != DBNull.Value ? dataRow["drop_ship_status"] : "");
                             detailViewModel.ProfitLoss = "";
                             detailViewModel.Comission = Convert.ToDecimal(dataRow["total_commission"] != DBNull.Value ? dataRow["total_commission"] : "0");
+                            detailViewModel.ShippingFee = Convert.ToDecimal(dataRow["ShippingFee"] != DBNull.Value ? dataRow["ShippingFee"] : 0);
                             detailViewModel.UnitPrice = Convert.ToDecimal(dataRow["total_price"] != DBNull.Value ? dataRow["total_price"] : "0");
                             detailViewModel.UnitPrice = Math.Round(detailViewModel.UnitPrice / detailViewModel.TotalQuantity, 2);
                             detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
