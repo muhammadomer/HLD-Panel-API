@@ -43,7 +43,8 @@ namespace DataAccess.DataAccess
 
         public SaveWatchlistViewModel GetWatchlist(string ASIN)
         {
-            SaveWatchlistViewModel model = null;
+            //SaveWatchlistViewModel model = null;
+            SaveWatchlistViewModel model = new SaveWatchlistViewModel();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -60,8 +61,8 @@ namespace DataAccess.DataAccess
                                 model = new SaveWatchlistViewModel();
                                 model.ASIN = Convert.ToString(reader["ASIN"]);
                                 model.ProductSKU = Convert.ToString(reader["ProductSKU"]);
-                                model.frequency = Convert.ToInt32(reader["Frequency"]);
-                                model.CheckafterDays = Convert.ToInt32(reader["CheckAfterDays"]);
+                                model.frequency = Convert.ToInt32(reader["Frequency"] != DBNull.Value ? reader["Frequency"] : 0);
+                                model.CheckafterDays = Convert.ToInt32(reader["CheckAfterDays"] != DBNull.Value ? reader["CheckAfterDays"] : 0);
                                 model.LastUpdateDate = reader["LastUpdatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["LastUpdatedDate"]) : default(DateTime);
                                 model.NextUpdateDate = reader["NextUpdateDate"] != DBNull.Value ? Convert.ToDateTime(reader["NextUpdateDate"]) : default(DateTime);
                                 model.ExpiryDate = reader["ExpiryDate"] != DBNull.Value ? Convert.ToDateTime(reader["ExpiryDate"]) : default(DateTime);
@@ -71,7 +72,7 @@ namespace DataAccess.DataAccess
                 }
                 return model;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
