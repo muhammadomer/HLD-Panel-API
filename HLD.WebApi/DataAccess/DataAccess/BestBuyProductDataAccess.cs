@@ -364,6 +364,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
                             detailViewModel.TaxGST = Convert.ToDecimal(dataRow["TaxGST"] != DBNull.Value ? dataRow["TaxGST"] : "0");
                             detailViewModel.TaxPST = Convert.ToDecimal(dataRow["TaxPST"] != DBNull.Value ? dataRow["TaxPST"] : "0");
+                            detailViewModel.ShippingFee = Convert.ToDecimal(dataRow["ShippingFee"] != DBNull.Value ? dataRow["ShippingFee"] : "0");
                             detailViewModel.SCOrderStatus = Convert.ToString(dataRow["ScOrderStatus"] != DBNull.Value ? dataRow["ScOrderStatus"] : "");
                             detailViewModel.ZincCode = Convert.ToString(dataRow["order_code"] != DBNull.Value ? dataRow["order_code"] : "");
                             detailViewModel.ZincMessage = Convert.ToString(dataRow["order_message"] != DBNull.Value ? dataRow["order_message"] : "");
