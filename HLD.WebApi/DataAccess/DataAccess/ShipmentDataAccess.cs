@@ -630,6 +630,7 @@ namespace DataAccess.DataAccess
                                     ImageName = Convert.ToString(dr["image_name"] != DBNull.Value ? dr["image_name"] : ""),
                                     Type = Convert.ToString(dr["Type"] != DBNull.Value ? dr["Type"] : ""),
                                     Status = Convert.ToInt32(dr["Status"] != DBNull.Value ? dr["Status"] : 0),
+                                    Tracking = Convert.ToString(dr["TrakingNumber"] != DBNull.Value ? dr["TrakingNumber"] : ""),
                                     POId = Convert.ToInt32(dr["POId"] != DBNull.Value ? dr["POId"] : "0"),
                                 };
                                 list.Add(viewModel);

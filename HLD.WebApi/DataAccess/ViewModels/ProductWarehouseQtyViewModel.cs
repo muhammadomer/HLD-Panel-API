@@ -14,5 +14,6 @@ namespace DataAccess.ViewModels
         public string ProductSku { get; set; }
         public string WarehouseName { get; set; }
         public string LocationNotes { get; set; }
+        public decimal OnOrder { get; set; }
     }
 }

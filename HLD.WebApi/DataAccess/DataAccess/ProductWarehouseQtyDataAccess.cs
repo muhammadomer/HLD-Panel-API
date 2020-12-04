@@ -637,6 +637,7 @@ namespace DataAccess.DataAccess
                             while (reader.Read())
                             {
                                 string SKUc = Convert.ToString(reader["SKU"] != DBNull.Value ? reader["SKU"] : "");
+                                decimal OnOrder = Convert.ToDecimal(reader["OnOrder"] != DBNull.Value ? reader["OnOrder"] : 0);
                                 string LocationNotes = Convert.ToString(reader["LocationNotes"] != DBNull.Value ? reader["LocationNotes"] : "");
                                 int DropShip_Canadac = Convert.ToInt32(reader["DropShip_Canada"] != DBNull.Value ? reader["DropShip_Canada"] : 0);
                                 {
@@ -646,6 +647,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "DropShip Canada";
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
                                 }
                                 int DropShip_USAc = Convert.ToInt32(reader["DropShip_USA"] != DBNull.Value ? reader["DropShip_USA"] : 0);
@@ -656,6 +658,7 @@ namespace DataAccess.DataAccess
                                     model.AvailableQty = DropShip_USAc;
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
 
                                     
@@ -668,6 +671,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "FBA Canada";
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
                                    
                                 }
@@ -679,6 +683,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "FBA USA";
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
 
                                  
@@ -691,6 +696,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "HLD-CA1";
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
 
                                     
@@ -703,6 +709,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "HLD-CA2";
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
 
                                     
@@ -715,6 +722,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "HLD-CN1";
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
 
                                    
@@ -727,6 +735,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "HLD-Interim";
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
 
                                     
@@ -739,6 +748,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "HLD-Tech1";
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
 
                                    
@@ -751,6 +761,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "Interim FBA CA";
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
                                 }
                                 int Interim_FBA_USAc = Convert.ToInt32(reader["Interim_FBA_USA"] != DBNull.Value ? reader["Interim_FBA_USA"] : 0);
@@ -761,6 +772,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "Interim FBA USA";
                                     model.LocationNotes = LocationNotes;
                                     model.ProductSku = SKUc;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
                                 }
                                 int NY_14305c = Convert.ToInt32(reader["NY_14305"] != DBNull.Value ? reader["NY_14305"] : 0);
@@ -771,6 +783,7 @@ namespace DataAccess.DataAccess
                                     model.AvailableQty = NY_14305c;
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
                                 }
                                 int Shipitoc = Convert.ToInt32(reader["Shipito"] != DBNull.Value ? reader["Shipito"] : 0);
@@ -781,6 +794,7 @@ namespace DataAccess.DataAccess
                                     model.WarehouseName = "Shipito";
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
+                                    model.OnOrder = OnOrder;
                                     list.Add(model);
                                 }
                             }
