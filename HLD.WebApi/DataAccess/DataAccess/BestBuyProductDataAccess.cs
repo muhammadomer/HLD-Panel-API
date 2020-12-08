@@ -452,6 +452,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("DSStatus", viewModel.DSStatus);
                     cmd.Parameters.AddWithValue("PaymentStatus", viewModel.PaymentStatus);
                     cmd.Parameters.AddWithValue("TagSearch", viewModel.ShippingTags);
+                    cmd.Parameters.AddWithValue("_ShippingBoxContain", viewModel.ShippingBoxContain);
 
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     da.Fill(ds);
@@ -644,6 +645,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("DSStatus", viewModel.DSStatus);
                     cmd.Parameters.AddWithValue("PaymentStatus", viewModel.PaymentStatus);
                     cmd.Parameters.AddWithValue("TagSearch", viewModel.ShippingTags);
+                    cmd.Parameters.AddWithValue("_ShippingBoxContain", viewModel.ShippingBoxContain);
 
 
                     var da = new MySqlDataAdapter(cmd);

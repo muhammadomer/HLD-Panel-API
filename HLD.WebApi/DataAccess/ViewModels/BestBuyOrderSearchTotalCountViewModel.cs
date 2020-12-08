@@ -19,5 +19,6 @@ namespace Hld.WebApplication.ViewModel
         public string DSStatus { get; set; }
         public string PaymentStatus { get; set; }
         public string ShippingTags { get; set; }
+        public string ShippingBoxContain { get; set; }
     }
 }
