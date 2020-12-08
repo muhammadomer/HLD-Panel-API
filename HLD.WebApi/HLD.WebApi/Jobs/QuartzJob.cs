@@ -221,6 +221,9 @@ namespace HLD.WebApi.Jobs
                     sellerCloudCustomer.stateCode = address.StateCode;
                     sellerCloudCustomer.stateName = address.StateName;
                     sellerCloudCustomer.streetLine1 = address.StreetLine1;
+                    if (sellerCloudCustomer.streetLine1.ToLower().Contains("Box")) {
+                        sellerCloudCustomer.IsBox = 1;
+                    }
                     sellerCloudCustomer.streetLine2 = address.StreetLine2;
                     sellerCloudCustomer.city = address.City;
 
@@ -358,6 +361,7 @@ namespace HLD.WebApi.Jobs
                                 customerDetailOrderViewModel.firstname = item.customer.shipping_address.firstname;
                                 customerDetailOrderViewModel.lastname = item.customer.shipping_address.lastname;
                                 customerDetailOrderViewModel.state = item.customer.shipping_address.state;
+                                
                                 customerDetailOrderViewModel.street_1 = item.customer.shipping_address.street_1;
                                 customerDetailOrderViewModel.street_2 = item.customer.shipping_address.street_2;
                                 customerDetailOrderViewModel.zip_code = item.customer.shipping_address.zip_code;

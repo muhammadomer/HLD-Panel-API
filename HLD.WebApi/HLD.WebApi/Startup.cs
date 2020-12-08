@@ -93,28 +93,28 @@ namespace HLD.WebApi
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettingJwt.SigningKey))
                 };
             });
-            //// to get sku quantity from seller cloud warehouse to local
+            // to get sku quantity from seller cloud warehouse to local
             //services.UseQuartz(typeof(ProductWarehouseQtyJob));
             #region Uncomment Before Publish
 
             //order
-            //services.UseQuartz(typeof(QuartzJob)); // email job
+           // services.UseQuartz(typeof(QuartzJob)); // email job
             //services.UseQuartz(typeof(ReadExcelFile));
             //services.UseQuartz(typeof(WarehouseProductQtyJob));
             //services.UseQuartz(typeof(GetProductCatalogDetail));
-            //// update dashboard data
+            // update dashboard data
             //services.UseQuartz(typeof(InsertOrderSKU_ProfitHistory));
-            //// update Local sellercloud order status and payment status 
+            // update Local sellercloud order status and payment status 
             //services.UseQuartz(typeof(UpdateSCOrderStatusJob));
             services.UseQuartz(typeof(UpdateQueuedJobLinkStatus));
-            //// to get sku qty for dropship none sku. from seller cloud
+           // to get sku qty for dropship none sku. from seller cloud
             //services.UseQuartz(typeof(BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job));
-            ////  to update qty on bestbuy
+           //  to update qty on bestbuy
            // services.UseQuartz(typeof(BestBuyQuantityUpdateJob)); //never comment
             //services.UseQuartz(typeof(UpdateOrdersFromBestBuyJob));
             //services.UseQuartz(typeof(GetOrdersFromBestBuyJob));
 
-            ////tracking
+            //tracking
             //services.UseQuartz(typeof(BestBuyTrackingExportJob));
 
             //services.UseQuartz(typeof(S3FileReadingJob));
@@ -156,7 +156,7 @@ namespace HLD.WebApi
             var schedulerr = app.ApplicationServices.GetService<IScheduler>();
             //QuartzServicesUtilities.StartJob<ProductWarehouseQtyJob>(schedulerr, "");
             #region Un comment before Publish
-            //QuartzServicesUtilities.StartJob<QuartzJob>(schedulerr, ""); //email job
+          //  QuartzServicesUtilities.StartJob<QuartzJob>(schedulerr, ""); //email job
             //QuartzServicesUtilities.StartJob<ReadExcelFile>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<WarehouseProductQtyJob>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<GetProductCatalogDetail>(schedulerr, "");

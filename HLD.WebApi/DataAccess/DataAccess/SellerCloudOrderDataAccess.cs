@@ -299,7 +299,7 @@ namespace DataAccess.DataAccess
 
                     foreach (var ViewModel in Data)
                     {
-                        MySqlCommand cmd = new MySqlCommand("p_SaveSellerCloudOrders", conn);
+                        MySqlCommand cmd = new MySqlCommand("p_SaveSellerCloudOrdersCopy", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("First_name", ViewModel.Customer.firstName);
                         cmd.Parameters.AddWithValue("Last_name", ViewModel.Customer.lastName);
@@ -322,6 +322,7 @@ namespace DataAccess.DataAccess
                         cmd.Parameters.AddWithValue("Total_tax", ViewModel.Order.taxTotal);
                         cmd.Parameters.AddWithValue("Time_of_order", ViewModel.Order.timeOfOrder);
                         cmd.Parameters.AddWithValue("Currency_rate_From_USD", ViewModel.Order.currencyRateFromUSD);
+                        cmd.Parameters.AddWithValue("_IsBox", ViewModel.Customer.IsBox);
                         cmd.ExecuteNonQuery();
 
                         foreach (var item in ViewModel.orderDetail)

@@ -423,7 +423,7 @@ namespace DataAccess.DataAccess
             catch (Exception ex)
             {
             }
-            return listBBProductViewModel;
+           return listBBProductViewModel;
 
         }
 
@@ -660,6 +660,7 @@ namespace DataAccess.DataAccess
             }
             catch (Exception ex)
             {
+                throw ex;
             }
             return model;
         }
