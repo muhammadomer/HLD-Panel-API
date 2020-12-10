@@ -629,8 +629,10 @@ namespace DataAccess.DataAccess
                                     CompressedImage = Convert.ToString(dr["Compress_image"] != DBNull.Value ? dr["Compress_image"] : ""),
                                     ImageName = Convert.ToString(dr["image_name"] != DBNull.Value ? dr["image_name"] : ""),
                                     Type = Convert.ToString(dr["Type"] != DBNull.Value ? dr["Type"] : ""),
-                                    Status = Convert.ToInt32(dr["Status"] != DBNull.Value ? dr["Status"] : 0),
-                                    Tracking = Convert.ToString(dr["TrakingNumber"] != DBNull.Value ? dr["TrakingNumber"] : ""),
+                                    Status = Convert.ToInt32(dr["Status"] != DBNull.Value ? dr["Status"] : 0),                                   
+                                    TrakingNumber = Convert.ToString(dr["TrakingNumber"] != DBNull.Value ? dr["TrakingNumber"] : ""),
+                                    CourierCode = Convert.ToString(dr["CourierCode"] != DBNull.Value ? dr["CourierCode"] : ""),
+                                    TrakingURL = Convert.ToString(dr["TrakingURL"] != DBNull.Value ? dr["TrakingURL"] : ""),
                                     POId = Convert.ToInt32(dr["POId"] != DBNull.Value ? dr["POId"] : "0"),
                                 };
                                 list.Add(viewModel);
