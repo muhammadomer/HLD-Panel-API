@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace DataAccess.DataAccess
 {
     public class ShipmentDataAccess
+
     {
         public string ConStr { get; set; }
         public ShipmentDataAccess(IConnectionString connectionString)
@@ -759,5 +760,42 @@ namespace DataAccess.DataAccess
             return status;
         }
 
+
+        public bool UpdateShipmentHistoryReport(ShipmentHistoryViewModel viewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_SaveShipmentHistoryReport", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_ShipmentID", viewModel.ShipmentId);
+                    cmd.Parameters.AddWithValue("_SKU", viewModel.SKU);
+                    cmd.Parameters.AddWithValue("_VendorID", viewModel.VendorId);
+                    cmd.Parameters.AddWithValue("_VendorName", viewModel.Vendor);
+                    cmd.Parameters.AddWithValue("_ShippedQTY", viewModel.ShipedQty);
+                    cmd.Parameters.AddWithValue("_ReceivedQTY", viewModel.ReceivedQty);
+                    cmd.Parameters.AddWithValue("_CreatedOn", viewModel.CreatedOn);
+                    cmd.Parameters.AddWithValue("_ShippdeOn", viewModel.ShippedDate);
+                    cmd.Parameters.AddWithValue("_ReceivedOn", viewModel.ReceivedDate);
+                    cmd.Parameters.AddWithValue("_Status", viewModel.Status);
+                    cmd.Parameters.AddWithValue("_Type", viewModel.Type);
+                    cmd.Parameters.AddWithValue("_POId", viewModel.POId);
+                    cmd.Parameters.AddWithValue("_title", viewModel.Title);
+                    cmd.Parameters.AddWithValue("_image_name", viewModel.ImageName);
+                    cmd.Parameters.AddWithValue("_Compress_image", viewModel.CompressedImage);
+                    cmd.Parameters.AddWithValue("_vendortitle", viewModel.Title);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    status = true;
+                }
+            }
+            catch (Exception exp)
+            {
+            }
+            return status;
+        }
     }
 }

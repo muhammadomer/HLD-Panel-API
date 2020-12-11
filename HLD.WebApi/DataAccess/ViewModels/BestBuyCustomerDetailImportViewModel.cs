@@ -19,6 +19,6 @@ namespace DataAccess.ViewModels
         public string city { get; set; }
         public string country { get; set; }
         public string email { get; set; }
-        
+        public int IsBox { get; set; }
     }
 }

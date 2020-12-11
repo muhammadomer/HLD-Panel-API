@@ -353,18 +353,18 @@ namespace DataAccess.DataAccess
                             detailViewModel.TotalQuantity = Convert.ToInt32(dataRow["quantity"] != DBNull.Value ? dataRow["quantity"] : "0");
                             detailViewModel.AverageCost = Convert.ToString(dataRow["avg_cost"] != DBNull.Value ? dataRow["avg_cost"] : "0");
                             detailViewModel.WarehouseQuantity = Convert.ToString("10");
-
+                            detailViewModel.ShippingFee = Convert.ToDecimal(dataRow["ShippingFee"] != DBNull.Value ? dataRow["ShippingFee"] : 0);
                             detailViewModel.ZincASIN = Convert.ToString("");
                             detailViewModel.ZincLink = Convert.ToString("");
                             detailViewModel.ZincStatus = Convert.ToString(dataRow["drop_ship_status"] != DBNull.Value ? dataRow["drop_ship_status"] : "");
                             detailViewModel.ProfitLoss = "";
                             detailViewModel.Comission = Convert.ToDecimal(dataRow["total_commission"] != DBNull.Value ? dataRow["total_commission"] : "0");
                             detailViewModel.UnitPrice = Convert.ToDecimal(dataRow["total_price"] != DBNull.Value ? dataRow["total_price"] : "0");
-                            detailViewModel.UnitPrice = Math.Round(detailViewModel.UnitPrice / detailViewModel.TotalQuantity, 2);
+                            detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice - detailViewModel.ShippingFee) / detailViewModel.TotalQuantity, 2);
                             detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
                             detailViewModel.TaxGST = Convert.ToDecimal(dataRow["TaxGST"] != DBNull.Value ? dataRow["TaxGST"] : "0");
                             detailViewModel.TaxPST = Convert.ToDecimal(dataRow["TaxPST"] != DBNull.Value ? dataRow["TaxPST"] : "0");
-                            detailViewModel.ShippingFee = Convert.ToDecimal(dataRow["ShippingFee"] != DBNull.Value ? dataRow["ShippingFee"] : "0");
+                            
                             detailViewModel.SCOrderStatus = Convert.ToString(dataRow["ScOrderStatus"] != DBNull.Value ? dataRow["ScOrderStatus"] : "");
                             detailViewModel.ZincCode = Convert.ToString(dataRow["order_code"] != DBNull.Value ? dataRow["order_code"] : "");
                             detailViewModel.ZincMessage = Convert.ToString(dataRow["order_message"] != DBNull.Value ? dataRow["order_message"] : "");
@@ -438,7 +438,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
 
-                    MySqlCommand cmd = new MySqlCommand("forTestingPurposeDumy", conn);
+                    MySqlCommand cmd = new MySqlCommand("forTestingPurposeDumyCopy", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("zincOrderStatus", viewModel.ZincStatus);
@@ -529,14 +529,14 @@ namespace DataAccess.DataAccess
                             {
                                 ViewModel.ZincAccountId = Convert.ToInt32(dataRow["ZincAccountId"] != DBNull.Value ? dataRow["ZincAccountId"] : 0);
                             }
-
+                            detailViewModel.ShippingFee = Convert.ToDecimal(dataRow["ShippingFee"] != DBNull.Value ? dataRow["ShippingFee"] : 0);
                             detailViewModel.ZincASIN = Convert.ToString("");
                             detailViewModel.ZincLink = Convert.ToString("");
                             detailViewModel.ZincStatus = Convert.ToString(dataRow["drop_ship_status"] != DBNull.Value ? dataRow["drop_ship_status"] : "");
                             detailViewModel.ProfitLoss = "";
                             detailViewModel.Comission = Convert.ToDecimal(dataRow["total_commission"] != DBNull.Value ? dataRow["total_commission"] : "0");
                             detailViewModel.UnitPrice = Convert.ToDecimal(dataRow["total_price"] != DBNull.Value ? dataRow["total_price"] : "0");
-                            detailViewModel.UnitPrice = Math.Round(detailViewModel.UnitPrice / detailViewModel.TotalQuantity, 2);
+                            detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice - detailViewModel.ShippingFee) / detailViewModel.TotalQuantity, 2);
                             detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
                             detailViewModel.TaxGST = Convert.ToDecimal(dataRow["TaxGST"] != DBNull.Value ? dataRow["TaxGST"] : "0");
                             detailViewModel.TaxPST = Convert.ToDecimal(dataRow["TaxPST"] != DBNull.Value ? dataRow["TaxPST"] : "0");
@@ -633,7 +633,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetBestBuyOrders_SearchTotalCount", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetBestBuyOrders_SearchTotalCountCopyOne", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("zincOrderStatus", viewModel.ZincStatus);
@@ -810,7 +810,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.ProfitLoss = "";
                             detailViewModel.Comission = Convert.ToDecimal(dataRow["total_commission"] != DBNull.Value ? dataRow["total_commission"] : "0");
                             detailViewModel.UnitPrice = Convert.ToDecimal(dataRow["total_price"] != DBNull.Value ? dataRow["total_price"] : "0");
-                            detailViewModel.UnitPrice = Math.Round(detailViewModel.UnitPrice / detailViewModel.TotalQuantity, 2);
+                            detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice - detailViewModel.ShippingFee) / detailViewModel.TotalQuantity, 2);
                             detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
                             detailViewModel.TaxGST = Convert.ToDecimal(dataRow["TaxGST"] != DBNull.Value ? dataRow["TaxGST"] : "0");
                             detailViewModel.TaxPST = Convert.ToDecimal(dataRow["TaxPST"] != DBNull.Value ? dataRow["TaxPST"] : "0");

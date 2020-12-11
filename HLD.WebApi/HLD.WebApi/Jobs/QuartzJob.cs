@@ -221,9 +221,6 @@ namespace HLD.WebApi.Jobs
                     sellerCloudCustomer.stateCode = address.StateCode;
                     sellerCloudCustomer.stateName = address.StateName;
                     sellerCloudCustomer.streetLine1 = address.StreetLine1;
-                    if (sellerCloudCustomer.streetLine1.ToLower().Contains("Box")) {
-                        sellerCloudCustomer.IsBox = 1;
-                    }
                     sellerCloudCustomer.streetLine2 = address.StreetLine2;
                     sellerCloudCustomer.city = address.City;
 
@@ -369,7 +366,13 @@ namespace HLD.WebApi.Jobs
                                 customerDetailOrderViewModel.phone_secondary = item.customer.shipping_address.phone_secondary;
                                 customerDetailOrderViewModel.city = item.customer.shipping_address.city;
                                 customerDetailOrderViewModel.country = item.customer.shipping_address.country;
-
+                                if (customerDetailOrderViewModel.street_1.ToLower().Contains("box"))
+                                {
+                                    customerDetailOrderViewModel.IsBox = 1;
+                                }
+                                else {
+                                    customerDetailOrderViewModel.IsBox = 0;
+                                }
                                 mainModel.customerDetailOrderViewModel = customerDetailOrderViewModel;
                                 listBestBuyOrders.Add(mainModel);
                             }

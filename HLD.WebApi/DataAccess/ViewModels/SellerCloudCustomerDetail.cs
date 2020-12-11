@@ -18,6 +18,6 @@ namespace DataAccess.ViewModels
         public string streetLine1 { get; set; }
         public string streetLine2 { get; set; }
         public string city { get; set; }
-        public int IsBox { get; set; }
+       
     }
 }

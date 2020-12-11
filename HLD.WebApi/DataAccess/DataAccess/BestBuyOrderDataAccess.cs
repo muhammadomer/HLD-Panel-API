@@ -127,7 +127,7 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     foreach (var viewModel in mainViewModel)
                     {
-                        MySqlCommand cmd = new MySqlCommand("p_SaveBestBuyOrders", conn);
+                        MySqlCommand cmd = new MySqlCommand("p_SaveBestBuyOrdersDummy", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                         cmd.Parameters.AddWithValue("shipping_id", DBNull.Value);
@@ -154,6 +154,7 @@ namespace DataAccess.DataAccess
                         cmd.Parameters.AddWithValue("zip_code", viewModel.customerDetailOrderViewModel.zip_code);
                         cmd.Parameters.AddWithValue("email", viewModel.customerDetailOrderViewModel.email);
                         cmd.Parameters.AddWithValue("_ShippingPrice", viewModel.OrderViewModel.shipping_price);
+                        cmd.Parameters.AddWithValue("_IsBox", viewModel.customerDetailOrderViewModel.IsBox);
                         cmd.ExecuteNonQuery();
 
 
