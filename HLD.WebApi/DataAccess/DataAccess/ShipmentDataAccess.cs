@@ -546,7 +546,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(ConStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentHistoryCount", conn);
+                   // MySqlCommand cmd = new MySqlCommand("p_GetShipmentHistoryCount", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_GetShipmentHistoryReportCount", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_VendorId", VendorId);
                     cmd.Parameters.AddWithValue("_SKU", SKU);
@@ -598,7 +599,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(ConStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentHistoryList", conn);
+                  //  MySqlCommand cmd = new MySqlCommand("p_GetShipmentHistoryList", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_GetShipmentHistoryReport", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_VendorId", VendorId);
                     cmd.Parameters.AddWithValue("_SKU", SKU);
@@ -761,7 +763,7 @@ namespace DataAccess.DataAccess
         }
 
 
-        public bool UpdateShipmentHistoryReport(ShipmentHistoryViewModel viewModel)
+        public bool UpdateShipmentHistoryReport(List<ShipmentHistoryViewModel> Data)
         {
             bool status = false;
             try
@@ -769,25 +771,32 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(ConStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_SaveShipmentHistoryReport", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_ShipmentID", viewModel.ShipmentId);
-                    cmd.Parameters.AddWithValue("_SKU", viewModel.SKU);
-                    cmd.Parameters.AddWithValue("_VendorID", viewModel.VendorId);
-                    cmd.Parameters.AddWithValue("_VendorName", viewModel.Vendor);
-                    cmd.Parameters.AddWithValue("_ShippedQTY", viewModel.ShipedQty);
-                    cmd.Parameters.AddWithValue("_ReceivedQTY", viewModel.ReceivedQty);
-                    cmd.Parameters.AddWithValue("_CreatedOn", viewModel.CreatedOn);
-                    cmd.Parameters.AddWithValue("_ShippdeOn", viewModel.ShippedDate);
-                    cmd.Parameters.AddWithValue("_ReceivedOn", viewModel.ReceivedDate);
-                    cmd.Parameters.AddWithValue("_Status", viewModel.Status);
-                    cmd.Parameters.AddWithValue("_Type", viewModel.Type);
-                    cmd.Parameters.AddWithValue("_POId", viewModel.POId);
-                    cmd.Parameters.AddWithValue("_title", viewModel.Title);
-                    cmd.Parameters.AddWithValue("_image_name", viewModel.ImageName);
-                    cmd.Parameters.AddWithValue("_Compress_image", viewModel.CompressedImage);
-                    cmd.Parameters.AddWithValue("_vendortitle", viewModel.Title);
-                    cmd.ExecuteNonQuery();
+                    foreach (var viewModel in Data)
+                    {
+                        MySqlCommand cmd = new MySqlCommand("P_SaveShipmentHistoryReport", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_ShipmentID", viewModel.ShipmentId);
+                        cmd.Parameters.AddWithValue("_SKU", viewModel.SKU);
+                        cmd.Parameters.AddWithValue("_VendorID", viewModel.VendorId);
+                        cmd.Parameters.AddWithValue("_VendorName", viewModel.Vendor);
+                        cmd.Parameters.AddWithValue("_ShippedQTY", viewModel.ShipedQty);
+                        cmd.Parameters.AddWithValue("_ReceivedQTY", viewModel.ReceivedQty);
+                        cmd.Parameters.AddWithValue("_CreatedOn", viewModel.CreatedOn);
+                        cmd.Parameters.AddWithValue("_ShippdeOn", viewModel.ShippedDate);
+                        cmd.Parameters.AddWithValue("_ReceivedOn", viewModel.ReceivedDate);
+                        cmd.Parameters.AddWithValue("_Status", viewModel.Status);
+                        cmd.Parameters.AddWithValue("_Type", viewModel.Type);
+                        cmd.Parameters.AddWithValue("_POId", viewModel.POId);
+                        cmd.Parameters.AddWithValue("_title", viewModel.Title);
+                        cmd.Parameters.AddWithValue("_image_name", viewModel.ImageName);
+                        cmd.Parameters.AddWithValue("_Compress_image", viewModel.CompressedImage);
+                        cmd.Parameters.AddWithValue("_vendortitle", viewModel.Title);
+                        cmd.Parameters.AddWithValue("_TrakingNumber", viewModel.TrakingNumber);
+                        cmd.Parameters.AddWithValue("_TrakingURL", viewModel.TrakingURL);
+                        cmd.Parameters.AddWithValue("_CourierCode", viewModel.CourierCode);
+                        cmd.ExecuteNonQuery();
+                    }
+                  
                     conn.Close();
                     status = true;
                 }
