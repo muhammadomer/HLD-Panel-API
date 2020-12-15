@@ -251,7 +251,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyProductZincASIN", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyProductZincASIN", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyProductZincASINCopy", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_z_asin_ca", ViewModel.ASIN);
                     cmd.Parameters.AddWithValue("_available_quantity", 0);

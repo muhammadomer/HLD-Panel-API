@@ -15,5 +15,6 @@ namespace DataAccess.ViewModels
         public string WarehouseName { get; set; }
         public string LocationNotes { get; set; }
         public decimal OnOrder { get; set; }
+        public List<ApprovedPriceViewModel> approvedPrices { get; set; }
     }
 }

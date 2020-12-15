@@ -17,10 +17,12 @@ namespace DataAccess.DataAccess
     {
         public string connStr { get; set; }
         EncDecChannel _EncDecChannel = null;
+        ApprovedPriceDataAccess approvedPriceDataAccess = null;
         public ProductWarehouseQtyDataAccess(IConnectionString connectionString)
         {
             connStr = connectionString.GetConnectionString();
             _EncDecChannel = new EncDecChannel(connectionString);
+            approvedPriceDataAccess = new ApprovedPriceDataAccess(connectionString);
         }
         //new Job.
         public bool SaveProductQty(List<ProductWarehouseQtyViewModel> viewModel)
@@ -640,6 +642,8 @@ namespace DataAccess.DataAccess
                                 decimal OnOrder = Convert.ToDecimal(reader["OnOrder"] != DBNull.Value ? reader["OnOrder"] : 0);
                                 string LocationNotes = Convert.ToString(reader["LocationNotes"] != DBNull.Value ? reader["LocationNotes"] : "");
                                 int DropShip_Canadac = Convert.ToInt32(reader["DropShip_Canada"] != DBNull.Value ? reader["DropShip_Canada"] : 0);
+                                List<ApprovedPriceViewModel> approvedPrices = new List<ApprovedPriceViewModel>();
+                                approvedPrices = approvedPriceDataAccess.GetApprovedPricesList(1278, 30, 0, SKUc, "", "");
                                 {
                                     ProductWarehouseQtyViewModel model = new ProductWarehouseQtyViewModel();
                                     model.WarehouseID = (int)WarehouseNames.DropShipCanada;
@@ -648,6 +652,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
                                 }
                                 int DropShip_USAc = Convert.ToInt32(reader["DropShip_USA"] != DBNull.Value ? reader["DropShip_USA"] : 0);
@@ -659,6 +664,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
 
                                     
@@ -672,6 +678,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
                                    
                                 }
@@ -684,6 +691,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
 
                                  
@@ -697,6 +705,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
 
                                     
@@ -710,6 +719,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
 
                                     
@@ -723,6 +733,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
 
                                    
@@ -736,6 +747,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
 
                                     
@@ -749,6 +761,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
 
                                    
@@ -762,6 +775,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
                                 }
                                 int Interim_FBA_USAc = Convert.ToInt32(reader["Interim_FBA_USA"] != DBNull.Value ? reader["Interim_FBA_USA"] : 0);
@@ -773,6 +787,7 @@ namespace DataAccess.DataAccess
                                     model.LocationNotes = LocationNotes;
                                     model.ProductSku = SKUc;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
                                 }
                                 int NY_14305c = Convert.ToInt32(reader["NY_14305"] != DBNull.Value ? reader["NY_14305"] : 0);
@@ -784,6 +799,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
                                 }
                                 int Shipitoc = Convert.ToInt32(reader["Shipito"] != DBNull.Value ? reader["Shipito"] : 0);
@@ -795,6 +811,7 @@ namespace DataAccess.DataAccess
                                     model.ProductSku = SKUc;
                                     model.LocationNotes = LocationNotes;
                                     model.OnOrder = OnOrder;
+                                    model.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                                     list.Add(model);
                                 }
                             }

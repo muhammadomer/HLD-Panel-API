@@ -19,7 +19,7 @@ namespace DataAccess.DataAccess
         public ApprovedPriceDataAccess(IConnectionString connectionString)
         {
             connStr = connectionString.GetConnectionString();
-            ProductWHQtyDataAccess = new ProductWarehouseQtyDataAccess(connectionString);
+          //  ProductWHQtyDataAccess = new ProductWarehouseQtyDataAccess(connectionString);
             _tagDataAccess = new TagDataAccess(connectionString);
         }
 

@@ -564,8 +564,8 @@ namespace DataAccess.DataAccess
                             {
                                 GetShipedAndRecQtyViewModel viewModel = new GetShipedAndRecQtyViewModel()
                                 {
-                                   ShipedQty = Convert.ToDouble(dr["shipedqty"] != DBNull.Value ? dr["shipedqty"] : 0),
-                                   RecivedQty = Convert.ToDouble(dr["receivedqty"] != DBNull.Value ? dr["receivedqty"] : 0),
+                                   ShipedQty = Convert.ToDouble(dr["ShippedQTY"] != DBNull.Value ? dr["ShippedQTY"] : 0),
+                                   RecivedQty = Convert.ToDouble(dr["ReceivedQTY"] != DBNull.Value ? dr["ReceivedQTY"] : 0),
                                    TotalCount = Convert.ToDouble(dr["counter"] != DBNull.Value ? dr["counter"] : 0),
                                 };
                                 model = viewModel;
@@ -620,15 +620,15 @@ namespace DataAccess.DataAccess
                                 ShipmentHistoryViewModel viewModel = new ShipmentHistoryViewModel
                                 {
                                     ShipmentId = Convert.ToString(dr["ShipmentId"] != DBNull.Value ? dr["ShipmentId"] : "0"),
-                                    Vendor = Convert.ToString(dr["Vendor"] != DBNull.Value ? dr["Vendor"] : "0"),
+                                    Vendor = Convert.ToString(dr["VendorName"] != DBNull.Value ? dr["VendorName"] : ""),
                                     VendorId = Convert.ToInt32(dr["VendorId"] != DBNull.Value ? dr["VendorId"] : "0"),
                                     SKU = Convert.ToString(dr["SKU"] != DBNull.Value ? dr["SKU"] : "0"),
                                     Title = Convert.ToString(dr["title"] != DBNull.Value ? dr["title"] : "0"),
-                                    ReceivedDate = Convert.ToDateTime(dr["ReceivedDate"] != DBNull.Value ? dr["ReceivedDate"] : DateTime.MinValue),
-                                    ShippedDate = Convert.ToDateTime(dr["ShipedDate"] != DBNull.Value ? dr["ShipedDate"] : DateTime.MinValue),
+                                    ReceivedDate = Convert.ToDateTime(dr["ReceivedOn"] != DBNull.Value ? dr["ReceivedOn"] : DateTime.MinValue),
+                                    ShippedDate = Convert.ToDateTime(dr["ShippdeOn"] != DBNull.Value ? dr["ShippdeOn"] : DateTime.MinValue),
                                     CreatedOn = Convert.ToDateTime(dr["CreatedOn"] != DBNull.Value ? dr["CreatedOn"] : DateTime.MinValue),
-                                    ShipedQty = Convert.ToInt32(dr["ShipedQty"] != DBNull.Value ? dr["ShipedQty"] : "0"),
-                                    ReceivedQty = Convert.ToInt32(dr["RecivedQty"] != DBNull.Value ? dr["RecivedQty"] : "0"),
+                                    ShipedQty = Convert.ToInt32(dr["ShippedQTY"] != DBNull.Value ? dr["ShippedQTY"] : 0),
+                                    ReceivedQty = Convert.ToInt32(dr["ReceivedQTY"] != DBNull.Value ? dr["ReceivedQTY"] : 0),
                                     CompressedImage = Convert.ToString(dr["Compress_image"] != DBNull.Value ? dr["Compress_image"] : ""),
                                     ImageName = Convert.ToString(dr["image_name"] != DBNull.Value ? dr["image_name"] : ""),
                                     Type = Convert.ToString(dr["Type"] != DBNull.Value ? dr["Type"] : ""),
@@ -801,8 +801,9 @@ namespace DataAccess.DataAccess
                     status = true;
                 }
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
+                throw ex;
             }
             return status;
         }
