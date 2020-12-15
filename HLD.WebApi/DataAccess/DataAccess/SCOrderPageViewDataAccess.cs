@@ -205,7 +205,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.Comission = Convert.ToDecimal(dataRow["total_commission"] != DBNull.Value ? dataRow["total_commission"] : "0");
                             detailViewModel.ShippingFee = Convert.ToDecimal(dataRow["ShippingFee"] != DBNull.Value ? dataRow["ShippingFee"] : 0);
                             detailViewModel.UnitPrice = Convert.ToDecimal(dataRow["total_price"] != DBNull.Value ? dataRow["total_price"] : "0");
-                            detailViewModel.UnitPrice = Math.Round(detailViewModel.UnitPrice / detailViewModel.TotalQuantity, 2);
+                            detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice - detailViewModel.ShippingFee) / detailViewModel.TotalQuantity, 2);
                             detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
                             detailViewModel.TaxGST = Convert.ToDecimal(dataRow["TaxGST"] != DBNull.Value ? dataRow["TaxGST"] : "0");
                             detailViewModel.TaxPST = Convert.ToDecimal(dataRow["TaxPST"] != DBNull.Value ? dataRow["TaxPST"] : "0");
