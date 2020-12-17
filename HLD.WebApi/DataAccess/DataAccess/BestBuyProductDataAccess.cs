@@ -1017,5 +1017,43 @@ namespace DataAccess.DataAccess
             }
         }
 
+        public List<GetExplainAmountViewModel> GetExplainAmount(string sellercloudId, string productSku)
+        {
+            List<GetExplainAmountViewModel> listBBProductViewModel = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetExplainAmount", conn);
+                    cmd.Parameters.AddWithValue("_sellercloudId", sellercloudId);
+                    cmd.Parameters.AddWithValue("_productSku", productSku);
+                    //MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+                    //mySqlConnection.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            listBBProductViewModel = new List<GetExplainAmountViewModel>();
+                            while (reader.Read())
+                            {
+                                GetExplainAmountViewModel ViewModel = new GetExplainAmountViewModel();
+                                ViewModel.quantity = Convert.ToInt32(reader["quantity"] != DBNull.Value ? reader["quantity"] : "");
+                                ViewModel.unitprice = Math.Round((ViewModel.total_price - ViewModel.ShippingFee) / ViewModel.quantity, 2);
+                                ViewModel.ShippingFee = Convert.ToDecimal(reader["ShippingFee"] != DBNull.Value ? reader["ShippingFee"] : 0);
+                                ViewModel.avg_cost = Convert.ToDecimal(reader["avg_cost"] != DBNull.Value ? reader["avg_cost"] : 0);
+                                listBBProductViewModel.Add(ViewModel);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return listBBProductViewModel;
+        }
+
     }
 }

@@ -234,5 +234,23 @@ namespace HLD.WebApi.Controllers
                 throw;
             }
         }
+
+
+        [HttpGet]
+        [Route("api/BestBuyProduct/GetExplainAmount")]
+        public List<GetExplainAmountViewModel> GetExplainAmount(string sellercloudId, string productSku)
+        {
+            try
+            {
+                List<GetExplainAmountViewModel> model = new List<GetExplainAmountViewModel>();
+
+                model = dataAccess.GetExplainAmount(sellercloudId, productSku);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
