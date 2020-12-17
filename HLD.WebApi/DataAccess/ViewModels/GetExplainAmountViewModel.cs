@@ -13,5 +13,6 @@ namespace DataAccess.ViewModels
         public decimal unitprice { get; set; }
         public decimal ShippingFee { get; set; }
         public decimal avg_cost { get; set; }
+        public decimal total_commission { get; set; }
     }
 }

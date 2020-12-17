@@ -337,6 +337,29 @@ namespace DataAccess.DataAccess
             }
             return _status;
         }
+        public bool BBupdateProductStatus(string SKU, bool BBQtyUpdate)
+        {
+            bool _status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateBBQtyStatus", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_sku", SKU);
+                    cmd.Parameters.AddWithValue("_BBQtyUpdate", BBQtyUpdate);
+
+                    cmd.ExecuteNonQuery();
+                    _status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return _status;
+        }
 
         public string updateProductAverageCost(String Sku, string averageCost)
         {

@@ -109,9 +109,9 @@ namespace DataAccess.DataAccess
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
-                {
+                {//mychange sp name
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetBestBuyProductDetailByProductId", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetBestBuyProductDetailByProductIdCopy", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("productID", ProductId);
                     using (var reader = cmd.ExecuteReader())
@@ -137,6 +137,8 @@ namespace DataAccess.DataAccess
                                 ViewModel.BBCategory = Convert.ToString(reader["BestBuyCategory"] != DBNull.Value ? reader["BestBuyCategory"] : "");
                                 ViewModel.dropship_Qty = Convert.ToInt32(reader["dropship_Qty"] != DBNull.Value ? reader["dropship_Qty"] : "0");
                                 ViewModel.dropship_status = Convert.ToBoolean(reader["dropship_status"] != DBNull.Value ? reader["dropship_status"] : "0");
+                                //ViewModel.BBQtyUpdate = Convert.ToBoolean(reader["BBQtyUpdate"] != DBNull.Value ? reader["BBQtyUpdate"] : "0");
+                                ViewModel.BBQtyUpdate = Convert.ToBoolean(reader["BBQtyUpdate"] != DBNull.Value ? reader["BBQtyUpdate"] : false);
                             }
                         }
                     }
@@ -1017,9 +1019,9 @@ namespace DataAccess.DataAccess
             }
         }
 
-        public List<GetExplainAmountViewModel> GetExplainAmount(string sellercloudId, string productSku)
+        public GetExplainAmountViewModel GetExplainAmount(string sellercloudId, string productSku)
         {
-            List<GetExplainAmountViewModel> listBBProductViewModel = null;
+            GetExplainAmountViewModel listBBProductViewModel = new GetExplainAmountViewModel();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1035,15 +1037,17 @@ namespace DataAccess.DataAccess
                     {
                         if (reader.HasRows)
                         {
-                            listBBProductViewModel = new List<GetExplainAmountViewModel>();
+                          
                             while (reader.Read())
                             {
                                 GetExplainAmountViewModel ViewModel = new GetExplainAmountViewModel();
                                 ViewModel.quantity = Convert.ToInt32(reader["quantity"] != DBNull.Value ? reader["quantity"] : "");
-                                ViewModel.unitprice = Math.Round((ViewModel.total_price - ViewModel.ShippingFee) / ViewModel.quantity, 2);
                                 ViewModel.ShippingFee = Convert.ToDecimal(reader["ShippingFee"] != DBNull.Value ? reader["ShippingFee"] : 0);
+                                ViewModel.unitprice = Convert.ToDecimal(reader["total_price"] != DBNull.Value ? reader["total_price"] : 0);
+                                ViewModel.unitprice = Math.Round((ViewModel.unitprice - ViewModel.ShippingFee) / ViewModel.quantity, 2);
                                 ViewModel.avg_cost = Convert.ToDecimal(reader["avg_cost"] != DBNull.Value ? reader["avg_cost"] : 0);
-                                listBBProductViewModel.Add(ViewModel);
+                                ViewModel.total_commission = Convert.ToDecimal(reader["total_commission"] != DBNull.Value ? reader["total_commission"] : 0);
+                                listBBProductViewModel=ViewModel;
                             }
                         }
                     }

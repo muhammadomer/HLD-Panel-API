@@ -1220,6 +1220,16 @@ namespace HLD.WebApi.Controllers
             return Ok(viewlList);
         }
 
+        [HttpPost]
+        [Authorize]
+        [Route("api/Product/BBupdateProductStatus/{SKU}/{BBQtyUpdate}")]
+        public IActionResult BBupdateProductStatus(string SKU, bool BBQtyUpdate)
+        {
+            bool status = false;
+            status = DataAccess.BBupdateProductStatus(SKU, BBQtyUpdate);
+            return Ok(status);
+
+        }
     }
 }
 

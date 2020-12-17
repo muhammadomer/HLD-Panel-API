@@ -237,12 +237,13 @@ namespace HLD.WebApi.Controllers
 
 
         [HttpGet]
-        [Route("api/BestBuyProduct/GetExplainAmount")]
-        public List<GetExplainAmountViewModel> GetExplainAmount(string sellercloudId, string productSku)
+        [Authorize]
+        [Route("api/BestBuyProduct/GetExplainAmount/{sellercloudId}/{productSku}")]
+        public GetExplainAmountViewModel GetExplainAmount(string sellercloudId, string productSku)
         {
             try
             {
-                List<GetExplainAmountViewModel> model = new List<GetExplainAmountViewModel>();
+                GetExplainAmountViewModel model = new GetExplainAmountViewModel();
 
                 model = dataAccess.GetExplainAmount(sellercloudId, productSku);
                 return model;
