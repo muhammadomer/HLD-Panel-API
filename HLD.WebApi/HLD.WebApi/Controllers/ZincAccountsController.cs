@@ -78,5 +78,15 @@ namespace HLD.WebApi.Controllers
             Id = _DataAccess.UpdateIsDefault(Obj);
             return Ok(Id);
         }
+        [HttpGet]
+        [Route("api/ZincAccount/ZincAccountDetailEdit")]
+        public ZincAccountsViewModel ZincAccountDetailEdit(int id)
+        {
+
+            ZincAccountsViewModel viewModel = null;
+            viewModel = _DataAccess.ZincAccountDetailEdit(id);
+
+            return viewModel;
+        }
     }
 }

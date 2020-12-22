@@ -29,7 +29,9 @@ namespace HLD.WebApi.Jobs
         }
         public async Task Execute(IJobExecutionContext context)
         {
+
            // ShipmentHistoryDetals();
+
 
               await Task.CompletedTask;
 

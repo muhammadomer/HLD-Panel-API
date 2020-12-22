@@ -26,12 +26,15 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(ConStr))
                 {
                     conn.Open();
-                    MySqlCommand cmdd = new MySqlCommand("p_SaveZincAccounts", conn);
+                    MySqlCommand cmdd = new MySqlCommand("p_SaveZincAccountsCopy", conn);
                     cmdd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmdd.Parameters.AddWithValue("_UserName", ViewModel.UserName);
+                    cmdd.Parameters.AddWithValue("_idZincAccounts", ViewModel.ZincAccountsId);
+                    cmdd.Parameters.AddWithValue("_AmzAccountName", ViewModel.AmzAccountName);
                     cmdd.Parameters.AddWithValue("_Password", ViewModel.Password);
                     cmdd.Parameters.AddWithValue("_Key", ViewModel.Key);
                     cmdd.Parameters.AddWithValue("_UserNameShort", ViewModel.UserNameShort);
+                    cmdd.Parameters.AddWithValue("_AmzAccountNameShort", ViewModel.AmzAccountNameShort);
                     cmdd.Parameters.AddWithValue("_PasswordShort", ViewModel.PasswordShort);
                     cmdd.Parameters.AddWithValue("_KeyShort", ViewModel.KeyShort);
                     cmdd.Parameters.AddWithValue("_User", ViewModel.User);
@@ -56,7 +59,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(ConStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetZincAccounts", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetZincAccountsCopy", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     DataTable dt = new DataTable();
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -66,6 +69,7 @@ namespace DataAccess.DataAccess
                         ZincAccountsViewModel viewModel = new ZincAccountsViewModel
                         {
                             ZincAccountsId = Convert.ToInt32(reader["ZincAccountsId"]),
+                            AmzAccountNameShort = reader["AmzAccountName"] != DBNull.Value ? (string)reader["AmzAccountName"] : "",
                             UserNameShort = reader["UserName"] != DBNull.Value ? (string)reader["UserName"] : "",
                             KeyShort = reader["Key"] != DBNull.Value ? (string)reader["Key"] : "",
                             PasswordShort = reader["Password"] != DBNull.Value ? (string)reader["Password"] : "",
@@ -171,6 +175,48 @@ namespace DataAccess.DataAccess
 
             }
             return Id;
+        }
+        public ZincAccountsViewModel ZincAccountDetailEdit(int id)
+        {
+            ZincAccountsViewModel model = new ZincAccountsViewModel();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_ZincAccountDetailEdit", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_ZincAccountsId", id);
+                    MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
+                    cmd.ExecuteNonQuery();
+                    DataTable dt = new DataTable();
+                    mySqlDataAdapter.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+
+                        foreach (DataRow reader in dt.Rows)
+                        {
+                            ZincAccountsViewModel zincAccounts = new ZincAccountsViewModel();
+
+                            zincAccounts.AmzAccountName = Convert.ToString(reader["AmzAccountName"] != DBNull.Value ? reader["AmzAccountName"] : "");
+                            //zincAccounts.ZincAccountsId = Convert.ToInt32(reader["ZincAccountsId"] != DBNull.Value ? reader["ZincAccountsId"] : 0);
+                            zincAccounts.ZincAccountsId = Convert.ToInt32(reader["idZincAccounts"] != DBNull.Value ? reader["idZincAccounts"] : 0);
+                            zincAccounts.UserName = Convert.ToString(reader["UserName"] != DBNull.Value ? reader["UserName"] : "");
+                            zincAccounts.Key = Convert.ToString(reader["Key"] != DBNull.Value ? reader["Key"] : "");
+                            zincAccounts.Password = Convert.ToString(reader["Password"] != DBNull.Value ? reader["Password"] : "");
+                            
+
+                            model = zincAccounts;
+
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return model;
         }
     }
 }
