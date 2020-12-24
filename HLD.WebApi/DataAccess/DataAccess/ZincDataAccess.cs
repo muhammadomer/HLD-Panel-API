@@ -577,7 +577,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand(" p_GetActiveZincAccounts", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetActiveZincAccountsCopy", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     DataSet ds = new DataSet();
@@ -601,7 +601,8 @@ namespace DataAccess.DataAccess
                         ZincAccountsViewModel viewModel = new ZincAccountsViewModel
                         {
                             ZincAccountsId = Convert.ToInt32(reader["ZincAccountsId"]),
-                            UserNameShort = reader["UserName"] != DBNull.Value ? (string)reader["UserName"] : "",
+                            //UserNameShort = reader["UserName"] != DBNull.Value ? (string)reader["UserName"] : "",
+                            AmzAccountNameShort = reader["AmzAccountName"] != DBNull.Value ? (string)reader["AmzAccountName"] : "",
                         };
                         AccountsList.Add(viewModel);
                     }
