@@ -646,8 +646,8 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("dateFrom", viewModel.DateFrom);
                     cmd.Parameters.AddWithValue("dateTo", viewModel.DateTo);
                     cmd.Parameters.AddWithValue("DSStatus", viewModel.DSStatus);
-                    cmd.Parameters.AddWithValue("PaymentStatus", viewModel.PaymentStatus);
                     cmd.Parameters.AddWithValue("TagSearch", viewModel.ShippingTags);
+                    cmd.Parameters.AddWithValue("PaymentStatus", viewModel.PaymentStatus);
                     cmd.Parameters.AddWithValue("_ShippingBoxContain", viewModel.ShippingBoxContain);
 
 

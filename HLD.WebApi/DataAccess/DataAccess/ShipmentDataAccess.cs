@@ -651,6 +651,74 @@ namespace DataAccess.DataAccess
             }
             return list;
         }
+        public List<ShipmentHistoryViewModel> GetShipmentHistoryListforReport(string DateTo, string DateFrom, int VendorId, string ShipmentId, string SKU, string Title, int limit, int offset, string Status)
+        {
+            if (string.IsNullOrEmpty(SKU) || SKU == "undefined")
+                SKU = "";
+            if (string.IsNullOrEmpty(ShipmentId) || ShipmentId == "undefined")
+                ShipmentId = "";
+            if (string.IsNullOrEmpty(Title) || Title == "undefined")
+                Title = "";
+            if (string.IsNullOrEmpty(Status) || Status == "undefined")
+                Status = "";
+            List<ShipmentHistoryViewModel> list = new List<ShipmentHistoryViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                      MySqlCommand cmd = new MySqlCommand("p_GetShipmentHistoryList", conn);
+                  //  MySqlCommand cmd = new MySqlCommand("P_GetShipmentHistoryReport", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_VendorId", VendorId);
+                    cmd.Parameters.AddWithValue("_SKU", SKU);
+                    cmd.Parameters.AddWithValue("_ShipmentId", ShipmentId);
+                    cmd.Parameters.AddWithValue("_Title", Title);
+                    cmd.Parameters.AddWithValue("_Status", Status);
+                    cmd.Parameters.AddWithValue("dateFrom", DateFrom);
+                    cmd.Parameters.AddWithValue("dateTo", DateTo);
+                    cmd.Parameters.AddWithValue("_Limit", limit);
+                    cmd.Parameters.AddWithValue("_OffSet", offset);
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                ShipmentHistoryViewModel viewModel = new ShipmentHistoryViewModel
+                                {
+                                    ShipmentId = Convert.ToString(dr["ShipmentId"] != DBNull.Value ? dr["ShipmentId"] : "0"),
+                                    Vendor = Convert.ToString(dr["Vendor"] != DBNull.Value ? dr["Vendor"] : ""),
+                                    VendorId = Convert.ToInt32(dr["VendorId"] != DBNull.Value ? dr["VendorId"] : "0"),
+                                    SKU = Convert.ToString(dr["SKU"] != DBNull.Value ? dr["SKU"] : "0"),
+                                    Title = Convert.ToString(dr["title"] != DBNull.Value ? dr["title"] : "0"),
+                                    ReceivedDate = Convert.ToDateTime(dr["ReceivedDate"] != DBNull.Value ? dr["ReceivedDate"] : DateTime.MinValue),
+                                    ShippedDate = Convert.ToDateTime(dr["ShipedDate"] != DBNull.Value ? dr["ShipedDate"] : DateTime.MinValue),
+                                    CreatedOn = Convert.ToDateTime(dr["CreatedOn"] != DBNull.Value ? dr["CreatedOn"] : DateTime.MinValue),
+                                    ShipedQty = Convert.ToInt32(dr["ShipedQty"] != DBNull.Value ? dr["ShipedQty"] : 0),
+                                    ReceivedQty = Convert.ToInt32(dr["RecivedQty"] != DBNull.Value ? dr["RecivedQty"] : 0),
+                                    CompressedImage = Convert.ToString(dr["Compress_image"] != DBNull.Value ? dr["Compress_image"] : ""),
+                                    ImageName = Convert.ToString(dr["image_name"] != DBNull.Value ? dr["image_name"] : ""),
+                                    Type = Convert.ToString(dr["Type"] != DBNull.Value ? dr["Type"] : ""),
+                                    Status = Convert.ToInt32(dr["Status"] != DBNull.Value ? dr["Status"] : 0),
+                                    TrakingNumber = Convert.ToString(dr["TrakingNumber"] != DBNull.Value ? dr["TrakingNumber"] : ""),
+                                    CourierCode = Convert.ToString(dr["CourierCode"] != DBNull.Value ? dr["CourierCode"] : ""),
+                                    TrakingURL = Convert.ToString(dr["TrakingURL"] != DBNull.Value ? dr["TrakingURL"] : ""),
+                                    POId = Convert.ToInt32(dr["POId"] != DBNull.Value ? dr["POId"] : "0"),
+                                };
+                                list.Add(viewModel);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return list;
+        }
 
         public List<ShipmentHistoryViewModel> GetShipmentHistoryBySKU(int POID, string SKU)
         {

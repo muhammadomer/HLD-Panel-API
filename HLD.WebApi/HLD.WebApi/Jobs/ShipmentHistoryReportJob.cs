@@ -41,7 +41,7 @@ namespace HLD.WebApi.Jobs
             string DateTo = DateTime.Now.ToString("yyyy-MM-dd"); ;
             string DateFrom = DateTime.Now.AddMonths(-12).ToString("yyyy-MM-dd");
             List<ShipmentHistoryViewModel> historyViewModels = new List<ShipmentHistoryViewModel>();
-            historyViewModels= _shipmentDataAccess.GetShipmentHistoryList(DateTo, DateFrom, 1278, "", "","",10000,0,"");
+            historyViewModels= _shipmentDataAccess.GetShipmentHistoryListforReport(DateTo, DateFrom, 1278, "", "","",10000,0,"");
             var list = historyViewModels.GroupBy(x => new { x.SKU, x.ShipmentId })
               .Select(p => new
               {
