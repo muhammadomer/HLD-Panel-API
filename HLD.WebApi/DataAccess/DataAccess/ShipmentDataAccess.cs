@@ -98,7 +98,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(ConStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentslist", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentslistCopy", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_VendorId", VendorId);
                     cmd.Parameters.AddWithValue("_Limit", Limit);
@@ -132,6 +132,7 @@ namespace DataAccess.DataAccess
                             CourierCode = reader["CourierCode"] != DBNull.Value ? (string)reader["CourierCode"] : "",
                             ShippedDate = reader["ShippedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ShippedDate"]) : DateTime.MinValue,
                             ReceivedDate = reader["ReceivedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ReceivedDate"]) : DateTime.MinValue,
+                            ExpectedDelivery = reader["Expected_Delivery_Shipped_PO"] != DBNull.Value ? Convert.ToDateTime(reader["Expected_Delivery_Shipped_PO"]) : DateTime.MinValue,
                             GrossWt = reader["GrossWt"] != DBNull.Value ? Convert.ToDecimal(reader["GrossWt"]) : 0,
                             Type = reader["Type"] != DBNull.Value ? Convert.ToString(reader["Type"]) : "",
 
@@ -346,6 +347,7 @@ namespace DataAccess.DataAccess
                             TotalShipedQty = reader["TotalShipedQty"] != DBNull.Value ? Convert.ToInt32(reader["TotalShipedQty"]) : 0,
                             ShippedDate = reader["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedAt"]) : DateTime.MinValue,
                             ReceivedDate = reader["ReceivedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ReceivedDate"]) : DateTime.MinValue,
+                            ExpectedDelivery = Convert.ToDateTime(reader["Expected_Delivery_Shipped_PO"] != DBNull.Value ? reader["Expected_Delivery_Shipped_PO"] : DateTime.MinValue),
                             TrakingNumber = reader["TrakingNumber"] != DBNull.Value ? (string)reader["TrakingNumber"] : "",
                             TrakingURL = reader["TrakingURL"] != DBNull.Value ? (string)reader["TrakingURL"] : "",
                             CourierCode = reader["CourierCode"] != DBNull.Value ? (string)reader["CourierCode"] : "",
@@ -625,6 +627,7 @@ namespace DataAccess.DataAccess
                                     SKU = Convert.ToString(dr["SKU"] != DBNull.Value ? dr["SKU"] : "0"),
                                     Title = Convert.ToString(dr["title"] != DBNull.Value ? dr["title"] : "0"),
                                     ReceivedDate = Convert.ToDateTime(dr["ReceivedOn"] != DBNull.Value ? dr["ReceivedOn"] : DateTime.MinValue),
+                                    ExpectedDelivery = Convert.ToDateTime(dr["Expected_Delivery_Shipped_PO"] != DBNull.Value ? dr["Expected_Delivery_Shipped_PO"] : DateTime.MinValue),
                                     ShippedDate = Convert.ToDateTime(dr["ShippdeOn"] != DBNull.Value ? dr["ShippdeOn"] : DateTime.MinValue),
                                     CreatedOn = Convert.ToDateTime(dr["CreatedOn"] != DBNull.Value ? dr["CreatedOn"] : DateTime.MinValue),
                                     ShipedQty = Convert.ToInt32(dr["ShippedQTY"] != DBNull.Value ? dr["ShippedQTY"] : 0),
@@ -694,6 +697,7 @@ namespace DataAccess.DataAccess
                                     Title = Convert.ToString(dr["title"] != DBNull.Value ? dr["title"] : "0"),
                                     ReceivedDate = Convert.ToDateTime(dr["ReceivedDate"] != DBNull.Value ? dr["ReceivedDate"] : DateTime.MinValue),
                                     ShippedDate = Convert.ToDateTime(dr["ShipedDate"] != DBNull.Value ? dr["ShipedDate"] : DateTime.MinValue),
+                                    ExpectedDelivery = Convert.ToDateTime(dr["Expected_Delivery_Shipped_PO"] != DBNull.Value ? dr["Expected_Delivery_Shipped_PO"] : DateTime.MinValue),
                                     CreatedOn = Convert.ToDateTime(dr["CreatedOn"] != DBNull.Value ? dr["CreatedOn"] : DateTime.MinValue),
                                     ShipedQty = Convert.ToInt32(dr["ShipedQty"] != DBNull.Value ? dr["ShipedQty"] : 0),
                                     ReceivedQty = Convert.ToInt32(dr["RecivedQty"] != DBNull.Value ? dr["RecivedQty"] : 0),
@@ -852,6 +856,7 @@ namespace DataAccess.DataAccess
                         cmd.Parameters.AddWithValue("_CreatedOn", viewModel.CreatedOn);
                         cmd.Parameters.AddWithValue("_ShippdeOn", viewModel.ShippedDate);
                         cmd.Parameters.AddWithValue("_ReceivedOn", viewModel.ReceivedDate);
+                        cmd.Parameters.AddWithValue("_ExpectedDelivery", viewModel.ExpectedDelivery);
                         cmd.Parameters.AddWithValue("_Status", viewModel.Status);
                         cmd.Parameters.AddWithValue("_Type", viewModel.Type);
                         cmd.Parameters.AddWithValue("_POId", viewModel.POId);
@@ -874,6 +879,57 @@ namespace DataAccess.DataAccess
                 throw ex;
             }
             return status;
+        }
+        public bool UpdateExpectedDelivery(Expected_Delivery_Shipped_POViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateExpectedDelivery", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_ShipmentId", ViewModel.ShipmentId);
+                    cmd.Parameters.AddWithValue("_Expected_Delivery_Shipped_PO", ViewModel.ExpectedDelivery);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
+        public Expected_Delivery_Shipped_POViewModel GetDeliveryDateById(string id)
+        {
+            Expected_Delivery_Shipped_POViewModel ViewModel = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("GetDeliveryDateById", conn);
+                    cmd.Parameters.AddWithValue("_ShipmentId", id);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            ViewModel = new Expected_Delivery_Shipped_POViewModel();
+                            while (reader.Read())
+                            {
+                                ViewModel.ShipmentId = Convert.ToString(reader["ShipmentId"]);
+                                ViewModel.ExpectedDelivery = Convert.ToDateTime(reader["Expected_Delivery_Shipped_PO"]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return ViewModel;
         }
     }
 }

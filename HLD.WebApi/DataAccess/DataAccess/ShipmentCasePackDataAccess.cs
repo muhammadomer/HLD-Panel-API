@@ -265,6 +265,7 @@ namespace DataAccess.DataAccess
                             TotalShipedQty = reader["TotalShipedQty"] != DBNull.Value ? Convert.ToInt32(reader["TotalShipedQty"]) : 0,
                             ShippedDate = reader["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedAt"]) : DateTime.MinValue,
                             ReceivedDate = reader["ReceivedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ReceivedDate"]) : DateTime.MinValue,
+                            ExpectedDelivery = reader["Expected_Delivery_Shipped_PO"] != DBNull.Value ? Convert.ToDateTime(reader["Expected_Delivery_Shipped_PO"]) : DateTime.MinValue,
                         };
                         Item = viewModel;
                     }

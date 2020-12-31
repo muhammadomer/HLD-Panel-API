@@ -34,6 +34,7 @@ namespace DataAccess.ViewModels
         public string TrakingURL { get; set; }
         public string CourierCode { get; set; }
         public DateTime ReceivedDate { get; set; }
+        public DateTime ExpectedDelivery { get; set; }
         public DateTime ShippedDate { get; set; }
     }
 }

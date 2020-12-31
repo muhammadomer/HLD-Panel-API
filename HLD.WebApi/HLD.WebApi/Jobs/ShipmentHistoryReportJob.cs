@@ -59,6 +59,7 @@ namespace HLD.WebApi.Jobs
                       Type = s.Type,
                       Status = s.Status,
                       ReceivedDate = s.ReceivedDate,
+                      ExpectedDelivery=s.ExpectedDelivery,
                       ShippedDate = s.ShippedDate,
                       ShipedQty = s.ShipedQty,
                       ReceivedQty = s.ReceivedQty,

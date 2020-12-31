@@ -230,5 +230,38 @@ namespace HLD.WebApi.Controllers
             status = _DataAccess.UpdateShipmentCourierInfo(ViewModel);
             return Ok(new { status = status, Message = "Success" });
         }
+        [HttpPut]
+        [Authorize]
+        [Route("api/Shipment/UpdateExpectedDelivery")]
+        public IActionResult Put(Expected_Delivery_Shipped_POViewModel ViewModel)
+        {
+            bool status = false;
+            if (_DataAccess.UpdateExpectedDelivery(ViewModel))
+            {
+                status = true;
+                return Ok(new { Status = status, Message = "Update Successfully" });
+            }
+            else
+            {
+                return Ok(new { Status = false, Message = "Some Error Occured" });
+            }
+        }
+        [HttpGet]
+      
+        [Route("api/Shipment/GetById")]
+        public IActionResult GetDeliveryDateById(string id)
+        {
+            Expected_Delivery_Shipped_POViewModel ViewModels = null;
+            ViewModels = _DataAccess.GetDeliveryDateById(id);
+            if (ViewModels == null)
+            {
+                return Ok(new Expected_Delivery_Shipped_POViewModel());
+            }
+            else
+            {
+                return Ok(ViewModels);
+            }
+
+        }
     }
 }
