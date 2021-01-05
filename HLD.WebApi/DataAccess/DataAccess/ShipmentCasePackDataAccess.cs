@@ -236,7 +236,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(ConStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentViewCasePackHeader", conn);
+                    /*MySqlCommand cmd = new MySqlCommand("p_GetShipmentViewCasePackHeader", conn);*///my change
+                    MySqlCommand cmd = new MySqlCommand("p_GetShipmentViewCasePackHeaderCopy", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_Id", ShipmentId);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -266,6 +267,9 @@ namespace DataAccess.DataAccess
                             ShippedDate = reader["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedAt"]) : DateTime.MinValue,
                             ReceivedDate = reader["ReceivedDate"] != DBNull.Value ? Convert.ToDateTime(reader["ReceivedDate"]) : DateTime.MinValue,
                             ExpectedDelivery = reader["Expected_Delivery_Shipped_PO"] != DBNull.Value ? Convert.ToDateTime(reader["Expected_Delivery_Shipped_PO"]) : DateTime.MinValue,
+                            TrakingNumber = reader["TrakingNumber"] != DBNull.Value ? (string)reader["TrakingNumber"] : "",
+                            TrakingURL = reader["TrakingURL"] != DBNull.Value ? (string)reader["TrakingURL"] : "",
+                            CourierCode = reader["CourierCode"] != DBNull.Value ? (string)reader["CourierCode"] : "",
                         };
                         Item = viewModel;
                     }
