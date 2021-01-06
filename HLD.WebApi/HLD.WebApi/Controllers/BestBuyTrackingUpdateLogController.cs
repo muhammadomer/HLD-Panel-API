@@ -37,5 +37,29 @@ namespace HLD.WebApi.Controllers
             List<BestBuyTrackingUpdate> model = _dataAccess.GetByDynamicquery(query.query);
             return Ok(model);
         }
+        [HttpGet]
+        [Route("GetCounter")]
+        public IActionResult GetCounter(string scOrderID,string bbOrderID,string TrakingNumber,string BBStatus,DateTime CurrentDate, DateTime PreviousDate)
+        {
+            long Count = 0;
+            bool status = false;
+            Count = _dataAccess.GetLogsCount(scOrderID, bbOrderID, TrakingNumber, BBStatus, CurrentDate, PreviousDate);
+            if (Count > 0)
+            {
+                status = true;
+                return Ok(new { status = status, counter = Count, Message = "Success" });
+            }
+            else
+            {
+                return Ok(new { status = status, counter = Count, Message = "Some Error Occured" });
+            }
+        }
+        [HttpGet]
+        [Route("getLogs")]
+        public IActionResult getLogs(string DateTo, string DateFrom, int limit, int offset, string scOrderID, string bbOrderID , string TrakingNumber , string BBStatus)
+        {
+            List<BestBuyTrackingUpdate> model = _dataAccess.getLogs(DateTo, DateFrom, limit, offset, scOrderID, bbOrderID, TrakingNumber, BBStatus);
+            return Ok(model);
+        }
     }
 }
