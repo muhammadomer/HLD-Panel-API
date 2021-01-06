@@ -133,6 +133,10 @@ namespace DataAccess.DataAccess
             {
                 if (string.IsNullOrEmpty(scOrderID) || scOrderID == "undefined")
                     scOrderID = "";
+                if (string.IsNullOrEmpty(DateFrom) || scOrderID == "undefined")
+                    DateFrom = "";
+                if (string.IsNullOrEmpty(DateTo) || scOrderID == "undefined")
+                    DateTo = "";
                 if (string.IsNullOrEmpty(bbOrderID) || bbOrderID == "undefined")
                     bbOrderID = "";
                 if (string.IsNullOrEmpty(TrakingNumber) || TrakingNumber == "undefined")
