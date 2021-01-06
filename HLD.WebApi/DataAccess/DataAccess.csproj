@@ -306,6 +306,7 @@
     <Compile Include="ViewModels\EditManufactureListModelView.cs" />
     <Compile Include="ViewModels\EditParentViewModel.cs" />
     <Compile Include="ViewModels\EmailJobDetailViewModel.cs" />
+    <Compile Include="ViewModels\Expected_Delivery_Shipped_POViewModel.cs" />
     <Compile Include="ViewModels\ExportProductDataViewModel.cs" />
     <Compile Include="ViewModels\ExportSkuImgUrlViewModel.cs" />
     <Compile Include="ViewModels\FileJobLogsViewModel.cs" />
@@ -318,9 +319,11 @@
     <Compile Include="ViewModels\GetChildSkuVM.cs" />
     <Compile Include="ViewModels\GetDataForBulkUpdateViewModel.cs" />
     <Compile Include="ViewModels\GetDeviceModelViewMdel.cs" />
+    <Compile Include="ViewModels\GetExplainAmountViewModel.cs" />
     <Compile Include="ViewModels\GetFileJobsToRunViewModel.cs" />
     <Compile Include="ViewModels\GetImageUrlOfChildSkuViewModel.cs" />
     <Compile Include="ViewModels\GetJobDetailViewModel.cs" />
+    <Compile Include="ViewModels\getLogsViewModel.cs" />
     <Compile Include="ViewModels\GetManufactureModelViewModel.cs" />
     <Compile Include="ViewModels\GetManufactureViewModel.cs" />
     <Compile Include="ViewModels\GetNotesOrderViewModel.cs" />
