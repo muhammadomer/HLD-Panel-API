@@ -68,9 +68,9 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Route("GetForZinc")]
-        public IActionResult GetProxyForZinc()
+        public IActionResult GetProxyForZinc(string email)
         {
-            GetZincProxyViewModel getZincProxy = _ZincProxyDataAccess.GetProxyDefaultForZinc();
+            GetZincProxyViewModel getZincProxy = _ZincProxyDataAccess.GetProxyDefaultForZinc(email);
             return Ok(getZincProxy);
         }
 

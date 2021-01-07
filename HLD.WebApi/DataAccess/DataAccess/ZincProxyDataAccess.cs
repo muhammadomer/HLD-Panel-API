@@ -158,7 +158,7 @@ namespace DataAccess.DataAccess
             return status;
         }
 
-        public GetZincProxyViewModel GetProxyDefaultForZinc()
+        public GetZincProxyViewModel GetProxyDefaultForZinc(string email )
         {
             GetZincProxyViewModel ViewModel = new GetZincProxyViewModel();
             try
@@ -167,7 +167,7 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_GetProxyDefaultForZinc", conn);
-
+                    cmd.Parameters.AddWithValue("_email", email);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     using (var reader = cmd.ExecuteReader())
                     {
