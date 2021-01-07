@@ -87,13 +87,18 @@ namespace DataAccess.DataAccess
             }
             return listModel;
         }
-        public int GetLogsCount(string scOrderID, string bbOrderID, string TrakingNumber, string BBStatus, DateTime CurrentDate, DateTime PreviousDate)
+        public int GetLogsCount(string scOrderID, string bbOrderID, string TrakingNumber, string BBStatus, string CurrentDate, string PreviousDate)
         {
             int counter = 0;
             try
             {
                 if (string.IsNullOrEmpty(scOrderID) || scOrderID == "undefined")
                     scOrderID = "";
+                if (string.IsNullOrEmpty(CurrentDate) || scOrderID == "undefined")
+                    CurrentDate = "";
+
+                if (string.IsNullOrEmpty(PreviousDate) || scOrderID == "undefined")
+                    PreviousDate = "";
                 if (string.IsNullOrEmpty(bbOrderID) || bbOrderID == "undefined")
                     bbOrderID = "";
                 if (string.IsNullOrEmpty(TrakingNumber) || TrakingNumber == "undefined")

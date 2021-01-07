@@ -39,7 +39,7 @@ namespace HLD.WebApi.Controllers
         }
         [HttpGet]
         [Route("GetCounter")]
-        public IActionResult GetCounter(string scOrderID,string bbOrderID,string TrakingNumber,string BBStatus,DateTime CurrentDate, DateTime PreviousDate)
+        public IActionResult GetCounter(string scOrderID,string bbOrderID,string TrakingNumber,string BBStatus,string CurrentDate, string PreviousDate)
         {
             long Count = 0;
             bool status = false;
