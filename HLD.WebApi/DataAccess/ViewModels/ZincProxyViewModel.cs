@@ -26,6 +26,7 @@ namespace DataAccess.ViewModels
         public bool IsDefault { get; set; }
         public bool Isactive { get; set; }
         public int idZincProxy { get; set; }
+        public int Status { get; set; }
         public DateTime LatUpdated { get; set; }
     }
     public class ProxySettingViewModal

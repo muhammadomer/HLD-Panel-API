@@ -67,6 +67,7 @@ namespace DataAccess.DataAccess
                             {
                                 GetZincProxyViewModel ViewModel = new GetZincProxyViewModel();
                                 ViewModel.idZincProxy = Convert.ToInt32(reader["idZincProxy"]);
+                                ViewModel.Status = Convert.ToInt32(reader["Status"]);
                                 ViewModel.ProxyUser = Convert.ToString(reader["ZincProxyUser"]);
                                 ViewModel.ProxyPort = Convert.ToString(reader["ZincProxyPort"]);
                                 ViewModel.ProxyIP = Convert.ToString(reader["ZincProxyIP"]);
@@ -274,7 +275,30 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+        public int UpdateZincProxyEmail(int statusCode, string email)
+        {
+            int Id = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateProxyStatus", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_status", statusCode);
+                    cmd.Parameters.AddWithValue("_ZincProxyEmail",email);
 
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    Id = 1;
+                }
+            }
+            catch (Exception exp)
+            {
+
+            }
+            return Id;
+        }
 
     }
 }

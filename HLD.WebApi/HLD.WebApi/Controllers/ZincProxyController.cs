@@ -123,6 +123,14 @@ namespace HLD.WebApi.Controllers
             }
 
         }
+        [HttpGet]
+        [Route("UpdateZincPorxyStatus")]
+        public IActionResult UpdateZincProxyEmail(int statusCode,string Email)
+        {
+            int status = _ZincProxyDataAccess.UpdateZincProxyEmail(statusCode, Email);
+            return Ok(status);
+
+        }
 
     }
 }
