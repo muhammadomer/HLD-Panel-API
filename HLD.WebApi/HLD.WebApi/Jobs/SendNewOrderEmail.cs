@@ -58,7 +58,7 @@ namespace HLD.WebApi.Jobs
                         //var PNL = Convert.ToDecimal(item.calculation_ProfitLoss) - Convert.ToDecimal(10 / num);
                         var PNL = item.calculation_TotalAmountOfUnitPrice - (item.calculation_Comission + item.caculation_TotalAvgCost + shippingCost);
                         var PNLPer = (PNL / item.calculation_TotalAmountOfUnitPrice) * 100;
-                        item.calculation_TotalAmountOfUnitPrice = item.calculation_TotalAmountOfUnitPrice - item.ShippingFee;
+                        //item.calculation_TotalAmountOfUnitPrice = item.calculation_TotalAmountOfUnitPrice - item.ShippingFee;
                         messageBody += htmlTableStart;
 
                         var product = productData.GetCatalog(item.ProductSKU);
@@ -195,23 +195,23 @@ namespace HLD.WebApi.Jobs
 
                     //var mail = new MailMessage()
                     //{
-                    // From = new mailaddress("testcrmphenologix@gmail.com"),
-                    // Subject = "HLD Item Sold " + model.SellerCloudOrderID,
-                    // Body = messageBody.ToString()
+                    //    From = new MailAddress("testcrmphenologix@gmail.com"),
+                    //    Subject = "HLD Item Sold " + model.SellerCloudOrderID,
+                    //    Body = messageBody.ToString()
                     //};
 
 
-                    //mail.To.Add(new mailaddress("adeel.ahmad8000@gmail.com", "password"));
+                    //mail.To.Add(new MailAddress("adeel.ahmad8000@gmail.com", "password"));
                     //// Smtp client
                     //var client = new SmtpClient()
                     //{
-                    // Port = 587,
-                    // DeliveryMethod = SmtpDeliveryMethod.Network,
-                    // UseDefaultCredentials = true,
-                    // Host = "smtp.gmail.com",
-                    // //Host = "email-smtp.us-east-1.amazonaws.com",
-                    // EnableSsl = true,
-                    // Credentials = credentials
+                    //    Port = 587,
+                    //    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    //    UseDefaultCredentials = true,
+                    //    Host = "smtp.gmail.com",
+                    //    //Host = "email-smtp.us-east-1.amazonaws.com",
+                    //    EnableSsl = true,
+                    //    Credentials = credentials
                     //};
                     //client.Send(mail);
                     //return "Email Sent Successfully!";
@@ -235,7 +235,7 @@ namespace HLD.WebApi.Jobs
                     //        smtp.Send(mail);
                     //    }
                     //}
-
+                    //change
                     var mail = new MailMessage()
                     {
                         From = new MailAddress("info@hldinc.net"),
@@ -257,7 +257,7 @@ namespace HLD.WebApi.Jobs
 
                     };
                     client.Send(mail);
-
+                    //
 
                 }
             }

@@ -53,7 +53,7 @@ namespace DataAccess.ViewModels
             public List<ShippingOption> shipping_options { get; set; }
             public string condition { get; set; }
             public object minimum_quantity { get; set; }
-            public bool prime_only { get; set; }
+            public bool? prime_only { get; set; }
             public bool addon { get; set; }
             public object comments { get; set; }
             public string greytext { get; set; }

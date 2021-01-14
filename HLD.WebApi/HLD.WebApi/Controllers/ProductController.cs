@@ -609,7 +609,10 @@ namespace HLD.WebApi.Controllers
                 try
                 {
                     ZincProductOfferViewModel.RootObject model = GetInfoFromZinc(ASIN_List, _getChannelCredViewModel.Key);
-
+                    if (model.offers != null)
+                    {
+                        model.offers = model.offers.Where(s => s.condition.ToLower().Trim().Equals("new") && s.price > 0 && s.fba_badge.Equals(true)).ToList();
+                    }
                     if ((model.status != "processing" || model.status != "failed") && model.offers != null && model.offers.Count > 0)
                     {
 
@@ -646,7 +649,8 @@ namespace HLD.WebApi.Controllers
                                 zincProductSaveViewModel.itemavailable = item.available;
                                 zincProductSaveViewModel.handlingday_min = item.handling_days.min.HasValue ? item.handling_days.min.Value : 0;
                                 zincProductSaveViewModel.handlingday_max = item.handling_days.max.HasValue ? item.handling_days.max.Value : 0;
-                                zincProductSaveViewModel.item_prime_badge = item.prime_badge;
+                                //zincProductSaveViewModel.item_prime_badge = item.prime_badge;
+                                zincProductSaveViewModel.item_prime_badge = item.fba_badge;
 
                                 foreach (var shippingOption in item.shipping_options)
                                 {
