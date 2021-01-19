@@ -56,8 +56,14 @@ namespace HLD.WebApi.Jobs
 
 
                         //var PNL = Convert.ToDecimal(item.calculation_ProfitLoss) - Convert.ToDecimal(10 / num);
-                        var PNL = item.calculation_TotalAmountOfUnitPrice - (item.calculation_Comission + item.caculation_TotalAvgCost + shippingCost);
-                        var PNLPer = (PNL / item.calculation_TotalAmountOfUnitPrice) * 100;
+                        //used
+                        //var PNL = item.calculation_TotalAmountOfUnitPrice - (item.calculation_Comission + item.caculation_TotalAvgCost + shippingCost);                    
+                        //var PNLPer = (PNL / item.calculation_TotalAmountOfUnitPrice) * 100;
+                        //
+                        //my change
+                        var PNLCopy = (item.calculation_TotalAmountOfUnitPrice) + (Convert.ToDecimal(item.ShippingFee)) + (Convert.ToDecimal(item.ShippingFee)) - (item.calculation_Comission) - (item.caculation_TotalAvgCost)-(10);
+                        var PNLPerCopy = Math.Round((PNLCopy / (item.calculation_TotalAmountOfUnitPrice + Convert.ToDecimal(item.ShippingFee))) * 100);
+                        //
                         //item.calculation_TotalAmountOfUnitPrice = item.calculation_TotalAmountOfUnitPrice - item.ShippingFee;
                         messageBody += htmlTableStart;
 
@@ -71,12 +77,12 @@ namespace HLD.WebApi.Jobs
                         }
                         string checkboxValue = item.DropshipStatus == true ? "checked" : "";
 
-                        string P_L = "<span >" + PNL + "&nbsp;" + "(" + (Math.Round(PNLPer)) + "%)" + htmlspanEnd;
+                        string P_L = "<span >" + PNLCopy + "&nbsp;" + "(" + (Math.Round(PNLPerCopy)) + "%)" + htmlspanEnd;
                         if (item.calculation_ProfitLossPercentage < 15)
                         {
-                            P_L = "<span style=\" color:red; font-weight: bold; width: 160px;float:right\">" + PNL + "&nbsp;" + "(" + (Math.Round(PNLPer)) + "%)" + htmlspanEnd;
+                            P_L = "<span style=\" color:red; font-weight: bold; width: 160px;float:right\">" + PNLCopy + "&nbsp;" + "(" + (Math.Round(PNLPerCopy)) + "%)" + htmlspanEnd;
                         }
-                        string Fees = "<span class='pull-right'>" + /*item.calculation_Comission*/ (Math.Round(item.calculation_comissionPercentage)) + "%" + htmlspanEnd;
+                        string Fees = "<span class='pull-right'>" + /*item.calculation_Comission*/ (Math.Round(item.calculation_Comission / item.calculation_comissionPercentage)*100) + "%" + htmlspanEnd;
                         if (item.calculation_comissionPercentage > 15)
                         {
                             Fees = "<span class='pull-right' style=\" \">" + /*item.calculation_Comission*/ +(Math.Round(item.calculation_comissionPercentage)) + "%" + htmlspanEnd;
@@ -174,12 +180,17 @@ namespace HLD.WebApi.Jobs
                     }
                     decimal sumtotalPrice = model.TotalPrice + (Convert.ToDecimal(model.ShippingPrice));
 
-                    var FeePer = Math.Round(((model.TotalComission / model.TotalPrice) * 100));
+                   
+                   
                     var totalCommision = Math.Round(model.TotalComission, 2);
-                    var PNLModel = model.TotalPrice - (totalCommision + model.TotalAverageCost + 10);
-                    var PNLPerModel = Math.Round((PNLModel / model.TotalPrice) * 100);
-                    model.TotalPrice = model.TotalPrice - (Convert.ToDecimal(model.ShippingPrice));
+                    //used
+                    //var PNLModel = model.TotalPrice - (totalCommision + model.TotalAverageCost + 10);
+                    //var PNLPerModel = Math.Round((PNLModel / model.TotalPrice) * 100);//
 
+                    var PNLModel = (model.TotalPrice)+(Convert.ToDecimal(model.ShippingPrice))-(totalCommision)-(model.TotalAverageCost)-(10);                                        
+                    var PNLPerModel = Math.Round((PNLModel / (model.TotalPrice + Convert.ToDecimal(model.ShippingPrice))) * 100);
+                    model.TotalPrice = model.TotalPrice - (Convert.ToDecimal(model.ShippingPrice));
+                    var FeePer = Math.Round(((model.TotalComission / model.TotalPrice) * 100));
 
                     messageBody = messageBody +
 
@@ -193,27 +204,27 @@ namespace HLD.WebApi.Jobs
                         "</table>" +
                         "</div>";
 
-                    //var mail = new MailMessage()
-                    //{
-                    //    From = new MailAddress("testcrmphenologix@gmail.com"),
-                    //    Subject = "HLD Item Sold " + model.SellerCloudOrderID,
-                    //    Body = messageBody.ToString()
-                    //};
+                    var mail = new MailMessage()
+                    {
+                        From = new MailAddress("testcrmphenologix@gmail.com"),
+                        Subject = "hld item sold " + model.SellerCloudOrderID,
+                        Body = messageBody.ToString()
+                    };
 
 
-                    //mail.To.Add(new MailAddress("adeel.ahmad8000@gmail.com", "password"));
-                    //// Smtp client
-                    //var client = new SmtpClient()
-                    //{
-                    //    Port = 587,
-                    //    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    //    UseDefaultCredentials = true,
-                    //    Host = "smtp.gmail.com",
-                    //    //Host = "email-smtp.us-east-1.amazonaws.com",
-                    //    EnableSsl = true,
-                    //    Credentials = credentials
-                    //};
-                    //client.Send(mail);
+                    mail.To.Add(new MailAddress("adeel.ahmad8000@gmail.com", "password"));
+                    // smtp client
+                    var client = new SmtpClient()
+                    {
+                        Port = 587,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = true,
+                        Host = "smtp.gmail.com",
+                        //host = "email-smtp.us-east-1.amazonaws.com",
+                        EnableSsl = true,
+                        Credentials = credentials
+                    };
+                    client.Send(mail);
                     //return "Email Sent Successfully!";
 
 
@@ -236,27 +247,27 @@ namespace HLD.WebApi.Jobs
                     //    }
                     //}
                     //change
-                    var mail = new MailMessage()
-                    {
-                        From = new MailAddress("info@hldinc.net"),
-                        Subject = "HLD Item Sold " + model.SellerCloudOrderID,
-                        Body = messageBody,
-                        IsBodyHtml = true
-                    };
-                    mail.IsBodyHtml = true;
-                    mail.To.Add(new MailAddress("hfd1278@gmail.com"));
-                    // Smtp client
-                    var client = new SmtpClient()
-                    {
-                        Port = 587,
-                        DeliveryMethod = SmtpDeliveryMethod.Network,
-                        UseDefaultCredentials = true,
-                        Host = "email-smtp.us-east-1.amazonaws.com",
-                        EnableSsl = true,
-                        Credentials = credentials
+                    //var mail = new MailMessage()
+                    //{
+                    //    From = new MailAddress("info@hldinc.net"),
+                    //    Subject = "HLD Item Sold " + model.SellerCloudOrderID,
+                    //    Body = messageBody,
+                    //    IsBodyHtml = true
+                    //};
+                    //mail.IsBodyHtml = true;
+                    //mail.To.Add(new MailAddress("hfd1278@gmail.com"));
+                    //// Smtp client
+                    //var client = new SmtpClient()
+                    //{
+                    //    Port = 587,
+                    //    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    //    UseDefaultCredentials = true,
+                    //    Host = "email-smtp.us-east-1.amazonaws.com",
+                    //    EnableSsl = true,
+                    //    Credentials = credentials
 
-                    };
-                    client.Send(mail);
+                    //};
+                    //client.Send(mail);
                     //
 
                 }

@@ -137,7 +137,7 @@ namespace HLD.WebApi
             //services.UseQuartz(typeof(UpdateZincOrder_InProgressSuccess_Job));
             //  services.UseQuartz(typeof(GetPOOrderUpdatesFromSellerCloudJob));
             //services.UseQuartz(typeof(CompressImagesJob));
-            //   services.UseQuartz(typeof(ReadEmail));
+            //  services.UseQuartz(typeof(ReadEmail));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -181,7 +181,7 @@ namespace HLD.WebApi
             //QuartzServicesUtilities.StartJob<GetSellerOrderNotes>(schedulerr, "");
 
             //QuartzServicesUtilities.StartJob<CreateOrderInSellerCloud>(schedulerr, "");
-              QuartzServicesUtilities.StartJob<ShipmentHistoryReportJob>(schedulerr, "");
+             QuartzServicesUtilities.StartJob<ShipmentHistoryReportJob>(schedulerr, "");
 
 
             #endregion

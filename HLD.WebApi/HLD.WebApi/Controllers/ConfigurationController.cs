@@ -17,8 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace HLD.WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class ConfigurationController : ControllerBase
     {
         UserDataAccess userDataAccess = null;
@@ -30,6 +30,7 @@ namespace HLD.WebApi.Controllers
             userDataAccess = new UserDataAccess(connectionString);
         }
         [HttpPost]
+        [Route("api/Configuration")]
         public IActionResult Post([FromBody]AuthenticateViewModel authenticateVM)
         {
             try
@@ -66,10 +67,82 @@ namespace HLD.WebApi.Controllers
                     status = true
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
+        }
+
+
+        [HttpPost]
+        [Route("api/Configurations")]
+        public IActionResult Posts([FromBody] AuthenticateViewModel authenticateVM)
+        {
+            try
+            {
+                AuthenticateViewModel authenticateViewModel = null;
+                authenticateViewModel = userDataAccess.AuthenticateUser_Manageds(authenticateVM.Username);
+                if (authenticateViewModel == null)
+                    return BadRequest(new AuthenticateViewModel() { Message = "User Name or Password is Invalid", status = false });
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.UTF8.GetBytes(_jwtAppSetting.SigningKey);
+                DateTime expires = DateTime.UtcNow.AddHours(10);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                    new Claim(ClaimTypes.Name, authenticateViewModel.Id.ToString())
+                    }),
+                    Expires = expires,
+                    Audience = _jwtAppSetting.Site,
+                    Issuer = _jwtAppSetting.Site,
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
+                // return basic user info (without password) and token to store client side
+                return Ok(new AuthenticateViewModel()
+                {
+                    Id = authenticateViewModel.Id,
+                    Username = authenticateViewModel.Username,
+                    Method = authenticateViewModel.Method,
+                    Token = tokenString,
+                    expiration = token.ValidTo,
+                    Message = "User is Authenticated",
+                    status = true
+                });
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        [HttpPost]     
+        [Route("api/Configuration/{Email}/{Checkboxstatus}")]
+        //[Route("api/Configuration")]
+        public IActionResult SaveCheckboxstatus(string Email, bool Checkboxstatus)
+        {
+            bool status = false;
+            status = userDataAccess.SaveCheckboxstatus(Email, Checkboxstatus);
+            return Ok(status);
+            
+        }
+        [HttpGet]
+        //[Authorize]
+        [Route("api/Configuration/GetCheckboxstatus")]
+        public List<Login> GetCheckboxstatus()
+        {
+            List<Login> List = new List<Login>();
+            try
+            {
+                List = userDataAccess.GetCheckboxstatus();
+                return List;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
     }
 }
