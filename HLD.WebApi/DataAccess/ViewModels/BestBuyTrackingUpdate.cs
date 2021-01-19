@@ -14,5 +14,6 @@ namespace DataAccess.ViewModels
         public string shippingServiceCode { get; set; }
         public string trackingNumber { get; set; }
         public string BBStatus { get; set; }
+        public int inBestbuy { get; set; }
     }
 }

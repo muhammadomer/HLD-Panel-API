@@ -72,6 +72,31 @@ namespace DataAccess.DataAccess
             }
             return authenticateViewModel;
         }
+        public AuthenticateViewModel AuthenticateUser_Manageds(string userName)
+        {
+            AuthenticateViewModel authenticateViewModel = null;
+            using (MySqlConnection conn = new MySqlConnection(connstr))
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("P_AuthenticateUserCopy", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("_UserName", userName.Trim());
+                //cmd.Parameters.AddWithValue("_Password", password.Trim());
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        authenticateViewModel = new AuthenticateViewModel();
+                        while (reader.Read())
+                        {
+                            authenticateViewModel.Method = Convert.ToString(reader["Email"]);
+                            authenticateViewModel.Username = Convert.ToString(reader["Id"]);
+                        }
+                    }
+                }
+            }
+            return authenticateViewModel;
+        }
         public AuthenticateViewModel GetUserById(int UserId)
         {
             AuthenticateViewModel authenticateViewModel = null;
@@ -96,6 +121,64 @@ namespace DataAccess.DataAccess
                 }
             }
             return authenticateViewModel;
+        }
+
+        public bool SaveCheckboxstatus(string Email, bool Checkboxstatus)
+        {
+            bool _status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connstr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateAspNetUsersStatus", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Email", Email);
+                    //cmd.Parameters.AddWithValue("_Password", Password);
+                    cmd.Parameters.AddWithValue("_Checkboxstatus", Checkboxstatus);
+
+                    cmd.ExecuteNonQuery();
+                    _status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return _status;
+        }
+
+        public List<Login> GetCheckboxstatus()
+        {
+            List<Login> ViewModel = new List<Login>();
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connstr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetCheckboxstatus", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Login list = new Login();
+
+                                list.Checkboxstatus = Convert.ToBoolean(reader["Checkboxstatus"] != DBNull.Value ? reader["Checkboxstatus"] : false);
+                                ViewModel.Add(list);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ViewModel;
         }
     }
 }

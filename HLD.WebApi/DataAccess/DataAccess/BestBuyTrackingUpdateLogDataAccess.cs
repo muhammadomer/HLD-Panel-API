@@ -15,8 +15,8 @@ namespace DataAccess.DataAccess
         public string connStr { get; set; }
         public BestBuyTrackingUpdateLogDataAccess(IConnectionString connectionString)
         {
-           // connStr = connectionString.GetPhpConnectionString();
-            connStr = connectionString.GetConnectionString();
+           connStr = connectionString.GetPhpConnectionString();
+            //  connStr = connectionString.GetConnectionString();
         }
         public List<BestBuyTrackingUpdate> GetAllBestBuyUpdateLog()
         {
@@ -171,7 +171,7 @@ namespace DataAccess.DataAccess
                         {
                             BestBuyTrackingUpdate model = new BestBuyTrackingUpdate();
                             model.trackingNumber = Convert.ToString(dataRow["trackingNumber"] != DBNull.Value ? dataRow["trackingNumber"] : "0");
-                            // model.BBStatus = Convert.ToString(dataRow["BBStatus"] != DBNull.Value ? dataRow["BBStatus"] : "0");
+                            model.inBestbuy = Convert.ToInt32(dataRow["inBestbuy"] != DBNull.Value ? dataRow["inBestbuy"] : 0);
                             model.shipDate = Convert.ToDateTime(dataRow["shipDate"] != DBNull.Value ? dataRow["shipDate"] : DateTime.MinValue);
                             model.scOrderID = Convert.ToString(dataRow["scOrderID"] != DBNull.Value ? dataRow["scOrderID"] : "0");
                             model.shippingServiceCode = Convert.ToString(dataRow["shippingServiceCode"] != DBNull.Value ? dataRow["shippingServiceCode"] : "0");
