@@ -43,20 +43,20 @@ namespace HLD.WebApi.Jobs
                 //scheduler.ScheduleJob(job, trigger);
             }
 
-            //if (jobName == "HLD.WebApi.Jobs.ProductWarehouseQtyJob")
-            //{
-            //    var trigger = TriggerBuilder.Create()
-            //  .ForJob(job)
-            //  .WithSimpleSchedule
-            //   (s =>
-            //     s.WithIntervalInHours(1)
-            //      .RepeatForever()
-            //   )
-            //  .StartNow()
-            //  .Build();
+            if (jobName == "HLD.WebApi.Jobs.ShipmentHistoryReportJob")
+            {
+                var trigger = TriggerBuilder.Create()
+              .ForJob(job)
+              .WithSimpleSchedule
+               (s =>
+                 s.WithIntervalInHours(2)
+                  .RepeatForever()
+               )
+              .StartNow()
+              .Build();
 
-            //    scheduler.ScheduleJob(job, trigger);
-            //}
+                scheduler.ScheduleJob(job, trigger);
+            }
 
             if (jobName == "HLD.WebApi.Jobs.WarehouseProductQtyJob")
             {

@@ -344,6 +344,7 @@
     <Compile Include="ViewModels\ImportDataFromBestBuy.cs" />
     <Compile Include="ViewModels\ImportMissingSkuViewModel.cs" />
     <Compile Include="ViewModels\JobIdReturnViewModel.cs" />
+    <Compile Include="ViewModels\Login.cs" />
     <Compile Include="ViewModels\MarketPlaceShadowViewModel.cs" />
     <Compile Include="ViewModels\MaunualPaymentOnSellercloudViewCloud.cs" />
     <Compile Include="ViewModels\MissingOrderReturnViewModel.cs" />

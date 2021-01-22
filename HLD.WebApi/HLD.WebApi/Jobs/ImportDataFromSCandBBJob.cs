@@ -38,7 +38,7 @@ namespace HLD.WebApi.Jobs
                 ServiceReference1.SCServiceSoapClient sCServiceSoap =
                        new ServiceReference1.SCServiceSoapClient(ServiceReference1.SCServiceSoapClient.EndpointConfiguration.SCServiceSoap12);
 
-                ServiceReference1.UpdateOrderDropShipStatusRequest request = new UpdateOrderDropShipStatusRequest(authHeader, null, 2345, DropShipStatusType.Requested);
+                ServiceReference1.UpdateOrderDropShipStatusRequest request = new UpdateOrderDropShipStatusRequest(authHeader, null, 2345, DropShipStatusType2.Requested);
 
                 TimeSpan time1 = TimeSpan.FromHours(1); // my attempt to add 2 hours
                 TimeSpan ts = DateTime.Now.TimeOfDay;

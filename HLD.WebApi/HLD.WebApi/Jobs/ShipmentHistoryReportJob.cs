@@ -30,7 +30,7 @@ namespace HLD.WebApi.Jobs
         public async Task Execute(IJobExecutionContext context)
         {
 
-           // ShipmentHistoryDetals();
+            ShipmentHistoryDetals();
 
 
               await Task.CompletedTask;

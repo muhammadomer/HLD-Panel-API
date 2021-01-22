@@ -315,7 +315,7 @@ namespace HLD.WebApi.Controllers
             ServiceReference1.SCServiceSoapClient sCServiceSoap =
                       new ServiceReference1.SCServiceSoapClient(ServiceReference1.SCServiceSoapClient.EndpointConfiguration.SCServiceSoap12);
 
-            var request = await sCServiceSoap.UpdateOrderDropShipStatusAsync(authHeader, null, int.Parse(sellerCloudOrderId), ServiceReference1.DropShipStatusType.Processed);
+            var request = await sCServiceSoap.UpdateOrderDropShipStatusAsync(authHeader, null, int.Parse(sellerCloudOrderId), ServiceReference1.DropShipStatusType2.Processed);
             bool response = request.UpdateOrderDropShipStatusResult;
             status = response;
             if (status)

@@ -27,7 +27,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand(@"SELECT `trackingExport`.`bbe2_tracking_id`,`trackingExport`.`bbOrderID`,`trackingExport`.`trackingNumber` FROM `bestBuyE2`.`trackingExport` where inBestbuy = 0; ", conn);
+                    MySqlCommand cmd = new MySqlCommand(@"SELECT `trackingExport`.`bbe2_tracking_id`,`trackingExport`.`bbOrderID`,`trackingExport`.`trackingNumber`,`trackingExport`.`shippingServiceCode` FROM `bestBuyE2`.`trackingExport` where inBestbuy = 0; ", conn);
                     cmd.CommandType = System.Data.CommandType.Text;
                     MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -42,6 +42,7 @@ namespace DataAccess.DataAccess
                             model.bbOrderID = Convert.ToString(dr["bbOrderID"] != DBNull.Value ? dr["bbOrderID"].ToString() : "");
                             model.trackingNumber = Convert.ToString(dr["trackingNumber"] != DBNull.Value ? dr["trackingNumber"].ToString() : "");
                             model.bbe2TrackingId = Convert.ToInt32(dr["bbe2_tracking_id"] != DBNull.Value ? dr["bbe2_tracking_id"].ToString() : "");
+                            model.shippingServiceCode = Convert.ToString(dr["shippingServiceCode"] != DBNull.Value ? dr["shippingServiceCode"].ToString() : "");
                             listModel.Add(model);
                         }
                     }

@@ -79,7 +79,7 @@ namespace HLD.WebApi.Jobs
                 //requestMessagerr.Headers["Content-Type"] = "application/soap+xml; charset=utf-8";
 
                 List<string> bbOrderID = null;
-                ServiceReference1.UpdateOrderDropShipStatusRequest request = new UpdateOrderDropShipStatusRequest(authHeader, null, 2345, DropShipStatusType.Requested);
+                ServiceReference1.UpdateOrderDropShipStatusRequest request = new UpdateOrderDropShipStatusRequest(authHeader, null, 2345, DropShipStatusType2.Requested);
 
                 TimeSpan time1 = TimeSpan.FromHours(1); // my attempt to add 2 hours
                 TimeSpan ts = DateTime.Now.TimeOfDay;
@@ -358,7 +358,7 @@ namespace HLD.WebApi.Jobs
                                 customerDetailOrderViewModel.firstname = item.customer.shipping_address.firstname;
                                 customerDetailOrderViewModel.lastname = item.customer.shipping_address.lastname;
                                 customerDetailOrderViewModel.state = item.customer.shipping_address.state;
-                                
+
                                 customerDetailOrderViewModel.street_1 = item.customer.shipping_address.street_1;
                                 customerDetailOrderViewModel.street_2 = item.customer.shipping_address.street_2;
                                 customerDetailOrderViewModel.zip_code = item.customer.shipping_address.zip_code;
@@ -370,7 +370,8 @@ namespace HLD.WebApi.Jobs
                                 {
                                     customerDetailOrderViewModel.IsBox = 1;
                                 }
-                                else {
+                                else
+                                {
                                     customerDetailOrderViewModel.IsBox = 0;
                                 }
                                 mainModel.customerDetailOrderViewModel = customerDetailOrderViewModel;

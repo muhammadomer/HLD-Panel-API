@@ -77,7 +77,7 @@ namespace HLD.WebApi.Jobs
                 logger.LogInformation("WarehouseProductQtyJob Job Started At =>" + DateTime.Now.ToString());
                 try
                 {
-                    ReadExcelFile("Predict WH Stock.xlsx");
+                    ReadExcelFile("Predict_WH_Stock.xlsx");
                 }
                 catch (Exception ex)
                 {

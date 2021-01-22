@@ -65,47 +65,6 @@ namespace HLD.WebApi.Jobs
 
         }
 
-        //public int SendOrderToSCByJobForCreation()
-        //{
-        //    try
-        //    {
-        //        List<UnCreatedOrderViewModel> unCreatedOrderViewModel = new List<UnCreatedOrderViewModel>();
-        //        // get uncreated order
-        //        unCreatedOrderViewModel = _addOrderToSCDataAccess.GetUncreatedOrder();
-
-        //        if (unCreatedOrderViewModel.Count > 0)
-        //        {
-
-        //            foreach (var item in unCreatedOrderViewModel)
-        //            {
-        //                // check payment status
-        //                bool status = _addOrderToSCDataAccess.CheckCityOrder(item.bbe2OrdersId);
-        //                if (status == true)
-        //                {
-        //                    SCOrderCreateNewViewModel createOrderOnSCViewModel = new SCOrderCreateNewViewModel();
-        //                    // get order data
-        //                    createOrderOnSCViewModel = _addOrderToSCDataAccess.GetSCOrderDataForCreation(item.Orderid);
-
-        //                    SellerCloudOrderIdViewModel sellerCloudOrderIdViewModel = new SellerCloudOrderIdViewModel();
-        //                  //  create on sc
-
-
-
-        //                }
-        //            }
-
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        logger.LogInformation("SendOrderToSellerCloudForCreation => " + ex);
-        //    }
-        //    return 1;
-
-        //}
-
         public async Task<bool> SendOrderToSellerCloudForCreationAsync()
         {
             bool Issent = false;
@@ -356,7 +315,7 @@ namespace HLD.WebApi.Jobs
                 authHeader.Password = _getChannel.Key;
                 ServiceReference1.SCServiceSoapClient sCServiceSoap =
                        new ServiceReference1.SCServiceSoapClient(ServiceReference1.SCServiceSoapClient.EndpointConfiguration.SCServiceSoap12);
-                ServiceReference1.UpdateOrderDropShipStatusRequest request = new UpdateOrderDropShipStatusRequest(authHeader, null, 2345, DropShipStatusType.Requested);
+                ServiceReference1.UpdateOrderDropShipStatusRequest request = new UpdateOrderDropShipStatusRequest(authHeader, null, 2345, DropShipStatusType2.Requested);
                
                 var data = await sCServiceSoap.Orders_GetByOrderSourceOrderIDAsync(authHeader, null, ServiceReference1.OrderSource.Website, 513,OrderID);
                 orderID = data.Orders_GetByOrderSourceOrderIDResult;

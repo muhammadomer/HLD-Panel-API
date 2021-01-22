@@ -48,7 +48,7 @@ namespace HLD.WebApi.Jobs
                 {
                     var data = await sCServiceSoap.Orders_GetOrderStateAsync(authHeader, null, Convert.ToInt32(item));
                     ServiceReference1.OrderStatusCode orderStatusCode = data.Orders_GetOrderStateResult.StatusCode;
-                    ServiceReference1.DropShipStatusType dropshipStatus = data.Orders_GetOrderStateResult.DropShipStatus;
+                    ServiceReference1.DropShipStatusType2 dropshipStatus = data.Orders_GetOrderStateResult.DropShipStatus;
                     ServiceReference1.OrderPaymentStatus2 paymentStatus = data.Orders_GetOrderStateResult.PaymentStatus;
                     //if (orderStatusCode.ToString() != "InProcess")
                     //{

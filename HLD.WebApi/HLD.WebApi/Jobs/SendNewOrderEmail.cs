@@ -204,27 +204,27 @@ namespace HLD.WebApi.Jobs
                         "</table>" +
                         "</div>";
 
-                    var mail = new MailMessage()
-                    {
-                        From = new MailAddress("testcrmphenologix@gmail.com"),
-                        Subject = "hld item sold " + model.SellerCloudOrderID,
-                        Body = messageBody.ToString()
-                    };
+                    //var mail = new MailMessage()
+                    //{
+                    //    From = new MailAddress("testcrmphenologix@gmail.com"),
+                    //    Subject = "hld item sold " + model.SellerCloudOrderID,
+                    //    Body = messageBody.ToString()
+                    //};
 
 
-                    mail.To.Add(new MailAddress("adeel.ahmad8000@gmail.com", "password"));
-                    // smtp client
-                    var client = new SmtpClient()
-                    {
-                        Port = 587,
-                        DeliveryMethod = SmtpDeliveryMethod.Network,
-                        UseDefaultCredentials = true,
-                        Host = "smtp.gmail.com",
-                        //host = "email-smtp.us-east-1.amazonaws.com",
-                        EnableSsl = true,
-                        Credentials = credentials
-                    };
-                    client.Send(mail);
+                    //mail.To.Add(new MailAddress("adeel.ahmad8000@gmail.com", "password"));
+                    //// smtp client
+                    //var client = new SmtpClient()
+                    //{
+                    //    Port = 587,
+                    //    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    //    UseDefaultCredentials = true,
+                    //    Host = "smtp.gmail.com",
+                    //    //host = "email-smtp.us-east-1.amazonaws.com",
+                    //    EnableSsl = true,
+                    //    Credentials = credentials
+                    //};
+                    //client.Send(mail);
                     //return "Email Sent Successfully!";
 
 
@@ -247,28 +247,28 @@ namespace HLD.WebApi.Jobs
                     //    }
                     //}
                     //change
-                    //var mail = new MailMessage()
-                    //{
-                    //    From = new MailAddress("info@hldinc.net"),
-                    //    Subject = "HLD Item Sold " + model.SellerCloudOrderID,
-                    //    Body = messageBody,
-                    //    IsBodyHtml = true
-                    //};
-                    //mail.IsBodyHtml = true;
-                    //mail.To.Add(new MailAddress("hfd1278@gmail.com"));
-                    //// Smtp client
-                    //var client = new SmtpClient()
-                    //{
-                    //    Port = 587,
-                    //    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    //    UseDefaultCredentials = true,
-                    //    Host = "email-smtp.us-east-1.amazonaws.com",
-                    //    EnableSsl = true,
-                    //    Credentials = credentials
+                    var mail = new MailMessage()
+                    {
+                        From = new MailAddress("info@hldinc.net"),
+                        Subject = "HLD Item Sold " + model.SellerCloudOrderID,
+                        Body = messageBody,
+                        IsBodyHtml = true
+                    };
+                    mail.IsBodyHtml = true;
+                    mail.To.Add(new MailAddress("hfd1278@gmail.com"));
+                    // Smtp client
+                    var client = new SmtpClient()
+                    {
+                        Port = 587,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = true,
+                        Host = "email-smtp.us-east-1.amazonaws.com",
+                        EnableSsl = true,
+                        Credentials = credentials
 
-                    //};
-                    //client.Send(mail);
-                    //
+                    };
+                    client.Send(mail);
+
 
                 }
             }

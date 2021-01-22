@@ -173,7 +173,7 @@ namespace DataAccess.DataAccess
                 }
                 return status;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
