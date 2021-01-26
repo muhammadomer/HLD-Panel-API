@@ -263,5 +263,76 @@ namespace HLD.WebApi.Controllers
             }
 
         }
+        [HttpPost]
+        //[Authorize]
+        [Route("api/Shipment/BBtrackingCodes")]
+        public IActionResult BBtrackingCodes(BBtrackingCodesViewModel ViewModel)
+        {
+           
+            string status = "false";         
+            status = _DataAccess.BBtrackingCodes(ViewModel);
+            return Ok(status);
+        }
+        [HttpGet]      
+        [Route("api/Shipment/GetBBtrackingCodesList")]
+        public IActionResult GetBBtrackingCodesList()
+        {
+
+
+            var list = _DataAccess.GetBBtrackingCodesList();
+            {
+                return Ok(list);
+            }
+        }
+        [HttpGet]
+        
+        [Route("api/Shipment/{id}")]
+        public IActionResult EditBBtrackingCodes(int id)
+        {
+            BBtrackingCodesViewModel ViewModel = new BBtrackingCodesViewModel();
+            try
+            {
+                ViewModel = _DataAccess.EditBBtrackingCodesById(id);
+                return Ok(ViewModel);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Shipment/CheckTrackingNumberExists/{name}")]
+        public IActionResult CheckCategorySub3Exists(string name)
+        {
+            bool status = false;
+            if (_DataAccess.CheckTrackingNumberExists(name))
+            {
+                status = true;
+                return Ok(new { Status = status, Message = "Tracking Number exists ,please select another" });
+            }
+            else
+            {
+                return Ok(new { Status = status, Message = "Tracking Number Not Exists" });
+            }
+        }
+        [HttpGet]
+        [Route("GetTrackingNumberCount")]
+        public IActionResult GetTrackingNumberCount()
+        {
+            int count = 0;
+            try
+            {
+                count = _DataAccess.GetTrackingNumberCount();
+                return Ok(count);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

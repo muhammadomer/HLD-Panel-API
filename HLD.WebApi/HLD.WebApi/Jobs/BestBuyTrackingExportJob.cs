@@ -23,6 +23,7 @@ namespace HLD.WebApi.Jobs
         ServiceReference1.AuthHeader authHeader = null;
         SCOrderTrackingService.AuthHeader sCAuthHeader = null;
         BestBuyTrackingExportDataAccess bestBuyTrackingExportDataAccess = null;
+        ShipmentDataAccess _DataAccess = null;
         string bbbaseapiurl = "https://marketplace.bestbuy.ca/api/";
        
         private readonly IConfiguration configuration;
@@ -35,7 +36,7 @@ namespace HLD.WebApi.Jobs
 
             _EncDecChannel = new EncDecChannel(_connectionString);
             bestBuyTrackingExportDataAccess = new BestBuyTrackingExportDataAccess(_connectionString);
-            
+            _DataAccess = new ShipmentDataAccess(_connectionString);
         }
 
         public async Task Execute(IJobExecutionContext context)
@@ -88,9 +89,12 @@ namespace HLD.WebApi.Jobs
                 }
                 List<UpdateTrackingBestbuyViewModel> bestbuytracklist = new List<UpdateTrackingBestbuyViewModel>();
                 bestbuytracklist = bestBuyTrackingExportDataAccess.GetDataUpdateTracking();
+                 List<BBtrackingCodesViewModel> listViewModel = new List<BBtrackingCodesViewModel>();
+                  listViewModel= _DataAccess.GetBBtrackingCodesList();
                 if (bestbuytracklist != null && bestbuytracklist.Count > 0)
                 {
                     UpdateTrackingShippingJsonViewModel updateTrackingShippingJsonViewModel = null;
+                    BBtrackingCodesViewModel updateTrackingcodes = null;
                     GetChannelCredViewModel _getChannelCred = new GetChannelCredViewModel();
                     _getChannelCred = _EncDecChannel.DecryptedData("bestbuy");
                     foreach (var list in bestbuytracklist)
@@ -127,188 +131,33 @@ namespace HLD.WebApi.Jobs
 
 
                             }
-                            else if (is4digit == "4001" || is3digit == "201" || is3digit == "102" || is3digit == "401" || is3digit == "400" || is4digit == "1024" || is4digit == "2001" || is4digit == "7316")
+                            //
+                            else
                             {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "CPCL";
-                                updateTrackingShippingJsonViewModel.carrier_name = "";
-                                updateTrackingShippingJsonViewModel.carrier_url = "";
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
-                                    {
-                                        updateTrackingOne(list.bbe2TrackingId);
-                                    }
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else if (is4digit == "MWG0" || is5digit == "CGK00" || is3digit == "DCM" || is3digit == "TBL" || is3digit == "RJM" || is3digit == "BVG" || is3digit == "VRE" || is3digit == "TBK"|| is3digit == "VDM"|| is3digit == "CGG")
-                            {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "PRLA";
-                                updateTrackingShippingJsonViewModel.carrier_name = "";
-                                updateTrackingShippingJsonViewModel.carrier_url = "";
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
-                                    {
-                                        updateTrackingOne(list.bbe2TrackingId);
-                                    }
+                                var item = listViewModel.Find(s => s.TrackingNumberCode == list.trackingNumber.Substring(0, s.TrackingNumberCode.Length));
 
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else if (is4digit == "4737")
-                            {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "FEDX";
-                                updateTrackingShippingJsonViewModel.carrier_name = "";
-                                updateTrackingShippingJsonViewModel.carrier_url = "";
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
-                                    {
-                                        updateTrackingOne(list.bbe2TrackingId);
-                                    }
 
-                                }
-                                else if (res_track == "400")
+                                if (item != null)
                                 {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else if (is3digit == "ZPY")
-                            {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "";
-                                updateTrackingShippingJsonViewModel.carrier_name = "Standard";
-                                updateTrackingShippingJsonViewModel.carrier_url = "https://t.17track.net/en#nums=" + list.trackingNumber;
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
-                                    {
-                                        updateTrackingOne(list.bbe2TrackingId);
-                                    }
 
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else if (is3digit == "ASL")
-                            {
+                                
                                 updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "";
-                                updateTrackingShippingJsonViewModel.carrier_name = "ASL";
-                                updateTrackingShippingJsonViewModel.carrier_url = "https://ng-amz.shiptrackapp.com/view.aspx?lng=&tracking=" + list.trackingNumber;
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
-                                    {
-                                        updateTrackingOne(list.bbe2TrackingId);
-                                    }
+                                updateTrackingShippingJsonViewModel.carrier_code = item.CarrierCode;
+                                updateTrackingShippingJsonViewModel.carrier_name = item.CarrierName;
 
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else if (is3digit == "TBC")
-                            {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "";
-                                updateTrackingShippingJsonViewModel.carrier_name = "AMZN";
-                                updateTrackingShippingJsonViewModel.carrier_url = "";
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
-                                    {
-                                        updateTrackingOne(list.bbe2TrackingId);
-                                    }
+                                    if (item.CarrierUrl !=null || item.CarrierUrl !="") {
 
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else if (is4digit == "INTL")
-                            {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "";
-                                updateTrackingShippingJsonViewModel.carrier_name = "Intelcom";
-                                updateTrackingShippingJsonViewModel.carrier_url = "https://parcelsapp.com/en/tracking/" + list.trackingNumber;
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
+                                        updateTrackingShippingJsonViewModel.carrier_url = item.CarrierUrl;
+                                    } 
+                                    else
                                     {
-                                        updateTrackingOne(list.bbe2TrackingId);
-                                    }
+                                        updateTrackingShippingJsonViewModel.carrier_url =item.CarrierUrl.Replace("{TrackingNumber}",item.TrackingNumberCode);
 
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else if (is3digit == "BNI")
-                            {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "";
-                                updateTrackingShippingJsonViewModel.carrier_name = "BNI";
-                                updateTrackingShippingJsonViewModel.carrier_url = "https://bnitracking.com/" + list.trackingNumber;
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
-                                    {
-                                        updateTrackingOne(list.bbe2TrackingId);
                                     }
+                                       
+                                   
+                                updateTrackingShippingJsonViewModel.tracking_number = item.TrackingNumberCode;
 
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else if (is3digit == "DXA" )
-                            {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "";
-                                updateTrackingShippingJsonViewModel.carrier_name = "DYNAMEX";
-                                updateTrackingShippingJsonViewModel.carrier_url = "https://parcelsapp.com/en/tracking/" + list.trackingNumber;
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
                                 string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
                                 if (res_track == "204")
                                 {
@@ -317,83 +166,307 @@ namespace HLD.WebApi.Jobs
                                     {
                                         updateTrackingOne(list.bbe2TrackingId);
                                     }
+                                }
+                                else if (res_track == "400")
+                                {
+                                    updateTrackingOne(list.bbe2TrackingId);
+                                }
+                                }
+                                else
+                                {
+                                    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                    updateTrackingShippingJsonViewModel.carrier_code = "";
+                                    updateTrackingShippingJsonViewModel.carrier_name = "Standard";
+                                    updateTrackingShippingJsonViewModel.carrier_url = "";
+                                    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                    if (res_track == "204")
+                                    {
+                                        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                        if (res_ship == 204 || res_ship == 400)
+                                        {
+                                            updateTrackingOne(list.bbe2TrackingId);
+                                        }
+                                    }
+                                    else if (res_track == "400")
+                                    {
+                                        updateTrackingOne(list.bbe2TrackingId);
+                                    }
+                                }
+                            }
 
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else if ( is6digit == "JOEYCO")
-                            {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "";
-                                updateTrackingShippingJsonViewModel.carrier_name = "JOEYCO";
-                                updateTrackingShippingJsonViewModel.carrier_url = "https://parcelsapp.com/en/tracking/" + list.trackingNumber;
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
-                                    {
-                                        updateTrackingOne(list.bbe2TrackingId);
-                                    }
+                            //
 
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else if (is2digit == "1Z")
-                            {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "UPSN";
-                                updateTrackingShippingJsonViewModel.carrier_name = "";
-                                updateTrackingShippingJsonViewModel.carrier_url = "";
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
-                                    {
-                                        updateTrackingOne(list.bbe2TrackingId);
-                                    }
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
-                            else {
-                                updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
-                                updateTrackingShippingJsonViewModel.carrier_code = "";
-                                updateTrackingShippingJsonViewModel.carrier_name = "Standard";
-                                updateTrackingShippingJsonViewModel.carrier_url = "";
-                                updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
-                                string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
-                                if (res_track == "204")
-                                {
-                                    int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
-                                    if (res_ship == 204 || res_ship == 400)
-                                    {
-                                        updateTrackingOne(list.bbe2TrackingId);
-                                    }
-                                }
-                                else if (res_track == "400")
-                                {
-                                    updateTrackingOne(list.bbe2TrackingId);
-                                }
-                            }
+                                //else if (is4digit == "4001" || is3digit == "201" || is3digit == "102" || is3digit == "401" || is3digit == "400" || is4digit == "1024" || is4digit == "2001" || is4digit == "7316")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "CPCL";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "";
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                                //else if (is4digit == "MWG0" || is5digit == "CGK00" || is3digit == "DCM" || is3digit == "TBL" || is3digit == "RJM" || is3digit == "BVG" || is3digit == "VRE" || is3digit == "TBK" || is3digit == "VDM" || is3digit == "CGG")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "PRLA";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "";
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                                //else if (is4digit == "4737")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "FEDX";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "";
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                                //else if (is3digit == "ZPY")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "Standard";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "https://t.17track.net/en#nums=" + list.trackingNumber;
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                                //else if (is3digit == "ASL")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "ASL";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "https://ng-amz.shiptrackapp.com/view.aspx?lng=&tracking=" + list.trackingNumber;
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                                //else if (is3digit == "TBC")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "AMZN";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "";
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                                //else if (is4digit == "INTL")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "Intelcom";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "https://parcelsapp.com/en/tracking/" + list.trackingNumber;
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                                //else if (is3digit == "BNI")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "BNI";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "https://bnitracking.com/" + list.trackingNumber;
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                                //else if (is3digit == "DXA")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "DYNAMEX";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "https://parcelsapp.com/en/tracking/" + list.trackingNumber;
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                                //else if (is6digit == "JOEYCO")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "JOEYCO";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "https://parcelsapp.com/en/tracking/" + list.trackingNumber;
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                                //else if (is2digit == "1Z")
+                                //{
+                                //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                                //    updateTrackingShippingJsonViewModel.carrier_code = "UPSN";
+                                //    updateTrackingShippingJsonViewModel.carrier_name = "";
+                                //    updateTrackingShippingJsonViewModel.carrier_url = "";
+                                //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                                //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                                //    if (res_track == "204")
+                                //    {
+                                //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                                //        if (res_ship == 204 || res_ship == 400)
+                                //        {
+                                //            updateTrackingOne(list.bbe2TrackingId);
+                                //        }
+                                //    }
+                                //    else if (res_track == "400")
+                                //    {
+                                //        updateTrackingOne(list.bbe2TrackingId);
+                                //    }
+                                //}
+                            //else
+                            //{
+                            //    updateTrackingShippingJsonViewModel = new UpdateTrackingShippingJsonViewModel();
+                            //    updateTrackingShippingJsonViewModel.carrier_code = "";
+                            //    updateTrackingShippingJsonViewModel.carrier_name = "Standard";
+                            //    updateTrackingShippingJsonViewModel.carrier_url = "";
+                            //    updateTrackingShippingJsonViewModel.tracking_number = list.trackingNumber;
+                            //    string res_track = BestBuy_PutShippingTracking(list.bbOrderID, _getChannelCred.Key, updateTrackingShippingJsonViewModel);
+                            //    if (res_track == "204")
+                            //    {
+                            //        int res_ship = BestBuy_PutShippingShippedState(list.bbOrderID, _getChannelCred.Key);
+                            //        if (res_ship == 204 || res_ship == 400)
+                            //        {
+                            //            updateTrackingOne(list.bbe2TrackingId);
+                            //        }
+                            //    }
+                            //    else if (res_track == "400")
+                            //    {
+                            //        updateTrackingOne(list.bbe2TrackingId);
+                            //    }
+                            //}
                         }
                         catch (Exception ex)
-                        {                           
+                        {
                             continue;
                         }
                     }
                 }
+               
+
                 //foreach (var sku in skuList)
                 //{
                 //    GetProductInventoryForALLWarehousesResponseType[] result = null;

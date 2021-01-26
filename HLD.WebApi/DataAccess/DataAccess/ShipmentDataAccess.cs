@@ -931,5 +931,168 @@ namespace DataAccess.DataAccess
             }
             return ViewModel;
         }
+
+        public string BBtrackingCodes(BBtrackingCodesViewModel ViewModel)
+        {
+            string status = "false";
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand("p_SaveBBtrackingCodes", conn);
+                    cmdd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmdd.Parameters.AddWithValue("_CourierId", ViewModel.IdBBtrackingCodes);
+                    cmdd.Parameters.AddWithValue("_CarrierCode", ViewModel.CarrierCode);
+                    cmdd.Parameters.AddWithValue("_CarrierName", ViewModel.CarrierName);
+                    cmdd.Parameters.AddWithValue("_CarrierUrl", ViewModel.CarrierUrl);
+                    cmdd.Parameters.AddWithValue("_TrackingNumberCode", ViewModel.TrackingNumberCode);
+                
+                    cmdd.ExecuteNonQuery();
+                    status = "true";
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return status;
+        }
+        public List<BBtrackingCodesViewModel> GetBBtrackingCodesList()
+        {
+            List<BBtrackingCodesViewModel> listViewModel = new List<BBtrackingCodesViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetBBtrackingCodes", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            //listViewModel = new List<BBtrackingCodesViewModel>();
+                            while (reader.Read())
+                            {
+                                BBtrackingCodesViewModel model = new BBtrackingCodesViewModel();
+                                model.IdBBtrackingCodes = Convert.ToInt32(reader["IdBBtrackingCodes"] != DBNull.Value ? reader["IdBBtrackingCodes"] : 0);
+                                model.CarrierCode = Convert.ToString(reader["CarrierCode"] != DBNull.Value ? reader["CarrierCode"] : " ");
+                                model.CarrierName = Convert.ToString(reader["CarrierName"] != DBNull.Value ? reader["CarrierName"] : " ");
+                                model.CarrierUrl = Convert.ToString(reader["CarrierUrl"] != DBNull.Value ? reader["CarrierUrl"] : " ");
+                                model.TrackingNumberCode = Convert.ToString(reader["TrackingNumberCode"] != DBNull.Value ? reader["TrackingNumberCode"] : " ");
+                                listViewModel.Add(model);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return listViewModel;
+        }
+
+        public BBtrackingCodesViewModel EditBBtrackingCodesById(int id)
+        {
+            BBtrackingCodesViewModel model = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand(@"SELECT * FROM bestBuyE2.BBtrackingCodes where IdBBtrackingCodes=" + id, conn);
+                    cmdd.CommandType = System.Data.CommandType.Text;
+                    using (var reader = cmdd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+
+                            {
+                                model = new BBtrackingCodesViewModel();
+                                model.CarrierCode = Convert.ToString(reader["CarrierCode"]);
+                                model.CarrierName = Convert.ToString(reader["CarrierName"]);
+                                model.CarrierUrl = Convert.ToString(reader["CarrierUrl"]);
+                                model.TrackingNumberCode = Convert.ToString(reader["TrackingNumberCode"]);
+                                model.IdBBtrackingCodes = Convert.ToInt32(reader["IdBBtrackingCodes"]);
+                               
+
+
+                            }
+
+                        }
+                    }
+
+                }
+
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+
+        public bool CheckTrackingNumberExists(string name)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_CheckTrackingNumberExists", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_trackingnumber", name.Trim());
+                    cmd.Parameters.Add("Statues", MySqlDbType.Bit, 10);
+                    cmd.Parameters["Statues"].Direction = System.Data.ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();
+                    status = Convert.ToBoolean(cmd.Parameters["Statues"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
+        public int GetTrackingNumberCount()
+        {
+            int count = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(@"SELECT count(IdBBtrackingCodes) AS Records FROM bestBuyE2.BBtrackingCodes;", conn);
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    MySqlDataAdapter mySqlDataAdap = new MySqlDataAdapter(cmd);
+                    DataTable data = new DataTable();
+                    mySqlDataAdap.Fill(data);
+                    if (data.Rows.Count > 0)
+                    {
+                        foreach (DataRow datarow in data.Rows)
+                        {
+                            ZincWatchListSummaryViewModal model = new ZincWatchListSummaryViewModal();
+                            count = Convert.ToInt32(datarow["Records"] != DBNull.Value ? datarow["Records"] : "0");
+
+
+                        }
+
+                    }
+                }
+                return count;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
