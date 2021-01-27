@@ -84,7 +84,7 @@ namespace HLD.WebApi.Jobs
                                 ListorderLine_Accept.Add(orderLine_Accept);
                             }
                             acceptBesyBuyOrder.order_lines = ListorderLine_Accept;
-                            BestBuy_acceptOrder(_getChannelCredViewModel.Key, item, acceptBesyBuyOrder);
+                            //         BestBuy_acceptOrder(_getChannelCredViewModel.Key, item, acceptBesyBuyOrder);
                         }
                         else
                         {
@@ -117,7 +117,7 @@ namespace HLD.WebApi.Jobs
 
 
                 //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://marketplace.bestbuy.ca/api/orders?paginate=false&order_ids=218377639-A");
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://marketplace.bestbuy.ca/api/orders?order=desc&max=99");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://marketplace.bestbuy.ca/api/orders?order=desc&max=999");
                 request.Method = "GET";
                 request.Accept = "application/json;";
                 request.ContentType = "application/json";
@@ -259,3 +259,4 @@ namespace HLD.WebApi.Jobs
         }
     }
 }
+

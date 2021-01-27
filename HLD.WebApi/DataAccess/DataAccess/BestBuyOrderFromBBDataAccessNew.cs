@@ -13,11 +13,11 @@ namespace DataAccess.DataAccess
    public class BestBuyOrderFromBBDataAccessNew
     {
         public string connStr { get; set; }
-        public string DOTconnStr { get; set; }
+      //  public string DOTconnStr { get; set; }
         public BestBuyOrderFromBBDataAccessNew(IConnectionString connectionString)
         {
-           // connStr = connectionString.GetPhpConnectionString();
-            DOTconnStr = connectionString.GetConnectionString();
+            // connStr = connectionString.GetPhpConnectionString();
+              connStr = connectionString.GetConnectionString();
         }
         public List<string> GetOrderAlreadyExist(string scOrderIds)
         {
@@ -28,7 +28,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_CheckOrderInBBOrderID", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_CheckExistingordersForBB", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("SCId", scOrderIds);
                     MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
@@ -72,9 +72,18 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_total_price", order.total_price);
                     cmd.Parameters.AddWithValue("_created_date", order.created_date);
                     cmd.Parameters.AddWithValue("_acceptance_decision_date", order.acceptance_decision_date);
-
-
-
+                    cmd.Parameters.AddWithValue("_shipping_price", order.shipping_price);
+                    
+                    cmd.Parameters.AddWithValue("_firstname", order.customer.shipping_address != null ? order.customer.shipping_address.firstname : "");
+                    cmd.Parameters.AddWithValue("_lastname", order.customer.shipping_address != null ? order.customer.shipping_address.lastname : "");
+                    cmd.Parameters.AddWithValue("_phone", order.customer.shipping_address != null ? order.customer.shipping_address.phone : "");
+                    cmd.Parameters.AddWithValue("_phone_secondary", order.customer.shipping_address != null ? order.customer.shipping_address.phone_secondary : "");
+                    cmd.Parameters.AddWithValue("_state", order.customer.shipping_address != null ? order.customer.shipping_address.state : "");
+                    cmd.Parameters.AddWithValue("_street_1", order.customer.shipping_address != null ? order.customer.shipping_address.street_1 : "");
+                    cmd.Parameters.AddWithValue("_street_2", order.customer.shipping_address != null ? order.customer.shipping_address.street_2 : "");
+                    cmd.Parameters.AddWithValue("_zip_code", order.customer.shipping_address != null ? order.customer.shipping_address.zip_code : "");
+                    cmd.Parameters.AddWithValue("_city", order.customer.shipping_address != null ? order.customer.shipping_address.city : "");
+                    cmd.Parameters.AddWithValue("_country", order.customer.shipping_address != null ? order.customer.shipping_address.country : "");
                     cmd.Parameters.Add("_bbe2_orders_id", MySqlDbType.Int32, 500);
                     cmd.Parameters["_bbe2_orders_id"].Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
@@ -112,6 +121,7 @@ namespace DataAccess.DataAccess
                         cmd.Parameters.AddWithValue("_total_price", item.price_unit);
                         cmd.Parameters.AddWithValue("_total_commission", item.total_commission);
                         cmd.Parameters.AddWithValue("_order_line_state", item.order_line_state);
+                        cmd.Parameters.AddWithValue("_ShippingFee", item.shipping_price);
                         cmd.Parameters.AddWithValue("_TaxGST", item.taxes.Where(p => p.code == "GST").Select(p => p.amount).FirstOrDefault());
                         cmd.Parameters.AddWithValue("_TaxPST", item.taxes.Where(p => p.code != "GST").Select(p => p.amount).FirstOrDefault());
 
@@ -144,17 +154,6 @@ namespace DataAccess.DataAccess
                     comd.CommandType = System.Data.CommandType.StoredProcedure;
                     comd.Parameters.AddWithValue("_bbe2_orders_id", bbe2_orders_id);
                     comd.Parameters.AddWithValue("_commercial_id", order.commercial_id);
-                    comd.Parameters.AddWithValue("_customer_id", order.customer.customer_id);
-                    comd.Parameters.AddWithValue("_firstname", order.customer.shipping_address != null ? order.customer.shipping_address.firstname : "");
-                    comd.Parameters.AddWithValue("_lastname", order.customer.shipping_address != null ? order.customer.shipping_address.lastname : "");
-                    comd.Parameters.AddWithValue("_phone", order.customer.shipping_address != null ? order.customer.shipping_address.phone : "");
-                    comd.Parameters.AddWithValue("_phone_secondary", order.customer.shipping_address != null ? order.customer.shipping_address.phone_secondary : "");
-                    comd.Parameters.AddWithValue("_state", order.customer.shipping_address != null ? order.customer.shipping_address.state : "");
-                    comd.Parameters.AddWithValue("_street_1", order.customer.shipping_address != null ? order.customer.shipping_address.street_1 : "");
-                    comd.Parameters.AddWithValue("_street_2", order.customer.shipping_address != null ? order.customer.shipping_address.street_2 : "");
-                    comd.Parameters.AddWithValue("_zip_code", order.customer.shipping_address != null ? order.customer.shipping_address.zip_code : "");
-                    comd.Parameters.AddWithValue("_city", order.customer.shipping_address != null ? order.customer.shipping_address.city : "");
-                    comd.Parameters.AddWithValue("_country", order.customer.shipping_address != null ? order.customer.shipping_address.country : "");
                     comd.Parameters.AddWithValue("_shipping_carrier_code", order.shipping_carrier_code);
                     comd.Parameters.AddWithValue("_shipping_company", order.shipping_company);
                     comd.Parameters.AddWithValue("_shipping_price", order.shipping_price);
@@ -209,7 +208,7 @@ namespace DataAccess.DataAccess
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(DOTconnStr))
+                using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
                     foreach (var item in _orderSKU)
@@ -263,11 +262,21 @@ namespace DataAccess.DataAccess
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("_commercial_id", order.commercial_id);
-                    cmd.Parameters.AddWithValue("_customer_id", order.customer.customer_id);
+                
                     cmd.Parameters.AddWithValue("_shipping_id", order.shipping_tracking);
                     cmd.Parameters.AddWithValue("_can_cancel", order.can_cancel);
                     cmd.Parameters.AddWithValue("_order_state", order.order_state);
-
+                    cmd.Parameters.AddWithValue("_customer_id", order.customer.customer_id);
+                    cmd.Parameters.AddWithValue("_firstname", order.customer.shipping_address != null ? order.customer.shipping_address.firstname : "");
+                    cmd.Parameters.AddWithValue("_lastname", order.customer.shipping_address != null ? order.customer.shipping_address.lastname : "");
+                    cmd.Parameters.AddWithValue("_phone", order.customer.shipping_address != null ? order.customer.shipping_address.phone : "");
+                    cmd.Parameters.AddWithValue("_phone_secondary", order.customer.shipping_address != null ? order.customer.shipping_address.phone_secondary : "");
+                    cmd.Parameters.AddWithValue("_state", order.customer.shipping_address != null ? order.customer.shipping_address.state : "");
+                    cmd.Parameters.AddWithValue("_street_1", order.customer.shipping_address != null ? order.customer.shipping_address.street_1 : "");
+                    cmd.Parameters.AddWithValue("_street_2", order.customer.shipping_address != null ? order.customer.shipping_address.street_2 : "");
+                    cmd.Parameters.AddWithValue("_zip_code", order.customer.shipping_address != null ? order.customer.shipping_address.zip_code : "");
+                    cmd.Parameters.AddWithValue("_city", order.customer.shipping_address != null ? order.customer.shipping_address.city : "");
+                    cmd.Parameters.AddWithValue("_country", order.customer.shipping_address != null ? order.customer.shipping_address.country : "");
                     cmd.Parameters.AddWithValue("_acceptance_decision_date", order.acceptance_decision_date);
 
 
@@ -338,17 +347,7 @@ namespace DataAccess.DataAccess
                     comd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     comd.Parameters.AddWithValue("_commercial_id", order.commercial_id);
-                    comd.Parameters.AddWithValue("_customer_id", order.customer.customer_id);
-                    comd.Parameters.AddWithValue("_firstname", order.customer.shipping_address != null ? order.customer.shipping_address.firstname : "");
-                    comd.Parameters.AddWithValue("_lastname", order.customer.shipping_address != null ? order.customer.shipping_address.lastname : "");
-                    comd.Parameters.AddWithValue("_phone", order.customer.shipping_address != null ? order.customer.shipping_address.phone : "");
-                    comd.Parameters.AddWithValue("_phone_secondary", order.customer.shipping_address != null ? order.customer.shipping_address.phone_secondary : "");
-                    comd.Parameters.AddWithValue("_state", order.customer.shipping_address != null ? order.customer.shipping_address.state : "");
-                    comd.Parameters.AddWithValue("_street_1", order.customer.shipping_address != null ? order.customer.shipping_address.street_1 : "");
-                    comd.Parameters.AddWithValue("_street_2", order.customer.shipping_address != null ? order.customer.shipping_address.street_2 : "");
-                    comd.Parameters.AddWithValue("_zip_code", order.customer.shipping_address != null ? order.customer.shipping_address.zip_code : "");
-                    comd.Parameters.AddWithValue("_city", order.customer.shipping_address != null ? order.customer.shipping_address.city : "");
-                    comd.Parameters.AddWithValue("_country", order.customer.shipping_address != null ? order.customer.shipping_address.country : "");
+                   
                     comd.Parameters.AddWithValue("_shipping_carrier_code", order.shipping_carrier_code);
                     comd.Parameters.AddWithValue("_shipping_company", order.shipping_company);
                     comd.Parameters.AddWithValue("_shipping_price", order.shipping_price);

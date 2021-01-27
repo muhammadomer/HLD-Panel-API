@@ -1,8 +1,11 @@
 ﻿using Amazon.Runtime.Internal.Util;
-using AutoMapper.Configuration;
+
 using DataAccess.DataAccess;
 using DataAccess.Helper;
 using DataAccess.ViewModels;
+using HLD.WebApi.Enum;
+using HLD.WebApi.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Quartz;
@@ -13,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HLD.WebApi.Jobs
@@ -24,23 +28,29 @@ namespace HLD.WebApi.Jobs
 
         AddOrderToSCDataAccessNew _addOrderToSCDataAccess = null;
         private readonly IConfiguration _configuration;
+        private readonly ISendEmailOfNewOrder _sendEmailOfNew;
         private readonly Microsoft.Extensions.Logging.ILogger logger;
         GetChannelCredViewModel _getChannelCredViewModel = null;
         ChannelDecrytionDataAccess channelDecrytionDataAccess = null;
+        BestBuyProductDataAccess _bestBuyProductDataAccess = null;
+        SellerCloudOrderDataAccessNew _sellerCloudOrderDataAccess = null;
         EncDecChannel _EncDecChannel = null;
         string ApiURL = null;
         ServiceReference1.AuthHeader authHeader = null;
-        public CreateOrderInSellerCloudNewJob(IConnectionString connectionString, ILogger<CreateOrderInSellerCloud> _logger, IConfiguration configuration)
+        public CreateOrderInSellerCloudNewJob(IConnectionString connectionString, ILogger<CreateOrderInSellerCloud> _logger, IConfiguration configuration, ISendEmailOfNewOrder sendEmailOfNew)
         {
 
             _connectionString = connectionString;
 
             this._configuration = configuration;
-          //  ApiURL = _configuration.GetValue<string>("SCURL:URL");
+            ApiURL = _configuration.GetValue<string>("SCURL:URL");
             _EncDecChannel = new EncDecChannel(_connectionString);
-           // _addOrderToSCDataAccess = new AddOrderToSCDataAccess(_connectionString);
+            _bestBuyProductDataAccess = new BestBuyProductDataAccess(_connectionString);
+            _sellerCloudOrderDataAccess = new SellerCloudOrderDataAccessNew(_connectionString);
+            _addOrderToSCDataAccess = new AddOrderToSCDataAccessNew(_connectionString);
             channelDecrytionDataAccess = new ChannelDecrytionDataAccess(_connectionString);
             this.logger = _logger;
+            _sendEmailOfNew = sendEmailOfNew;
 
 
         }
@@ -64,6 +74,10 @@ namespace HLD.WebApi.Jobs
             bool Issent = false;
             _getChannelCredViewModel = new GetChannelCredViewModel();
             _getChannelCredViewModel = _EncDecChannel.DecryptedData("sellercloud");
+            Thread emailThread = new Thread(() => _sendEmailOfNew.SendNewEmail(7073624));
+            emailThread.Start();
+
+            await GetSC_OrderStatusAsync(7073624, _getChannelCredViewModel);
             try
             {
                 List<UnCreatedOrderViewModel> unCreatedOrderViewModel = new List<UnCreatedOrderViewModel>();
@@ -74,7 +88,7 @@ namespace HLD.WebApi.Jobs
                 {
                     AuthenticateSCRestViewModel responses = new AuthenticateSCRestViewModel();
                     responses = AuthenticateSC();
-                    foreach (var item in unCreatedOrderViewModel)
+                    foreach (var item in unCreatedOrderViewModel.Where(p => p.Orderid == "225104145-A"))
                     {
                         // check payment status
                         bool status = _addOrderToSCDataAccess.CheckCityOrder(item.bbe2OrdersId);
@@ -94,61 +108,61 @@ namespace HLD.WebApi.Jobs
                             int shippingPrice = createOrderOnSCViewModel.ShippingMethodDetails.ShippingFee;
                             SellerCloudOrderIdViewModel sellerCloudOrderIdViewModel = new SellerCloudOrderIdViewModel();
 
-                            int OrderID = await ConfirmOrderByOrderSourceIDFromSellerCloudAsync(item.Orderid, _getChannelCredViewModel);
+                            //int OrderID = await ConfirmOrderByOrderSourceIDFromSellerCloudAsync(item.Orderid, _getChannelCredViewModel);
 
 
-                            if (OrderID != 0)
+                            //if (OrderID != 0)
+                            //{
+                            //    bool Updatedstatus = _addOrderToSCDataAccess.UpdateSellerID(item.Orderid, OrderID);
+
+                            //}
+                            //else
+                            //{
+                            // create on sc
+                            sellerCloudOrderIdViewModel = SendToSCOrderCreateNew(createOrderOnSCViewModel, responses.access_token);
+
+                            if (sellerCloudOrderIdViewModel.StatusCode == 200)
                             {
-                                bool Updatedstatus = _addOrderToSCDataAccess.UpdateSellerID(item.Orderid, OrderID);
-                                //MaunualPaymentOnSellercloudViewCloud onSellercloudViewCloud = new MaunualPaymentOnSellercloudViewCloud();
-                                //Random random = new Random();
-                                //int transactionid = random.Next(11111111, 99999999);
-                                //onSellercloudViewCloud.Amount = Convert.ToDouble(am + tax + shippingPrice);
-                                //onSellercloudViewCloud.Notes = "Manual";
-                                //onSellercloudViewCloud.PaymentMethod = "Cash";
-                                //onSellercloudViewCloud.ReferenceNumber = transactionid.ToString();
+                                logger.LogInformation("before Update on local => " + "BBID" + item.Orderid + "SCID => " + sellerCloudOrderIdViewModel.SellerCloudId);
+                                if (sellerCloudOrderIdViewModel.SellerCloudId != 0)
+                                {
+                                    logger.LogInformation("Update on local => " + sellerCloudOrderIdViewModel.SellerCloudId);
+                                    bool Updatedstatus = _addOrderToSCDataAccess.UpdateSellerID(item.Orderid, sellerCloudOrderIdViewModel.SellerCloudId);
 
-                                //ReceiveManualPayment(responses.access_token, sellerCloudOrderIdViewModel.SellerCloudId, onSellercloudViewCloud);
+                                    MaunualPaymentOnSellercloudViewCloud onSellercloudViewCloud = new MaunualPaymentOnSellercloudViewCloud();
+                                    Random random = new Random();
+                                    int transactionid = random.Next(11111111, 99999999);
+                                    onSellercloudViewCloud.Amount = Convert.ToDouble(am + tax + shippingPrice);
+                                    onSellercloudViewCloud.Notes = "Manual";
+                                    onSellercloudViewCloud.PaymentMethod = "Cash";
+                                    onSellercloudViewCloud.ReferenceNumber = transactionid.ToString();
+
+                                    ReceiveManualPayment(responses.access_token, sellerCloudOrderIdViewModel.SellerCloudId, onSellercloudViewCloud);
+                                    Issent = true;
+
+
+                                    // Generate Emails Here for payments Orders
+                                    //Thread emailThread = new Thread(() => _sendEmailOfNew.SendNewEmail(sellerCloudOrderIdViewModel.SellerCloudId));
+                                    //emailThread.Start();
+
+                                    await GetSC_OrderStatusAsync(sellerCloudOrderIdViewModel.SellerCloudId, _getChannelCredViewModel);
+
+                                }
+
                             }
+                            else if (sellerCloudOrderIdViewModel.StatusCode == 401)
+                            {
+                                responses = AuthenticateSC();
+                                continue;
+                            }
+
                             else
                             {
-                                // create on sc
-                                sellerCloudOrderIdViewModel = SendToSCOrderCreateNew(createOrderOnSCViewModel, responses.access_token);
+                                SendEmailForMisssedOrder(createOrderOnSCViewModel);
 
-                                if (sellerCloudOrderIdViewModel.StatusCode == 200)
-                                {
-                                    logger.LogInformation("before Update on local => " + "BBID" + item.Orderid + "SCID => " + sellerCloudOrderIdViewModel.SellerCloudId);
-                                    if (sellerCloudOrderIdViewModel.SellerCloudId != 0)
-                                    {
-                                        logger.LogInformation("Update on local => " + sellerCloudOrderIdViewModel.SellerCloudId);
-                                        bool Updatedstatus = _addOrderToSCDataAccess.UpdateSellerID(item.Orderid, sellerCloudOrderIdViewModel.SellerCloudId);
-
-                                        MaunualPaymentOnSellercloudViewCloud onSellercloudViewCloud = new MaunualPaymentOnSellercloudViewCloud();
-                                        Random random = new Random();
-                                        int transactionid = random.Next(11111111, 99999999);
-                                        onSellercloudViewCloud.Amount = Convert.ToDouble(am + tax + shippingPrice);
-                                        onSellercloudViewCloud.Notes = "Manual";
-                                        onSellercloudViewCloud.PaymentMethod = "Cash";
-                                        onSellercloudViewCloud.ReferenceNumber = transactionid.ToString();
-
-                                        ReceiveManualPayment(responses.access_token, sellerCloudOrderIdViewModel.SellerCloudId, onSellercloudViewCloud);
-                                        Issent = true;
-                                    }
-
-                                }
-                                else if (sellerCloudOrderIdViewModel.StatusCode == 401)
-                                {
-                                    responses = AuthenticateSC();
-                                    continue;
-                                }
-
-                                else
-                                {
-                                    SendEmailForMisssedOrder(createOrderOnSCViewModel);
-
-                                    continue;
-                                }
+                                continue;
                             }
+                            //  }
 
                         }
                     }
@@ -176,7 +190,7 @@ namespace HLD.WebApi.Jobs
                 authHeader.Password = _getChannel.Key;
                 ServiceReference1.SCServiceSoapClient sCServiceSoap =
                        new ServiceReference1.SCServiceSoapClient(ServiceReference1.SCServiceSoapClient.EndpointConfiguration.SCServiceSoap12);
-                ServiceReference1.UpdateOrderDropShipStatusRequest request = new UpdateOrderDropShipStatusRequest(authHeader, null, 2345, DropShipStatusType.Requested);
+                ServiceReference1.UpdateOrderDropShipStatusRequest request = new UpdateOrderDropShipStatusRequest(authHeader, null, 2345, DropShipStatusType2.Requested);
 
                 var data = await sCServiceSoap.Orders_GetByOrderSourceOrderIDAsync(authHeader, null, ServiceReference1.OrderSource.Website, 513, OrderID);
                 orderID = data.Orders_GetByOrderSourceOrderIDResult;
@@ -397,6 +411,75 @@ namespace HLD.WebApi.Jobs
                 //return e.Message;
             }
 
+        }
+        public async Task<bool> GetSC_OrderStatusAsync(int SCOrderID, GetChannelCredViewModel _getChannelCredViewModel)
+        {
+            authHeader = new AuthHeader();
+            authHeader.ValidateDeviceID = false;
+            authHeader.UserName = _getChannelCredViewModel.UserName;
+            authHeader.Password = _getChannelCredViewModel.Key;
+
+            // send request to sc for orders 
+            ServiceReference1.SCServiceSoapClient sCServiceSoap =
+                      new ServiceReference1.SCServiceSoapClient(ServiceReference1.SCServiceSoapClient.EndpointConfiguration.SCServiceSoap12);
+            var data = await sCServiceSoap.Orders_GetOrderStateAsync(authHeader, null, Convert.ToInt32(SCOrderID));
+            ServiceReference1.OrderStatusCode orderStatusCode = data.Orders_GetOrderStateResult.StatusCode;
+            ServiceReference1.DropShipStatusType2 dropshipStatus = data.Orders_GetOrderStateResult.DropShipStatus;
+            ServiceReference1.OrderPaymentStatus2 paymentStatus = data.Orders_GetOrderStateResult.PaymentStatus;
+            //if (orderStatusCode.ToString() != "InProcess")
+            //{
+            int status = 0;
+            if (orderStatusCode.ToString() == "Canceled")
+            {
+                status = (int)SellerCloudOrderStatusCategory.Canceled;
+            }
+            else if (orderStatusCode.ToString() == "ShoppingCart")
+            {
+                status = (int)SellerCloudOrderStatusCategory.ShoppingCart;
+            }
+            else if (orderStatusCode.ToString() == "InProcess")
+            {
+                status = (int)SellerCloudOrderStatusCategory.InProcess;
+            }
+            else if (orderStatusCode.ToString() == "ProblemOrder")
+            {
+                status = (int)SellerCloudOrderStatusCategory.ProblemOrder;
+            }
+            else if (orderStatusCode.ToString() == "OnHold")
+            {
+                status = (int)SellerCloudOrderStatusCategory.OnHold;
+            }
+            else if (orderStatusCode.ToString() == "Quote")
+            {
+                status = (int)SellerCloudOrderStatusCategory.Quote;
+            }
+            else if (orderStatusCode.ToString() == "Void")
+            {
+                status = (int)SellerCloudOrderStatusCategory.Void;
+            }
+            else if (orderStatusCode.ToString() == "InProcess or Completed")
+            {
+                status = (int)SellerCloudOrderStatusCategory.InProcess_or_Completed;
+            }
+            else if (orderStatusCode.ToString() == "InProcess or Hold")
+            {
+                status = (int)SellerCloudOrderStatusCategory.InProcess_or_Hold;
+            }
+            else if (orderStatusCode.ToString() == "Completed")
+            {
+                status = (int)SellerCloudOrderStatusCategory.Completed;
+            }
+            _sellerCloudOrderDataAccess.SaveSellerCloudOrderStatus(SCOrderID.ToString(), status.ToString(), paymentStatus.ToString());
+
+            _sellerCloudOrderDataAccess.UpdateSCOrderDropShipStatus(new UpdateSCDropshipStatusViewModel()
+            {
+                IsTrackingUpdate = false,
+                LogDate = DateTimeExtensions.ConvertToEST(DateTime.Now),
+                SCOrderID = Convert.ToInt32(SCOrderID),
+                StatusName = dropshipStatus.ToString()
+            });
+
+            return true;
         }
     }
 }

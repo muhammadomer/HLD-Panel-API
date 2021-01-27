@@ -17,7 +17,6 @@ namespace DataAccess.DataAccess
         {
             connStr = connectionString.GetConnectionString();
         }
-
         public int SaveZincOrderLog(ZincOrderLogViewModel ViewModel)
         {
             int ZincOrderLogID = 0;
@@ -44,7 +43,32 @@ namespace DataAccess.DataAccess
             return ZincOrderLogID;
         }
 
+        public int SaveZincOrderLogNew(ZincOrderLogViewModel ViewModel)
+        {
+            int ZincOrderLogID = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_SaveZincOrderDetailsInNewTables", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_sc_order_id", ViewModel.SellerCloudOrderId);
+                    cmd.Parameters.AddWithValue("_request_id", ViewModel.RequestIDOfZincOrder);
+                    cmd.Parameters.AddWithValue("_order_datetime", ViewModel.OrderDatetime);
+                    cmd.Parameters.AddWithValue("_ZincAccountId", ViewModel.ZincAccountId);
+                    cmd.Parameters.AddWithValue("_CreditCardId", ViewModel.CreditCardId);
+                    cmd.Parameters.AddWithValue("_zinc_order_status_internal", ViewModel.ZincOrderStatusInternal);
+                    cmd.ExecuteNonQuery();
 
+
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return ZincOrderLogID;
+        }
         public int SaveZincOrderLogDetail(ZincOrderLogDetailViewModel ViewModel)
         {
             int zincOrderLogDetailID = 0;
@@ -92,7 +116,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_order_code", ViewModel.Code);
                     cmd.Parameters.AddWithValue("_order_message", ViewModel.Message);
                     cmd.Parameters.AddWithValue("_order_type", ViewModel.Type);
-                    cmd.Parameters.AddWithValue("_zinc_order_log_id", ViewModel.ZincOrderLogID);
+                    cmd.Parameters.AddWithValue("_zinc_order_log_id", ViewModel.OurInternalOrderId);
                     cmd.Parameters.AddWithValue("_order_data", ViewModel.Data);
                     cmd.Parameters.AddWithValue("_shpping_date", ViewModel.ShppingDate);
                     cmd.Parameters.AddWithValue("_tracking_number", ViewModel.TrackingNumber);
@@ -102,10 +126,9 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_order_datetime", ViewModel.OrderDatetime);
                     cmd.Parameters.AddWithValue("_zinc_order_status_internal", ViewModel.ZincOrderStatusInternal);
                     cmd.Parameters.AddWithValue("_merchant_order_id", ViewModel.MerchantOrderId);
-                    cmd.Parameters.Add("@_zinc_order_log_detail_id", MySqlDbType.Int32, 500);
-                    cmd.Parameters["@_zinc_order_log_detail_id"].Direction = ParameterDirection.Output;
+                  
                     cmd.ExecuteNonQuery();
-                    zincOrderLogDetailID = Convert.ToInt32(cmd.Parameters["@_zinc_order_log_detail_id"].Value);
+                    zincOrderLogDetailID = 0;
                 }
             }
             catch (Exception ex)

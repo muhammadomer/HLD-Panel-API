@@ -27,9 +27,9 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-//                    MySqlCommand cmd = new MySqlCommand(@"SELECT `order_id`,orders.`bbe2_orders_id` FROM `bestBuyE2`.`orders` 
-//inner join `customer` on `orders`.`bbe2_orders_id` = `customer`.`bbe2_orders_id`
-//WHERE orders.`inSellerCloud`= 0 and `customer`.`city` <>'';", conn);
+                    //                    MySqlCommand cmd = new MySqlCommand(@"SELECT `order_id`,orders.`bbe2_orders_id` FROM `bestBuyE2`.`orders` 
+                    //inner join `customer` on `orders`.`bbe2_orders_id` = `customer`.`bbe2_orders_id`
+                    //WHERE orders.`inSellerCloud`= 0 and `customer`.`city` <>'';", conn);
                     MySqlCommand cmd = new MySqlCommand(@"SELECT `order_id`,`SCOrdersId` FROM `bestBuyE2`.`SCOrders` WHERE `inSellerCloud`= 0 and `city` <>'';", conn);
                     cmd.CommandType = System.Data.CommandType.Text;
                     MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmd);
@@ -312,3 +312,4 @@ namespace DataAccess.DataAccess
         }
     }
 }
+

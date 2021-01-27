@@ -26,10 +26,10 @@ namespace HLD.WebApi.Controllers
         [HttpPost]
         [Authorize]
         [Route("api/ZincOrderLog/SaveZincOrderLogDetail")]
-        public  IActionResult SaveZincOrderLogDetail([FromBody] ZincOrderLogDetailViewModel viewModel)
+        public IActionResult SaveZincOrderLogDetail([FromBody] ZincOrderLogDetailViewModel viewModel)
         {
             int zincOrderLogDetailID = 0;
-            zincOrderLogDetailID =  _DataAccess.SaveZincOrderLogDetail(viewModel);
+            zincOrderLogDetailID = _DataAccess.SaveZincOrderLogDetail(viewModel);
             return Ok(zincOrderLogDetailID);
         }
         [HttpPost]
@@ -38,7 +38,8 @@ namespace HLD.WebApi.Controllers
         public IActionResult SaveZincOrderLog([FromBody] ZincOrderLogViewModel viewModel)
         {
             int zincOrderLogID = 0;
-            zincOrderLogID = _DataAccess.SaveZincOrderLog(viewModel);
+            // zincOrderLogID = _DataAccess.SaveZincOrderLog(viewModel);
+            zincOrderLogID = _DataAccess.SaveZincOrderLogNew(viewModel);
             return Ok(zincOrderLogID);
         }
 
@@ -52,7 +53,7 @@ namespace HLD.WebApi.Controllers
             return Ok(model);
         }
 
-        
+
 
     }
 }

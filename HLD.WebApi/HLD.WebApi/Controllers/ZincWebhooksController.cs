@@ -56,13 +56,13 @@ namespace HLD.WebApi.Controllers
         }
         // failure Webhooks
         [HttpPost]
-        
+
         [Route("failure")]
         public IActionResult ZincFailureWebhook([FromBody] object response)
         {
             try
             {
-                logger.LogInformation("ZincFailureWebhook is called"+response);
+                logger.LogInformation("ZincFailureWebhook is called" + response);
                 ZincOrderLogDetailViewModel model = new ZincOrderLogDetailViewModel();
                 ZincOrderIDModelforWebhooks logidmodel = new ZincOrderIDModelforWebhooks();
                 var X = JObject.Parse(response.ToString());
@@ -73,21 +73,21 @@ namespace HLD.WebApi.Controllers
                 var request = X["request"];
                 var sci = request.SelectToken("client_notes.our_internal_order_id");
                 string commonMessage = "";
-               
-               
+
+
                 if (message != null)
                 {
                     commonMessage = message.ToString();
                 }
-                
+
                 model.Message = commonMessage;
 
                 //setting internal zinc order status
                 if (type != null && type.ToString() != "error")
                 {
-                   
-                        model.ZincOrderStatusInternal = ZincOrderLogInternalStatus.Error.ToString();
-                    
+
+                    model.ZincOrderStatusInternal = ZincOrderLogInternalStatus.Error.ToString();
+
 
                     model.Type = type.ToString();
                 }
@@ -103,7 +103,7 @@ namespace HLD.WebApi.Controllers
 
                 if (type != null && code != null)
                 {
-                    
+
                     if (type.ToString() == "error" && code.ToString() == "request_processing")
                     {
                         model.ZincOrderStatusInternal = ZincOrderLogInternalStatus.InProcess.ToString();
@@ -123,10 +123,10 @@ namespace HLD.WebApi.Controllers
                     model.Code = code.ToString();
                 }
 
-                
+
                 model.OrderDatetime = DateTimeExtensions.ConvertToEST(DateTime.Now);
-              
-                _zincOrderLogDataAccess.SaveZincOrderLogDetail(model);
+
+                _zincOrderLogDataAccess.SaveZincOrderLogDetailNew(model);
 
 
                 if (model.ZincOrderStatusInternal == ZincOrderLogInternalStatus.Error.ToString())
@@ -147,7 +147,7 @@ namespace HLD.WebApi.Controllers
         [HttpPost]
 
         [Route("Success")]
-        public  IActionResult ZincSuccessWebhookAsync([FromBody] object response)
+        public IActionResult ZincSuccessWebhookAsync([FromBody] object response)
         {
             try
             {
@@ -156,10 +156,10 @@ namespace HLD.WebApi.Controllers
                 ZincOrderIDModelforWebhooks logidmodel = new ZincOrderIDModelforWebhooks();
                 var X = JObject.Parse(response.ToString());
                 var type = X["_type"];
-              
+
                 string commonMessage = "";
                 var delivery_dates = X["delivery_dates"];
-               
+
                 var request = X["request"];
                 var sci = request.SelectToken("client_notes.our_internal_order_id");
 
@@ -168,8 +168,8 @@ namespace HLD.WebApi.Controllers
                     commonMessage = delivery_dates[0].Value<string>("delivery_date").ToString();
 
                 }
-                
-                
+
+
                 model.Message = commonMessage;
 
                 //setting internal zinc order status
@@ -183,23 +183,23 @@ namespace HLD.WebApi.Controllers
                     {
                         model.ZincOrderStatusInternal = ZincOrderLogInternalStatus.InProcess.ToString();
                     }
-                  
-                
+
+
                     model.Type = type.ToString();
                 }
-                
+
                 if (sci != null)
                 {
-                    
-                        model.OurInternalOrderId = sci.ToString();
-                        logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
-                        model.ZincOrderLogID = logidmodel.zinc_order_log_id;
-                    
+
+                    model.OurInternalOrderId = sci.ToString();
+                    logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
+                    model.ZincOrderLogID = logidmodel.zinc_order_log_id;
+
                 }
-              
+
                 model.OrderDatetime = DateTimeExtensions.ConvertToEST(DateTime.Now);
-                
-                _zincOrderLogDataAccess.SaveZincOrderLogDetail(model);
+
+                _zincOrderLogDataAccess.SaveZincOrderLogDetailNew(model);
 
                 return Ok();
             }
@@ -218,35 +218,35 @@ namespace HLD.WebApi.Controllers
             try
             {
                 logger.LogInformation("ZinctrackingWebhookAsync is called" + response);
-               
+
                 ZincOrderLogDetailViewModel model = new ZincOrderLogDetailViewModel();
-                ZincOrderIDModelforWebhooks  logidmodel = new ZincOrderIDModelforWebhooks();
+                ZincOrderIDModelforWebhooks logidmodel = new ZincOrderIDModelforWebhooks();
                 var X = JObject.Parse(response.ToString());
                 var type = X["_type"];
-              
+
                 string commonMessage = "";
                 var delivery_dates = X["delivery_dates"];
                 var tracking = X["tracking"];
-               
+
                 var request = X["request"];
-                var scid=request.SelectToken("client_notes.our_internal_order_id");
+                var scid = request.SelectToken("client_notes.our_internal_order_id");
                 if (delivery_dates != null && delivery_dates.Count() != 0)
                 {
                     commonMessage = delivery_dates[0].Value<string>("delivery_date").ToString();
 
                 }
 
-               
+
                 model.Message = commonMessage;
-                
+
                 if (scid != null)
                 {
 
                     model.OurInternalOrderId = scid.ToString();
 
-                        logidmodel =  _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
-                        model.ZincOrderLogID = logidmodel.zinc_order_log_id;
-                    
+                    logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
+                    model.ZincOrderLogID = logidmodel.zinc_order_log_id;
+
                 }
 
                 //checking tracking of an zinc order
@@ -290,11 +290,11 @@ namespace HLD.WebApi.Controllers
                         await SendTrackingToSCWebhooks(model.OurInternalOrderId, sKUQTYModelforWebhooks.SKU, sKUQTYModelforWebhooks.Qty.ToString(), model.ShppingDate, model.TrackingNumber);
                     }
                 }
-              
+
                 model.OrderDatetime = DateTimeExtensions.ConvertToEST(DateTime.Now);
-               
-               
-                _zincOrderLogDataAccess.SaveZincOrderLogDetail(model);
+
+
+                _zincOrderLogDataAccess.SaveZincOrderLogDetailNew(model);
 
                 return Ok();
             }
@@ -337,7 +337,7 @@ namespace HLD.WebApi.Controllers
                 req.WarehouseName = "DropShip Canada";
                 req.TrackingNumber = trackingNo;
 
-                
+
                 string[] splitString = shippingDate.Split('/');
                 string[] yearSplit = splitString[2].Split(' ');
                 string[] splitStringtime = shippingDate.Split(':');
