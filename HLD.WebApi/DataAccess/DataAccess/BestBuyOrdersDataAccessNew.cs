@@ -459,7 +459,7 @@ namespace DataAccess.DataAccess
         public List<BestBuyOrdersViewModel> GetAllBestBuyOrders(int startLimit, int endLimit, string sort)
         {
             MySqlConnection mySqlConnection = null;
-            List<BestBuyOrdersViewModel> listBBProductViewModel = null;
+            List<BestBuyOrdersViewModel> listBBProductViewModel = new List<BestBuyOrdersViewModel>();
             try
             {
                 System.Data.DataSet ds = new System.Data.DataSet();
@@ -532,7 +532,8 @@ namespace DataAccess.DataAccess
 
                             BestBuyOrderDetailViewModel detailViewModel = new BestBuyOrderDetailViewModel();
                             detailViewModel.Location = "";
-                            detailViewModel.OrderStatus = Convert.ToString(dataRow["order_line_state"] != DBNull.Value ? dataRow["order_line_state"] : string.Empty);
+                            //detailViewModel.OrderStatus = Convert.ToString(dataRow["order_line_state"] != DBNull.Value ? dataRow["order_line_state"] : string.Empty);
+                            detailViewModel.OrderStatus = Convert.ToString(dataRow["order_state"] != DBNull.Value ? dataRow["order_state"] : string.Empty);
                             detailViewModel.ProductSKU = Convert.ToString(dataRow["sku"] != DBNull.Value ? dataRow["sku"] : string.Empty);
                             detailViewModel.Prime = Convert.ToString("Y");
                             if (dataRow["image_name"] != DBNull.Value)

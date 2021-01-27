@@ -320,7 +320,8 @@ namespace HLD.WebApi.Controllers
             }
         }
         [HttpGet]
-        [Route("GetTrackingNumberCount")]
+        [Authorize]
+        [Route("api/Shipment/GetTrackingNumberCount")]
         public IActionResult GetTrackingNumberCount()
         {
             int count = 0;
@@ -332,6 +333,22 @@ namespace HLD.WebApi.Controllers
             catch (Exception)
             {
                 throw;
+            }
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("api/Shipment/GetBBtrackingRulesList/{offset}")]
+        public IActionResult GetBBtrackingRulesList(int offset)
+        {
+            List<BBtrackingCodesViewModel> list = new List<BBtrackingCodesViewModel>();
+            try
+            {
+                list = _DataAccess.GetBBtrackingRulesList(offset);
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

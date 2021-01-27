@@ -1094,5 +1094,41 @@ namespace DataAccess.DataAccess
                 throw;
             }
         }
+        public List<BBtrackingCodesViewModel> GetBBtrackingRulesList(int offset)
+        {
+            List<BBtrackingCodesViewModel> listModel = null;
+            // List<ZincWatchListSummaryViewModal> listModel = new List<ZincWatchListSummaryViewModal>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand(@"SELECT * FROM bestBuyE2.BBtrackingCodes ORDER BY IdBBtrackingCodes desc limit 25 offset " + offset, conn);
+                    cmdd.CommandType = System.Data.CommandType.Text;
+                    MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmdd);
+                    DataTable dt = new DataTable();
+                    mySqlDataAdapter.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        listModel = new List<BBtrackingCodesViewModel>();
+                        foreach (DataRow reader in dt.Rows)
+                        {
+                            BBtrackingCodesViewModel model = new BBtrackingCodesViewModel();
+                            model.IdBBtrackingCodes = Convert.ToInt32(reader["IdBBtrackingCodes"] != DBNull.Value ? reader["IdBBtrackingCodes"] : 0);
+                            model.CarrierCode = Convert.ToString(reader["CarrierCode"] != DBNull.Value ? reader["CarrierCode"] : " ");
+                            model.CarrierName = Convert.ToString(reader["CarrierName"] != DBNull.Value ? reader["CarrierName"] : " ");
+                            model.CarrierUrl = Convert.ToString(reader["CarrierUrl"] != DBNull.Value ? reader["CarrierUrl"] : " ");
+                            model.TrackingNumberCode = Convert.ToString(reader["TrackingNumberCode"] != DBNull.Value ? reader["TrackingNumberCode"] : " ");
+                            listModel.Add(model);
+                        }
+                    }
+                }
+                return listModel;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
