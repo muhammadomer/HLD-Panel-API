@@ -130,7 +130,7 @@ namespace DataAccess.DataAccess
                     {
                         List<BestBuyOrderDetailViewModel> objList = new List<BestBuyOrderDetailViewModel>();
 
-                        var list = dt.AsEnumerable().Where(e => e.Field<Int32>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
+                        var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
 
 
                         var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
@@ -151,10 +151,10 @@ namespace DataAccess.DataAccess
 
                         BestBuyOrdersViewModel ViewModel = new BestBuyOrdersViewModel();
                         ViewModel.OrderNumber = Convert.ToString(list.Select(e => e.Field<string>("order_id")).FirstOrDefault());
-                        ViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32>("sellerCloudID")).FirstOrDefault());
+                        ViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32?>("sellerCloudID")).FirstOrDefault());
 
                         ViewModel.ShipmentAddress = Convert.ToString(list.Select(e => e.Field<string>("CustomerAddress")).FirstOrDefault());
-                        ViewModel.OrderDate = Convert.ToDateTime(list.Select(e => e.Field<DateTime>("acceptance_decision_date")).FirstOrDefault());
+                        ViewModel.OrderDate = Convert.ToDateTime(list.Select(e => e.Field<DateTime?>("acceptance_decision_date")).FirstOrDefault());
                         ViewModel.ParentOrderID = Convert.ToInt32(list.Select(e => e.Field<int?>("ParentOrderID")).FirstOrDefault() != null ? list.Select(e => e.Field<int>("ParentOrderID")).FirstOrDefault() : 0).ToString();
                         ViewModel.IsParent = Convert.ToString(list.Select(e => e.Field<string>("IsParent")).FirstOrDefault());
                         ViewModel.IsNotes = Convert.ToString(list.Select(e => e.Field<string>("IsNotes")).FirstOrDefault());
@@ -321,7 +321,7 @@ namespace DataAccess.DataAccess
                     {
                         List<BestBuyOrderDetailViewModel> objList = new List<BestBuyOrderDetailViewModel>();
 
-                        var list = dt.AsEnumerable().Where(e => e.Field<Int32>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
+                        var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
 
                         var totalQuantity = list.Sum(e => Convert.ToDecimal(e.Field<string>("quantity")));
                         var totalPrice = list.Sum(e => Convert.ToDecimal(e.Field<decimal>("total_price")));
@@ -343,9 +343,9 @@ namespace DataAccess.DataAccess
 
                         BestBuyOrdersViewModel ViewModel = new BestBuyOrdersViewModel();
                         ViewModel.OrderNumber = Convert.ToString(list.Select(e => e.Field<string>("order_id")).FirstOrDefault());
-                        ViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32>("sellerCloudID")).FirstOrDefault());
+                        ViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32?>("sellerCloudID")).FirstOrDefault());
                         ViewModel.ShipmentAddress = Convert.ToString(list.Select(e => e.Field<string>("CustomerAddress")).FirstOrDefault());
-                        ViewModel.OrderDate = Convert.ToDateTime(list.Select(e => e.Field<DateTime>("acceptance_decision_date")).FirstOrDefault());
+                        ViewModel.OrderDate = Convert.ToDateTime(list.Select(e => e.Field<DateTime?>("acceptance_decision_date")).FirstOrDefault());
                         ViewModel.ParentOrderID = Convert.ToInt32(list.Select(e => e.Field<int?>("ParentOrderID")).FirstOrDefault() != null ? list.Select(e => e.Field<int>("ParentOrderID")).FirstOrDefault() : 0).ToString();
                         ViewModel.IsParent = Convert.ToString(list.Select(e => e.Field<string>("IsParent")).FirstOrDefault());
                         ViewModel.IsNotes = Convert.ToString(list.Select(e => e.Field<string>("IsNotes")).FirstOrDefault());
@@ -491,7 +491,7 @@ namespace DataAccess.DataAccess
                     {
                         List<BestBuyOrderDetailViewModel> objList = new List<BestBuyOrderDetailViewModel>();
 
-                        var list = dt.AsEnumerable().Where(e => e.Field<Int32>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
+                        var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
 
                         var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
                         var totalPrice = list.Sum(e => Convert.ToDouble(e.Field<string>("total_price")));
@@ -520,7 +520,7 @@ namespace DataAccess.DataAccess
                         ViewModel.ShippingPrice = Convert.ToString(list.Select(e => e.Field<string>("ShippingPaidByCustomer")).FirstOrDefault());
 
                         ViewModel.ShipmentAddress = Convert.ToString(list.Select(e => e.Field<string>("CustomerAddress")).FirstOrDefault());
-                        ViewModel.OrderDate = Convert.ToDateTime(list.Select(e => e.Field<DateTime>("acceptance_decision_date")).FirstOrDefault());
+                        ViewModel.OrderDate = Convert.ToDateTime(list.Select(e => e.Field<DateTime?>("acceptance_decision_date")).FirstOrDefault());
 
                         ViewModel.TotalTax = Convert.ToDecimal(0);
                         ViewModel.TotalQuantity = Convert.ToInt32(totalQuantity);
@@ -658,7 +658,7 @@ namespace DataAccess.DataAccess
                     {
                         List<BestBuyOrderDetailViewModel> objList = new List<BestBuyOrderDetailViewModel>();
 
-                        var list = dt.AsEnumerable().Where(e => e.Field<Int32>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
+                        var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
 
 
                         var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
@@ -683,12 +683,12 @@ namespace DataAccess.DataAccess
                         totalPrice = totalPrice - shipping;
 
                         BBProductViewModel.OrderNumber = Convert.ToString(list.Select(e => e.Field<string>("order_id")).FirstOrDefault());
-                        BBProductViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32>("sellerCloudID")).FirstOrDefault());
+                        BBProductViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32?>("sellerCloudID")).FirstOrDefault());
                         BBProductViewModel.CustomerName = Convert.ToString(list.Select(e => e.Field<string>("CustomerName")).FirstOrDefault());
                         BBProductViewModel.Street = Convert.ToString(list.Select(e => e.Field<string>("Street")).FirstOrDefault());
                         BBProductViewModel.State = Convert.ToString(list.Select(e => e.Field<string>("State")).FirstOrDefault());
                         BBProductViewModel.Country = Convert.ToString(list.Select(e => e.Field<string>("Country")).FirstOrDefault());
-                        BBProductViewModel.OrderDate = Convert.ToDateTime(list.Select(e => e.Field<DateTime>("acceptance_decision_date")).FirstOrDefault());
+                        BBProductViewModel.OrderDate = Convert.ToDateTime(list.Select(e => e.Field<DateTime?>("acceptance_decision_date")).FirstOrDefault());
                         BBProductViewModel.ParentOrderID = Convert.ToInt32(list.Select(e => e.Field<int?>("ParentOrderID")).FirstOrDefault() != null ? list.Select(e => e.Field<int>("ParentOrderID")).FirstOrDefault() : 0).ToString();
                         BBProductViewModel.IsParent = Convert.ToString(list.Select(e => e.Field<string>("IsParent")).FirstOrDefault());
                         BBProductViewModel.IsNotes = Convert.ToString(list.Select(e => e.Field<string>("IsNotes")).FirstOrDefault());
