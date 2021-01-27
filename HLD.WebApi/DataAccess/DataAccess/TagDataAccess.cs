@@ -77,10 +77,10 @@ namespace DataAccess.DataAccess
                 }
                 return listModel;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
         }

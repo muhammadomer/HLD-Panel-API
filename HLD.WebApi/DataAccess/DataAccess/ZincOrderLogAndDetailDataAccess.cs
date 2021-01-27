@@ -79,7 +79,40 @@ namespace DataAccess.DataAccess
             }
             return zincOrderLogDetailID;
         }
-
+        public int SaveZincOrderLogDetailNew(ZincOrderLogDetailViewModel ViewModel)
+        {
+            int zincOrderLogDetailID = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_SaveZincOrderLogDetailNew", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_order_code", ViewModel.Code);
+                    cmd.Parameters.AddWithValue("_order_message", ViewModel.Message);
+                    cmd.Parameters.AddWithValue("_order_type", ViewModel.Type);
+                    cmd.Parameters.AddWithValue("_zinc_order_log_id", ViewModel.ZincOrderLogID);
+                    cmd.Parameters.AddWithValue("_order_data", ViewModel.Data);
+                    cmd.Parameters.AddWithValue("_shpping_date", ViewModel.ShppingDate);
+                    cmd.Parameters.AddWithValue("_tracking_number", ViewModel.TrackingNumber);
+                    cmd.Parameters.AddWithValue("_carrier", ViewModel.Carrier);
+                    cmd.Parameters.AddWithValue("_amazon_tracking", ViewModel.AmazonTracking);
+                    cmd.Parameters.AddWithValue("_17_tracking", ViewModel._17Tracking);
+                    cmd.Parameters.AddWithValue("_order_datetime", ViewModel.OrderDatetime);
+                    cmd.Parameters.AddWithValue("_zinc_order_status_internal", ViewModel.ZincOrderStatusInternal);
+                    cmd.Parameters.AddWithValue("_merchant_order_id", ViewModel.MerchantOrderId);
+                    cmd.Parameters.Add("@_zinc_order_log_detail_id", MySqlDbType.Int32, 500);
+                    cmd.Parameters["@_zinc_order_log_detail_id"].Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    zincOrderLogDetailID = Convert.ToInt32(cmd.Parameters["@_zinc_order_log_detail_id"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return zincOrderLogDetailID;
+        }
 
 
         public ZincOrderLogDetailViewModel GetZincOrderLogDetailById(string zincLogDetailID)

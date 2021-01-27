@@ -97,12 +97,12 @@ namespace HLD.WebApi
             //services.UseQuartz(typeof(ProductWarehouseQtyJob));
             #region Uncomment Before Publish
 
-            ////order
+            //order
 
-            //services.UseQuartz(typeof(QuartzJob)); // email job
+           // services.UseQuartz(typeof(QuartzJob)); // email job
             //services.UseQuartz(typeof(ReadExcelFile));
             //services.UseQuartz(typeof(WarehouseProductQtyJob));
-            //services.UseQuartz(typeof(GetProductCatalogDetail));
+           // services.UseQuartz(typeof(GetProductCatalogDetail));
             ////  update dashboard data
             //services.UseQuartz(typeof(InsertOrderSKU_ProfitHistory));
             ////  update Local sellercloud order status and payment status
@@ -122,7 +122,7 @@ namespace HLD.WebApi
             //services.UseQuartz(typeof(GetSellerOrderNotes));
 
             //services.UseQuartz(typeof(CreateOrderInSellerCloud));
-               services.UseQuartz(typeof(ShipmentHistoryReportJob));
+            services.UseQuartz(typeof(ShipmentHistoryReportJob));
 
 
             #endregion
@@ -158,10 +158,10 @@ namespace HLD.WebApi
             //QuartzServicesUtilities.StartJob<ProductWarehouseQtyJob>(schedulerr, "");
             #region Un comment before Publish
 
-            //QuartzServicesUtilities.StartJob<QuartzJob>(schedulerr, ""); //email job
+          //  QuartzServicesUtilities.StartJob<QuartzJob>(schedulerr, ""); //email job
             //QuartzServicesUtilities.StartJob<ReadExcelFile>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<WarehouseProductQtyJob>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<GetProductCatalogDetail>(schedulerr, "");
+           // QuartzServicesUtilities.StartJob<GetProductCatalogDetail>(schedulerr, "");
 
             //QuartzServicesUtilities.StartJob<InsertOrderSKU_ProfitHistory>(schedulerr, "");
 
@@ -181,7 +181,9 @@ namespace HLD.WebApi
             //QuartzServicesUtilities.StartJob<GetSellerOrderNotes>(schedulerr, "");
 
             //QuartzServicesUtilities.StartJob<CreateOrderInSellerCloud>(schedulerr, "");
+
              QuartzServicesUtilities.StartJob<ShipmentHistoryReportJob>(schedulerr, "");
+
 
 
             #endregion

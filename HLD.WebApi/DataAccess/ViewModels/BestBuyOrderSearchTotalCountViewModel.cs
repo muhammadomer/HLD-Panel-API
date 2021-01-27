@@ -20,5 +20,7 @@ namespace Hld.WebApplication.ViewModel
         public string PaymentStatus { get; set; }
         public string ShippingTags { get; set; }
         public int ShippingBoxContain { get; set; }
+        public string BBOrderStatus { get; set; }
+        public int? WHQStatus { get; set; }
     }
 }

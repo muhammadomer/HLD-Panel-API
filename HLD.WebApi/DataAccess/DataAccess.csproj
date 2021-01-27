@@ -168,12 +168,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\AddOrderToSCDataAccess.cs" />
+    <Compile Include="DataAccess\AddOrderToSCDataAccessNew.cs" />
     <Compile Include="DataAccess\AliasDataAccess.cs" />
     <Compile Include="DataAccess\ApprovedPriceDataAccess.cs" />
     <Compile Include="DataAccess\AuthenticationSellercloud.cs" />
     <Compile Include="DataAccess\AutoControlDataAccess.cs" />
     <Compile Include="DataAccess\BestBuyOrderDataAccess.cs" />
     <Compile Include="DataAccess\BestBuyOrderFromBBDataAccess.cs" />
+    <Compile Include="DataAccess\BestBuyOrderFromBBDataAccessNew.cs" />
+    <Compile Include="DataAccess\BestBuyOrdersDataAccessNew.cs" />
     <Compile Include="DataAccess\BestBuyProductDataAccess.cs" />
     <Compile Include="DataAccess\BestBuyProductQtyMovementDataAcces.cs" />
     <Compile Include="DataAccess\BestBuyTrackingExportDataAccess.cs" />
@@ -202,6 +205,7 @@
     <Compile Include="DataAccess\ImportMissingOrderDataAccess.cs" />
     <Compile Include="DataAccess\ManufactureDataAccess.cs" />
     <Compile Include="DataAccess\OrderNotesDataAccess.cs" />
+    <Compile Include="DataAccess\OrderNotesDataAccessNew.cs" />
     <Compile Include="DataAccess\OrderRelationDataAccess.cs" />
     <Compile Include="DataAccess\PredictionHistroyDataAccess.cs" />
     <Compile Include="DataAccess\ProductDataAccess.cs" />
@@ -213,6 +217,7 @@
     <Compile Include="DataAccess\QuotationDataAccess.cs" />
     <Compile Include="DataAccess\SCOrderPageViewDataAccess.cs" />
     <Compile Include="DataAccess\SellerCloudOrderDataAccess.cs" />
+    <Compile Include="DataAccess\SellerCloudOrderDataAccessNew.cs" />
     <Compile Include="DataAccess\ShipmentBoxDataAccess.cs" />
     <Compile Include="DataAccess\ShipmentCasePackDataAccess.cs" />
     <Compile Include="DataAccess\ShipmentCourierDataAccess.cs" />

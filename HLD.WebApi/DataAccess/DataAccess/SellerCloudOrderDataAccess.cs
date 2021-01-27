@@ -356,6 +356,80 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+        //its for Quatz job copy
+        public bool SaveOrderAndCustomerDetailInNewTable(List<SellerCloudOrder_CustomerViewModel> Data)
+        {
+            bool status = false;
+            try
+            {
+                if (Data.Count > 0)
+                {
+
+                }
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+
+                    conn.Open();
+
+                    foreach (var ViewModel in Data)
+                    {
+                        MySqlCommand cmd = new MySqlCommand("p_SaveSellerCloudOrdersInSCOrder", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("First_name", ViewModel.Customer.firstName);
+                        cmd.Parameters.AddWithValue("Last_name", ViewModel.Customer.lastName);
+                        cmd.Parameters.AddWithValue("Phone_number", ViewModel.Customer.phoneNumber);
+                        cmd.Parameters.AddWithValue("Postal_code", ViewModel.Customer.postalCode);
+                        cmd.Parameters.AddWithValue("State", ViewModel.Customer.stateCode);
+                        cmd.Parameters.AddWithValue("Street_line1", ViewModel.Customer.streetLine1);
+                        cmd.Parameters.AddWithValue("Street_line2", ViewModel.Customer.streetLine2);
+                        cmd.Parameters.AddWithValue("City", ViewModel.Customer.city);
+                        cmd.Parameters.AddWithValue("Total_count", ViewModel.Order.totalCount);
+                        cmd.Parameters.AddWithValue("Customer_id", ViewModel.Order.customerId);
+                        cmd.Parameters.AddWithValue("Drop_ship_status", ViewModel.Order.dropShipStatus);
+                        cmd.Parameters.AddWithValue("Last_update", ViewModel.Order.lastUpdate);
+                        cmd.Parameters.AddWithValue("Orde_currency_code", ViewModel.Order.orderCurrencyCode);
+                        cmd.Parameters.AddWithValue("Order_source_order_id", ViewModel.Order.orderSourceOrderId);
+                        cmd.Parameters.AddWithValue("Payment_date", ViewModel.Order.paymentDate);
+                        cmd.Parameters.AddWithValue("Seller_cloud_order_id", ViewModel.Order.sellerCloudID);
+                        cmd.Parameters.AddWithValue("Shipping_status", ViewModel.Order.shippingStatus);
+                        cmd.Parameters.AddWithValue("Shipping_weight_total_Oz", ViewModel.Order.shippingWeightTotalOz);
+                        cmd.Parameters.AddWithValue("Total_tax", ViewModel.Order.taxTotal);
+                        cmd.Parameters.AddWithValue("Time_of_order", ViewModel.Order.timeOfOrder);
+                        cmd.Parameters.AddWithValue("Currency_rate_From_USD", ViewModel.Order.currencyRateFromUSD);
+
+                        cmd.ExecuteNonQuery();
+
+                        foreach (var item in ViewModel.orderDetail)
+                        {
+                            MySqlCommand OrderDetailcmd = new MySqlCommand("p_SaveSellerCloudOrderDetailInSCOrderLines", conn);
+                            OrderDetailcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                            OrderDetailcmd.Parameters.AddWithValue("Seller_cloud_order_id", ViewModel.Order.sellerCloudID);
+                            OrderDetailcmd.Parameters.AddWithValue("Drop_shipped_on", item.DropShippedOn);
+                            OrderDetailcmd.Parameters.AddWithValue("Drop_shipped_status", item.DropShippedStatus);
+                            OrderDetailcmd.Parameters.AddWithValue("MinQty", item.MinQTY);
+                            OrderDetailcmd.Parameters.AddWithValue("Product_sku", item.SKU);
+                            OrderDetailcmd.Parameters.AddWithValue("Status_code", item.StatusCode);
+                            OrderDetailcmd.Parameters.AddWithValue("Qty", item.Qty);
+                            OrderDetailcmd.Parameters.AddWithValue("Adjusted_site_price", item.AdjustedSitePrice);
+                            OrderDetailcmd.Parameters.AddWithValue("Avg_cost", item.AverageCost);
+                            OrderDetailcmd.Parameters.AddWithValue("Price_per_case", item.PricePerCase);
+                            OrderDetailcmd.Parameters.AddWithValue("Unit_price", item.unitPrice);
+                            OrderDetailcmd.Parameters.AddWithValue("UPC", item.UPC);
+                            OrderDetailcmd.Parameters.AddWithValue("ProductTitle", item.ProductTitle);
+
+                            OrderDetailcmd.ExecuteNonQuery();
+
+                        }
+
+                    }
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
 
 
         public bool SaveProductImagesFromSellerCloudOrders(ImagesSaveToDatabaseWithURLViewMOdel Data)

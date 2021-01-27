@@ -149,7 +149,6 @@ namespace HLD.WebApi.Jobs
 
                 var ordersDetail = await sCServiceSoap.Orders_GetDatasAsync(authHeader, null, distinctOrders.ToArray());
 
-
                 List<ImagesClass> imagesList = new List<ImagesClass>();
 
                 #region commented code for download all images
@@ -173,88 +172,97 @@ namespace HLD.WebApi.Jobs
                 //}
 
                 #endregion
-
                 //Prepare complete order and order detail object
+                //foreach (var item in ordersDetail.Orders_GetDatasResult)
                 foreach (var item in ordersDetail.Orders_GetDatasResult)
                 {
-                    SellerCloudOrderViewModel sellerCloudOrder = new SellerCloudOrderViewModel();
-                    SellerCloudCustomerDetail sellerCloudCustomer = new SellerCloudCustomerDetail();
-                    SellerCloudOrder_CustomerViewModel order_orderDetail_customer = new SellerCloudOrder_CustomerViewModel();
-                    List<SellerCloudOrderDetailViewModel> sellerCloudOrderDetailList = new List<SellerCloudOrderDetailViewModel>();
-
-
-                    //SerializableDictionaryOfStringString stringString = item.GalleryImagesURL;
-                    //List<string> tempKeys = stringString.Keys.ToList();
-                    //List<string> tempValues = stringString.Values.ToList();
-                    //for (int i = 0; i < tempKeys.Count; i++)
-                    //{
-                    //    ImagesClass images = new ImagesClass();
-                    //    images.Key = tempKeys[i].ToString();
-                    //    images.Value = tempValues[i].ToString();
-                    //    imagesList.Add(images);
-                    //}
-
-                    sellerCloudOrder.totalCount = item.Order.ItemCount;
-                    sellerCloudOrder.dropShipStatus = System.Enum.GetName(typeof(DropShipStatusType2), item.Order.DropShipStatus);
-                    sellerCloudOrder.currencyRateFromUSD = item.Order.CurrencyRateFromUSD;
-                    sellerCloudOrder.lastUpdate = item.Order.LastUpdated;
-                    sellerCloudOrder.timeOfOrder = item.Order.TimeOfOrder;
-                    sellerCloudOrder.taxTotal = item.Order.TaxTotal;
-
-                    sellerCloudOrder.shippingStatus = System.Enum.GetName(typeof(OrderShippingStatus2), item.Order.ShippingStatus);
-                    sellerCloudOrder.shippingWeightTotalOz = item.Order.ShippingWeightTotalOz;
-                    sellerCloudOrder.orderCurrencyCode = System.Enum.GetName(typeof(CurrencyCodeType2), item.Order.OrderCurrencyCode);
-                    sellerCloudOrder.orderSourceOrderId = item.Order.OrderSourceOrderId;
-                    sellerCloudOrder.paymentDate = item.Order.PaymentDate;//Order Date in our case
-                    sellerCloudOrder.sellerCloudID = item.Order.ID; //seller cloud order id
-                    sellerCloudOrder.ClientID = item.Order.ClientId;
-
-
-                    Address address = item.Order.BillingAddress;
-
-
-                    sellerCloudCustomer.countryName = address.CountryName;
-                    sellerCloudCustomer.firstName = address.FirstName;
-                    sellerCloudCustomer.lastName = address.LastName;
-                    sellerCloudCustomer.phoneNumber = address.PhoneNumber;
-                    sellerCloudCustomer.postalCode = address.PostalCode;
-                    sellerCloudCustomer.stateCode = address.StateCode;
-                    sellerCloudCustomer.stateName = address.StateName;
-                    sellerCloudCustomer.streetLine1 = address.StreetLine1;
-                    sellerCloudCustomer.streetLine2 = address.StreetLine2;
-                    sellerCloudCustomer.city = address.City;
-
-
-
-                    foreach (var itemDetail in item.Order.Items)
+                    try
                     {
-                        SellerCloudOrderDetailViewModel sellerCloudOrderDetail = new SellerCloudOrderDetailViewModel();
-                        sellerCloudOrderDetail.DropShippedOn = itemDetail.DropShippedOn;
-                        sellerCloudOrderDetail.DropShippedStatus = System.Enum.GetName(typeof(DropShipStatusType), itemDetail.DropShippedStatus);
-                        sellerCloudOrderDetail.OrderId = itemDetail.OrderID;
-                        sellerCloudOrderDetail.MinQTY = itemDetail.MinimumQty;
-                        sellerCloudOrderDetail.SKU = itemDetail.ProductID;
-                        //change order status from string to int 1.8.2019 
-                        //sellerCloudOrderDetail.StatusCode = System.Enum.GetName(typeof(OrderItemStatusCode), itemDetail.StatusCode);
-                        sellerCloudOrderDetail.StatusCode = "5";
-                        sellerCloudOrderDetail.Qty = itemDetail.Qty;
-                        sellerCloudOrderDetail.ProductTitle = itemDetail.DisplayName;
-                        sellerCloudOrderDetail.AdjustedSitePrice = itemDetail.AdjustedSitePrice;
-                        sellerCloudOrderDetail.AverageCost = itemDetail.AverageCost;
-                        sellerCloudOrderDetail.PricePerCase = itemDetail.PricePerCase;
-                        sellerCloudOrderDetail.unitPrice = itemDetail.UnitPrice;
-                        sellerCloudOrderDetail.UPC = itemDetail.UPC;
+                        SellerCloudOrderViewModel sellerCloudOrder = new SellerCloudOrderViewModel();
+                        SellerCloudCustomerDetail sellerCloudCustomer = new SellerCloudCustomerDetail();
+                        SellerCloudOrder_CustomerViewModel order_orderDetail_customer = new SellerCloudOrder_CustomerViewModel();
+                        List<SellerCloudOrderDetailViewModel> sellerCloudOrderDetailList = new List<SellerCloudOrderDetailViewModel>();
 
-                        sellerCloudOrderDetailList.Add(sellerCloudOrderDetail);
+
+                        //SerializableDictionaryOfStringString stringString = item.GalleryImagesURL;
+                        //List<string> tempKeys = stringString.Keys.ToList();
+                        //List<string> tempValues = stringString.Values.ToList();
+                        //for (int i = 0; i < tempKeys.Count; i++)
+                        //{
+                        //    ImagesClass images = new ImagesClass();
+                        //    images.Key = tempKeys[i].ToString();
+                        //    images.Value = tempValues[i].ToString();
+                        //    imagesList.Add(images);
+                        //}
+
+                        sellerCloudOrder.totalCount = item.Order.ItemCount;
+                        sellerCloudOrder.dropShipStatus = System.Enum.GetName(typeof(DropShipStatusType2), item.Order.DropShipStatus);
+                        sellerCloudOrder.currencyRateFromUSD = item.Order.CurrencyRateFromUSD;
+                        sellerCloudOrder.lastUpdate = item.Order.LastUpdated;
+                        sellerCloudOrder.timeOfOrder = item.Order.TimeOfOrder;
+                        sellerCloudOrder.taxTotal = item.Order.TaxTotal;
+
+                        sellerCloudOrder.shippingStatus = System.Enum.GetName(typeof(OrderShippingStatus2), item.Order.ShippingStatus);
+                        sellerCloudOrder.shippingWeightTotalOz = item.Order.ShippingWeightTotalOz;
+                        sellerCloudOrder.orderCurrencyCode = System.Enum.GetName(typeof(CurrencyCodeType2), item.Order.OrderCurrencyCode);
+                        sellerCloudOrder.orderSourceOrderId = item.Order.OrderSourceOrderId;
+                        sellerCloudOrder.paymentDate = item.Order.PaymentDate;//Order Date in our case
+                        sellerCloudOrder.sellerCloudID = item.Order.ID; //seller cloud order id
+                        sellerCloudOrder.ClientID = item.Order.ClientId;
+
+
+                        Address address = item.Order.BillingAddress;
+
+
+                        sellerCloudCustomer.countryName = address.CountryName;
+                        sellerCloudCustomer.firstName = address.FirstName;
+                        sellerCloudCustomer.lastName = address.LastName;
+                        sellerCloudCustomer.phoneNumber = address.PhoneNumber;
+                        sellerCloudCustomer.postalCode = address.PostalCode;
+                        sellerCloudCustomer.stateCode = address.StateCode;
+                        sellerCloudCustomer.stateName = address.StateName;
+                        sellerCloudCustomer.streetLine1 = address.StreetLine1;
+                        sellerCloudCustomer.streetLine2 = address.StreetLine2;
+                        sellerCloudCustomer.city = address.City;
+
+
+
+                        foreach (var itemDetail in item.Order.Items)
+                        {
+                            SellerCloudOrderDetailViewModel sellerCloudOrderDetail = new SellerCloudOrderDetailViewModel();
+                            sellerCloudOrderDetail.DropShippedOn = itemDetail.DropShippedOn;
+                            sellerCloudOrderDetail.DropShippedStatus = System.Enum.GetName(typeof(DropShipStatusType), itemDetail.DropShippedStatus);
+                            sellerCloudOrderDetail.OrderId = itemDetail.OrderID;
+                            sellerCloudOrderDetail.MinQTY = itemDetail.MinimumQty;
+                            sellerCloudOrderDetail.SKU = itemDetail.ProductID;
+                            //change order status from string to int 1.8.2019 
+                            //sellerCloudOrderDetail.StatusCode = System.Enum.GetName(typeof(OrderItemStatusCode), itemDetail.StatusCode);
+                            sellerCloudOrderDetail.StatusCode = "5";
+                            sellerCloudOrderDetail.Qty = itemDetail.Qty;
+                            sellerCloudOrderDetail.ProductTitle = itemDetail.DisplayName;
+                            sellerCloudOrderDetail.AdjustedSitePrice = itemDetail.AdjustedSitePrice;
+                            sellerCloudOrderDetail.AverageCost = itemDetail.AverageCost;
+                            sellerCloudOrderDetail.PricePerCase = itemDetail.PricePerCase;
+                            sellerCloudOrderDetail.unitPrice = itemDetail.UnitPrice;
+                            sellerCloudOrderDetail.UPC = itemDetail.UPC;
+
+                            sellerCloudOrderDetailList.Add(sellerCloudOrderDetail);
+                        }
+
+                        //assign object to main object
+                        order_orderDetail_customer.Customer = sellerCloudCustomer;
+                        order_orderDetail_customer.Order = sellerCloudOrder;
+                        order_orderDetail_customer.orderDetail = sellerCloudOrderDetailList;
+
+                        //main object list
+                        _mainOrderDetailCustomerList.Add(order_orderDetail_customer);
                     }
+                    catch (Exception ex)
+                    {
 
-                    //assign object to main object
-                    order_orderDetail_customer.Customer = sellerCloudCustomer;
-                    order_orderDetail_customer.Order = sellerCloudOrder;
-                    order_orderDetail_customer.orderDetail = sellerCloudOrderDetailList;
-
-                    //main object list
-                    _mainOrderDetailCustomerList.Add(order_orderDetail_customer);
+                        continue;
+                    }
+                    
                 }
 
                 // add data into seller cloud tables like order ,order detail ,customer detail 
@@ -428,16 +436,11 @@ namespace HLD.WebApi.Jobs
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             //SendNewOrderEmail sendNewOrderEmail = new SendNewOrderEmail(_connectionString);
             //sendNewOrderEmail.SendrderEmail(_bestBuyProductDataAccess.GetAllBestBuyOrdersWithGlobalFilter("order_id", "218382346-A", 25, 0, "desc"));
             await Task.CompletedTask;
         }
     }
-
-
-
-
-
 }

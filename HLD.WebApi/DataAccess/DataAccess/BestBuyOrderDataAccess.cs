@@ -197,6 +197,80 @@ namespace DataAccess.DataAccess
             return true;
         }
 
+        
+        public bool SaveBestBuyOrdersInNewTable(List<BestBuyOrdersImportMainViewModel> mainViewModel)
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    foreach (var viewModel in mainViewModel)
+                    {
+                        MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyOrdersDummy", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("shipping_id", DBNull.Value);
+                        cmd.Parameters.AddWithValue("acceptance_decision_date", viewModel.OrderViewModel.acceptance_decision_date);
+                        cmd.Parameters.AddWithValue("inSellerCloud", viewModel.OrderViewModel.acceptance_decision_date);
+                        cmd.Parameters.AddWithValue("sellerCloudID", viewModel.OrderViewModel.sellerCloudID);
+                        cmd.Parameters.AddWithValue("can_cancel", viewModel.OrderViewModel.can_cancel);
+                        cmd.Parameters.AddWithValue("commercial_id", viewModel.OrderViewModel.commercial_id);
+                        cmd.Parameters.AddWithValue("created_date", viewModel.OrderViewModel.created_date);
+                        cmd.Parameters.AddWithValue("customer_id", viewModel.OrderViewModel.customer_id);
+                        cmd.Parameters.AddWithValue("order_id", viewModel.OrderViewModel.order_id);
+                        cmd.Parameters.AddWithValue("order_state", viewModel.OrderViewModel.order_state);
+                        cmd.Parameters.AddWithValue("total_commission", viewModel.OrderViewModel.total_commission);
+                        cmd.Parameters.AddWithValue("total_price", viewModel.OrderViewModel.total_price);
+                        cmd.Parameters.AddWithValue("city", viewModel.customerDetailOrderViewModel.city);
+                        cmd.Parameters.AddWithValue("country", viewModel.customerDetailOrderViewModel.country);
+                        cmd.Parameters.AddWithValue("firstname", viewModel.customerDetailOrderViewModel.firstname);
+                        cmd.Parameters.AddWithValue("lastname", viewModel.customerDetailOrderViewModel.lastname);
+                        cmd.Parameters.AddWithValue("phone", viewModel.customerDetailOrderViewModel.phone);
+                        cmd.Parameters.AddWithValue("phone_secondary", viewModel.customerDetailOrderViewModel.phone_secondary);
+                        cmd.Parameters.AddWithValue("state", viewModel.customerDetailOrderViewModel.state);
+                        cmd.Parameters.AddWithValue("street_1", viewModel.customerDetailOrderViewModel.street_1);
+                        cmd.Parameters.AddWithValue("street_2", viewModel.customerDetailOrderViewModel.street_2);
+                        cmd.Parameters.AddWithValue("zip_code", viewModel.customerDetailOrderViewModel.zip_code);
+                        cmd.Parameters.AddWithValue("email", viewModel.customerDetailOrderViewModel.email);
+                        cmd.Parameters.AddWithValue("_ShippingPrice", viewModel.OrderViewModel.shipping_price);
+                        cmd.Parameters.AddWithValue("_IsBox", viewModel.customerDetailOrderViewModel.IsBox);
+                        cmd.ExecuteNonQuery();
+
+
+                        foreach (var item in viewModel.orderDetailViewModel)
+                        {
+                            using (MySqlCommand command = new MySqlCommand("p_UpdateBestBuyOrderDetailDumy", conn))
+                            {
+                                command.CommandType = System.Data.CommandType.StoredProcedure;
+                                command.Parameters.AddWithValue("TaxGST", item.GST ?? 0);
+                                command.Parameters.AddWithValue("offer_sku", item.offer_sku);
+                                command.Parameters.AddWithValue("order_line_id", item.order_line_id);
+                                command.Parameters.AddWithValue("order_line_state", item.order_line_state);
+                                command.Parameters.AddWithValue("product_title", item.product_title);
+                                command.Parameters.AddWithValue("TaxPST", item.PST ?? 0);
+                                command.Parameters.AddWithValue("quantity", item.quantity);
+                                command.Parameters.AddWithValue("received_date", item.received_date);
+                                command.Parameters.AddWithValue("shipped_date", item.shipped_date);
+                                command.Parameters.AddWithValue("total_commission", item.total_commissionOrderLine);
+                                command.Parameters.AddWithValue("shipping_fee", item.ShippingFee);
+                                command.Parameters.AddWithValue("total_price", item.total_priceOrerLine ?? 0);
+                                command.Parameters.AddWithValue("order_id", viewModel.OrderViewModel.order_id);
+                                command.Parameters.AddWithValue("SCOrderID", viewModel.OrderViewModel.sellerCloudID);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return true;
+        }
+
         public bool UpdateBestBuyQtyMovementDropshipStatus(int bestBuyQtyMovementID, string importId)
         {
             try
