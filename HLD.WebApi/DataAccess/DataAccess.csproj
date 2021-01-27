@@ -265,6 +265,7 @@
     <Compile Include="ViewModels\AuthenticateViewModel.cs" />
     <Compile Include="ViewModels\AutoControlViewModel.cs" />
     <Compile Include="ViewModels\BBProductViewModel.cs" />
+    <Compile Include="ViewModels\BBtrackingCodesViewModel.cs" />
     <Compile Include="ViewModels\BestBuyCustomerDetailImportViewModel.cs" />
     <Compile Include="ViewModels\BestBuyDropShipQtyMovement.cs" />
     <Compile Include="ViewModels\BestBuyDropShipQtyMovementViewModel.cs" />

@@ -308,6 +308,8 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("PaymentStatus", viewModel.PaymentStatus);
                     cmd.Parameters.AddWithValue("TagSearch", viewModel.ShippingTags);
                     cmd.Parameters.AddWithValue("_ShippingBoxContain", viewModel.ShippingBoxContain);
+                    cmd.Parameters.AddWithValue("_wHQStatus", viewModel.WHQStatus);
+                    cmd.Parameters.AddWithValue("_bBOrderStatus", viewModel.BBOrderStatus);
 
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     da.Fill(ds);
@@ -319,29 +321,29 @@ namespace DataAccess.DataAccess
                     {
                         List<BestBuyOrderDetailViewModel> objList = new List<BestBuyOrderDetailViewModel>();
 
-                        var list = dt.AsEnumerable().Where(e => e.Field<string>("sellerCloudID") == reader["sellerCloudID"].ToString()).ToList();
+                        var list = dt.AsEnumerable().Where(e => e.Field<Int32>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
 
-                        var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
-                        var totalPrice = list.Sum(e => Convert.ToDouble(e.Field<string>("total_price")));
-                        var total_commission = list.Sum(e => Convert.ToDouble(e.Field<string>("total_commission")));
-                        var totalGst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxGST")));
-                        var totalPst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxPST")));
+                        var totalQuantity = list.Sum(e => Convert.ToDecimal(e.Field<string>("quantity")));
+                        var totalPrice = list.Sum(e => Convert.ToDecimal(e.Field<decimal>("total_price")));
+                        var total_commission = list.Sum(e => Convert.ToDecimal(e.Field<decimal>("total_commission")));
+                        var totalGst = list.Sum(e => Convert.ToDecimal(e.Field<string>("TaxGST")));
+                        var totalPst = list.Sum(e => Convert.ToDecimal(e.Field<string>("TaxPST")));
                         var toalAverageCost = list.Sum(e => e.Field<double>("TotalAverageCost"));
 
 
                         var sumOfGstPst = totalGst + totalPst;
 
-                        var total = (sumOfGstPst / totalPrice) * 100;
+                        var total =(Convert.ToDecimal(sumOfGstPst) / Convert.ToDecimal( totalPrice)) * 100;
 
                         //var totalComission = Math.Round((total_commission) / (1 + total / 100), 2);
                         var totalComission = total_commission;
-                        var ProfitLoss = Math.Round(totalPrice - toalAverageCost - total_commission, 2);
-                        var profitAndLossInPercent = Math.Round((ProfitLoss / totalPrice) * 100);
+                        var ProfitLoss = Math.Round(Convert.ToDouble(totalPrice) - toalAverageCost - Convert.ToDouble( total_commission), 2);
+                        var profitAndLossInPercent = Math.Round((Convert.ToDecimal(ProfitLoss) / totalPrice) * 100);
 
 
                         BestBuyOrdersViewModel ViewModel = new BestBuyOrdersViewModel();
                         ViewModel.OrderNumber = Convert.ToString(list.Select(e => e.Field<string>("order_id")).FirstOrDefault());
-                        ViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<string>("sellerCloudID")).FirstOrDefault());
+                        ViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32>("sellerCloudID")).FirstOrDefault());
                         ViewModel.ShipmentAddress = Convert.ToString(list.Select(e => e.Field<string>("CustomerAddress")).FirstOrDefault());
                         ViewModel.OrderDate = Convert.ToDateTime(list.Select(e => e.Field<DateTime>("acceptance_decision_date")).FirstOrDefault());
                         ViewModel.ParentOrderID = Convert.ToInt32(list.Select(e => e.Field<int?>("ParentOrderID")).FirstOrDefault() != null ? list.Select(e => e.Field<int>("ParentOrderID")).FirstOrDefault() : 0).ToString();
@@ -392,12 +394,12 @@ namespace DataAccess.DataAccess
                             detailViewModel.Comission = Convert.ToDecimal(dataRow["total_commission"] != DBNull.Value ? dataRow["total_commission"] : "0");
                             detailViewModel.UnitPrice = Convert.ToDecimal(dataRow["total_price"] != DBNull.Value ? dataRow["total_price"] : "0");
                             detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice - detailViewModel.ShippingFee) / detailViewModel.TotalQuantity, 2);
-                            detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
+                      //      detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
                             detailViewModel.TaxGST = Convert.ToDecimal(dataRow["TaxGST"] != DBNull.Value ? dataRow["TaxGST"] : "0");
                             detailViewModel.TaxPST = Convert.ToDecimal(dataRow["TaxPST"] != DBNull.Value ? dataRow["TaxPST"] : "0");
                             detailViewModel.SCOrderStatus = Convert.ToString(dataRow["ScOrderStatus"] != DBNull.Value ? dataRow["ScOrderStatus"] : "");
-                            detailViewModel.ZincCode = Convert.ToString(dataRow["order_code"] != DBNull.Value ? dataRow["order_code"] : "");
-                            detailViewModel.ZincMessage = Convert.ToString(dataRow["order_message"] != DBNull.Value ? dataRow["order_message"] : "");
+                            detailViewModel.ZincCode = Convert.ToString(dataRow["Zinc_order_code"] != DBNull.Value ? dataRow["Zinc_order_code"] : "");
+                            detailViewModel.ZincMessage = Convert.ToString(dataRow["Zinc_order_message"] != DBNull.Value ? dataRow["Zinc_order_message"] : "");
                             detailViewModel.PaymentStatus = Convert.ToString(dataRow["payment_staus"] != DBNull.Value ? dataRow["payment_staus"] : "");
                             if (detailViewModel.ZincMessage != "")
                             {
@@ -406,9 +408,9 @@ namespace DataAccess.DataAccess
                                     detailViewModel.ZincMessage = detailViewModel.ZincMessage.Replace("Guaranteed delivery date", "Delivery Date");
                                 }
                             }
-                            detailViewModel.ZincOrderLogID = Convert.ToString(dataRow["zinc_order_log_id"] != DBNull.Value ? dataRow["zinc_order_log_id"] : "0");
+                      //      detailViewModel.ZincOrderLogID = Convert.ToString(dataRow["zinc_order_log_id"] != DBNull.Value ? dataRow["zinc_order_log_id"] : "0");
                             detailViewModel.ZincRequestID = Convert.ToString(dataRow["request_id"] != DBNull.Value ? dataRow["request_id"] : "");
-                            detailViewModel.ZincOrderLogDetailID = Convert.ToString(dataRow["zinc_order_log_detail_id"] != DBNull.Value ? dataRow["zinc_order_log_detail_id"] : "");
+                      //      detailViewModel.ZincOrderLogDetailID = Convert.ToString(dataRow["zinc_order_log_detail_id"] != DBNull.Value ? dataRow["zinc_order_log_detail_id"] : "");
                             detailViewModel.ZincOrderStatusInternal = Convert.ToString(dataRow["zinc_order_status_internal"] != DBNull.Value ? dataRow["zinc_order_status_internal"] : "");
                             detailViewModel.IsTrackingUpdateToSC = Convert.ToBoolean(dataRow["is_tracking_updated"] != DBNull.Value ? dataRow["is_tracking_updated"] : false);
                             detailViewModel.DropshipStatus = Convert.ToBoolean(dataRow["dropship_status"] != DBNull.Value ? dataRow["dropship_status"] : false);
