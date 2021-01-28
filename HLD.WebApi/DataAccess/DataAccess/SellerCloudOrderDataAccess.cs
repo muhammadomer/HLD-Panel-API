@@ -169,7 +169,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_SaveSellerCloudOrderStatus_log", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_SaveSellerCloudOrderStatus_logNew", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_SaveSellerCloudOrderStatus_log", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("order_id", sellerCloudOrderId);
                     cmd.Parameters.AddWithValue("sstatus", statusName);
@@ -479,7 +480,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_UpdateSCOrderDropShipStatus", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateSCOrderDropShipStatusNew", conn);
+               //     MySqlCommand cmd = new MySqlCommand("p_UpdateSCOrderDropShipStatus", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_orderID", model.SCOrderID);
                     cmd.Parameters.AddWithValue("_drop_ship_status", model.StatusName);

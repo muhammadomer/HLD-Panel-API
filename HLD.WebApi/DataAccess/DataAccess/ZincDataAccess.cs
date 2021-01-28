@@ -632,7 +632,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand(" p_GetCustomerDetailForSendOrderToZincForOrderView", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetCustomerDetailForSendOrderToZincForOrderViewForNew", conn);
+                   // MySqlCommand cmd = new MySqlCommand(" p_GetCustomerDetailForSendOrderToZincForOrderView", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -675,7 +676,7 @@ namespace DataAccess.DataAccess
                     double maxprice = 0;
                     foreach (var item in list)
                     {
-                        MySqlCommand cmdd = new MySqlCommand(@"SELECT quantity FROM bestBuyE2.orderLines where  bbe2_line_id =" + item.OrderlineId, conn);
+                        MySqlCommand cmdd = new MySqlCommand(@"SELECT quantity FROM bestBuyE2.SCOrderLines where  bbe2_line_id =" + item.OrderlineId, conn);
                         cmdd.CommandType = System.Data.CommandType.Text;
                         MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmdd);
                         DataTable dt = new DataTable();
