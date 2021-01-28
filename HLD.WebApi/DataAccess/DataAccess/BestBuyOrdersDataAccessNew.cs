@@ -315,13 +315,17 @@ namespace DataAccess.DataAccess
                     da.Fill(ds);
                     listBBProductViewModel = new List<BestBuyOrdersViewModel>();
                     System.Data.DataView dataView = new System.Data.DataView(ds.Tables[0]);
-                    System.Data.DataTable distinctValue = dataView.ToTable(true, "sellerCloudID");
+                    System.Data.DataTable distinctValue = dataView.ToTable(true, "order_id");
                     DataTable dt = ds.Tables[0];
                     foreach (System.Data.DataRow reader in distinctValue.Rows)
                     {
                         List<BestBuyOrderDetailViewModel> objList = new List<BestBuyOrderDetailViewModel>();
 
-                        var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
+
+                        //var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
+
+                        var list = dt.AsEnumerable().Where(e => e.Field<string>("order_id").ToString() == reader["order_id"].ToString()).ToList();
+
 
                         var totalQuantity = list.Sum(e => Convert.ToDecimal(e.Field<string>("quantity")));
                         var totalPrice = list.Sum(e => Convert.ToDecimal(e.Field<decimal>("total_price")));
@@ -343,7 +347,11 @@ namespace DataAccess.DataAccess
 
                         BestBuyOrdersViewModel ViewModel = new BestBuyOrdersViewModel();
                         ViewModel.OrderNumber = Convert.ToString(list.Select(e => e.Field<string>("order_id")).FirstOrDefault());
+
                         ViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32?>("sellerCloudID")).FirstOrDefault());
+
+                        //ViewModel.SellerCloudOrderID = Convert.ToInt32(list.Select(e => e.Field<int?>("sellerCloudID")).FirstOrDefault() != null ? list.Select(e => e.Field<int>("sellerCloudID")).FirstOrDefault() : 0).ToString();
+               
                         ViewModel.ShipmentAddress = Convert.ToString(list.Select(e => e.Field<string>("CustomerAddress")).FirstOrDefault());
                         ViewModel.OrderDate = Convert.ToDateTime(list.Select(e => e.Field<DateTime?>("acceptance_decision_date")).FirstOrDefault());
                         ViewModel.ParentOrderID = Convert.ToInt32(list.Select(e => e.Field<int?>("ParentOrderID")).FirstOrDefault() != null ? list.Select(e => e.Field<int>("ParentOrderID")).FirstOrDefault() : 0).ToString();
@@ -480,7 +488,7 @@ namespace DataAccess.DataAccess
                     da.Fill(ds);
                     listBBProductViewModel = new List<BestBuyOrdersViewModel>();
                     System.Data.DataView dataView = new System.Data.DataView(ds.Tables[0]);
-                    System.Data.DataTable distinctValue = dataView.ToTable(true, "sellerCloudID");
+                    System.Data.DataTable distinctValue = dataView.ToTable(true, "order_id");
                     DataTable dt = ds.Tables[0];
                     if (dt.Rows.Count > 0)
                     {
@@ -491,7 +499,11 @@ namespace DataAccess.DataAccess
                     {
                         List<BestBuyOrderDetailViewModel> objList = new List<BestBuyOrderDetailViewModel>();
 
-                        var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
+
+
+
+                        var list = dt.AsEnumerable().Where(e => e.Field<string>("order_id").ToString() == reader["order_id"].ToString()).ToList();
+
 
                         var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
                         var totalPrice = list.Sum(e => Convert.ToDouble(e.Field<string>("total_price")));
@@ -652,14 +664,16 @@ namespace DataAccess.DataAccess
                     da.Fill(ds);
                     BBProductViewModel = new BestBuyOrdersViewPageModel();
                     System.Data.DataView dataView = new System.Data.DataView(ds.Tables[0]);
-                    System.Data.DataTable distinctValue = dataView.ToTable(true, "sellerCloudID");
+                    System.Data.DataTable distinctValue = dataView.ToTable(true, "order_id");
                     DataTable dt = ds.Tables[0];
                     foreach (System.Data.DataRow reader in distinctValue.Rows)
                     {
                         List<BestBuyOrderDetailViewModel> objList = new List<BestBuyOrderDetailViewModel>();
 
-                        var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
 
+                        //var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
+
+                        var list = dt.AsEnumerable().Where(e => e.Field<string>("order_id").ToString() == reader["order_id"].ToString()).ToList();
 
                         var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
                         // var shippingfee = list.Select(a=>Convert.ToDecimal( a.Field<decimal>("ShippingFee")));
@@ -683,7 +697,12 @@ namespace DataAccess.DataAccess
                         totalPrice = totalPrice - shipping;
 
                         BBProductViewModel.OrderNumber = Convert.ToString(list.Select(e => e.Field<string>("order_id")).FirstOrDefault());
+
                         BBProductViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32?>("sellerCloudID")).FirstOrDefault());
+
+                        
+                        //BBProductViewModel.SellerCloudOrderID = Convert.ToInt32(list.Select(e => e.Field<int?>("sellerCloudID")).FirstOrDefault() != null ? list.Select(e => e.Field<int>("sellerCloudID")).FirstOrDefault() : 0).ToString();
+
                         BBProductViewModel.CustomerName = Convert.ToString(list.Select(e => e.Field<string>("CustomerName")).FirstOrDefault());
                         BBProductViewModel.Street = Convert.ToString(list.Select(e => e.Field<string>("Street")).FirstOrDefault());
                         BBProductViewModel.State = Convert.ToString(list.Select(e => e.Field<string>("State")).FirstOrDefault());

@@ -34,7 +34,7 @@ namespace DataAccess.ViewModels
     public class BestBuyOrdersViewPageModel
     {
         public DateTime? OrderDate { get; set; }
-        public String SellerCloudOrderID { get; set; }
+        public string SellerCloudOrderID { get; set; }
         public string OrderNumber { get; set; }
         public string CustomerName { get; set; }
         public string ParentOrderID { get; set; }
