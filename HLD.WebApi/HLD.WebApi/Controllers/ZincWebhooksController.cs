@@ -96,8 +96,8 @@ namespace HLD.WebApi.Controllers
                 {
 
                     model.OurInternalOrderId = sci.ToString();
-                    logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
-                    model.ZincOrderLogID = logidmodel.zinc_order_log_id;
+                    //logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
+                    //model.ZincOrderLogID = logidmodel.zinc_order_log_id;
 
                 }
 
@@ -192,8 +192,8 @@ namespace HLD.WebApi.Controllers
                 {
 
                     model.OurInternalOrderId = sci.ToString();
-                    logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
-                    model.ZincOrderLogID = logidmodel.zinc_order_log_id;
+                    //logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
+                    //model.ZincOrderLogID = logidmodel.zinc_order_log_id;
 
                 }
 
@@ -244,8 +244,8 @@ namespace HLD.WebApi.Controllers
 
                     model.OurInternalOrderId = scid.ToString();
 
-                    logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
-                    model.ZincOrderLogID = logidmodel.zinc_order_log_id;
+                    //logidmodel = _zincOrderLogDataAccess.GetLogid(model.OurInternalOrderId);
+                    //model.ZincOrderLogID = logidmodel.zinc_order_log_id;
 
                 }
 

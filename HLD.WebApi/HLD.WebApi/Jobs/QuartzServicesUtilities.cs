@@ -73,7 +73,7 @@ namespace HLD.WebApi.Jobs
                 scheduler.ScheduleJob(job, trigger);
             }
 
-            if (jobName == "HLD.WebApi.Jobs.CreateOrderInSellerCloud")
+            if (jobName == "HLD.WebApi.Jobs.CreateOrderInSellerCloudNewJob")
             {
                 var trigger = TriggerBuilder.Create()
              .ForJob(job)
@@ -246,7 +246,7 @@ namespace HLD.WebApi.Jobs
              .Build();
                 scheduler.ScheduleJob(job, trigger);
             }
-            if (jobName == "HLD.WebApi.Jobs.GetOrdersFromBestBuyJob")
+            if (jobName == "HLD.WebApi.Jobs.GetOrdersFromBestBuyNewJob")
             {
                 var trigger = TriggerBuilder.Create()
          .ForJob(job)

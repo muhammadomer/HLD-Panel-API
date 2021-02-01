@@ -1126,7 +1126,9 @@ namespace DataAccess.DataAccess
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                MySqlCommand cmdd = new MySqlCommand(@"SELECT product_sku,qty FROM bestBuyE2.sellerCloudOrderDetail where sellerCloudOrderDetail.seller_cloud_order_id=" + OurInternalID, conn);
+                MySqlCommand cmdd = new MySqlCommand(@"SELECT offer_sku,quantity FROM bestBuyE2.SCOrderLines inner join 
+SCOrders on SCOrders.order_id = SCOrderLines.order_id
+ where SCOrders.seller_cloud_order_id=" + OurInternalID, conn);
                 cmdd.CommandType = System.Data.CommandType.Text;
 
                 using (var reader = cmdd.ExecuteReader())
@@ -1136,9 +1138,9 @@ namespace DataAccess.DataAccess
                         while (reader.Read())
                         {
                             model = new SKUQTYModelforWebhooks();
-                            model.SKU = Convert.ToString(reader["product_sku"]);
+                            model.SKU = Convert.ToString(reader["offer_sku"]);
 
-                            model.Qty = Convert.ToInt32(reader["qty"]);
+                            model.Qty = Convert.ToInt32(reader["quantity"]);
 
                         }
 

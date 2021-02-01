@@ -108,7 +108,7 @@ namespace DataAccess.DataAccess
                     {
 
 
-                        MySqlCommand cmd = new MySqlCommand("P_SaveOrderLinesFromBB", conn);
+                        MySqlCommand cmd = new MySqlCommand("P_SaveOrderLinesFromBBV2", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("_bbe2_orders_id", bbe2_orders_id);
                         cmd.Parameters.AddWithValue("_order_line_id", item.order_line_id);
@@ -122,6 +122,8 @@ namespace DataAccess.DataAccess
                         cmd.Parameters.AddWithValue("_total_commission", item.total_commission);
                         cmd.Parameters.AddWithValue("_order_line_state", item.order_line_state);
                         cmd.Parameters.AddWithValue("_ShippingFee", item.shipping_price);
+                        cmd.Parameters.AddWithValue("_Commission_Fee", item.commission_fee);
+                        cmd.Parameters.AddWithValue("_commission_rate_vat", item.commission_rate_vat);
                         cmd.Parameters.AddWithValue("_TaxGST", item.taxes.Where(p => p.code == "GST").Select(p => p.amount).FirstOrDefault());
                         cmd.Parameters.AddWithValue("_TaxPST", item.taxes.Where(p => p.code != "GST").Select(p => p.amount).FirstOrDefault());
 

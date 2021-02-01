@@ -58,13 +58,12 @@ namespace HLD.WebApi.Jobs
         {
             int status = channelDecrytionDataAccess.CheckZincJobsStatus("sellercloudadding");
 
-
             if (status == 1)
             {
                 await SendOrderToSellerCloudForCreationAsync();
 
             }
-
+          
 
             await Task.CompletedTask;
 
@@ -74,10 +73,7 @@ namespace HLD.WebApi.Jobs
             bool Issent = false;
             _getChannelCredViewModel = new GetChannelCredViewModel();
             _getChannelCredViewModel = _EncDecChannel.DecryptedData("sellercloud");
-            Thread emailThread = new Thread(() => _sendEmailOfNew.SendNewEmail(7073624));
-            emailThread.Start();
-
-            await GetSC_OrderStatusAsync(7073624, _getChannelCredViewModel);
+          
             try
             {
                 List<UnCreatedOrderViewModel> unCreatedOrderViewModel = new List<UnCreatedOrderViewModel>();
@@ -88,7 +84,7 @@ namespace HLD.WebApi.Jobs
                 {
                     AuthenticateSCRestViewModel responses = new AuthenticateSCRestViewModel();
                     responses = AuthenticateSC();
-                    foreach (var item in unCreatedOrderViewModel.Where(p => p.Orderid == "225104145-A"))
+                    foreach (var item in unCreatedOrderViewModel)
                     {
                         // check payment status
                         bool status = _addOrderToSCDataAccess.CheckCityOrder(item.bbe2OrdersId);
@@ -99,6 +95,7 @@ namespace HLD.WebApi.Jobs
                             // get order data
                             createOrderOnSCViewModel = _addOrderToSCDataAccess.GetSCOrderData(item.Orderid);
                             decimal am = 0;
+                          
                             foreach (var qty_price in createOrderOnSCViewModel.Products)
                             {
                                 am += qty_price.SitePrice * qty_price.Qty;
@@ -108,18 +105,18 @@ namespace HLD.WebApi.Jobs
                             int shippingPrice = createOrderOnSCViewModel.ShippingMethodDetails.ShippingFee;
                             SellerCloudOrderIdViewModel sellerCloudOrderIdViewModel = new SellerCloudOrderIdViewModel();
 
-                            //int OrderID = await ConfirmOrderByOrderSourceIDFromSellerCloudAsync(item.Orderid, _getChannelCredViewModel);
+                            int OrderID = await ConfirmOrderByOrderSourceIDFromSellerCloudAsync(item.Orderid, _getChannelCredViewModel);
 
 
-                            //if (OrderID != 0)
-                            //{
-                            //    bool Updatedstatus = _addOrderToSCDataAccess.UpdateSellerID(item.Orderid, OrderID);
-
-                            //}
-                            //else
-                            //{
-                            // create on sc
-                            sellerCloudOrderIdViewModel = SendToSCOrderCreateNew(createOrderOnSCViewModel, responses.access_token);
+                            if (OrderID != 0)
+                            {
+                                bool Updatedstatus = _addOrderToSCDataAccess.UpdateSellerID(item.Orderid, OrderID);
+                                await GetSC_OrderStatusAsync(OrderID, _getChannelCredViewModel);
+                            }
+                            else
+                            {
+                                // create on sc
+                                sellerCloudOrderIdViewModel = SendToSCOrderCreateNew(createOrderOnSCViewModel, responses.access_token);
 
                             if (sellerCloudOrderIdViewModel.StatusCode == 200)
                             {
@@ -141,11 +138,12 @@ namespace HLD.WebApi.Jobs
                                     Issent = true;
 
 
-                                    // Generate Emails Here for payments Orders
-                                    //Thread emailThread = new Thread(() => _sendEmailOfNew.SendNewEmail(sellerCloudOrderIdViewModel.SellerCloudId));
-                                    //emailThread.Start();
+                                       // Generate Emails Here for payments Orders
+   
+                                       Thread emailThread = new Thread(() => _sendEmailOfNew.SendNewEmail(sellerCloudOrderIdViewModel.SellerCloudId));
+                                        emailThread.Start();
 
-                                    await GetSC_OrderStatusAsync(sellerCloudOrderIdViewModel.SellerCloudId, _getChannelCredViewModel);
+                                        await GetSC_OrderStatusAsync(sellerCloudOrderIdViewModel.SellerCloudId, _getChannelCredViewModel);
 
                                 }
 
@@ -162,7 +160,7 @@ namespace HLD.WebApi.Jobs
 
                                 continue;
                             }
-                            //  }
+                              }
 
                         }
                     }

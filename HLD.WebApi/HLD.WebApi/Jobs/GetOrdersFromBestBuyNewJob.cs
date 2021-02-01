@@ -30,11 +30,11 @@ namespace HLD.WebApi.Jobs
             channelDecrytionDataAccess = new ChannelDecrytionDataAccess(_connectionString);
         }
         public async Task Execute(IJobExecutionContext context)
+        
         {
 
-            int status = channelDecrytionDataAccess.CheckZincJobsStatus("neworders");
-
-
+            //   int status = channelDecrytionDataAccess.CheckZincJobsStatus("neworders");
+            int status = 1;
             if (status == 1)
             {
                 _getChannelCredViewModel = new GetChannelCredViewModel();
@@ -45,13 +45,6 @@ namespace HLD.WebApi.Jobs
 
                 string AllOrderCommaSeprate = string.Join(",", bestBuyRootObject.orders.Select(e => e.order_id));
 
-
-                //For Testing
-                //var result = bestBuyRootObject.orders.Where(e => e.order_id == "218382346-A").FirstOrDefault();
-                //var AllSKUCommaSeprate = result.order_lines.Select(p => p.offer_sku).ToList();
-                //List<DropShipAndQtyOrderViewModel> listqty = _bestBuytDataAccess.GeQtyAndDropShip(AllSKUCommaSeprate);
-                //DropShipAndQtyOrderViewModel Qty = new DropShipAndQtyOrderViewModel();
-                //Qty = listqty.Where(p => p.Status != "1" && p.Qty <= 0).FirstOrDefault();
 
                 List<string> AllreadyExistOrder = _bestBuytDataAccessNew.GetOrderAlreadyExist(AllOrderCommaSeprate);
                 var NewOrders = bestBuyRootObject.orders.Select(e => e.order_id).Except(AllreadyExistOrder);
@@ -84,7 +77,7 @@ namespace HLD.WebApi.Jobs
                                 ListorderLine_Accept.Add(orderLine_Accept);
                             }
                             acceptBesyBuyOrder.order_lines = ListorderLine_Accept;
-                            //         BestBuy_acceptOrder(_getChannelCredViewModel.Key, item, acceptBesyBuyOrder);
+                            BestBuy_acceptOrder(_getChannelCredViewModel.Key, item, acceptBesyBuyOrder);
                         }
                         else
                         {
@@ -97,15 +90,15 @@ namespace HLD.WebApi.Jobs
 
                 }
 
-                foreach (var item in AllreadyExistOrder)
-                {
-                    var result = bestBuyRootObject.orders.Where(e => e.order_id == item).FirstOrDefault();
-                    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrder(result);
-                    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrderLines(result);
+                //foreach (var item in AllreadyExistOrder)
+                //{
+                //    var result = bestBuyRootObject.orders.Where(e => e.order_id == item).FirstOrDefault();
+                //    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrder(result);
+                //    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrderLines(result);
 
-                    _bestBuytDataAccessNew.UpdateBestBuyOrderINCustomerShipping(result);
+                //    _bestBuytDataAccessNew.UpdateBestBuyOrderINCustomerShipping(result);
 
-                }
+                //}
             }
         }
 
@@ -117,7 +110,7 @@ namespace HLD.WebApi.Jobs
 
 
                 //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://marketplace.bestbuy.ca/api/orders?paginate=false&order_ids=218377639-A");
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://marketplace.bestbuy.ca/api/orders?order=desc&max=999");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://marketplace.bestbuy.ca/api/orders?order=desc&max=99");
                 request.Method = "GET";
                 request.Accept = "application/json;";
                 request.ContentType = "application/json";
@@ -247,7 +240,7 @@ namespace HLD.WebApi.Jobs
                     EnableSsl = true,
                     Credentials = credentials
                 };
-                client.Send(mail);
+              //  client.Send(mail);
                 //return "Email Sent Successfully!";
 
             }

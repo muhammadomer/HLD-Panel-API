@@ -71,7 +71,7 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("p_GetBBOrders_SearchTotalCount", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("zincOrderStatus", viewModel.ZincStatus);
+                    cmd.Parameters.AddWithValue("zincOrderStatus", getString(viewModel.ZincStatus));
                     cmd.Parameters.AddWithValue("sort", viewModel.Sort);
                     cmd.Parameters.AddWithValue("OrderStatus", viewModel.OrderStatus);
                     cmd.Parameters.AddWithValue("sku", viewModel.Sku);
@@ -82,7 +82,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("PaymentStatus", viewModel.PaymentStatus);
                     cmd.Parameters.AddWithValue("_ShippingBoxContain", viewModel.ShippingBoxContain);
                     cmd.Parameters.AddWithValue("_wHQStatus", viewModel.WHQStatus);
-                    cmd.Parameters.AddWithValue("_bBOrderStatus", viewModel.BBOrderStatus);
+                    cmd.Parameters.AddWithValue("_bBOrderStatus", getString(viewModel.BBOrderStatus));
 
 
                     var da = new MySqlDataAdapter(cmd);
@@ -127,19 +127,19 @@ namespace DataAccess.DataAccess
                     System.Data.DataTable distinctValue = dataView.ToTable(true, "sellerCloudID");
                     DataTable dt = ds.Tables[0];
                     foreach (System.Data.DataRow reader in distinctValue.Rows)
-                    {
+                     {
                         List<BestBuyOrderDetailViewModel> objList = new List<BestBuyOrderDetailViewModel>();
 
                         var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
 
 
                         var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
-                        var totalPrice = list.Sum(e => Convert.ToDouble(e.Field<string>("total_price")));
+                        
+                        var totalPrice = list.Sum(e => Convert.ToDouble(e.Field<double>("totalPrice")));
                         var total_commission = list.Sum(e => Convert.ToDouble(e.Field<string>("total_commission")));
                         var totalGst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxGST")));
                         var totalPst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxPST")));
                         var toalAverageCost = list.Sum(e => e.Field<double>("TotalAverageCost"));
-                        //var ShippingFee= list.Sum(e => Convert.ToDouble(e.Field<string>("ShippingFee")));
 
                         var sumOfGstPst = totalGst + totalPst;
 
@@ -160,7 +160,7 @@ namespace DataAccess.DataAccess
                         ViewModel.IsNotes = Convert.ToString(list.Select(e => e.Field<string>("IsNotes")).FirstOrDefault());
                         ViewModel.ShippingPrice = Convert.ToString(list.Select(e => e.Field<string>("ShippingPaidByCustomer")).FirstOrDefault());
 
-                        var ProfitLoss = Math.Round(totalPrice - toalAverageCost - total_commission, 2);
+                        var ProfitLoss = Math.Round((totalPrice + Convert.ToDouble(ViewModel.ShippingPrice) )- toalAverageCost - total_commission, 2);
                         var profitAndLossInPercent = Math.Round((ProfitLoss / totalPrice) * 100);
 
                         ViewModel.TotalTax = Convert.ToDecimal(0);
@@ -213,7 +213,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.ProfitLoss = "";
                             detailViewModel.Comission = Convert.ToDecimal(dataRow["total_commission"] != DBNull.Value ? dataRow["total_commission"] : "0");
                             detailViewModel.UnitPrice = Convert.ToDecimal(dataRow["total_price"] != DBNull.Value ? dataRow["total_price"] : "0");
-                            detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice - detailViewModel.ShippingFee) / detailViewModel.TotalQuantity, 2);
+                           // detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice) / detailViewModel.TotalQuantity, 2);
                               detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
                             detailViewModel.TaxGST = Convert.ToDecimal(dataRow["TaxGST"] != DBNull.Value ? dataRow["TaxGST"] : "0");
                             detailViewModel.TaxPST = Convert.ToDecimal(dataRow["TaxPST"] != DBNull.Value ? dataRow["TaxPST"] : "0");
@@ -247,10 +247,8 @@ namespace DataAccess.DataAccess
                             detailViewModel.caculation_TotalAvgCost = Math.Round(Math.Round(Convert.ToDecimal(detailViewModel.AverageCost), 2) * detailViewModel.TotalQuantity, 2);
                             detailViewModel.calculation_SumTotal = Math.Round(detailViewModel.calculation_TotalTax + detailViewModel.calculation_TotalAmountOfUnitPrice, 2);
                             detailViewModel.calculation_comissionPercentage = Math.Round(((detailViewModel.calculation_Comission / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100), 2);
-                            detailViewModel.calculation_ProfitLoss = Math.Round(detailViewModel.calculation_TotalAmountOfUnitPrice - 0 - detailViewModel.caculation_TotalAvgCost - detailViewModel.calculation_Comission, 2);
+                            detailViewModel.calculation_ProfitLoss = Math.Round((detailViewModel.calculation_TotalAmountOfUnitPrice + detailViewModel.ShippingFee) - detailViewModel.caculation_TotalAvgCost - detailViewModel.calculation_Comission, 2);
                             detailViewModel.calculation_ProfitLossPercentage = Math.Round((detailViewModel.calculation_ProfitLoss / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100, 2);
-
-
                             //List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetProductQtyBySKU_ForOrdersPage(detailViewModel.ProductSKU, conn);
                             List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetWareHousesQtyList(detailViewModel.ProductSKU);
                             detailViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
@@ -286,9 +284,11 @@ namespace DataAccess.DataAccess
         }
         public List<BestBuyOrdersViewModel> GetAllBestBuyOrdersSearch(BestBuyOrderSearchTotalCountViewModel viewModel)
         {
+
             List<BestBuyOrdersViewModel> listBBProductViewModel = null;
             try
-            {
+            
+            { 
                 System.Data.DataSet ds = new System.Data.DataSet();
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
@@ -296,7 +296,7 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("P_forTestingPurposeDumyCopy", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("zincOrderStatus", viewModel.ZincStatus);
+                    cmd.Parameters.AddWithValue("zincOrderStatus", getString(viewModel.ZincStatus) );
                     cmd.Parameters.AddWithValue("sort", viewModel.Sort);
                     cmd.Parameters.AddWithValue("startLimit", viewModel.StartIndex);
                     cmd.Parameters.AddWithValue("endLimit", viewModel.EndIndex);
@@ -309,7 +309,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("TagSearch", viewModel.ShippingTags);
                     cmd.Parameters.AddWithValue("_ShippingBoxContain", viewModel.ShippingBoxContain);
                     cmd.Parameters.AddWithValue("_wHQStatus", viewModel.WHQStatus);
-                    cmd.Parameters.AddWithValue("_bBOrderStatus", viewModel.BBOrderStatus);
+                    cmd.Parameters.AddWithValue("_bBOrderStatus", getString(viewModel.BBOrderStatus));
 
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     da.Fill(ds);
@@ -327,24 +327,27 @@ namespace DataAccess.DataAccess
                         var list = dt.AsEnumerable().Where(e => e.Field<string>("order_id").ToString() == reader["order_id"].ToString()).ToList();
 
 
-                        var totalQuantity = list.Sum(e => Convert.ToDecimal(e.Field<string>("quantity")));
-                        var totalPrice = list.Sum(e => Convert.ToDecimal(e.Field<decimal>("total_price")));
-                        var total_commission = list.Sum(e => Convert.ToDecimal(e.Field<decimal>("total_commission")));
-                        var totalGst = list.Sum(e => Convert.ToDecimal(e.Field<string>("TaxGST")));
-                        var totalPst = list.Sum(e => Convert.ToDecimal(e.Field<string>("TaxPST")));
+                        //var totalQuantity = list.Sum(e => Convert.ToDecimal(e.Field<string>("quantity")));
+                        //var totalPrice = list.Sum(e => Convert.ToDouble(e.Field<double>("totalPrice")));
+                        //var total_commission = list.Sum(e => Convert.ToDecimal(e.Field<decimal>("total_commission")));
+                        //var totalGst = list.Sum(e => Convert.ToDecimal(e.Field<string>("TaxGST")));
+                        //var totalPst = list.Sum(e => Convert.ToDecimal(e.Field<string>("TaxPST")));
+                        //var toalAverageCost = list.Sum(e => e.Field<double>("TotalAverageCost"));
+
+                        var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
+
+                        var totalPrice = list.Sum(e => Convert.ToDouble(e.Field<double>("totalPrice")));
+                        var total_commission = list.Sum(e => Convert.ToDouble(e.Field<string>("total_commission")));
+                        var totalGst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxGST")));
+                        var totalPst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxPST")));
                         var toalAverageCost = list.Sum(e => e.Field<double>("TotalAverageCost"));
-
-
                         var sumOfGstPst = totalGst + totalPst;
 
                         var total =(Convert.ToDecimal(sumOfGstPst) / Convert.ToDecimal( totalPrice)) * 100;
 
                         //var totalComission = Math.Round((total_commission) / (1 + total / 100), 2);
                         var totalComission = total_commission;
-                        var ProfitLoss = Math.Round(Convert.ToDouble(totalPrice) - toalAverageCost - Convert.ToDouble( total_commission), 2);
-                        var profitAndLossInPercent = Math.Round((Convert.ToDecimal(ProfitLoss) / totalPrice) * 100);
-
-
+                    
                         BestBuyOrdersViewModel ViewModel = new BestBuyOrdersViewModel();
                         ViewModel.OrderNumber = Convert.ToString(list.Select(e => e.Field<string>("order_id")).FirstOrDefault());
 
@@ -358,6 +361,9 @@ namespace DataAccess.DataAccess
                         ViewModel.IsParent = Convert.ToString(list.Select(e => e.Field<string>("IsParent")).FirstOrDefault());
                         ViewModel.IsNotes = Convert.ToString(list.Select(e => e.Field<string>("IsNotes")).FirstOrDefault());
                         ViewModel.ShippingPrice = Convert.ToString(list.Select(e => e.Field<string>("ShippingPaidByCustomer")).FirstOrDefault());
+
+                        var ProfitLoss = Math.Round((totalPrice + Convert.ToDouble(ViewModel.ShippingPrice)) - toalAverageCost - total_commission, 2);
+                        var profitAndLossInPercent = Math.Round((ProfitLoss / totalPrice) * 100);
 
                         ViewModel.TotalTax = Convert.ToDecimal(0);
                         ViewModel.TotalQuantity = Convert.ToInt32(totalQuantity);
@@ -403,7 +409,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.ProfitLoss = "";
                             detailViewModel.Comission = Convert.ToDecimal(dataRow["total_commission"] != DBNull.Value ? dataRow["total_commission"] : "0");
                             detailViewModel.UnitPrice = Convert.ToDecimal(dataRow["total_price"] != DBNull.Value ? dataRow["total_price"] : "0");
-                            detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice - detailViewModel.ShippingFee) / detailViewModel.TotalQuantity, 2);
+                            //detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice) / detailViewModel.TotalQuantity, 2);
                             detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
                             detailViewModel.TaxGST = Convert.ToDecimal(dataRow["TaxGST"] != DBNull.Value ? dataRow["TaxGST"] : "0");
                             detailViewModel.TaxPST = Convert.ToDecimal(dataRow["TaxPST"] != DBNull.Value ? dataRow["TaxPST"] : "0");
@@ -432,11 +438,12 @@ namespace DataAccess.DataAccess
                             detailViewModel.calculation_TotalAmountOfUnitPrice = detailViewModel.TotalQuantity * detailViewModel.UnitPrice;
                             detailViewModel.calculation_TotalTax = detailViewModel.TaxGST + detailViewModel.TaxPST;
                             detailViewModel.calculation_TotalTacPercentage = Math.Round((detailViewModel.calculation_TotalTax / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100, 2);
-                            detailViewModel.calculation_Comission = Math.Round((detailViewModel.Comission) / (1 + detailViewModel.calculation_TotalTacPercentage / 100), 2);
+                            //detailViewModel.calculation_Comission = Math.Round((detailViewModel.Comission) / (1 + detailViewModel.calculation_TotalTacPercentage / 100), 2);
+                            detailViewModel.calculation_Comission = Math.Round((detailViewModel.Comission), 2);
                             detailViewModel.caculation_TotalAvgCost = Math.Round(Math.Round(Convert.ToDecimal(detailViewModel.AverageCost), 2) * detailViewModel.TotalQuantity, 2);
                             detailViewModel.calculation_SumTotal = Math.Round(detailViewModel.calculation_TotalTax + detailViewModel.calculation_TotalAmountOfUnitPrice, 2);
                             detailViewModel.calculation_comissionPercentage = Math.Round(((detailViewModel.calculation_Comission / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100), 2);
-                            detailViewModel.calculation_ProfitLoss = Math.Round(detailViewModel.calculation_TotalAmountOfUnitPrice - 0 - detailViewModel.caculation_TotalAvgCost - detailViewModel.calculation_Comission, 2);
+                            detailViewModel.calculation_ProfitLoss = Math.Round((detailViewModel.calculation_TotalAmountOfUnitPrice + detailViewModel.ShippingFee) - detailViewModel.caculation_TotalAvgCost - detailViewModel.calculation_Comission, 2);
                             detailViewModel.calculation_ProfitLossPercentage = Math.Round((detailViewModel.calculation_ProfitLoss / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100, 2);
 
 
@@ -525,7 +532,7 @@ namespace DataAccess.DataAccess
 
                         BestBuyOrdersViewModel ViewModel = new BestBuyOrdersViewModel();
                         ViewModel.OrderNumber = Convert.ToString(list.Select(e => e.Field<string>("order_id")).FirstOrDefault());
-                       // ViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<string>("sellerCloudID")).FirstOrDefault());
+                        ViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32?>("sellerCloudID")).FirstOrDefault());
                         ViewModel.ParentOrderID = Convert.ToInt32(list.Select(e => e.Field<int?>("ParentOrderID")).FirstOrDefault() != null ? list.Select(e => e.Field<int>("ParentOrderID")).FirstOrDefault() : 0).ToString();
                         ViewModel.IsParent = Convert.ToString(list.Select(e => e.Field<string>("IsParent")).FirstOrDefault());
                         ViewModel.IsNotes = Convert.ToString(list.Select(e => e.Field<string>("IsNotes")).FirstOrDefault());
@@ -655,7 +662,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
 
-                    MySqlCommand cmd = new MySqlCommand("P_GetSCOrderForOrderPageViewNew", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_GetSCOrderForOrderPageView", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_SourceOrderID", bbOrderId);
@@ -670,38 +677,21 @@ namespace DataAccess.DataAccess
                     {
                         List<BestBuyOrderDetailViewModel> objList = new List<BestBuyOrderDetailViewModel>();
 
-
-                        //var list = dt.AsEnumerable().Where(e => e.Field<Int32?>("sellerCloudID").ToString() == reader["sellerCloudID"].ToString()).ToList();
-
                         var list = dt.AsEnumerable().Where(e => e.Field<string>("order_id").ToString() == reader["order_id"].ToString()).ToList();
-
+                        var shipping = Convert.ToDouble(list.Select(e => e.Field<string>("ShippingPaidByCustomer")).FirstOrDefault());
                         var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
-                        // var shippingfee = list.Select(a=>Convert.ToDecimal( a.Field<decimal>("ShippingFee")));
-                        var totalPrice = (list.Sum(e => Convert.ToDouble(e.Field<string>("total_price"))));
-                        var total_commission = list.Sum(e => Convert.ToDouble(e.Field<string>("total_commission")));
+
+                        var totalPrice = list.Sum(e => Convert.ToDouble(e.Field<double>("totalPrice")));
+                        var total_commission = list.Sum(e => Convert.ToDouble(e.Field<decimal>("total_commission")));
                         var totalGst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxGST")));
                         var totalPst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxPST")));
                         var toalAverageCost = list.Sum(e => e.Field<double>("TotalAverageCost"));
-
-                        var shipping = Convert.ToDouble(list.Select(e => e.Field<string>("ShippingPaidByCustomer")).FirstOrDefault());
-
-                        var sumOfGstPst = totalGst + totalPst;
-
-                        var total = (sumOfGstPst / totalPrice) * 100;
-
-                        //var totalComission = Math.Round((total_commission) / (1 + total / 100), 2);
-                        var totalComission = total_commission;
-                        var ProfitLoss = Math.Round(totalPrice - toalAverageCost - total_commission, 2);
+                        var ProfitLoss = Math.Round((totalPrice+ shipping) - toalAverageCost - total_commission, 2);
                         var profitAndLossInPercent = Math.Round((ProfitLoss / totalPrice) * 100);
-
-                        totalPrice = totalPrice - shipping;
 
                         BBProductViewModel.OrderNumber = Convert.ToString(list.Select(e => e.Field<string>("order_id")).FirstOrDefault());
 
                         BBProductViewModel.SellerCloudOrderID = Convert.ToString(list.Select(e => e.Field<Int32?>("sellerCloudID")).FirstOrDefault());
-
-                        
-                        //BBProductViewModel.SellerCloudOrderID = Convert.ToInt32(list.Select(e => e.Field<int?>("sellerCloudID")).FirstOrDefault() != null ? list.Select(e => e.Field<int>("sellerCloudID")).FirstOrDefault() : 0).ToString();
 
                         BBProductViewModel.CustomerName = Convert.ToString(list.Select(e => e.Field<string>("CustomerName")).FirstOrDefault());
                         BBProductViewModel.Street = Convert.ToString(list.Select(e => e.Field<string>("Street")).FirstOrDefault());
@@ -713,7 +703,7 @@ namespace DataAccess.DataAccess
                         BBProductViewModel.IsNotes = Convert.ToString(list.Select(e => e.Field<string>("IsNotes")).FirstOrDefault());
                         BBProductViewModel.ShippingPrice = Convert.ToString(list.Select(e => e.Field<string>("ShippingPaidByCustomer")).FirstOrDefault());
 
-                        BBProductViewModel.TotalTax = Convert.ToDecimal(0);
+                        BBProductViewModel.TotalTax = Convert.ToDecimal(totalGst + totalPst);
                         BBProductViewModel.TotalQuantity = Convert.ToInt32(totalQuantity);
                         BBProductViewModel.TotalComission = Convert.ToDecimal(total_commission);
                         BBProductViewModel.TotalPrice = Math.Round(Convert.ToDecimal(totalPrice), 2);
@@ -753,6 +743,7 @@ namespace DataAccess.DataAccess
 
                             List<ApprovedPriceViewModel> approvedPrices = new List<ApprovedPriceViewModel>();
                             approvedPrices = ApprovedPriceDataAccess.GetApprovedPricesList(1278, 30, 0, detailViewModel.ProductSKU, "", "");
+
                             detailViewModel.approvedPrices = approvedPrices.Where(s => s.PriceStatus == true).ToList();
                             detailViewModel.ZincASIN = Convert.ToString("");
                             detailViewModel.ZincLink = Convert.ToString("");
@@ -761,7 +752,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.Comission = Convert.ToDecimal(dataRow["total_commission"] != DBNull.Value ? dataRow["total_commission"] : "0");
                             detailViewModel.ShippingFee = Convert.ToDecimal(dataRow["ShippingFee"] != DBNull.Value ? dataRow["ShippingFee"] : 0);
                             detailViewModel.UnitPrice = Convert.ToDecimal(dataRow["total_price"] != DBNull.Value ? dataRow["total_price"] : "0");
-                            detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice - detailViewModel.ShippingFee) / detailViewModel.TotalQuantity, 2);
+                            detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice) / detailViewModel.TotalQuantity, 2);
                             detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["bbe2_line_id"] != DBNull.Value ? dataRow["bbe2_line_id"] : "0");
                             detailViewModel.TaxGST = Convert.ToDecimal(dataRow["TaxGST"] != DBNull.Value ? dataRow["TaxGST"] : "0");
                             detailViewModel.TaxPST = Convert.ToDecimal(dataRow["TaxPST"] != DBNull.Value ? dataRow["TaxPST"] : "0");
@@ -785,6 +776,8 @@ namespace DataAccess.DataAccess
                             detailViewModel.OnOrder = Convert.ToInt32(dataRow["OnOrder"] != DBNull.Value ? dataRow["OnOrder"] : 0);
                             detailViewModel.DropshipQty = Convert.ToInt32(dataRow["dropship_Qty"] != DBNull.Value ? dataRow["dropship_Qty"] : "0");
                             detailViewModel.BestBuyPorductID = Convert.ToString(dataRow["bb_product_ID"] != DBNull.Value ? dataRow["bb_product_ID"] : "0");
+                            detailViewModel.WarehouseQuantity = Convert.ToString(dataRow["AggregatedQty"] != DBNull.Value ? dataRow["AggregatedQty"] : "0");
+
 
                             //calculations
                             detailViewModel.calculation_TotalAmountOfUnitPrice = detailViewModel.TotalQuantity * detailViewModel.UnitPrice;
@@ -795,11 +788,10 @@ namespace DataAccess.DataAccess
                             detailViewModel.caculation_TotalAvgCost = Math.Round(Math.Round(Convert.ToDecimal(detailViewModel.AverageCost), 2) * detailViewModel.TotalQuantity, 2);
                             detailViewModel.calculation_SumTotal = Math.Round(detailViewModel.calculation_TotalTax + detailViewModel.calculation_TotalAmountOfUnitPrice, 2);
                             detailViewModel.calculation_comissionPercentage = Math.Round(((detailViewModel.calculation_Comission / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100), 2);
-                            detailViewModel.calculation_ProfitLoss = Math.Round(detailViewModel.calculation_TotalAmountOfUnitPrice - 0 - detailViewModel.caculation_TotalAvgCost - detailViewModel.calculation_Comission, 2);
+                            detailViewModel.calculation_ProfitLoss = Math.Round((detailViewModel.calculation_TotalAmountOfUnitPrice + detailViewModel.ShippingFee) - detailViewModel.caculation_TotalAvgCost - detailViewModel.calculation_Comission, 2);
                             detailViewModel.calculation_ProfitLossPercentage = Math.Round((detailViewModel.calculation_ProfitLoss / detailViewModel.calculation_TotalAmountOfUnitPrice) * 100, 2);
 
 
-                            //List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetProductQtyBySKU_ForOrdersPage(detailViewModel.ProductSKU, conn);
                             List<ProductWarehouseQtyViewModel> warehouseQty = dataAccess.GetWareHousesQtyList(detailViewModel.ProductSKU);
 
                             detailViewModel.ZincAsinDetail = _zincDataAccess.GetProductZincDetailBySKU(detailViewModel.ProductSKU);
@@ -824,6 +816,49 @@ namespace DataAccess.DataAccess
             }
 
             return BBProductViewModel;
+        }
+
+        public string getString(string text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+
+
+                //   '\'apple\',\'banana\''
+                string finalString = "";
+                string[] splitString = text.Split(',');
+
+                int end = splitString.Length - 1;
+                StringBuilder stringBuilder = new StringBuilder();
+
+                if (!(splitString.Length > 1))
+                {
+                    stringBuilder.Append(string.Concat("\'", splitString[0] + "\'"));
+                }
+                else
+                {
+                    for (int i = 0; i < splitString.Length; i++)
+                    {
+                        stringBuilder.Append(string.Concat("\'", splitString[i] + "\',"));
+                    }
+                }
+
+                int index = stringBuilder.ToString().LastIndexOf(',');
+                if (index != -1)
+                {
+                    finalString = stringBuilder.ToString().Remove(index);
+                }
+                else
+                {
+                    finalString = stringBuilder.ToString();
+                }
+
+                return finalString;
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }

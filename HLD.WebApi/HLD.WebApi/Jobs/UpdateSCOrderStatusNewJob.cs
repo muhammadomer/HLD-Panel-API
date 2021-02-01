@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HLD.WebApi.Jobs
 {
-    public class UpdateSCOrderStatusNewJob
+    public class UpdateSCOrderStatusNewJob: IJob
     {
         IConnectionString _connectionString = null;
         ServiceReference1.AuthHeader authHeader = null;
