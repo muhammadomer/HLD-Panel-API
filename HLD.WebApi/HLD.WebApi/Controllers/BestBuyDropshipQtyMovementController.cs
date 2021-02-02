@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HLD.WebApi.Controllers
 {
+    [Authorize]
+    [Route("api/[controller]")]
     [ApiController]
     public class BestBuyDropshipQtyMovementController : ControllerBase
     {
@@ -33,6 +35,30 @@ namespace HLD.WebApi.Controllers
         public IActionResult GetByQuery(SearchQueryViewModel query)
         {
             List<BestBuyQTYLogsDetailViewModel> model = _dataAccess.GetAllBestBuyQtyQuery(query.query);
+            return Ok(model);
+        }
+        [HttpGet]
+        [Route("GetCounter")]
+        public IActionResult GetCounter(string product_sku, string ds_status, string BBProductID, string CurrentDate, string PreviousDate)
+        {
+            long Count = 0;
+            bool status = false;
+            Count = _dataAccess.GetLogsCount(product_sku, ds_status, BBProductID, CurrentDate, PreviousDate);
+            if (Count > 0)
+            {
+                status = true;
+                return Ok(new { status = status, counter = Count, Message = "Success" });
+            }
+            else
+            {
+                return Ok(new { status = status, counter = Count, Message = "Some Error Occured" });
+            }
+        }
+        [HttpGet]
+        [Route("DropshipQtyList")]
+        public IActionResult DropshipQtyList(string DateTo, string DateFrom, int limit, int offset, string product_sku, string ds_status, string BBProductID)
+        {
+            List<BestBuyQTYLogsDetailViewModel> model = _dataAccess.DropshipQtyList(DateTo, DateFrom, limit, offset, product_sku, ds_status, BBProductID);
             return Ok(model);
         }
     }
