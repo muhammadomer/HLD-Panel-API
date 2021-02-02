@@ -663,6 +663,7 @@ namespace DataAccess.DataAccess
                 {
 
                     MySqlCommand cmd = new MySqlCommand("P_GetSCOrderForOrderPageView", conn);
+                //    MySqlCommand cmd = new MySqlCommand("P_GetSCOrderForOrderPageViewNew", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_SourceOrderID", bbOrderId);

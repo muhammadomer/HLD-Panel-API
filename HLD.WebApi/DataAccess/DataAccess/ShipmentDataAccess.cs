@@ -719,6 +719,46 @@ namespace DataAccess.DataAccess
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+            return list;
+        }
+        public List<GetTemZincDataViewModel> GetDataFromTempZinc()
+        {
+            List<GetTemZincDataViewModel> list = new List<GetTemZincDataViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetDataFromTempZincDetails", conn);
+                    //  MySqlCommand cmd = new MySqlCommand("P_GetShipmentHistoryReport", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                GetTemZincDataViewModel viewModel = new GetTemZincDataViewModel
+                                {
+                                    order_type = Convert.ToString(dr["order_type"] != DBNull.Value ? dr["order_type"] : "0"),
+                                    request_id = Convert.ToString(dr["request_id"] != DBNull.Value ? dr["request_id"] : "0"),
+                                    sc_order_id = Convert.ToString(dr["sc_order_id"] != DBNull.Value ? dr["sc_order_id"] : "0"),
+                                    zinc_order_status_internal = Convert.ToString(dr["zinc_order_status_internal"] != DBNull.Value ? dr["zinc_order_status_internal"] :""),
+                                    order_code = Convert.ToString(dr["order_code"] != DBNull.Value ? dr["order_code"] :""),
+                                    order_message = Convert.ToString(dr["order_message"] != DBNull.Value ? dr["order_message"] : ""),
+                                   
+                                };
+                                list.Add(viewModel);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
 
             }
             return list;
@@ -870,6 +910,37 @@ namespace DataAccess.DataAccess
                         cmd.ExecuteNonQuery();
                     }
                   
+                    conn.Close();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+
+        public bool UpdateTempZincdata(List<GetTemZincDataViewModel> Data)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConStr))
+                {
+                    conn.Open();
+                    foreach (var viewModel in Data)
+                    {
+                        MySqlCommand cmd = new MySqlCommand("P_UpdateTempDataToSCOrders", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_order_type", viewModel.order_type);
+                        cmd.Parameters.AddWithValue("_request_id", viewModel.request_id);
+                        cmd.Parameters.AddWithValue("_sc_order_id", viewModel.sc_order_id);
+                        cmd.Parameters.AddWithValue("_zinc_order_status_internal", viewModel.zinc_order_status_internal);
+                        cmd.Parameters.AddWithValue("_order_code", viewModel.order_code);
+                        cmd.Parameters.AddWithValue("_order_message", viewModel.order_message);
+                        cmd.ExecuteNonQuery();
+                    }
                     conn.Close();
                     status = true;
                 }

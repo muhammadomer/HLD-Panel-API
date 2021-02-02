@@ -346,6 +346,7 @@
     <Compile Include="ViewModels\GetStatusFromZincViewModel.cs" />
     <Compile Include="ViewModels\GetSummaryandCountPOViewModel.cs" />
     <Compile Include="ViewModels\GetSummaryForPOViewModel.cs" />
+    <Compile Include="ViewModels\GetTemZincDataViewModel.cs" />
     <Compile Include="ViewModels\GetVendorListViewModel.cs" />
     <Compile Include="ViewModels\ImportDataFromBestBuy.cs" />
     <Compile Include="ViewModels\ImportMissingSkuViewModel.cs" />

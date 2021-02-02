@@ -288,7 +288,7 @@ namespace DataAccess.DataAccess
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             return BBOrderID;
         }
@@ -321,18 +321,13 @@ namespace DataAccess.DataAccess
                         cmd.Parameters.AddWithValue("_TaxPST", item.taxes.Where(p => p.code != "GST").Select(p => p.amount).FirstOrDefault());
 
                         cmd.ExecuteNonQuery();
-
                     }
-
-
-
                     BBOrderID = true;
                 }
-
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             return BBOrderID;
         }
@@ -360,17 +355,49 @@ namespace DataAccess.DataAccess
                     comd.Parameters.AddWithValue("_shipping_zone_code", order.shipping_zone_code);
                     comd.Parameters.AddWithValue("_shipping_zone_label", order.shipping_zone_label);
                     comd.ExecuteNonQuery();
-
-
                     BBOrderID = true;
                 }
 
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             return BBOrderID;
+        }
+
+        public List<string> GetBestBuyOrderIdsToUpdate()
+        {
+            List<string> list = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetOrderInWaiting", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            list = new List<string>();
+                            while (reader.Read())
+                            {
+
+
+                                string BBOrderID = Convert.ToString(reader["order_id"]);
+
+                                list.Add(BBOrderID);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return list;
         }
     }
 }
