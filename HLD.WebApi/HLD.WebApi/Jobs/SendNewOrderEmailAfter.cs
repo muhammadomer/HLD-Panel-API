@@ -61,9 +61,8 @@ namespace HLD.WebApi.Jobs
 
 
                         //var PNL = Convert.ToDecimal(item.calculation_ProfitLoss) - Convert.ToDecimal(10 / num);
-                        var PNL = item.calculation_TotalAmountOfUnitPrice - (item.calculation_Comission + item.caculation_TotalAvgCost + shippingCost);
+                        var PNL = (item.calculation_TotalAmountOfUnitPrice+ item.ShippingFee )- (item.calculation_Comission + item.caculation_TotalAvgCost + shippingCost);
                         var PNLPer = (PNL / item.calculation_TotalAmountOfUnitPrice) * 100;
-                        item.calculation_TotalAmountOfUnitPrice = item.calculation_TotalAmountOfUnitPrice - item.ShippingFee;
                         messageBody += htmlTableStart;
 
                         var product = productData.GetCatalog(item.ProductSKU);
@@ -81,10 +80,10 @@ namespace HLD.WebApi.Jobs
                         {
                             P_L = "<span style=\" color:red; font-weight: bold; width: 160px;float:right\">" + PNL + "&nbsp;" + "(" + (Math.Round(PNLPer)) + "%)" + htmlspanEnd;
                         }
-                        string Fees = "<span class='pull-right'>" + /*item.calculation_Comission*/ (Math.Round(item.calculation_comissionPercentage)) + "%" + htmlspanEnd;
+                        string Fees = "<span class='pull-right'>" + item.calculation_Comission+" ("+(Math.Round(item.calculation_comissionPercentage)) + "% )" + htmlspanEnd;
                         if (item.calculation_comissionPercentage > 15)
                         {
-                            Fees = "<span class='pull-right' style=\" \">" + /*item.calculation_Comission*/ +(Math.Round(item.calculation_comissionPercentage)) + "%" + htmlspanEnd;
+                            Fees = "<span class='pull-right' style=\" \">" + item.calculation_Comission +" ("+(Math.Round(item.calculation_comissionPercentage)) + "% )" + htmlspanEnd;
                         }
                         var sale60 = Math.Round(((Convert.ToDecimal(product.QtySold60)) / Convert.ToDecimal(60)), 2);
                         var sale60velocity = "<span class='pull-right'>" + sale60 + "</span>";
@@ -113,7 +112,7 @@ namespace HLD.WebApi.Jobs
                         "<table>" +
                         "<tr>" +
                         "<td>Sale Price: </td>" +
-                        "<td>" + item.calculation_TotalAmountOfUnitPrice + " + " + item.ShippingFee + "</td>" +
+                        "<td>" +item.TotalQuantity+" * "+item.UnitPrice+" = "+ item.calculation_TotalAmountOfUnitPrice + " + " + item.ShippingFee + "</td>" +
                         "</tr>" +
                         "<tr>" +
                         "<td>Fee: </td>" +
@@ -181,11 +180,9 @@ namespace HLD.WebApi.Jobs
 
                     var FeePer = Math.Round(((model.TotalComission / model.TotalPrice) * 100));
                     var totalCommision = Math.Round(model.TotalComission, 2);
-                    var PNLModel = model.TotalPrice - (totalCommision + model.TotalAverageCost + 10);
+                    var PNLModel = sumtotalPrice - (totalCommision + model.TotalAverageCost + 10);
                     var PNLPerModel = Math.Round((PNLModel / model.TotalPrice) * 100);
-                    model.TotalPrice = model.TotalPrice - (Convert.ToDecimal(model.ShippingPrice));
-
-
+                   
                     messageBody = messageBody +
 
                     "<div style='font-size:22px;'>" +

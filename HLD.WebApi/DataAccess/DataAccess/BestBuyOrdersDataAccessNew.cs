@@ -776,7 +776,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.OnOrder = Convert.ToInt32(dataRow["OnOrder"] != DBNull.Value ? dataRow["OnOrder"] : 0);
                             detailViewModel.DropshipQty = Convert.ToInt32(dataRow["dropship_Qty"] != DBNull.Value ? dataRow["dropship_Qty"] : "0");
                             detailViewModel.BestBuyPorductID = Convert.ToString(dataRow["bb_product_ID"] != DBNull.Value ? dataRow["bb_product_ID"] : "0");
-                            detailViewModel.WarehouseQuantity = Convert.ToString(dataRow["AggregatedQty"] != DBNull.Value ? dataRow["AggregatedQty"] : "0");
+                            //detailViewModel.WarehouseQuantity = Convert.ToString(dataRow["AggregatedQty"] != DBNull.Value ? dataRow["AggregatedQty"] : "0");
 
 
                             //calculations
