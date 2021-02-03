@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 
 namespace HLD.WebApi.Jobs
 {
+    [DisallowConcurrentExecution]
     public class CreateOrderInSellerCloudNewJob : IJob
     {
         IConnectionString _connectionString = null;
@@ -56,6 +57,8 @@ namespace HLD.WebApi.Jobs
         }
         public async Task Execute(IJobExecutionContext context)
         {
+
+
             int status = channelDecrytionDataAccess.CheckZincJobsStatus("sellercloudadding");
 
             if (status == 1)
@@ -63,8 +66,6 @@ namespace HLD.WebApi.Jobs
                 await SendOrderToSellerCloudForCreationAsync();
 
             }
-          
-
             await Task.CompletedTask;
 
         }

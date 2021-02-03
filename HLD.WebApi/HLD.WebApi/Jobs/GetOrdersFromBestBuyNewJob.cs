@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace HLD.WebApi.Jobs
 {
+    [DisallowConcurrentExecution]
     public class GetOrdersFromBestBuyNewJob : IJob
     {
         IConnectionString _connectionString = null;
@@ -33,8 +34,8 @@ namespace HLD.WebApi.Jobs
         
         {
 
-            //   int status = channelDecrytionDataAccess.CheckZincJobsStatus("neworders");
-            int status = 1;
+              int status = channelDecrytionDataAccess.CheckZincJobsStatus("neworders");
+          
             if (status == 1)
             {
                 _getChannelCredViewModel = new GetChannelCredViewModel();
@@ -78,6 +79,8 @@ namespace HLD.WebApi.Jobs
                             }
                             acceptBesyBuyOrder.order_lines = ListorderLine_Accept;
                             BestBuy_acceptOrder(_getChannelCredViewModel.Key, item, acceptBesyBuyOrder);
+
+
                         }
                         else
                         {
@@ -85,20 +88,17 @@ namespace HLD.WebApi.Jobs
                         }
 
                     }
-
-
-
                 }
 
-                //foreach (var item in AllreadyExistOrder)
-                //{
-                //    var result = bestBuyRootObject.orders.Where(e => e.order_id == item).FirstOrDefault();
-                //    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrder(result);
-                //    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrderLines(result);
+                foreach (var item in AllreadyExistOrder)
+                {
+                    var result = bestBuyRootObject.orders.Where(e => e.order_id == item).FirstOrDefault();
+                    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrder(result);
+                    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrderLines(result);
 
-                //    _bestBuytDataAccessNew.UpdateBestBuyOrderINCustomerShipping(result);
+                    _bestBuytDataAccessNew.UpdateBestBuyOrderINCustomerShipping(result);
 
-                //}
+                }
             }
         }
 

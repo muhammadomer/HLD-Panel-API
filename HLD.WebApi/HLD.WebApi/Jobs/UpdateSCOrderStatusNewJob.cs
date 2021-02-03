@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HLD.WebApi.Jobs
 {
+    [DisallowConcurrentExecution]
     public class UpdateSCOrderStatusNewJob: IJob
     {
         IConnectionString _connectionString = null;

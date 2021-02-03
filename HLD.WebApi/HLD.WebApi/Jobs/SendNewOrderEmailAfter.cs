@@ -32,7 +32,7 @@ namespace HLD.WebApi.Jobs
                 {
                     // Credentials
                     var credentials = new NetworkCredential("AKIAJ2ZYJS2WHV3TBFYQ", "BO6Ht4m/+okdb40r13HNeQrGWOB82n6gvU1P3WtO9vDp");
-                    string messageBody = "<span style=\"font-size: 22px;\">Order View #&nbsp;" + "<a style = 'cursor: pointer' href = 'https://erp.hldinc.net/BBOrderViewPage/OrderViewPage?SCorderid=" + model.SellerCloudOrderID + "' target = '_blank' >" + model.SellerCloudOrderID + "</a>" +
+                    string messageBody = "<span style=\"font-size: 22px;\">Order View #&nbsp;" + "<a style = 'cursor: pointer' href = 'https://erp.hldinc.net/BestBuyOrders/BBOrderViewPage?SCorderid=" + model.OrderNumber + "' target = '_blank' >" + model.OrderNumber + "</a>" +
                     " &nbsp;&nbsp;SC Order# &nbsp;" + "<a style ='cursor:pointer;' href = 'https://lp.cwa.sellercloud.com/Orders/Orders_Details.aspx?ID=" + model.SellerCloudOrderID + "' target = '_blank' > " + model.SellerCloudOrderID + "</a> &nbsp;&nbsp;" +
                     "BB&nbsp;Order#&nbsp;" + "<a style = 'cursor: pointer' href = 'https://marketplace.bestbuy.ca/mmp/shop/order/" + model.OrderNumber + "' target = '_blank' > " + model.OrderNumber + "</a>" + "</span><br>" +
                     "<hr style='width:85% margin-left: 0px; border-bottom: 1px solid cornflowerblue;' />";

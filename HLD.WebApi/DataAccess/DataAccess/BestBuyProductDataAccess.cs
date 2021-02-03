@@ -744,7 +744,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
 
-                    MySqlCommand cmd = new MySqlCommand("p_GetBestBuyOrdersWithGlobalFiltersWithDynamicQueryNew", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetBestBuyOrdersWithGlobalFiltersWithDynamicQuery", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("FilterName", FilterName);
@@ -768,8 +768,8 @@ namespace DataAccess.DataAccess
 
 
                         var totalQuantity = list.Sum(e => Convert.ToDouble(e.Field<string>("quantity")));
-                        var totalPrice = list.Sum(e => Convert.ToDouble(e.Field<string>("total_price")));
-                        var total_commission = list.Sum(e => Convert.ToDouble(e.Field<string>("total_commission")));
+                        var totalPrice = list.Sum(e => Convert.ToDouble(e.Field<double>("totalPrice")));
+                        var total_commission = list.Sum(e => Convert.ToDouble(e.Field<decimal>("total_commission")));
                         var totalGst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxGST")));
                         var totalPst = list.Sum(e => Convert.ToDouble(e.Field<string>("TaxPST")));
                         var toalAverageCost = list.Sum(e => e.Field<double>("TotalAverageCost"));
@@ -847,7 +847,7 @@ namespace DataAccess.DataAccess
                             detailViewModel.ProfitLoss = "";
                             detailViewModel.Comission = Convert.ToDecimal(dataRow["total_commission"] != DBNull.Value ? dataRow["total_commission"] : "0");
                             detailViewModel.UnitPrice = Convert.ToDecimal(dataRow["total_price"] != DBNull.Value ? dataRow["total_price"] : "0");
-                            detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice - detailViewModel.ShippingFee) / detailViewModel.TotalQuantity, 2);
+                            //detailViewModel.UnitPrice = Math.Round((detailViewModel.UnitPrice) / detailViewModel.TotalQuantity, 2);
                             detailViewModel.OrderDetailID = Convert.ToInt32(dataRow["order_line_id"] != DBNull.Value ? dataRow["order_line_id"] : "0");
 
                             detailViewModel.TaxGST = Convert.ToDecimal(dataRow["TaxGST"] != DBNull.Value ? dataRow["TaxGST"] : "0");

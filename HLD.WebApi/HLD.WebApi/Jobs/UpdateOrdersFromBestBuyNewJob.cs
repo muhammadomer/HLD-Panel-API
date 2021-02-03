@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace HLD.WebApi.Jobs
 {
+    [DisallowConcurrentExecution]
     public class UpdateOrdersFromBestBuyNewJob : IJob
     {
         IConnectionString _connectionString = null;

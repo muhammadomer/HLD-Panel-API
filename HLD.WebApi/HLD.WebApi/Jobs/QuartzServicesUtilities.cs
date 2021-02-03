@@ -261,6 +261,21 @@ namespace HLD.WebApi.Jobs
                 scheduler.ScheduleJob(job, trigger);
 
             }
+            if (jobName == "HLD.WebApi.Jobs.UpdateOrdersFromBestBuyNewJob")
+            {
+                var trigger = TriggerBuilder.Create()
+         .ForJob(job)
+         .WithSimpleSchedule
+          (s =>
+            s.WithIntervalInHours(5)
+             .RepeatForever()
+          )
+         .StartNow()
+         .Build();
+
+                scheduler.ScheduleJob(job, trigger);
+
+            }
             if (jobName == "HLD.WebApi.Jobs.ZincWatchListJobsNew")
             {
                 var trigger = TriggerBuilder.Create()
