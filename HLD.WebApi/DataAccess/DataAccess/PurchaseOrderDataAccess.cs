@@ -1051,7 +1051,29 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+        public bool UpdatePODescription(string ProductPONotes, string PO)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(DOTconnStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateProductDescriptionPO", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_ProductPONotes", ProductPONotes);
+                    cmd.Parameters.AddWithValue("_PO", PO);
 
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    status = true;
+                }
+            }
+            catch (Exception exp)
+            {
+            }
+            return status;
+        }
 
     }
 }

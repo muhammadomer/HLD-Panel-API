@@ -256,5 +256,18 @@ namespace HLD.WebApi.Controllers
 
             return Ok(status);
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("UpdatePODescription")]
+        public IActionResult UpdatePODescription(string ProductPONotes, string PO)
+        {
+            bool status = false;
+
+            status = _DataAccess.UpdatePODescription(ProductPONotes, PO);
+
+
+            return Ok(status);
+        }
     }
 }
