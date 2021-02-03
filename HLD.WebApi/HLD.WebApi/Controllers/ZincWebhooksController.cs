@@ -402,8 +402,10 @@ namespace HLD.WebApi.Controllers
                     //return "Email Sent Successfully!";
                 }
             }
-            catch (System.Exception e)
+
+            catch (Exception ex)
             {
+                throw ex;
                 //return e.Message;
             }
 

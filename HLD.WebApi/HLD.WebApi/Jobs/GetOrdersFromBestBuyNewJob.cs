@@ -21,6 +21,7 @@ namespace HLD.WebApi.Jobs
         EncDecChannel _EncDecChannel = null;
         GetChannelCredViewModel _getChannelCredViewModel = null;
         ChannelDecrytionDataAccess channelDecrytionDataAccess = null;
+        BestBuyProductDataAccess _bestBuyProductDataAccess = null;
         public GetOrdersFromBestBuyNewJob(IConnectionString connectionString)
         {
             _connectionString = connectionString;
@@ -29,6 +30,7 @@ namespace HLD.WebApi.Jobs
             _bestBuytDataAccessNew = new BestBuyOrderFromBBDataAccessNew(_connectionString);
             _EncDecChannel = new EncDecChannel(_connectionString);
             channelDecrytionDataAccess = new ChannelDecrytionDataAccess(_connectionString);
+            _bestBuyProductDataAccess = new BestBuyProductDataAccess(_connectionString);
         }
         public async Task Execute(IJobExecutionContext context)
         
@@ -50,55 +52,57 @@ namespace HLD.WebApi.Jobs
                 List<string> AllreadyExistOrder = _bestBuytDataAccessNew.GetOrderAlreadyExist(AllOrderCommaSeprate);
                 var NewOrders = bestBuyRootObject.orders.Select(e => e.order_id).Except(AllreadyExistOrder);
 
-                foreach (var item in NewOrders)
-                {
-                    var result = bestBuyRootObject.orders.Where(e => e.order_id == item).FirstOrDefault();
+                //foreach (var item in NewOrders)
+                //{
+                //    var result = bestBuyRootObject.orders.Where(e => e.order_id == item).FirstOrDefault();
 
-                    int bbOrderID = _bestBuytDataAccessNew.SaveBestBuyOrderINOrder(result);
+                //    int bbOrderID = _bestBuytDataAccessNew.SaveBestBuyOrderINOrder(result);
 
-                    if (bbOrderID != 0)
-                    {
-                        _bestBuytDataAccessNew.SaveBestBuyOrderINOrderLines(result, bbOrderID);
-                        _bestBuytDataAccessNew.SaveBestBuyOrderINOrderLookUp(result, bbOrderID);
-                        _bestBuytDataAccessNew.SaveBestBuyOrderINCustomerShipping(result, bbOrderID);
-                        var AllSKUCommaSeprate = result.order_lines.Select(p => p.offer_sku).ToList();
-                        List<DropShipAndQtyOrderViewModel> listqty = _bestBuytDataAccessNew.GeQtyAndDropShip(AllSKUCommaSeprate);
-                        DropShipAndQtyOrderViewModel Qty = new DropShipAndQtyOrderViewModel();
-                        Qty = listqty.Where(p => p.Status != "1" && p.Qty <= 0).FirstOrDefault();
-                        if (listqty.Count == result.order_lines.Count && Qty == null)
-                        {
-                            AcceptBesyBuyOrderViewModel acceptBesyBuyOrder = new AcceptBesyBuyOrderViewModel();
-                            List<OrderLine_accept> ListorderLine_Accept = new List<OrderLine_accept>();
+                //    if (bbOrderID != 0)
+                //    {
+                //        _bestBuytDataAccessNew.SaveBestBuyOrderINOrderLines(result, bbOrderID);
+                //        _bestBuytDataAccessNew.SaveBestBuyOrderINOrderLookUp(result, bbOrderID);
+                //        _bestBuytDataAccessNew.SaveBestBuyOrderINCustomerShipping(result, bbOrderID);
+                //        var AllSKUCommaSeprate = result.order_lines.Select(p => p.offer_sku).ToList();
+                //        List<DropShipAndQtyOrderViewModel> listqty = _bestBuytDataAccessNew.GeQtyAndDropShip(AllSKUCommaSeprate);
+                //        DropShipAndQtyOrderViewModel Qty = new DropShipAndQtyOrderViewModel();
+                //        Qty = listqty.Where(p => p.Status != "1" && p.Qty <= 0).FirstOrDefault();
+                //        if (listqty.Count == result.order_lines.Count && Qty == null)
+                //        {
+                //            AcceptBesyBuyOrderViewModel acceptBesyBuyOrder = new AcceptBesyBuyOrderViewModel();
+                //            List<OrderLine_accept> ListorderLine_Accept = new List<OrderLine_accept>();
 
-                            foreach (var orderlinesdata in result.order_lines)
-                            {
-                                OrderLine_accept orderLine_Accept = new OrderLine_accept();
-                                orderLine_Accept.id = orderlinesdata.order_line_id;
-                                orderLine_Accept.accepted = true;
-                                ListorderLine_Accept.Add(orderLine_Accept);
-                            }
-                            acceptBesyBuyOrder.order_lines = ListorderLine_Accept;
-                            BestBuy_acceptOrder(_getChannelCredViewModel.Key, item, acceptBesyBuyOrder);
+                //            foreach (var orderlinesdata in result.order_lines)
+                //            {
+                //                OrderLine_accept orderLine_Accept = new OrderLine_accept();
+                //                orderLine_Accept.id = orderlinesdata.order_line_id;
+                //                orderLine_Accept.accepted = true;
+                //                ListorderLine_Accept.Add(orderLine_Accept);
+                //            }
+                //            acceptBesyBuyOrder.order_lines = ListorderLine_Accept;
+                //            BestBuy_acceptOrder(_getChannelCredViewModel.Key, item, acceptBesyBuyOrder);
 
+                //        }
+                //        else
+                //        {
+                //            SendEmailForUnacceptedOrder(item, listqty);
+                //        }
 
-                        }
-                        else
-                        {
-                            SendEmailForUnacceptedOrder(item, listqty);
-                        }
+                //    }
 
-                    }
-                }
+                //}
 
-                foreach (var item in AllreadyExistOrder)
-                {
-                    var result = bestBuyRootObject.orders.Where(e => e.order_id == item).FirstOrDefault();
-                    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrder(result);
-                    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrderLines(result);
+                //foreach (var item in AllreadyExistOrder)
+                //{
+                //    var result = bestBuyRootObject.orders.Where(e => e.order_id == item).FirstOrDefault();
+                //    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrder(result);
+                //    _bestBuytDataAccessNew.UpdateBestBuyOrderINOrderLines(result);
 
-                    _bestBuytDataAccessNew.UpdateBestBuyOrderINCustomerShipping(result);
+                //    _bestBuytDataAccessNew.UpdateBestBuyOrderINCustomerShipping(result);
 
-                }
+                //}
+               // UpdateqtyinqryMovement((GetOrdersFromBestBuyViewModel.BestBuyRootObjectBB) NewOrders );
+
             }
         }
 
@@ -250,6 +254,32 @@ namespace HLD.WebApi.Jobs
             }
 
         }
+
+        //public void UpdateqtyinqryMovement(GetOrdersFromBestBuyViewModel.BestBuyRootObjectBB NewOrders)
+        //{
+        //    List<string> bbOrderID = null;
+        //    List<BestBuyOrdersImportMainViewModel> listBestBuyOrders = new List<BestBuyOrdersImportMainViewModel>();
+        //    // Get single order against order id to send email
+        //    IEnumerable<BestBuyOrderDetailImportViewModel> result = NewOrders.SelectMany(e => e.orderDetailViewModel);
+        //    bbOrderID = listBestBuyOrders.Select(e => e.OrderViewModel.order_id).Distinct().ToList();
+
+        //    // sum quantity for specifu sku to update quantity on bb
+        //    var finalResult = result.GroupBy(e => e.offer_sku, (x, y) => new
+        //    {
+        //        totalQty = y.Sum(r => int.Parse(r.quantity)),
+        //        offersku = x,
+        //        date = y.Max(e => e.received_date)
+        //    }).ToList();
+
+        //    foreach (var item in finalResult)
+        //    {
+        //        BestBuyDropShipQtyMovementViewModel model = new BestBuyDropShipQtyMovementViewModel();
+        //        model.ProductSku = item.offersku;
+        //        model.OrderQuantity = item.totalQty.ToString();
+        //        model.OrderDate = DateTime.Now;
+        //        _bestBuyProductDataAccess.SaveBestBuyOrderDropShipMovement(model);
+        //    }
+        //}
     }
 }
 

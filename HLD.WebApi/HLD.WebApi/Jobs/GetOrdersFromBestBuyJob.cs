@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using static DataAccess.ViewModels.GetOrdersFromBestBuyViewModel;
 
 namespace HLD.WebApi.Jobs
 {
@@ -24,6 +25,7 @@ namespace HLD.WebApi.Jobs
         EncDecChannel _EncDecChannel = null;
         GetChannelCredViewModel _getChannelCredViewModel = null;
         ChannelDecrytionDataAccess channelDecrytionDataAccess = null;
+        BestBuyProductDataAccess _bestBuyProductDataAccess = null;
         public GetOrdersFromBestBuyJob(IConnectionString connectionString)
         {
             _connectionString = connectionString;
@@ -32,6 +34,7 @@ namespace HLD.WebApi.Jobs
             _bestBuytDataAccess = new BestBuyOrderFromBBDataAccess(_connectionString);
             _EncDecChannel = new EncDecChannel(_connectionString);
             channelDecrytionDataAccess = new ChannelDecrytionDataAccess(_connectionString);
+            _bestBuyProductDataAccess = new BestBuyProductDataAccess(_connectionString);
         }
         public async Task Execute(IJobExecutionContext context)
         {
@@ -58,7 +61,15 @@ namespace HLD.WebApi.Jobs
                 //Qty = listqty.Where(p => p.Status != "1" && p.Qty <= 0).FirstOrDefault();
 
                 List<string> AllreadyExistOrder = _bestBuytDataAccess.GetOrderAlreadyExist(AllOrderCommaSeprate);
+                //var NewOrders = bestBuyRootObject.orders.Select(e => e).Except(AllreadyExistOrder).ToList();
+               // var NewOrders = bestBuyRootObject.orders.Select(e => e.order_id).Except(AllreadyExistOrder);
                 var NewOrders = bestBuyRootObject.orders.Select(e => e.order_id).Except(AllreadyExistOrder);
+                List<OrderBB> root = new List<OrderBB>();
+                foreach (var item in NewOrders)
+                {
+                    var r = bestBuyRootObject.orders.Where(a => a.order_id == item).FirstOrDefault();
+                    root.Add(r);
+                }
 
                 foreach (var item in NewOrders)
                 {
@@ -110,6 +121,8 @@ namespace HLD.WebApi.Jobs
                     _bestBuytDataAccess.UpdateBestBuyOrderINCustomerShipping(result);
 
                 }
+
+                UpdateqtyinqryMovement(root);
             }
         }
         public GetOrdersFromBestBuyViewModel.BestBuyRootObjectBB GetBestBuyOrdersLasthundred(string token)
@@ -261,6 +274,30 @@ namespace HLD.WebApi.Jobs
                 //return e.Message;
             }
 
+        }
+
+        void UpdateqtyinqryMovement(List<GetOrdersFromBestBuyViewModel.OrderBB> NewOrders)
+        {
+
+           var result = NewOrders.SelectMany(e => e.order_lines);
+            //bbOrderID = listBestBuyOrders.Select(e => e.OrderViewModel.order_id).Distinct().ToList();
+
+            // sum quantity for specifu sku to update quantity on bb
+            var finalResult = result.GroupBy(e => e.offer_sku, (x, y) => new
+            {
+                totalQty = y.Sum(r => int.Parse(r.quantity)),
+                offersku = x,
+                date = y.Max(e => e.received_date)
+            }).ToList();
+
+            foreach (var item in finalResult)
+            {
+                BestBuyDropShipQtyMovementViewModel model = new BestBuyDropShipQtyMovementViewModel();
+                model.ProductSku = item.offersku;
+                model.OrderQuantity = item.totalQty.ToString();
+                model.OrderDate = DateTime.Now;
+                _bestBuyProductDataAccess.SaveBestBuyOrderDropShipMovement(model);
+            }
         }
 
     }

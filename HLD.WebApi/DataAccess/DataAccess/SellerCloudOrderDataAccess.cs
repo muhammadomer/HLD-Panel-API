@@ -48,30 +48,39 @@ namespace DataAccess.DataAccess
         public List<EmailJobDetailViewModel> GetDetailFromEmailJob(string sellerCloudOrderId)
         {
             List<EmailJobDetailViewModel> ordersList = new List<EmailJobDetailViewModel>();
-            using (MySqlConnection conn = new MySqlConnection(connStr))
+            try
             {
-                conn.Open();
-
-                MySqlCommand cmd = new MySqlCommand("p_GetSCandZincDetailForSendEmail", conn);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("sc_order_id", sellerCloudOrderId);
-
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
+                using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
-                    while (reader.Read())
-                    {
-                        EmailJobDetailViewModel emailModel = new EmailJobDetailViewModel();
-                        emailModel.SCOrderID = Convert.ToString(reader["seller_cloud_order_id"] != DBNull.Value ? reader["seller_cloud_order_id"] : "0");
-                        emailModel.RequestID = Convert.ToString(reader["request_id"] != DBNull.Value ? reader["request_id"] : "0");
-                        emailModel.ProductSku = Convert.ToString(reader["product_sku"] != DBNull.Value ? reader["product_sku"] : "0");
-                        emailModel.ImageName = Convert.ToString(reader["productImage"] != DBNull.Value ? reader["productImage"] : "0");
-                        ordersList.Add(emailModel);
-                    }
-                }
+                    conn.Open();
 
+                    MySqlCommand cmd = new MySqlCommand("p_GetSCandZincDetailForSendEmail", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("sc_order_id", sellerCloudOrderId);
+
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            EmailJobDetailViewModel emailModel = new EmailJobDetailViewModel();
+                            emailModel.SCOrderID = Convert.ToString(reader["seller_cloud_order_id"] != DBNull.Value ? reader["seller_cloud_order_id"] : "0");
+                            emailModel.RequestID = Convert.ToString(reader["request_id"] != DBNull.Value ? reader["request_id"] : "0");
+                            emailModel.ProductSku = Convert.ToString(reader["product_sku"] != DBNull.Value ? reader["product_sku"] : "0");
+                            emailModel.ImageName = Convert.ToString(reader["productImage"] != DBNull.Value ? reader["productImage"] : "0");
+                            ordersList.Add(emailModel);
+                        }
+                    }
+
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
             return ordersList;
         }
 
