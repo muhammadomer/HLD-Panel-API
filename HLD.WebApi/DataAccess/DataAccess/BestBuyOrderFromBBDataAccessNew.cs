@@ -259,6 +259,7 @@ namespace DataAccess.DataAccess
         }
         public bool UpdateBestBuyOrderINOrder(ViewModels.GetOrdersFromBestBuyViewModel.OrderBB order)
         {
+            int IsBox = 0;
             bool BBOrderID = false;
             try
             {
@@ -266,7 +267,8 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
 
-                    MySqlCommand cmd = new MySqlCommand("P_UpdateBestBuyOrdersFromBestBuy", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateBestBuyOrdersFromBestBuyV1", conn);
+                   // MySqlCommand cmd = new MySqlCommand("P_UpdateBestBuyOrdersFromBestBuy", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("_commercial_id", order.commercial_id);
@@ -286,7 +288,11 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_city", order.customer.shipping_address != null ? order.customer.shipping_address.city : "");
                     cmd.Parameters.AddWithValue("_country", order.customer.shipping_address != null ? order.customer.shipping_address.country : "");
                     cmd.Parameters.AddWithValue("_acceptance_decision_date", order.acceptance_decision_date);
-
+                    if (order.customer.shipping_address != null && order.customer.shipping_address.street_1.ToLower().Contains("box"))
+                    {
+                        IsBox = 1;
+                    }
+                    cmd.Parameters.AddWithValue("_IsBox", IsBox);
 
                     cmd.ExecuteNonQuery();
                     BBOrderID = true;
