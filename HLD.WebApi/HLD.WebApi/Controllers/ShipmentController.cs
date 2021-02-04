@@ -28,12 +28,12 @@ namespace HLD.WebApi.Controllers
         public IActionResult Post(ShipmentViewModel ViewModel)
         {
             int Id = 0;
-            bool status = false;
+            string status = "";
             //ViewModel.CreatedOn = DateTime.Now.AddDays(1);
             ViewModel.ShipmentId = ViewModel.CreatedOn.ToString("yyMMdd");
 
             status = _DataAccess.SaveShipment(ViewModel);
-            if (status)
+            if (status !=null)
             {
                 return Ok(new { Status = status, Message = "Save Successfully" });
             }

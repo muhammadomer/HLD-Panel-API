@@ -19,9 +19,9 @@ namespace DataAccess.DataAccess
 
             ConStr = connectionString.GetConnectionString();
         }
-        public bool SaveShipment(ShipmentViewModel ViewModel)
+        public string SaveShipment(ShipmentViewModel ViewModel)
         {
-            bool status = false;
+            string status = "";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConStr))
@@ -35,8 +35,8 @@ namespace DataAccess.DataAccess
                     cmdd.Parameters.AddWithValue("_Notes", ViewModel.Notes);
                     cmdd.Parameters.AddWithValue("_CreatedOn", ViewModel.CreatedOn);
                     cmdd.Parameters.AddWithValue("_Type", ViewModel.Type);
-                    cmdd.ExecuteNonQuery();
-                    status = true;
+                    status=(string)cmdd.ExecuteScalar();
+                    
                 }
             }
             catch (Exception ex)
