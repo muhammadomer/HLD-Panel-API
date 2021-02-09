@@ -92,7 +92,7 @@ namespace DataAccess.DataAccess
             }
             return listModel;
         }
-        public int GetLogsCount(string product_sku, string ds_status, string BBProductID, string CurrentDate, string PreviousDate)
+        public int GetLogsCount(string product_sku, string ds_status, string BBProductID, string CurrentDate, string PreviousDate, string update_status)
         {
             int counter = 0;
             try
@@ -108,7 +108,9 @@ namespace DataAccess.DataAccess
                     ds_status = "";
                 if (string.IsNullOrEmpty(product_sku) || product_sku == "undefined")
                     product_sku = "";
-                
+                if (string.IsNullOrEmpty(update_status) || product_sku == "undefined")
+                    update_status = "";
+
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
@@ -119,6 +121,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_BBProductID", BBProductID);
                     cmd.Parameters.AddWithValue("_product_sku", product_sku);
                     cmd.Parameters.AddWithValue("_ds_status", ds_status);
+                    cmd.Parameters.AddWithValue("_update_status", update_status);
                     counter = Convert.ToInt32(cmd.ExecuteScalar());                  
                     conn.Close();
                    
@@ -130,7 +133,7 @@ namespace DataAccess.DataAccess
             }
             return counter;
         }
-        public List<BestBuyQTYLogsDetailViewModel> DropshipQtyList(string DateTo, string DateFrom, int limit, int offset, string product_sku, string ds_status, string BBProductID)
+        public List<BestBuyQTYLogsDetailViewModel> DropshipQtyList(string DateTo, string DateFrom, int limit, int offset, string product_sku, string ds_status, string BBProductID,string update_status)
         {
             List<BestBuyQTYLogsDetailViewModel> listModel = new List<BestBuyQTYLogsDetailViewModel>();
             try
@@ -147,6 +150,8 @@ namespace DataAccess.DataAccess
                     ds_status = "";
                 if (string.IsNullOrEmpty(product_sku) || product_sku == "undefined")
                     product_sku = "";
+                if (string.IsNullOrEmpty(update_status) || product_sku == "undefined")
+                    update_status = "";
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
@@ -159,6 +164,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_ds_status", ds_status);             
                     cmd.Parameters.AddWithValue("_limit", limit);
                     cmd.Parameters.AddWithValue("_offset", offset);
+                    cmd.Parameters.AddWithValue("_update_status", update_status);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dataTable = new DataTable();
                     da.Fill(dataTable);
@@ -172,6 +178,7 @@ namespace DataAccess.DataAccess
                             ViewModel.ds_qty = Convert.ToInt32(dataRow["ds_qty"]);
                             ViewModel.ds_status = Convert.ToString(dataRow["ds_status"]);
                             ViewModel.order_date = Convert.ToDateTime(dataRow["order_date"]);                           
+                            ViewModel.UpdatedOnBB = Convert.ToDateTime(dataRow["UpdatedOnBB"] != DBNull.Value ? dataRow["UpdatedOnBB"] : (DateTime?)null);                           
                             ViewModel.update_status = Convert.ToString(dataRow["is_ds_status_updated_id"]);
                             ViewModel.bb_import_id = Convert.ToInt32(dataRow["bb_import_id"] != DBNull.Value ? dataRow["bb_import_id"] : 0);
                             ViewModel.comments = Convert.ToString(dataRow["comments"] != DBNull.Value ? dataRow["comments"] : "");

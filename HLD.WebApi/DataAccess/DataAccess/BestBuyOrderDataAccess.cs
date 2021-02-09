@@ -279,10 +279,11 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
 
-                    MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyDropShipStatus", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyDropShipStatusCopy", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_bb_ds_qty_movement_id", bestBuyQtyMovementID);
                     cmd.Parameters.AddWithValue("importID", importId);
+                    cmd.Parameters.AddWithValue("_UpdatedOnBB", DateTime.Now);
                     cmd.ExecuteNonQuery();
                 }
             }

@@ -39,11 +39,11 @@ namespace HLD.WebApi.Controllers
         }
         [HttpGet]
         [Route("GetCounter")]
-        public IActionResult GetCounter(string product_sku, string ds_status, string BBProductID, string CurrentDate, string PreviousDate)
+        public IActionResult GetCounter(string product_sku, string ds_status, string BBProductID, string CurrentDate, string PreviousDate, string update_status)
         {
             long Count = 0;
             bool status = false;
-            Count = _dataAccess.GetLogsCount(product_sku, ds_status, BBProductID, CurrentDate, PreviousDate);
+            Count = _dataAccess.GetLogsCount(product_sku, ds_status, BBProductID, CurrentDate, PreviousDate, update_status);
             if (Count > 0)
             {
                 status = true;
@@ -56,9 +56,9 @@ namespace HLD.WebApi.Controllers
         }
         [HttpGet]
         [Route("DropshipQtyList")]
-        public IActionResult DropshipQtyList(string DateTo, string DateFrom, int limit, int offset, string product_sku, string ds_status, string BBProductID)
+        public IActionResult DropshipQtyList(string DateTo, string DateFrom, int limit, int offset, string product_sku, string ds_status, string BBProductID,string update_status)
         {
-            List<BestBuyQTYLogsDetailViewModel> model = _dataAccess.DropshipQtyList(DateTo, DateFrom, limit, offset, product_sku, ds_status, BBProductID);
+            List<BestBuyQTYLogsDetailViewModel> model = _dataAccess.DropshipQtyList(DateTo, DateFrom, limit, offset, product_sku, ds_status, BBProductID, update_status);
             return Ok(model);
         }
     }

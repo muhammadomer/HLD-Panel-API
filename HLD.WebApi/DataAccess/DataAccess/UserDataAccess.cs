@@ -168,6 +168,7 @@ namespace DataAccess.DataAccess
                                 Login list = new Login();
 
                                 list.Checkboxstatus = Convert.ToBoolean(reader["Checkboxstatus"] != DBNull.Value ? reader["Checkboxstatus"] : false);
+                                list.Email = Convert.ToString(reader["Email"] != DBNull.Value ? reader["Email"] : "");
                                 ViewModel.Add(list);
                             }
                         }
