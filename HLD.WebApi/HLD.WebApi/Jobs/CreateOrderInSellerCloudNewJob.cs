@@ -35,6 +35,7 @@ namespace HLD.WebApi.Jobs
         ChannelDecrytionDataAccess channelDecrytionDataAccess = null;
         BestBuyProductDataAccess _bestBuyProductDataAccess = null;
         SellerCloudOrderDataAccessNew _sellerCloudOrderDataAccess = null;
+        BestBuyOrderFromBBDataAccessNew _bestBuytDataAccessNew = null;
         EncDecChannel _EncDecChannel = null;
         string ApiURL = null;
         ServiceReference1.AuthHeader authHeader = null;
@@ -50,6 +51,7 @@ namespace HLD.WebApi.Jobs
             _sellerCloudOrderDataAccess = new SellerCloudOrderDataAccessNew(_connectionString);
             _addOrderToSCDataAccess = new AddOrderToSCDataAccessNew(_connectionString);
             channelDecrytionDataAccess = new ChannelDecrytionDataAccess(_connectionString);
+            _bestBuytDataAccessNew = new BestBuyOrderFromBBDataAccessNew(_connectionString);
             this.logger = _logger;
             _sendEmailOfNew = sendEmailOfNew;
 
@@ -135,16 +137,28 @@ namespace HLD.WebApi.Jobs
                                     onSellercloudViewCloud.PaymentMethod = "Cash";
                                     onSellercloudViewCloud.ReferenceNumber = transactionid.ToString();
 
-                                    ReceiveManualPayment(responses.access_token, sellerCloudOrderIdViewModel.SellerCloudId, onSellercloudViewCloud);
-                                    Issent = true;
 
+                                        var paymentNotReceivedStatus= ReceiveManualPayment(responses.access_token, sellerCloudOrderIdViewModel.SellerCloudId, onSellercloudViewCloud);
+                                        if (paymentNotReceivedStatus == 200) {
+                                            Issent = true;
 
-                                       // Generate Emails Here for payments Orders
-   
-                                       Thread emailThread = new Thread(() => _sendEmailOfNew.SendNewEmail(sellerCloudOrderIdViewModel.SellerCloudId));
-                                        emailThread.Start();
+                                            // Generate Emails Here for payments Orders
 
-                                        await GetSC_OrderStatusAsync(sellerCloudOrderIdViewModel.SellerCloudId, _getChannelCredViewModel);
+                                            Thread emailThread = new Thread(() => _sendEmailOfNew.SendNewEmail(sellerCloudOrderIdViewModel.SellerCloudId));
+                                            emailThread.Start();
+
+                                            await GetSC_OrderStatusAsync(sellerCloudOrderIdViewModel.SellerCloudId, _getChannelCredViewModel);
+                                        }
+                                        else {
+
+                                            List<DropShipAndQtyOrderViewModel> listqty = _bestBuytDataAccessNew.GeQtyAndDropShip(createOrderOnSCViewModel.Products.Select(a => a.ProductID).ToList());
+                                            string BBOrderID= item.Orderid;
+                                                // Generate Emails Here for payments not received for Orders
+                                                ManualPaymentNotReceived(BBOrderID, listqty);
+                                            Issent = true;
+                                            
+                                        }
+                                    
 
                                 }
 
@@ -480,5 +494,119 @@ namespace HLD.WebApi.Jobs
 
             return true;
         }
+        public void ManualPaymentNotReceived(string BBOrderID, List<DropShipAndQtyOrderViewModel> model)
+        {
+            try
+            {
+
+                // Credentials
+                var credentials = new NetworkCredential("AKIAJ2ZYJS2WHV3TBFYQ", "BO6Ht4m/+okdb40r13HNeQrGWOB82n6gvU1P3WtO9vDp");
+                string messageBody = "<br><font>Please note BestBuy Order ID " + "<a style = 'cursor: pointer' href = 'https://marketplace.bestbuy.ca/mmp/shop/order/" + BBOrderID + "' target = '_blank' > " +
+                                     BBOrderID + "</a>" + " is Created on SellerCloud but its Payment is not Updated ";
+
+
+                string htmlTableStart = "<table style=\"border-collapse:collapse;width:500px; min-width:500px\" >";
+                string htmlTableEnd = "</table>";
+                string htmlHeaderRowStart = "<tr style =\"background-color:#5f9ea0; color:#ffffff;\">";
+                string htmlHeaderRowEnd = "</tr>";
+                string htmlTrStart = "<tr style =\"color:#00000;\">";
+                string htmlTrEnd = "</tr>";
+                string htmlTdStart = "<td style=\" border-color:#5f9ea0; border-style:solid; border-width:thin; padding: 5px;\">";
+
+
+                string htmlTdEnd = "</td>";
+
+
+                messageBody += htmlTableStart;
+                messageBody += htmlHeaderRowStart;
+                messageBody += htmlTdStart + "Image" + htmlTdEnd + htmlTdStart + "SKU " + htmlTdEnd + htmlTdStart + "DropShip" + htmlTdEnd + htmlTdStart + " WH Qty " + htmlTdEnd;
+                messageBody += htmlHeaderRowEnd;
+                foreach (var item in model)
+                {
+                    string checkboxValue = item.Status == "1" ? "checked" : "";
+
+                    messageBody = messageBody + htmlTrStart;
+
+                    messageBody = messageBody +
+                        htmlTdStart +
+                                       "<a target='_blank' href='https://s3.us-east-2.amazonaws.com/upload.hld.erp.images/" + item.image + "'> <img src = 'https://s3.us-east-2.amazonaws.com/upload.hld.erp.images.thumbnail/" + item.image + "' class='rounded' height='50' width='50'>  </a>" + htmlTdEnd
+                                   + htmlTdStart + "<a style = 'padding-left:5px; cursor: pointer' href = 'https://erp.hldinc.net/BestBuyProduct/PropertyPage?ProductSKU=" + item.SKU + "' target = '_blank' > " + item.SKU + "</a><br>" + "<a style = 'padding-left:5px; cursor: pointer' href = 'https://lp.cwa.sellercloud.com/Inventory/Product_Dashboard.aspx?Id=" + item.SKU + "' target = '_blank' >Seller-Cloud </a>" + htmlTdEnd
+
+                                   + htmlTdStart +
+                                                "<span>DS:</span><span> <input type='checkbox' " + checkboxValue + "/></span>" + htmlTdEnd
+                    + htmlTdStart + "<span>" + item.Qty + "</span>" + htmlTdEnd;
+
+                    messageBody = messageBody + htmlTrEnd;
+                }
+                messageBody = messageBody + htmlTableEnd;
+
+
+
+
+                var mail = new MailMessage()
+                {
+                    From = new MailAddress("info@hldinc.net"),
+                    Subject = "BBuy Order ID " + BBOrderID + " Not Accepted Due to Stock Issue.",
+                    Body = messageBody.ToString()
+                };
+                mail.IsBodyHtml = true;
+                mail.To.Add(new MailAddress("hfd1278@gmail.com"));
+                // Smtp client
+                var client = new SmtpClient()
+                {
+                    Port = 587,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = true,
+                    Host = "email-smtp.us-east-1.amazonaws.com",
+                    EnableSsl = true,
+                    Credentials = credentials
+                };
+                //  client.Send(mail);
+                //return "Email Sent Successfully!";
+
+            }
+            catch (System.Exception e)
+            {
+                //return e.Message;
+            }
+
+        }
+        public GetOrdersFromBestBuyViewModel.BestBuyRootObjectBB GetBestBuyOrdersLasthundred(string token)
+        {
+            GetOrdersFromBestBuyViewModel.BestBuyRootObjectBB responses = new GetOrdersFromBestBuyViewModel.BestBuyRootObjectBB();
+            try
+            {
+
+
+                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://marketplace.bestbuy.ca/api/orders?paginate=false&order_ids=218377639-A");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://marketplace.bestbuy.ca/api/orders?order=desc&max=99");
+                request.Method = "GET";
+                request.Accept = "application/json;";
+                request.ContentType = "application/json";
+                request.Headers["Authorization"] = token;
+
+                string strResponse = "";
+                using (WebResponse webResponse = request.GetResponse())
+                {
+                    using (StreamReader stream = new StreamReader(webResponse.GetResponseStream()))
+                    {
+                        strResponse = stream.ReadToEnd();
+                    }
+                }
+
+                responses = JsonConvert.DeserializeObject<GetOrdersFromBestBuyViewModel.BestBuyRootObjectBB>(strResponse);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return responses;
+        }
+        //public List<DropShipAndQtyOrderViewModel> dataForNotPaymentRec(int sellerCloudOrderId)
+        //{
+        //    var dataOrder = _addOrderToSCDataAccess.dataForNotPaymentRec(sellerCloudOrderId);
+        //    return dataOrder;
+        //}
     }
 }
