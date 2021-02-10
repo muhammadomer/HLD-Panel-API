@@ -42,32 +42,32 @@ namespace HLD.WebApi.Jobs
             string DateFrom = DateTime.Now.AddMonths(-12).ToString("yyyy-MM-dd");
             List<ShipmentHistoryViewModel> historyViewModels = new List<ShipmentHistoryViewModel>();
             historyViewModels= _shipmentDataAccess.GetShipmentHistoryListforReport(DateTo, DateFrom, 1278, "", "","",10000,0,"");
-            var list = historyViewModels.GroupBy(x => new { x.SKU, x.ShipmentId })
-              .Select(p => new
-              {
-                  p.Key.ShipmentId,
-                  p.Key.SKU,
-                  POIDs = p.Select(i => new POIDs { POId = i.POId, ShipedQty = i.ShipedQty }),
-                  ShippedPO = p.Sum(o => o.ShipedQty),
-                  Data = p.Select(s => new ShipmentHistoryViewModel
-                  {
-                      CompressedImage = s.CompressedImage,
-                      ImageName = s.ImageName,
-                      Title = s.Title,
-                      Vendor = s.Vendor,
-                      VendorId = s.VendorId,
-                      Type = s.Type,
-                      Status = s.Status,
-                      ReceivedDate = s.ReceivedDate,
-                      ExpectedDelivery=s.ExpectedDelivery,
-                      ShippedDate = s.ShippedDate,
-                      ShipedQty = s.ShipedQty,
-                      ReceivedQty = s.ReceivedQty,
-                      CreatedOn = s.CreatedOn,
-                      TrakingNumber = s.TrakingNumber,
+            //var list = historyViewModels.GroupBy(x => new { x.SKU, x.ShipmentId })
+            //  .Select(p => new
+            //  {
+            //      p.Key.ShipmentId,
+            //      p.Key.SKU,
+            //      POIDs = p.Select(i => new POIDs { POId = i.POId, ShipedQty = i.ShipedQty }),
+            //      ShippedPO = p.Sum(o => o.ShipedQty),
+            //      Data = p.Select(s => new ShipmentHistoryViewModel
+            //      {
+            //          CompressedImage = s.CompressedImage,
+            //          ImageName = s.ImageName,
+            //          Title = s.Title,
+            //          Vendor = s.Vendor,
+            //          VendorId = s.VendorId,
+            //          Type = s.Type,
+            //          Status = s.Status,
+            //          ReceivedDate = s.ReceivedDate,
+            //          ExpectedDelivery=s.ExpectedDelivery,
+            //          ShippedDate = s.ShippedDate,
+            //          ShipedQty = s.ShipedQty,
+            //          ReceivedQty = s.ReceivedQty,
+            //          CreatedOn = s.CreatedOn,
+            //          TrakingNumber = s.TrakingNumber,
 
-                  })
-              });
+            //      })
+            //  });
 
             //foreach (var _historyitem in list)
             //{

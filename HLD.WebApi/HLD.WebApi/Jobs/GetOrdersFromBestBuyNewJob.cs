@@ -40,6 +40,7 @@ namespace HLD.WebApi.Jobs
           
             if (status == 1)
             {
+                List<GetOrdersFromBestBuyViewModel.OrderBB> root = new List<GetOrdersFromBestBuyViewModel.OrderBB>();
                 _getChannelCredViewModel = new GetChannelCredViewModel();
                 _getChannelCredViewModel = _EncDecChannel.DecryptedData("bestbuy");
                 GetOrdersFromBestBuyViewModel.BestBuyRootObjectBB bestBuyRootObject = new GetOrdersFromBestBuyViewModel.BestBuyRootObjectBB();
@@ -55,7 +56,7 @@ namespace HLD.WebApi.Jobs
                 foreach (var item in NewOrders)
                 {
                     var result = bestBuyRootObject.orders.Where(e => e.order_id == item).FirstOrDefault();
-
+                    root.Add(result);
                     int bbOrderID = _bestBuytDataAccessNew.SaveBestBuyOrderINOrder(result);
 
                     if (bbOrderID != 0)
@@ -101,6 +102,8 @@ namespace HLD.WebApi.Jobs
                     _bestBuytDataAccessNew.UpdateBestBuyOrderINCustomerShipping(result);
 
                 }
+
+                UpdateqtyinqryMovement(root);
             }
         }
 
@@ -252,6 +255,32 @@ namespace HLD.WebApi.Jobs
             }
 
         }
+
+
+        void UpdateqtyinqryMovement(List<GetOrdersFromBestBuyViewModel.OrderBB> NewOrders)
+        {
+
+            var result = NewOrders.SelectMany(e => e.order_lines);
+            //bbOrderID = listBestBuyOrders.Select(e => e.OrderViewModel.order_id).Distinct().ToList();
+
+            // sum quantity for specifu sku to update quantity on bb
+            var finalResult = result.GroupBy(e => e.offer_sku, (x, y) => new
+            {
+                totalQty = y.Sum(r => int.Parse(r.quantity)),
+                offersku = x,
+                date = y.Max(e => e.received_date)
+            }).ToList();
+
+            foreach (var item in finalResult)
+            {
+                BestBuyDropShipQtyMovementViewModel model = new BestBuyDropShipQtyMovementViewModel();
+                model.ProductSku = item.offersku;
+                model.OrderQuantity = item.totalQty.ToString();
+                model.OrderDate = DateTime.Now;
+                _bestBuyProductDataAccess.SaveBestBuyOrderDropShipMovement(model);
+            }
+        }
+
     }
 }
 

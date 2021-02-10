@@ -60,7 +60,7 @@ namespace HLD.WebApi.Jobs
         public async Task Execute(IJobExecutionContext context)
         {
 
-
+            
             int status = channelDecrytionDataAccess.CheckZincJobsStatus("sellercloudadding");
 
             if (status == 1)
@@ -92,6 +92,7 @@ namespace HLD.WebApi.Jobs
                         // check payment status
                         bool status = _addOrderToSCDataAccess.CheckCityOrder(item.bbe2OrdersId);
                         CreateOrderOnSCViewModel createOrderOnSCViewModel = new CreateOrderOnSCViewModel();
+
                         if (status == true)
                         {
 
@@ -153,8 +154,8 @@ namespace HLD.WebApi.Jobs
 
                                             List<DropShipAndQtyOrderViewModel> listqty = _bestBuytDataAccessNew.GeQtyAndDropShip(createOrderOnSCViewModel.Products.Select(a => a.ProductID).ToList());
                                             string BBOrderID= item.Orderid;
-                                                // Generate Emails Here for payments not received for Orders
-                                                ManualPaymentNotReceived(BBOrderID, listqty);
+                                            // Generate Emails Here for payments not received for Orders
+                                            ManualPaymentNotReceivedEmail(BBOrderID, listqty);
                                             Issent = true;
                                             
                                         }
@@ -494,7 +495,7 @@ namespace HLD.WebApi.Jobs
 
             return true;
         }
-        public void ManualPaymentNotReceived(string BBOrderID, List<DropShipAndQtyOrderViewModel> model)
+        public void ManualPaymentNotReceivedEmail(string BBOrderID, List<DropShipAndQtyOrderViewModel> model)
         {
             try
             {
@@ -546,7 +547,7 @@ namespace HLD.WebApi.Jobs
                 var mail = new MailMessage()
                 {
                     From = new MailAddress("info@hldinc.net"),
-                    Subject = "BBuy Order ID " + BBOrderID + " Not Accepted Due to Stock Issue.",
+                    Subject = "BBuy Order ID " + BBOrderID + " Not Charged on sellercloud.",
                     Body = messageBody.ToString()
                 };
                 mail.IsBodyHtml = true;
