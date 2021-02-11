@@ -942,5 +942,100 @@ namespace DataAccess.DataAccess
                 throw;
             }
         }
+        public int GetCounterLog(string SC_Order_ID, string Amazon_AcName, string Zinc_Status, string CurrentDate, string PreviousDate)
+        {
+            int counter = 0;
+            try
+            {
+                if (string.IsNullOrEmpty(SC_Order_ID) || SC_Order_ID == "undefined")
+                    SC_Order_ID = "";
+                if (string.IsNullOrEmpty(CurrentDate) || SC_Order_ID == "undefined")
+                    CurrentDate = "";
+
+                if (string.IsNullOrEmpty(PreviousDate) || SC_Order_ID == "undefined")
+                    PreviousDate = "";
+                if (string.IsNullOrEmpty(Amazon_AcName) || Amazon_AcName == "undefined")
+                    Amazon_AcName = "";
+                if (string.IsNullOrEmpty(Zinc_Status) || Zinc_Status == "undefined")
+                    Zinc_Status = "";
+                
+
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetZincLogCount", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_fromDate", PreviousDate);
+                    cmd.Parameters.AddWithValue("_toDate", CurrentDate);
+                    cmd.Parameters.AddWithValue("_SC_Order_ID", SC_Order_ID);
+                    cmd.Parameters.AddWithValue("_Zinc_Status", Zinc_Status);
+                    cmd.Parameters.AddWithValue("_Amazon_AcName", Amazon_AcName);                    
+                    counter = Convert.ToInt32(cmd.ExecuteScalar());
+                    conn.Close();
+
+                }
+            }
+            catch (Exception exp)
+            {
+
+            }
+            return counter;
+        }
+        public List<ZincOrdersLogViewModel> ZincOrdersLogList(string DateTo, string DateFrom, int limit, int offset, string SC_Order_ID, string Amazon_AcName, string Zinc_Status)
+        {
+            List<ZincOrdersLogViewModel> listModel = new List<ZincOrdersLogViewModel>();
+            try
+            {
+                if (string.IsNullOrEmpty(SC_Order_ID) || SC_Order_ID == "undefined")
+                    SC_Order_ID = "";
+                if (string.IsNullOrEmpty(DateFrom) || SC_Order_ID == "undefined")
+                    DateFrom = "";
+
+                if (string.IsNullOrEmpty(DateTo) || SC_Order_ID == "undefined")
+                    DateTo = "";
+                if (string.IsNullOrEmpty(Amazon_AcName) || Amazon_AcName == "undefined")
+                    Amazon_AcName = "";
+                if (string.IsNullOrEmpty(Zinc_Status) || Zinc_Status == "undefined")
+                    Zinc_Status = "";
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetZincLogCountList", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_fromDate", DateFrom);
+                    cmd.Parameters.AddWithValue("_toDate", DateTo);
+                    cmd.Parameters.AddWithValue("_SC_Order_ID", SC_Order_ID);
+                    cmd.Parameters.AddWithValue("_Zinc_Status", Zinc_Status);
+                    cmd.Parameters.AddWithValue("_Amazon_AcName", Amazon_AcName);
+                    cmd.Parameters.AddWithValue("_limit", limit);
+                    cmd.Parameters.AddWithValue("_offset", offset);
+                    
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    DataTable dataTable = new DataTable();
+                    da.Fill(dataTable);
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        listModel = new List<ZincOrdersLogViewModel>();
+                        foreach (DataRow dataRow in dataTable.Rows)
+                        {
+                            ZincOrdersLogViewModel ViewModel = new ZincOrdersLogViewModel();
+                            ViewModel.SC_Order_ID = Convert.ToString(dataRow["sc_order_id"] != DBNull.Value ? dataRow["sc_order_id"] : "");
+                            ViewModel.BB_Order_ID = Convert.ToString(dataRow["order_id"] != DBNull.Value ? dataRow["order_id"] : "");
+                            ViewModel.Zinc_Status = Convert.ToString(dataRow["zinc_order_status_internal"] != DBNull.Value ? dataRow["zinc_order_status_internal"] : "");                           
+                            ViewModel.order_datetime = Convert.ToDateTime(dataRow["order_datetime"] != DBNull.Value ? dataRow["order_datetime"] : (DateTime?)null);
+                            ViewModel.Zinc_Order_ID = Convert.ToString(dataRow["merchant_order_id"] != DBNull.Value ? dataRow["merchant_order_id"] : "");        
+                            ViewModel.Amazon_AcName = Convert.ToString(dataRow["AmzAccountName"] != DBNull.Value ? dataRow["AmzAccountName"] : "");
+                            ViewModel.order_message = Convert.ToString(dataRow["order_message"] != DBNull.Value ? dataRow["order_message"] : "");
+                            listModel.Add(ViewModel);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return listModel;
+        }
     }
 }

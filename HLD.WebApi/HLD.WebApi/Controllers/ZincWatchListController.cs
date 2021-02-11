@@ -381,6 +381,29 @@ namespace HLD.WebApi.Controllers
             obj = dataAccess.GetCount(searchViewModel);
             return obj;
         }
-
+        [HttpGet]
+        [Route("GetZincCount")]
+        public IActionResult GetCounter(string SC_Order_ID, string Amazon_AcName, string Zinc_Status, string CurrentDate, string PreviousDate)
+        {
+            long Count = 0;
+            bool status = false;
+            Count = zincWathchlistDataAccess.GetCounterLog(SC_Order_ID, Amazon_AcName, Zinc_Status, CurrentDate, PreviousDate);
+            if (Count > 0)
+            {
+                status = true;
+                return Ok(new { status = status, counter = Count, Message = "Success" });
+            }
+            else
+            {
+                return Ok(new { status = status, counter = Count, Message = "Some Error Occured" });
+            }
+        }
+        [HttpGet]
+        [Route("ZincOrdersLogList")]
+        public IActionResult ZincOrdersLogList(string DateTo, string DateFrom, int limit, int offset, string SC_Order_ID, string Amazon_AcName, string Zinc_Status)
+        {
+            List<ZincOrdersLogViewModel> model = zincWathchlistDataAccess.ZincOrdersLogList(DateTo, DateFrom, limit, offset, SC_Order_ID, Amazon_AcName, Zinc_Status);
+            return Ok(model);
+        }
     }
 }
