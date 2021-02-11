@@ -33,8 +33,12 @@ namespace HLD.WebApi.Controllers
         string ZincUserName = "";
         private readonly ILogger logger;
         EncDecChannel _EncDecChannel = null;
-      
+        OrderNotesDataAccess _NotesDataAccess=null;
         GetChannelCredViewModel _getChannelCredSC = null;
+        string SCRestURL = "";
+        GetChannelCredViewModel _Selller = null;
+        string ApiURL = "";
+        string token = "";
         public ZincWebhooksController(IConnectionString connectionString, IConfiguration configuration,ILogger<ZincWebhooksController> _logger)
         {
             _configuration = configuration;
@@ -51,8 +55,10 @@ namespace HLD.WebApi.Controllers
             ZincUserName = _configuration.GetValue<string>("ZincCredential:UserName");
             _zincDataAccess = new ZincDataAccess(_connectionString);
             _sellerCloudDataAccess = new SellerCloudOrderDataAccess(_connectionString);
-
+            _NotesDataAccess = new OrderNotesDataAccess(connectionString);
             this.logger = _logger;
+            SCRestURL = _configuration.GetValue<string>("SCURL:URL");
+            ApiURL = _configuration.GetValue<string>("WebApiURL:URL");
         }
         // failure Webhooks
         [HttpPost]
@@ -60,8 +66,12 @@ namespace HLD.WebApi.Controllers
         [Route("failure")]
         public IActionResult ZincFailureWebhook([FromBody] object response)
         {
+            bool status;
             try
             {
+                //_Selller = new GetChannelCredViewModel();
+                _getChannelCredSC = _EncDecChannel.DecryptedData("sellercloud");
+                AuthenticateSCRestViewModel authenticate = _zincOrderLogDataAccess.AuthenticateSCForIMportOrder(_getChannelCredSC, SCRestURL);
                 logger.LogInformation("ZincFailureWebhook is called" + response);
                 ZincOrderLogDetailViewModel model = new ZincOrderLogDetailViewModel();
                 ZincOrderIDModelforWebhooks logidmodel = new ZincOrderIDModelforWebhooks();
@@ -73,8 +83,7 @@ namespace HLD.WebApi.Controllers
                 var request = X["request"];
                 var sci = request.SelectToken("client_notes.our_internal_order_id");
                 string commonMessage = "";
-
-
+                
                 if (message != null)
                 {
                     commonMessage = message.ToString();
@@ -122,12 +131,31 @@ namespace HLD.WebApi.Controllers
                     model.Type = type.ToString();
                     model.Code = code.ToString();
                 }
-
-
+                //CreateOrderNotesViewModel orderNotesViewModels = new CreateOrderNotesViewModel();
+                CreateNotesViewModel notesViewModel = new CreateNotesViewModel();
                 model.OrderDatetime = DateTimeExtensions.ConvertToEST(DateTime.Now);
 
                 _zincOrderLogDataAccess.SaveZincOrderLogDetailNew(model);
+               string acName= _zincOrderLogDataAccess.GetAcName(Convert.ToInt32(model.OurInternalOrderId));
 
+                //orderNotesViewModels.Note = "MerchantId: " + model.MerchantOrderId + "Estimated Shipping: " + model.ShppingDate + "Notes: " + model.Message + "Amazon A/c Name: " + acName;
+                notesViewModel.Message = " MerchantId: " + model.MerchantOrderId + " Estimated Shipping: " + model.ShppingDate + " Delivery Date: " + model.Message + " Amazon A/c Name: " + acName;
+                notesViewModel.Category = "0";
+              //  _NotesDataAccess.CreateOrderNotesFormSC(SCRestURL, authenticate.access_token, Convert.ToInt32(model.OurInternalOrderId), notesViewModel);
+                List<CreateOrderNotesViewModel> getNotes = _NotesDataAccess.GetOrderNotesFormSC(SCRestURL, authenticate.access_token, Convert.ToInt32(model.OurInternalOrderId));
+
+                if (getNotes.Count > 0)
+                {
+                    List<CreateOrderNotesViewModel> data = (List<CreateOrderNotesViewModel>)getNotes.Select(p => p).Where(p => p.NoteID != 0).ToList();
+                    if (data.Count > 0)
+                    {
+                        status = _NotesDataAccess.SaveOrderNotes(data);
+                        if (status == true)
+                        {
+                            _NotesDataAccess.UpdateOrderAsHavingNotes(Convert.ToInt32(model.OurInternalOrderId));
+                        }
+                    }
+                }
 
                 if (model.ZincOrderStatusInternal == ZincOrderLogInternalStatus.Error.ToString())
                 {
@@ -149,8 +177,11 @@ namespace HLD.WebApi.Controllers
         [Route("Success")]
         public IActionResult ZincSuccessWebhookAsync([FromBody] object response)
         {
+            bool status;
             try
             {
+                _getChannelCredSC = _EncDecChannel.DecryptedData("sellercloud");
+                AuthenticateSCRestViewModel authenticate = _zincOrderLogDataAccess.AuthenticateSCForIMportOrder(_getChannelCredSC, SCRestURL);
                 logger.LogInformation("ZincSuccessWebhookAsync is called" + response);
                 ZincOrderLogDetailViewModel model = new ZincOrderLogDetailViewModel();
                 ZincOrderIDModelforWebhooks logidmodel = new ZincOrderIDModelforWebhooks();
@@ -196,11 +227,33 @@ namespace HLD.WebApi.Controllers
                     //model.ZincOrderLogID = logidmodel.zinc_order_log_id;
 
                 }
-
+                CreateOrderNotesViewModel orderNotesViewModels = new CreateOrderNotesViewModel();
+                CreateNotesViewModel notesViewModel = new CreateNotesViewModel();
+                List<CreateOrderNotesViewModel> data = new List<CreateOrderNotesViewModel>();
                 model.OrderDatetime = DateTimeExtensions.ConvertToEST(DateTime.Now);
 
                 _zincOrderLogDataAccess.SaveZincOrderLogDetailNew(model);
 
+                string acName = _zincOrderLogDataAccess.GetAcName(Convert.ToInt32(model.OurInternalOrderId));
+
+                orderNotesViewModels.Note = "MerchantId: " + model.MerchantOrderId + "Estimated Shipping: " + model.ShppingDate + "Notes: " + model.Message + "Amazon A/c Name: " + acName;
+                notesViewModel.Message = "MerchantId: " + model.MerchantOrderId + "Estimated Shipping: " + model.ShppingDate + "Notes: " + model.Message + "Amazon A/c Name: " + acName;
+                notesViewModel.Category = "0";
+                _NotesDataAccess.CreateOrderNotesFormSC(SCRestURL, authenticate.access_token, Convert.ToInt32(model.OurInternalOrderId), notesViewModel);
+                List<CreateOrderNotesViewModel> getNotes = _NotesDataAccess.GetOrderNotesFormSC(SCRestURL, authenticate.access_token, Convert.ToInt32(model.OurInternalOrderId));
+
+                if (getNotes.Count > 0)
+                {
+                    List<CreateOrderNotesViewModel> dataa = (List<CreateOrderNotesViewModel>)getNotes.Select(p => p).Where(p => p.NoteID != 0).ToList();
+                    if (dataa.Count > 0)
+                    {
+                        status = _NotesDataAccess.SaveOrderNotes(dataa);
+                        if (status == true)
+                        {
+                            _NotesDataAccess.UpdateOrderAsHavingNotes(Convert.ToInt32(model.OurInternalOrderId));
+                        }
+                    }
+                }
                 return Ok();
             }
             catch (Exception ex)
@@ -215,8 +268,11 @@ namespace HLD.WebApi.Controllers
         // tracking webhooks
         public async Task<IActionResult> ZinctrackingWebhookAsync([FromBody] object response)
         {
+            bool status;
             try
             {
+                _getChannelCredSC = _EncDecChannel.DecryptedData("sellercloud");
+                AuthenticateSCRestViewModel authenticate = _zincOrderLogDataAccess.AuthenticateSCForIMportOrder(_getChannelCredSC, SCRestURL);
                 logger.LogInformation("ZinctrackingWebhookAsync is called" + response);
 
                 ZincOrderLogDetailViewModel model = new ZincOrderLogDetailViewModel();
@@ -290,12 +346,34 @@ namespace HLD.WebApi.Controllers
                         await SendTrackingToSCWebhooks(model.OurInternalOrderId, sKUQTYModelforWebhooks.SKU, sKUQTYModelforWebhooks.Qty.ToString(), model.ShppingDate, model.TrackingNumber);
                     }
                 }
-
+                CreateOrderNotesViewModel orderNotesViewModels = new CreateOrderNotesViewModel();
+                CreateNotesViewModel notesViewModel = new CreateNotesViewModel();
                 model.OrderDatetime = DateTimeExtensions.ConvertToEST(DateTime.Now);
 
 
                 _zincOrderLogDataAccess.SaveZincOrderLogDetailNew(model);
 
+
+                string acName = _zincOrderLogDataAccess.GetAcName(Convert.ToInt32(model.OurInternalOrderId));
+
+                orderNotesViewModels.Note = "MerchantId: " + model.MerchantOrderId + "Estimated Shipping: " + model.ShppingDate + "Notes: " + model.Message + "Amazon A/c Name: " + acName;
+                notesViewModel.Message = "MerchantId: " + model.MerchantOrderId + "Estimated Shipping: " + model.ShppingDate + "Notes: " + model.Message + "Amazon A/c Name: " + acName;
+                notesViewModel.Category = "0";
+                _NotesDataAccess.CreateOrderNotesFormSC(SCRestURL, authenticate.access_token, Convert.ToInt32(model.OurInternalOrderId), notesViewModel);
+                List<CreateOrderNotesViewModel> getNotes = _NotesDataAccess.GetOrderNotesFormSC(SCRestURL, authenticate.access_token, Convert.ToInt32(model.OurInternalOrderId));
+
+                if (getNotes.Count > 0)
+                {
+                    List<CreateOrderNotesViewModel> data = (List<CreateOrderNotesViewModel>)getNotes.Select(p => p).Where(p => p.NoteID != 0).ToList();
+                    if (data.Count > 0)
+                    {
+                        status = _NotesDataAccess.SaveOrderNotes(data);
+                        if (status == true)
+                        {
+                            _NotesDataAccess.UpdateOrderAsHavingNotes(Convert.ToInt32(model.OurInternalOrderId));
+                        }
+                    }
+                }
                 return Ok();
             }
             catch (Exception ex)

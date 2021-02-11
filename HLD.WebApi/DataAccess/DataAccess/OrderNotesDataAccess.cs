@@ -1,9 +1,12 @@
 ﻿using DataAccess.Helper;
 using DataAccess.ViewModels;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -106,11 +109,78 @@ namespace DataAccess.DataAccess
             }
             catch (Exception ex)
             {
+                throw ex;
             }
             return _ViewModels;
         }
 
+        public List<GetNotesOrderViewModel> CreateOrderNotesFormSC(string ApiURL, string token, int id, CreateNotesViewModel createNotesView)
+        {
+            List<GetNotesOrderViewModel> listmodel = new List<GetNotesOrderViewModel>();
+            try
+            {
 
+
+                var data = JsonConvert.SerializeObject(createNotesView);
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ApiURL + "/Orders/" + id + "/Notes");
+                request.Method = "POST";
+                request.Accept = "application/json;";
+                request.ContentType = "application/json";
+                request.Headers["Authorization"] = "Bearer " + token;
+
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    streamWriter.Write(data);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
+                var response = (HttpWebResponse)request.GetResponse();
+                string strResponse = "";
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    strResponse = sr.ReadToEnd();
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return listmodel;
+        }
+        public List<CreateOrderNotesViewModel> GetOrderNotesFormSC(string ApiURL, string token, int id)
+        {
+            List<CreateOrderNotesViewModel> listmodel = new List<CreateOrderNotesViewModel>();
+            try
+            {
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ApiURL + "/Orders/Notes?id=" + id);
+                request.Method = "GET";
+                request.Accept = "application/json;";
+                request.ContentType = "application/json";
+                request.Headers["Authorization"] = "Bearer " + token;
+
+                string strResponse = "";
+                using (WebResponse webResponse = request.GetResponse())
+                {
+                    using (StreamReader stream = new StreamReader(webResponse.GetResponseStream()))
+                    {
+                        strResponse = stream.ReadToEnd();
+                    }
+                }
+                listmodel = JsonConvert.DeserializeObject<List<CreateOrderNotesViewModel>>(strResponse);
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return listmodel;
+        }
 
     }
 }

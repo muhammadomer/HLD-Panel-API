@@ -299,6 +299,7 @@
     <Compile Include="ViewModels\CheckProductDropShipStatusViewModel.cs" />
     <Compile Include="ViewModels\CheckShadowCreatedOnHLDViewModel.cs" />
     <Compile Include="ViewModels\CompressImageViewModel.cs" />
+    <Compile Include="ViewModels\CreateNotesViewModel.cs" />
     <Compile Include="ViewModels\CreateOrderNotesViewModel.cs" />
     <Compile Include="ViewModels\CreateOrderOnSCViewModel.cs" />
     <Compile Include="ViewModels\CreateProductOnSallerCloudViewModel.cs" />
@@ -464,6 +465,7 @@
     <Compile Include="ViewModels\ZincOrderInProgressSuccessViewModel.cs" />
     <Compile Include="ViewModels\ZincOrderLogDetailViewModel.cs" />
     <Compile Include="ViewModels\ZincOrderLogViewModel.cs" />
+    <Compile Include="ViewModels\ZincOrdersLogViewModel.cs" />
     <Compile Include="ViewModels\ZincProductOfferViewModel.cs" />
     <Compile Include="ViewModels\ZincProductSaveViewModel.cs" />
     <Compile Include="ViewModels\ColorAutoCompleteViewModel.cs" />
