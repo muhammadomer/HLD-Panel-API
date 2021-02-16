@@ -672,6 +672,7 @@ namespace DataAccess.DataAccess
             }
             catch (Exception ex)
             {
+                throw ex;
             }
             return _ViewModels;
         }
@@ -1481,6 +1482,56 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_JobId", jobId);
                     cmd.ExecuteNonQuery();
                    // status = true;
+                    conn.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jobId;
+        }
+
+        public int GetStausFromZincNew(List<GetStatusFromZincViewModel> ListViewModel)
+        {
+            bool status = false;
+            int jobId = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_SaveZincWatchListJobNew", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    jobId = Convert.ToInt32(cmd.ExecuteScalar());
+                    // status = true;
+                    conn.Close();
+
+                }
+                foreach (var item in ListViewModel)
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connStr))
+                    {
+                        conn.Open();
+                        MySqlCommand cmd = new MySqlCommand("P_SaveSkuInZincWatchListNew", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_JobId", jobId);
+                        cmd.Parameters.AddWithValue("_Sku", item.SKU);
+                        cmd.ExecuteNonQuery();
+                        // status = true;
+                        conn.Close();
+
+                    }
+                }
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateWatchListSummeryAsinCountNew", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_JobId", jobId);
+                    cmd.ExecuteNonQuery();
+                    // status = true;
                     conn.Close();
 
                 }

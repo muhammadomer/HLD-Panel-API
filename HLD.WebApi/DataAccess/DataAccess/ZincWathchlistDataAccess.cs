@@ -40,6 +40,30 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+        public bool SaveWatchlistNew(SaveWatchlistViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_saveWatchlistV1", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_frequency", ViewModel.frequency);
+                    cmd.Parameters.AddWithValue("_ProductSKU", ViewModel.ProductSKU);
+                    cmd.Parameters.AddWithValue("_asin", ViewModel.ASIN);
+                    cmd.Parameters.AddWithValue("_CheckAfterDays", ViewModel.CheckafterDays);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
 
         public SaveWatchlistViewModel GetWatchlist(string ASIN)
         {
@@ -118,6 +142,46 @@ namespace DataAccess.DataAccess
 
         }
 
+        public List<SaveWatchlistForjobsViewModel> GetWatchlistForJobNew(int JobId)
+        {
+
+            List<SaveWatchlistForjobsViewModel> listViewModel = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetASINforWatchlistJobCopyV1", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_JobId", JobId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            listViewModel = new List<SaveWatchlistForjobsViewModel>();
+                            while (reader.Read())
+                            {
+                                SaveWatchlistForjobsViewModel ViewModel = new SaveWatchlistForjobsViewModel();
+                                ViewModel.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
+                                ViewModel.ProductSKU = Convert.ToString(reader["ProductSKU"] != DBNull.Value ? reader["ProductSKU"] : "");
+                                ViewModel.frequency = Convert.ToInt32(reader["Frequency"] != DBNull.Value ? reader["Frequency"] : 0);
+                                ViewModel.ValidStatus = Convert.ToInt32(reader["ValidStatus"] != DBNull.Value ? reader["ValidStatus"] : 0);
+                                ViewModel.Consumed_call = Convert.ToInt32(reader["Consumed_call"] != DBNull.Value ? reader["Consumed_call"] : 0);
+                                ViewModel.CheckafterDays = Convert.ToInt32(reader["CheckAfterDays"] != DBNull.Value ? reader["CheckAfterDays"] : 0);
+                                listViewModel.Add(ViewModel);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return listViewModel;
+
+        }
+
 
         public bool SaveWatchlistLogs(ZincWatchlistLogsViewModel ViewModel)
         {
@@ -128,6 +192,34 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("p_saveZincWatchlistlogs", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_JobID", ViewModel.jobID);
+                    cmd.Parameters.AddWithValue("_ASIN", ViewModel.ASIN);
+                    cmd.Parameters.AddWithValue("_SKU", ViewModel.ProductSKU);
+                    cmd.Parameters.AddWithValue("_ZincResponse", ViewModel.ZincResponse);
+                    cmd.Parameters.AddWithValue("_SellerName", ViewModel.SellerName);
+                    cmd.Parameters.AddWithValue("_AMZPrice", ViewModel.Amz_Price);
+                    cmd.Parameters.AddWithValue("_Prime", ViewModel.IsPrime);
+                    cmd.Parameters.AddWithValue("_FulfilledBy", ViewModel.FulfilledBY);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
+
+        public bool SaveWatchlistLogsNew(ZincWatchlistLogsViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_saveZincWatchlistlogsV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_JobID", ViewModel.jobID);
                     cmd.Parameters.AddWithValue("_ASIN", ViewModel.ASIN);
@@ -171,6 +263,30 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+        public bool UpdateWatchlistForJobNew(SaveWatchlistForjobsViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateWatchlistAccordingToResponseV1", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("_ASIN", ViewModel.ASIN);
+                    cmd.Parameters.AddWithValue("_ValidStatus", ViewModel.ProductSKU);
+                    cmd.Parameters.AddWithValue("_Consumed_call", ViewModel.Consumed_call);
+
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
 
         public int SaveWatchlistSummary()
         {
@@ -194,6 +310,28 @@ namespace DataAccess.DataAccess
             return jobID;
         }
 
+        public int SaveWatchlistSummaryNew()
+        {
+            int jobID = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_SaveZincWatchlistsummaryCopyV1", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add("Job_Id", MySqlDbType.Int32, 10);
+                    cmd.Parameters["Job_Id"].Direction = System.Data.ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    jobID = Convert.ToInt32(cmd.Parameters["Job_Id"].Value != DBNull.Value ? cmd.Parameters["Job_Id"].Value : 0);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return jobID;
+        }
+
         public bool UpdateWatchlistSummary(ZincWatchListSummaryViewModal ViewModel)
         {
             bool status = false;
@@ -203,6 +341,32 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_UpdateZincWatchlistsummary", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_JobID", ViewModel.JobID);
+                    cmd.Parameters.AddWithValue("_Total_ASIN", ViewModel.Total_ASIN);
+                    cmd.Parameters.AddWithValue("_Available", ViewModel.Available);
+                    cmd.Parameters.AddWithValue("_Prime", ViewModel.Prime);
+                    cmd.Parameters.AddWithValue("_Unavailable", ViewModel.Unavailable);
+                    cmd.Parameters.AddWithValue("_NoPrime", ViewModel.NoPrime);
+
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
+        public bool UpdateWatchlistSummaryNew(ZincWatchListSummaryViewModal ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateZincWatchlistsummaryV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_JobID", ViewModel.JobID);
                     cmd.Parameters.AddWithValue("_Total_ASIN", ViewModel.Total_ASIN);

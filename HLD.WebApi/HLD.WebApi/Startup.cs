@@ -113,7 +113,7 @@ namespace HLD.WebApi
             ////  to update qty on bestbuy
             //services.UseQuartz(typeof(BestBuyQuantityUpdateJob)); //never comment
             //services.UseQuartz(typeof(UpdateOrdersFromBestBuyJob));
-            //services.UseQuartz(typeof(GetOrdersFromBestBuyJob));
+           // services.UseQuartz(typeof(GetOrdersFromBestBuyJob));
             ////  tracking
             //services.UseQuartz(typeof(BestBuyTrackingExportJob));
 
@@ -122,7 +122,8 @@ namespace HLD.WebApi
             //services.UseQuartz(typeof(GetSellerOrderNotes));
 
             //services.UseQuartz(typeof(CreateOrderInSellerCloud));
-            services.UseQuartz(typeof(ShipmentHistoryReportJob));
+           services.UseQuartz(typeof(ShipmentHistoryReportJob));
+         //  services.UseQuartz(typeof(ZincASINWatchListNewJob));
 
 
             #endregion
@@ -172,7 +173,7 @@ namespace HLD.WebApi
 
             //QuartzServicesUtilities.StartJob<BestBuyQuantityUpdateJob>(schedulerr, ""); //never comment
             //QuartzServicesUtilities.StartJob<UpdateOrdersFromBestBuyJob>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<GetOrdersFromBestBuyJob>(schedulerr, "");
+           // QuartzServicesUtilities.StartJob<GetOrdersFromBestBuyJob>(schedulerr, "");
 
             //QuartzServicesUtilities.StartJob<BestBuyTrackingExportJob>(schedulerr, "");
 
@@ -183,8 +184,7 @@ namespace HLD.WebApi
             //QuartzServicesUtilities.StartJob<CreateOrderInSellerCloud>(schedulerr, "");
 
              QuartzServicesUtilities.StartJob<ShipmentHistoryReportJob>(schedulerr, "");
-
-
+           //  QuartzServicesUtilities.StartJob<ZincASINWatchListNewJob>(schedulerr, "");
 
             #endregion
             // QuartzServicesUtilities.StartJob<BestBuyPriceUpdateJob>(schedulerr, "");

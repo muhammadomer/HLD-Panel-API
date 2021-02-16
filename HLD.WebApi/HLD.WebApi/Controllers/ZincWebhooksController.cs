@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SCOrderTrackingService;
 using ServiceReference1;
@@ -387,7 +389,8 @@ namespace HLD.WebApi.Controllers
         public async Task SendTrackingToSCWebhooks(string sellerCloudOrderId, string productSku, string itemQuantity, string shippingDate, string trackingNo)
         {
             bool status = false;
-
+            _getChannelCredSC = _EncDecChannel.DecryptedData("sellercloud");
+            AuthenticateSCRestViewModel authenticate = _zincOrderLogDataAccess.AuthenticateSCForIMportOrder(_getChannelCredSC, SCRestURL);
             ZincOrderLogDetailViewModel model = new ZincOrderLogDetailViewModel();
 
             ServiceReference1.SCServiceSoapClient sCServiceSoap =
@@ -404,8 +407,17 @@ namespace HLD.WebApi.Controllers
                 updateSCViewModel.LogDate = DateTime.Now;
                 updateSCViewModel.IsTrackingUpdate = true;
 
+                var getOrderId = new UpdateScOrderToDs()
+                {
+                    Orders = new List<int>
+                        {
+                            updateSCViewModel.SCOrderID
 
-                status = _sellerCloudDataAccess.UpdateSCOrderDropShipStatus(updateSCViewModel);
+                        },
+                    DropshipStatus = "Processed"
+                };
+                // status = _sellerCloudDataAccess.UpdateSCOrderDropShipStatus(updateSCViewModel);
+                status = UpdateDropShipStatus(SCRestURL, authenticate.access_token, getOrderId);
                 //ZincOrderLogDetailViewModel model = new ZincOrderLogDetailViewModel();
                 //model = _zincOrderLogDataAccess.GetZincOrderLogDetailById(zincOrderLogDetailID);
                 OrdersUpdateShippingForOrderRequest req = new OrdersUpdateShippingForOrderRequest();
@@ -487,6 +499,42 @@ namespace HLD.WebApi.Controllers
                 //return e.Message;
             }
 
+        }
+        public bool UpdateDropShipStatus(string ApiURL, string token, UpdateScOrderToDs scOrderToDs)
+        {
+            bool status;
+            try
+            {
+
+
+                var data = JsonConvert.SerializeObject(scOrderToDs);
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ApiURL + "/Orders/DropshipStatus");
+                request.Method = "PUT";
+                request.Accept = "application/json;";
+                request.ContentType = "application/json";
+                request.Headers["Authorization"] = "Bearer " + token;
+
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    streamWriter.Write(data);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
+                var response = (HttpWebResponse)request.GetResponse();
+                string strResponse = "";
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    strResponse = sr.ReadToEnd();
+                }
+                status = true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return status;
         }
     }
 }

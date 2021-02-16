@@ -48,12 +48,21 @@ namespace HLD.WebApi.Controllers
             productDataAccess = new ProductDataAccess(_connectionString);
             QtyDataAccess = new ProductWarehouseQtyDataAccess(_connectionString);
         }
-        [HttpPost]
+       // [HttpPost]
 
-        public IActionResult SaveWatchlist(SaveWatchlistViewModel ViewModel)
+        //public IActionResult SaveWatchlist(SaveWatchlistViewModel ViewModel)
+        //{
+        //    bool status = false;
+        //    status = dataAccess.SaveWatchlist(ViewModel);
+
+        //    return Ok(status);
+
+        //}
+        [HttpPost]
+        public IActionResult SaveWatchlistNew(SaveWatchlistViewModel ViewModel)
         {
             bool status = false;
-            status = dataAccess.SaveWatchlist(ViewModel);
+            status = dataAccess.SaveWatchlistNew(ViewModel);
 
             return Ok(status);
 

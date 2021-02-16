@@ -563,6 +563,17 @@ namespace HLD.WebApi.Controllers
             return Ok(list);
         }
 
+        [HttpPost]
+        [Authorize]
+        [Route("api/Product/GetStausFromZincNew")]
+        public IActionResult GetStausFromZincNew([FromBody] List<GetStatusFromZincViewModel> ListViewModel)
+        {
+            var list = DataAccess.GetStausFromZincNew(ListViewModel);
+            Thread emailThread = new Thread(() => TaskExecute(list));
+            emailThread.Start();
+            return Ok(list);
+        }
+
         [HttpGet]
         [Authorize]
         [Route("api/Product/GetWareHousesQtyList")]
