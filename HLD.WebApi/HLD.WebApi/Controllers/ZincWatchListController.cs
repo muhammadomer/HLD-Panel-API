@@ -414,5 +414,33 @@ namespace HLD.WebApi.Controllers
             List<ZincOrdersLogViewModel> model = zincWathchlistDataAccess.ZincOrdersLogList(DateTo, DateFrom, limit, offset, SC_Order_ID, Amazon_AcName, Zinc_Status);
             return Ok(model);
         }
+        [HttpGet]
+        [Route("GetlogsCountForJob")]
+        public IActionResult GetWatchlistLogsCount(string ASIN, string SKU, string available, string jobID,  string CurrentDate, string PreviousDate)// get Logs 
+        {
+            //int status = 0;
+            //status = dataAccess.GetWatchlistLogsCount(ASIN, available, jobID, SKU, CurrentDate, PreviousDate);
+            //return status;
+            long Count = 0;
+            bool status = false;
+            Count = zincWathchlistDataAccess.GetWatchlistLogsCountForJob(ASIN, SKU, available, jobID, CurrentDate, PreviousDate);
+            if (Count > 0)
+            {
+                status = true;
+                return Ok(new { status = status, counter = Count, Message = "Success" });
+            }
+            else
+            {
+                return Ok(new { status = status, counter = Count, Message = "Some Error Occured" });
+            }
+        }
+
+        [HttpGet]
+        [Route("ZincOrdersLogListForJob")]
+        public IActionResult ZincOrdersLogListForJob(string DateTo, string DateFrom, int limit, int offset, string ASIN, string SKU,string available, string jobID )
+        {
+            List<ZincWatchlistLogsForJobViewModel> model = zincWathchlistDataAccess.ZincOrdersLogListForJob(DateTo, DateFrom, limit, offset, ASIN, SKU, available, jobID);
+            return Ok(model);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 
 using DataAccess.DataAccess;
@@ -454,8 +455,25 @@ namespace HLD.WebApi.Controllers
             }
         }
 
-   
-       
-     
+
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Zinc/GetZincResponce/{ASIN}/{productSKU}")]
+        public GetResponceFromZincViewModel GetZincResponce(string ASIN, string productSKU)
+        {
+            try
+            {
+                GetResponceFromZincViewModel model = new GetResponceFromZincViewModel();
+
+                model = _zincDataAccess.GetZincResponce(ASIN, productSKU);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

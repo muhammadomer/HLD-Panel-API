@@ -339,6 +339,7 @@
     <Compile Include="ViewModels\GetParentSkuById.cs" />
     <Compile Include="ViewModels\GetProductTitleViewModel.cs" />
     <Compile Include="ViewModels\GetQuedJobStatusViewModel.cs" />
+    <Compile Include="ViewModels\GetResponceFromZincViewModel.cs" />
     <Compile Include="ViewModels\GetSendToZincOrderViewModel.cs" />
     <Compile Include="ViewModels\GetShadowsOfChildForXlsViewModel.cs" />
     <Compile Include="ViewModels\GetShadowsOfChildViewModel.cs" />
@@ -487,6 +488,7 @@
     <Compile Include="ViewModels\ZincProxyViewModel.cs" />
     <Compile Include="ViewModels\ZincWatchlistCountViewModel.cs" />
     <Compile Include="ViewModels\ZincWatchListJobViewModel.cs" />
+    <Compile Include="ViewModels\ZincWatchlistLogsForJobViewModel.cs" />
     <Compile Include="ViewModels\ZincWatchlistLogsViewModel.cs" />
     <Compile Include="ViewModels\ZincWatchListSummary.cs" />
     <Compile Include="ViewModels\ZincWatchLogsSearchViewModel.cs" />

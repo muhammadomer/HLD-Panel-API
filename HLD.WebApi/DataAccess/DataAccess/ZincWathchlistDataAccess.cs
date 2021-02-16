@@ -1052,6 +1052,8 @@ namespace DataAccess.DataAccess
         }
         public ZincWatchlistCountViewModel GetCount(ZincWatchLogsSearchViewModel searchViewModel)
         {
+            if (string.IsNullOrEmpty(searchViewModel.JobID) || searchViewModel.JobID == "undefined")
+                searchViewModel.JobID = "";
             ZincWatchlistCountViewModel modelview = new ZincWatchlistCountViewModel();
             if (searchViewModel.Available == "Available")
             {
@@ -1201,30 +1203,175 @@ namespace DataAccess.DataAccess
             }
             return listModel;
         }
+
         public bool UpdateWatchlistResponse(ZincWatchlistLogsViewModel ViewModel)
         {
             bool status = false;
-            try
+            using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                using (MySqlConnection conn = new MySqlConnection(connStr))
-                {
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_ZincWatchlistLogsViewModel ViewModel", conn);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("P_ZincWatchlistLogsViewModel", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("_ASIN", ViewModel.ASIN);
-                    cmd.Parameters.AddWithValue("_ProductSku", ViewModel.ProductSKU);
-                    cmd.Parameters.AddWithValue("_Response", ViewModel.ZincResponse);
+                cmd.Parameters.AddWithValue("_ASIN", ViewModel.ASIN);
+                cmd.Parameters.AddWithValue("_ProductSku", ViewModel.ProductSKU);
+                cmd.Parameters.AddWithValue("_Response", ViewModel.ZincResponse);
 
-                    cmd.ExecuteNonQuery();
-                    status = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                cmd.ExecuteNonQuery();
+                status = true;
             }
             return status;
         }
+            public int GetWatchlistLogsCountForJob(string ASIN, string SKU, string available, string jobID, string CurrentDate, string PreviousDate)
+            {
+                ZincWatchlistLogsForJobViewModel searchViewModel = new ZincWatchlistLogsForJobViewModel();
+                int Records = 0;
+
+                if (available == "Available")
+                {
+                    searchViewModel.IsPrime = 1;
+                }
+
+                if (available == "Currently Unavailable" || available == "Listing Removed")
+                {
+                    searchViewModel.IsPrime = 0;
+                }
+
+                if (available == null)
+                {
+                    available = "";
+                }
+                if (SKU == null)
+                {
+                    SKU = "";
+                }
+                if (ASIN == null)
+                {
+                    ASIN = "";
+                }
+                if (string.IsNullOrEmpty(CurrentDate) || ASIN == "undefined")
+                    CurrentDate = "";
+
+                if (string.IsNullOrEmpty(PreviousDate) || ASIN == "undefined")
+                    PreviousDate = "";
+                try
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connStr))
+                    {
+                        conn.Open();
+
+                        MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCountPrimeForJob", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_ASIN", ASIN);
+                        cmd.Parameters.AddWithValue("_JobID", jobID);
+                        cmd.Parameters.AddWithValue("_Available", available);
+                        cmd.Parameters.AddWithValue("_sku", SKU);
+                        cmd.Parameters.AddWithValue("_fromDate", PreviousDate);
+                        cmd.Parameters.AddWithValue("_toDate", CurrentDate);
+                        cmd.Parameters.AddWithValue("_IsPrime", searchViewModel.IsPrime);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+
+                                while (reader.Read())
+                                {
+
+                                    Records = Convert.ToInt32(reader["Records"]);
+
+                                }
+                            }
+                        }
+                        return Records;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            public List<ZincWatchlistLogsForJobViewModel> ZincOrdersLogListForJob(string DateTo, string DateFrom, int limit, int offset, string ASIN, string SKU, string available, string jobID)
+            {
+                List<ZincWatchlistLogsForJobViewModel> listModel = new List<ZincWatchlistLogsForJobViewModel>();
+                try
+                {
+
+                    if (available == "Available")
+                    {
+                        listModel.FirstOrDefault().IsPrime = 1;
+                    }
+
+                    if (available == "Currently Unavailable" || available == "Listing Removed")
+                    {
+                        listModel.FirstOrDefault().IsPrime = 0;
+                    }
+                    if (ASIN == null)
+                    {
+                        ASIN = "";
+                    }
+                    if (string.IsNullOrEmpty(ASIN) || ASIN == "undefined")
+                        ASIN = "";
+                    if (available == null)
+                    {
+                        available = "";
+                    }
+                    if (SKU == null)
+                    {
+                        SKU = "";
+                    }
+                    if (string.IsNullOrEmpty(DateFrom) || ASIN == "undefined")
+                        DateFrom = "";
+
+                    if (string.IsNullOrEmpty(DateTo) || ASIN == "undefined")
+                        DateTo = "";
+
+
+                    using (MySqlConnection conn = new MySqlConnection(connStr))
+                    {
+                        conn.Open();
+                        MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCountPrimeForJobList", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_fromDate", DateFrom);
+                        cmd.Parameters.AddWithValue("_toDate", DateTo);
+                        cmd.Parameters.AddWithValue("_ASIN", ASIN);
+                        cmd.Parameters.AddWithValue("_JobID", jobID);
+                        cmd.Parameters.AddWithValue("_Available", available);
+                        cmd.Parameters.AddWithValue("_sku", SKU);
+                        cmd.Parameters.AddWithValue("_limit", limit);
+                        cmd.Parameters.AddWithValue("_offset", offset);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        DataTable dataTable = new DataTable();
+                        da.Fill(dataTable);
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            listModel = new List<ZincWatchlistLogsForJobViewModel>();
+                            foreach (DataRow reader in dataTable.Rows)
+                            {
+                                ZincWatchlistLogsForJobViewModel ViewModel = new ZincWatchlistLogsForJobViewModel();
+                                ViewModel.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
+                                ViewModel.ProductSKU = Convert.ToString(reader["SKU"]);
+                                ViewModel.ZincResponse = Convert.ToString(reader["ZincResponse"]);
+                                ViewModel.SellerName = Convert.ToString(reader["SellerName"]);
+                                ViewModel.Amz_Price = Convert.ToInt32(reader["AMZPrice"] != DBNull.Value ? reader["AMZPrice"] : "0");
+                                ViewModel.jobID = Convert.ToInt32(reader["JobID"] != DBNull.Value ? reader["JobID"] : "0");
+                                ViewModel.IsPrime = Convert.ToInt32(reader["Prime"] != DBNull.Value ? reader["Prime"] : "0");
+                                ViewModel.LastUpdatedDate = Convert.ToDateTime(reader["LastUpdatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["LastUpdatedDate"]) : default(DateTime));
+                                ViewModel.FulfilledBY = Convert.ToString(reader["FulfilledBy"]);
+                                ViewModel.Compress_image = Convert.ToString(reader["Compress_image"]);
+                                ViewModel.image_name = Convert.ToString(reader["image_name"]);
+
+                                listModel.Add(ViewModel);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return listModel;
+            } 
+        
     }
 }

@@ -1609,5 +1609,41 @@ SCOrders on SCOrders.order_id = SCOrderLines.order_id
             }
             return StatusCode;
         }
+        public GetResponceFromZincViewModel GetZincResponce(string ASIN, string productSKU)
+        {
+            GetResponceFromZincViewModel listBBProductViewModel = new GetResponceFromZincViewModel();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetZincResponse", conn);
+                    cmd.Parameters.AddWithValue("_ASIN", ASIN);
+                    cmd.Parameters.AddWithValue("_productSKU", productSKU);
+                   
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+
+                            while (reader.Read())
+                            {
+                                GetResponceFromZincViewModel ViewModel = new GetResponceFromZincViewModel();
+                                ViewModel.MessageWatchlist = Convert.ToString(reader["MessageWatchlist"] != DBNull.Value ? reader["MessageWatchlist"] : "");
+                                ViewModel.ASIN = Convert.ToString(reader["z_asin_ca"] != DBNull.Value ? reader["z_asin_ca"] : "");
+                                ViewModel.LastUpdatedDate = Convert.ToDateTime(reader["updateDate"] != DBNull.Value ? reader["updateDate"] :DateTime.MinValue);
+                               
+                                listBBProductViewModel = ViewModel;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return listBBProductViewModel;
+        }
     }
 }
