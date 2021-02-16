@@ -74,7 +74,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmdd = new MySqlCommand(@"select ASIN,Frequency,ProductSKU,CheckAfterDays,LastUpdatedDate,NextUpdateDate,ExpiryDate from ZincWatchlist Where ASIN='" + ASIN + "'", conn);
+                    MySqlCommand cmdd = new MySqlCommand(@"select ASIN,Frequency,ProductSKU,CheckAfterDays,LastUpdatedDate,NextUpdateDate,ExpiryDate from ZincWatchlistJob Where ASIN='" + ASIN + "'", conn);
                     cmdd.CommandType = System.Data.CommandType.Text;
                     using (var reader = cmdd.ExecuteReader())
                     {
