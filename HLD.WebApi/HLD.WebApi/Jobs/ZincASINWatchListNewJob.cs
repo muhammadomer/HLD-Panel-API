@@ -251,7 +251,9 @@ namespace HLD.WebApi.Jobs
 
                     }
 
-
+                    if (zincWatchListlogs.ZincResponse == "Currently Unavailable" || zincWatchListlogs.ZincResponse == "Listing Removed") {
+                        zincWathchlistDataAccess.UpdateWatchlistResponse(zincWatchListlogs);
+                    }
                     // Save logs
                     zincWathchlistDataAccess.SaveWatchlistLogsNew(zincWatchListlogs);
                     if (zincWatchListlogs.ZincResponse == "Available")
