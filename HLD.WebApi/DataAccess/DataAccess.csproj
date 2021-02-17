@@ -492,6 +492,8 @@
     <Compile Include="ViewModels\ZincWatchlistLogsViewModel.cs" />
     <Compile Include="ViewModels\ZincWatchListSummary.cs" />
     <Compile Include="ViewModels\ZincWatchLogsSearchViewModel.cs" />
+    <Compile Include="ViewModels\ZincWatclistLogHistoryViewModel.cs" />
+    <Compile Include="ViewModels\ZincWatclistViewModel.cs" />
     <Compile Include="ViewModels\ZincWebhooksSuccessResponse.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1371,7 +1371,153 @@ namespace DataAccess.DataAccess
                     throw ex;
                 }
                 return listModel;
-            } 
-        
+            }
+
+        public int GetZincWatchlistCount(string ProductSKU, string ASIN, string Active_Inactive,string CurrentDate, string PreviousDate, string Enabled_Disabled)
+        {
+            int counter = 0;
+            
+                if (string.IsNullOrEmpty(ProductSKU) || ProductSKU == "undefined")
+                    ProductSKU = "";
+                if (string.IsNullOrEmpty(CurrentDate) || ASIN == "undefined")
+                    CurrentDate = "";
+
+                if (string.IsNullOrEmpty(PreviousDate) || ASIN == "undefined")
+                    PreviousDate = "";
+                if (string.IsNullOrEmpty(Active_Inactive) || Active_Inactive == "undefined")
+                    Active_Inactive = "";
+                if (string.IsNullOrEmpty(Enabled_Disabled) || Enabled_Disabled == "undefined")
+                    Enabled_Disabled = "";
+                if (string.IsNullOrEmpty(ASIN) || ASIN == "undefined")
+                    ASIN = "";
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetWatchlistCount", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_fromDate", PreviousDate);
+                    cmd.Parameters.AddWithValue("_toDate", CurrentDate);
+                    cmd.Parameters.AddWithValue("_Sku", ProductSKU);
+                    cmd.Parameters.AddWithValue("_Asin", ASIN);
+                    cmd.Parameters.AddWithValue("_IsActive", Active_Inactive);
+                    cmd.Parameters.AddWithValue("_IsEnabled", Enabled_Disabled);
+                    counter = Convert.ToInt32(cmd.ExecuteScalar());
+                    conn.Close();
+
+                }
+            }
+            catch (Exception exp)
+            {
+
+            }
+            return counter;
+        }
+
+        public List<ZincWatclistViewModel> ZincWatchListDetail(string DateTo, string DateFrom, int limit, int offset, string ProductSKU, string ASIN, string Active_Inactive, string Enabled_Disabled)
+        {
+            List<ZincWatclistViewModel> listModel = new List<ZincWatclistViewModel>();
+            try
+            {
+                if (string.IsNullOrEmpty(ProductSKU) || ProductSKU == "undefined")
+                    ProductSKU = "";
+                if (string.IsNullOrEmpty(DateFrom) || ASIN == "undefined")
+                    DateFrom = "";
+                if (string.IsNullOrEmpty(DateTo) || ASIN == "undefined")
+                    DateTo = "";
+                if (string.IsNullOrEmpty(Active_Inactive) || Active_Inactive == "undefined")
+                    Active_Inactive = "";
+                if (string.IsNullOrEmpty(Enabled_Disabled) || Enabled_Disabled == "undefined")
+                    Enabled_Disabled = "";
+                if (string.IsNullOrEmpty(ASIN) || ASIN == "undefined")
+                    ASIN = "";
+
+               
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetWatchList", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_fromDate", DateFrom);
+                    cmd.Parameters.AddWithValue("_toDate", DateTo);
+                    cmd.Parameters.AddWithValue("_Sku", ProductSKU);
+                    cmd.Parameters.AddWithValue("_Asin", ASIN);
+                    cmd.Parameters.AddWithValue("_IsActive", Active_Inactive);
+                    cmd.Parameters.AddWithValue("_IsEnabled", Enabled_Disabled);
+                    cmd.Parameters.AddWithValue("_limit", limit);
+                    cmd.Parameters.AddWithValue("_offset", offset);
+                   
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    DataTable dataTable = new DataTable();
+                    da.Fill(dataTable);
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        listModel = new List<ZincWatclistViewModel>();
+                        foreach (DataRow dataRow in dataTable.Rows)
+                        {
+                            ZincWatclistViewModel ViewModel = new ZincWatclistViewModel();
+
+                            ViewModel.ASIN = Convert.ToString(dataRow["ASIN"] != DBNull.Value ? dataRow["ASIN"] : "");
+                            ViewModel.ProductSKU = Convert.ToString(dataRow["ProductSKU"] != DBNull.Value ? dataRow["ProductSKU"] : "");
+                            ViewModel.Active_Inactive = Convert.ToString(dataRow["ValidStatus"] != DBNull.Value ? dataRow["ValidStatus"] : "");
+                            ViewModel.NextUpdateDate = dataRow["NextUpdateDate"] != DBNull.Value ? Convert.ToDateTime(dataRow["NextUpdateDate"]) : default(DateTime);
+                            ViewModel.Compress_image = Convert.ToString(dataRow["Compress_image"]);
+                            ViewModel.image_name = Convert.ToString(dataRow["image_name"]);
+
+                            listModel.Add(ViewModel);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return listModel;
+        }
+        public List<ZincWatclistLogHistoryViewModel> logHistory(string ProductSKU, string ASIN)
+        {
+            List<ZincWatclistLogHistoryViewModel> listBBProductViewModel = new List<ZincWatclistLogHistoryViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_LogList", conn);
+                    cmd.Parameters.AddWithValue("_Sku", ProductSKU);
+                    cmd.Parameters.AddWithValue("_Asin", ASIN);
+                 
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            listBBProductViewModel = new List<ZincWatclistLogHistoryViewModel>();
+                            while (reader.Read())
+                            {
+                                ZincWatclistLogHistoryViewModel ViewModel = new ZincWatclistLogHistoryViewModel();
+                                ViewModel.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
+                                ViewModel.ZincResponse = Convert.ToString(reader["ZincResponse"]);                         
+                                ViewModel.JobID = Convert.ToInt32(reader["JobID"] != DBNull.Value ? reader["JobID"] : 0);
+                                ViewModel.ProductSKU = Convert.ToString(reader["ProductSKU"] != DBNull.Value ? reader["ProductSKU"] : "");
+                                ViewModel.ValidStatus = Convert.ToInt32(reader["ValidStatus"] != DBNull.Value ? reader["ValidStatus"] : 0);
+                                ViewModel.NextUpdateDate = reader["NextUpdateDate"] != DBNull.Value ? Convert.ToDateTime(reader["NextUpdateDate"]) : default(DateTime);
+                                ViewModel.StartTime = reader["StartTime"] != DBNull.Value ? Convert.ToDateTime(reader["StartTime"]) : default(DateTime);
+                                ViewModel.CompletionTime = reader["CompletionTime"] != DBNull.Value ? Convert.ToDateTime(reader["CompletionTime"]) : default(DateTime);
+                                ViewModel.RunTime = ViewModel.CompletionTime - ViewModel.StartTime;
+                                ViewModel.Compress_image = Convert.ToString(reader["Compress_image"]);
+                                ViewModel.image_name = Convert.ToString(reader["image_name"]);
+                                listBBProductViewModel.Add(ViewModel);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return listBBProductViewModel;
+        }
     }
 }

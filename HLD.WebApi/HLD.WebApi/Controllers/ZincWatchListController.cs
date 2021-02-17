@@ -442,5 +442,45 @@ namespace HLD.WebApi.Controllers
             List<ZincWatchlistLogsForJobViewModel> model = zincWathchlistDataAccess.ZincOrdersLogListForJob(DateTo, DateFrom, limit, offset, ASIN, SKU, available, jobID);
             return Ok(model);
         }
+        [HttpGet]
+        [Route("GetZincWatchlistCount")]
+        public IActionResult GetZincWatchlistCount(string ProductSKU, string ASIN, string Active_Inactive, string Enabled_Disabled, string CurrentDate, string PreviousDate)
+        {
+            long Count = 0;
+            bool status = false;
+            Count = zincWathchlistDataAccess.GetZincWatchlistCount(ProductSKU, ASIN, Active_Inactive, CurrentDate, PreviousDate, Enabled_Disabled);
+            if (Count > 0)
+            {
+                status = true;
+                return Ok(new { status = status, counter = Count, Message = "Success" });
+            }
+            else
+            {
+                return Ok(new { status = status, counter = Count, Message = "Some Error Occured" });
+            }
+        }
+        [HttpGet]
+        [Route("ZincWatchListDetail")]
+        public IActionResult ZincWatchListDetail(string DateTo, string DateFrom, int limit, int offset, string ProductSKU, string ASIN, string Active_Inactive, string Enabled_Disabled)
+        {
+            List<ZincWatclistViewModel> model = zincWathchlistDataAccess.ZincWatchListDetail(DateTo, DateFrom, limit, offset, ProductSKU, ASIN, Active_Inactive, Enabled_Disabled);
+            return Ok(model);
+        }
+        [HttpGet]      
+        [Route("logHistory")]
+        public IActionResult logHistory(string ProductSKU, string ASIN)
+        {
+            try
+            {
+                List<ZincWatclistLogHistoryViewModel> Listmodel = new List<ZincWatclistLogHistoryViewModel>();
+
+                Listmodel = zincWathchlistDataAccess.logHistory(ProductSKU, ASIN);
+                return Ok(Listmodel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
