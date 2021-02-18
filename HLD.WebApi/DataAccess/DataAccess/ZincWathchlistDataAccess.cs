@@ -1476,16 +1476,16 @@ namespace DataAccess.DataAccess
             }
             return listModel;
         }
-        public List<ZincWatclistLogHistoryViewModel> logHistory(string ProductSKU, string ASIN)
+        public ZincWatclistLogsViewModel logHistory(string ProductSKU, string ASIN)
         {
-            List<ZincWatclistLogHistoryViewModel> listBBProductViewModel = new List<ZincWatclistLogHistoryViewModel>();
+            ZincWatclistLogsViewModel ViewModel = new ZincWatclistLogsViewModel();
+            List<WatclistLogsHistoryViewModel> ListhistoryViewModel = new List<WatclistLogsHistoryViewModel>();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_LogList", conn);
-                    cmd.Parameters.AddWithValue("_Sku", ProductSKU);
                     cmd.Parameters.AddWithValue("_Asin", ASIN);
                  
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -1493,31 +1493,84 @@ namespace DataAccess.DataAccess
                     {
                         if (reader.HasRows)
                         {
-                            listBBProductViewModel = new List<ZincWatclistLogHistoryViewModel>();
+                           
                             while (reader.Read())
                             {
-                                ZincWatclistLogHistoryViewModel ViewModel = new ZincWatclistLogHistoryViewModel();
                                 ViewModel.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
-                                ViewModel.ZincResponse = Convert.ToString(reader["ZincResponse"]);                         
-                                ViewModel.JobID = Convert.ToInt32(reader["JobID"] != DBNull.Value ? reader["JobID"] : 0);
                                 ViewModel.ProductSKU = Convert.ToString(reader["ProductSKU"] != DBNull.Value ? reader["ProductSKU"] : "");
                                 ViewModel.ValidStatus = Convert.ToInt32(reader["ValidStatus"] != DBNull.Value ? reader["ValidStatus"] : 0);
+                                ViewModel.Frequency = Convert.ToInt32(reader["Frequency"] != DBNull.Value ? reader["Frequency"] : 0);
+                                ViewModel.Consumed_call = Convert.ToInt32(reader["Consumed_call"] != DBNull.Value ? reader["Consumed_call"] : 0);
+                                ViewModel.CheckAfterDays = Convert.ToInt32(reader["CheckAfterDays"] != DBNull.Value ? reader["CheckAfterDays"] : 0);
                                 ViewModel.NextUpdateDate = reader["NextUpdateDate"] != DBNull.Value ? Convert.ToDateTime(reader["NextUpdateDate"]) : default(DateTime);
-                                ViewModel.StartTime = reader["StartTime"] != DBNull.Value ? Convert.ToDateTime(reader["StartTime"]) : default(DateTime);
-                                ViewModel.CompletionTime = reader["CompletionTime"] != DBNull.Value ? Convert.ToDateTime(reader["CompletionTime"]) : default(DateTime);
-                                ViewModel.RunTime = ViewModel.CompletionTime - ViewModel.StartTime;
+                                ViewModel.ExpiryDate = reader["ExpiryDate"] != DBNull.Value ? Convert.ToDateTime(reader["ExpiryDate"]) : default(DateTime);
                                 ViewModel.Compress_image = Convert.ToString(reader["Compress_image"]);
                                 ViewModel.image_name = Convert.ToString(reader["image_name"]);
-                                listBBProductViewModel.Add(ViewModel);
+                               
+                            }
+                           
+                            if (ViewModel.ValidStatus == 1)
+                            {
+                                int totaldays = (ViewModel.Frequency - ViewModel.Consumed_call) * ViewModel.CheckAfterDays;
+                                while (totaldays > 0)
+                                {
+                                    WatclistLogsHistoryViewModel historyViewModel = new WatclistLogsHistoryViewModel();
+
+                                    historyViewModel.ASIN = ViewModel.ASIN;
+                                    historyViewModel.ZincResponse = "";
+                                    historyViewModel.JobID = 0;
+                                    historyViewModel.ProductSKU = ViewModel.ProductSKU;
+                                    historyViewModel.NextUpdateDate = ViewModel.ExpiryDate;
+                                    historyViewModel.StartTime =  default(DateTime);
+                                    historyViewModel.CompletionTime = default(DateTime);
+                                    historyViewModel.RunTime = historyViewModel.CompletionTime - historyViewModel.StartTime;
+
+                                    ListhistoryViewModel.Add(historyViewModel);
+                                    ViewModel.ExpiryDate = ViewModel.ExpiryDate.AddDays(-ViewModel.CheckAfterDays);
+                                    totaldays = totaldays - ViewModel.CheckAfterDays;
+                                }
+                            }
+                          
+                        }
+                    }
+                }
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetConsumedCallsLogs", conn);
+                    cmd.Parameters.AddWithValue("_Asin", ASIN);
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                WatclistLogsHistoryViewModel historyViewModel = new WatclistLogsHistoryViewModel();
+
+                                historyViewModel.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
+                                historyViewModel.ZincResponse = Convert.ToString(reader["ZincResponse"]);
+                                historyViewModel.Remarks = Convert.ToString(reader["Remarks"]);
+                                historyViewModel.UpdateOnHLD = Convert.ToString(reader["UpdateOnHLD"]);
+                                historyViewModel.JobID = Convert.ToInt32(reader["JobID"] != DBNull.Value ? reader["JobID"] : 0);
+                                historyViewModel.ProductSKU = Convert.ToString(reader["SKU"] != DBNull.Value ? reader["SKU"] : "");
+                                historyViewModel.NextUpdateDate = reader["StartTime"] != DBNull.Value ? Convert.ToDateTime(reader["StartTime"]) : default(DateTime);
+                                historyViewModel.StartTime = reader["StartTime"] != DBNull.Value ? Convert.ToDateTime(reader["StartTime"]) : default(DateTime);
+                                historyViewModel.CompletionTime = reader["CompletionTime"] != DBNull.Value ? Convert.ToDateTime(reader["CompletionTime"]) : default(DateTime);
+                                historyViewModel.RunTime = historyViewModel.CompletionTime - historyViewModel.StartTime;
+
+                                ListhistoryViewModel.Add(historyViewModel);
                             }
                         }
                     }
                 }
+                ViewModel.Schedule = ListhistoryViewModel;
             }
             catch (Exception ex)
             {
             }
-            return listBBProductViewModel;
+            return ViewModel;
         }
     }
 }

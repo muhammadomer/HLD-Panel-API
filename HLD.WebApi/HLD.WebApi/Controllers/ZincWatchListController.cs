@@ -472,7 +472,7 @@ namespace HLD.WebApi.Controllers
         {
             try
             {
-                List<ZincWatclistLogHistoryViewModel> Listmodel = new List<ZincWatclistLogHistoryViewModel>();
+                ZincWatclistLogsViewModel Listmodel = new ZincWatclistLogsViewModel();
 
                 Listmodel = zincWathchlistDataAccess.logHistory(ProductSKU, ASIN);
                 return Ok(Listmodel);
