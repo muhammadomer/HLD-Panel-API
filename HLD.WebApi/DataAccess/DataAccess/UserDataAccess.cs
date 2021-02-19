@@ -135,8 +135,7 @@ namespace DataAccess.DataAccess
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_Email", Email);
                     //cmd.Parameters.AddWithValue("_Password", Password);
-                    cmd.Parameters.AddWithValue("_Checkboxstatus", Checkboxstatus);
-
+                    cmd.Parameters.AddWithValue("_Checkboxstatus", false);
                     cmd.ExecuteNonQuery();
                     _status = true;
                 }

@@ -182,6 +182,16 @@ namespace HLD.WebApi.Jobs
                  .StartNow()
                  .Build();
                 scheduler.ScheduleJob(job, trigger);
+            } if (jobName == "HLD.WebApi.Jobs.ZincASINWatchListNewJob")
+            {
+                var trigger = TriggerBuilder.Create()
+                    .WithIdentity("watchlist_trigger", "watchlist_group")
+                     .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(23, 00))
+                    .ForJob(job)
+                   .Build();
+
+                scheduler.ScheduleJob(job, trigger);
+
             }
 
             if (jobName == "HLD.WebApi.Jobs.BestBuyPriceUpdateJob")

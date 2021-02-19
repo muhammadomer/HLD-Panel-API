@@ -202,7 +202,6 @@ namespace HLD.WebApi.Controllers
 
                 }
 
-
                 model.Message = commonMessage;
 
                 //setting internal zinc order status
@@ -352,10 +351,7 @@ namespace HLD.WebApi.Controllers
                 CreateNotesViewModel notesViewModel = new CreateNotesViewModel();
                 model.OrderDatetime = DateTimeExtensions.ConvertToEST(DateTime.Now);
 
-
                 _zincOrderLogDataAccess.SaveZincOrderLogDetailNew(model);
-
-
                 string acName = _zincOrderLogDataAccess.GetAcName(Convert.ToInt32(model.OurInternalOrderId));
 
                 orderNotesViewModels.Note = "MerchantId: " + model.MerchantOrderId + "Estimated Shipping: " + model.ShppingDate + "Notes: " + model.Message + "Amazon A/c Name: " + acName;
@@ -396,9 +392,18 @@ namespace HLD.WebApi.Controllers
             ServiceReference1.SCServiceSoapClient sCServiceSoap =
                       new ServiceReference1.SCServiceSoapClient(ServiceReference1.SCServiceSoapClient.EndpointConfiguration.SCServiceSoap12);
 
-            var request = await sCServiceSoap.UpdateOrderDropShipStatusAsync(authHeader, null, int.Parse(sellerCloudOrderId), ServiceReference1.DropShipStatusType2.Processed);
-            bool response = request.UpdateOrderDropShipStatusResult;
-            status = response;
+            //var request = await sCServiceSoap.UpdateOrderDropShipStatusAsync(authHeader, null, int.Parse(sellerCloudOrderId), ServiceReference1.DropShipStatusType2.Processed);
+            //bool response = request.UpdateOrderDropShipStatusResult;
+            var getOrderId = new UpdateScOrderToDs()
+            {
+                Orders = new List<int>
+                        {
+                            Convert.ToInt32(sellerCloudOrderId)
+
+                        },
+                DropshipStatus = "Processed"
+            };
+            status = UpdateDropShipStatus(SCRestURL, authenticate.access_token, getOrderId);
             if (status)
             {
                 UpdateSCDropshipStatusViewModel updateSCViewModel = new UpdateSCDropshipStatusViewModel();
@@ -406,28 +411,14 @@ namespace HLD.WebApi.Controllers
                 updateSCViewModel.SCOrderID = int.Parse(sellerCloudOrderId);
                 updateSCViewModel.LogDate = DateTime.Now;
                 updateSCViewModel.IsTrackingUpdate = true;
-
-                var getOrderId = new UpdateScOrderToDs()
-                {
-                    Orders = new List<int>
-                        {
-                            updateSCViewModel.SCOrderID
-
-                        },
-                    DropshipStatus = "Processed"
-                };
-                // status = _sellerCloudDataAccess.UpdateSCOrderDropShipStatus(updateSCViewModel);
-                status = UpdateDropShipStatus(SCRestURL, authenticate.access_token, getOrderId);
+                 status = _sellerCloudDataAccess.UpdateSCOrderDropShipStatus(updateSCViewModel);
+             
                 //ZincOrderLogDetailViewModel model = new ZincOrderLogDetailViewModel();
                 //model = _zincOrderLogDataAccess.GetZincOrderLogDetailById(zincOrderLogDetailID);
                 OrdersUpdateShippingForOrderRequest req = new OrdersUpdateShippingForOrderRequest();
 
-
-
                 req.WarehouseName = "DropShip Canada";
                 req.TrackingNumber = trackingNo;
-
-
                 string[] splitString = shippingDate.Split('/');
                 string[] yearSplit = splitString[2].Split(' ');
                 string[] splitStringtime = shippingDate.Split(':');

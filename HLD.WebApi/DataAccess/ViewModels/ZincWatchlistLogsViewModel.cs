@@ -27,5 +27,7 @@ namespace DataAccess.ViewModels
         public double UnitOriginPrice_MSRP { get; set; }
         public double UnitOriginPrice_Max { get; set; }
         public int HLD_CA1 { get; set; }
+        public string Remarks { get; set; }
+        public string UpdateOnHLD { get; set; }
     }
 }

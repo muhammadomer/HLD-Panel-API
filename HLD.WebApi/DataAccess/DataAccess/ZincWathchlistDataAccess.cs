@@ -142,10 +142,10 @@ namespace DataAccess.DataAccess
 
         }
 
-        public List<SaveWatchlistForjobsViewModel> GetWatchlistForJobNew(int JobId)
+        public List<SaveWatchlistForjobsViewModel> GetWatchlistForJobNew()
         {
 
-            List<SaveWatchlistForjobsViewModel> listViewModel = null;
+            List<SaveWatchlistForjobsViewModel> listViewModel = new List<SaveWatchlistForjobsViewModel>();
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -153,13 +153,11 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_GetASINforWatchlistJobCopyV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_JobId", JobId);
-
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)
                         {
-                            listViewModel = new List<SaveWatchlistForjobsViewModel>();
+                          
                             while (reader.Read())
                             {
                                 SaveWatchlistForjobsViewModel ViewModel = new SaveWatchlistForjobsViewModel();
@@ -229,6 +227,8 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_AMZPrice", ViewModel.Amz_Price);
                     cmd.Parameters.AddWithValue("_Prime", ViewModel.IsPrime);
                     cmd.Parameters.AddWithValue("_FulfilledBy", ViewModel.FulfilledBY);
+                    cmd.Parameters.AddWithValue("_UpdateOnHLD", ViewModel.UpdateOnHLD);
+                    cmd.Parameters.AddWithValue("_Remarks", ViewModel.Remarks);
                     cmd.ExecuteNonQuery();
                     status = true;
                 }
@@ -275,7 +275,7 @@ namespace DataAccess.DataAccess
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("_ASIN", ViewModel.ASIN);
-                    cmd.Parameters.AddWithValue("_ValidStatus", ViewModel.ProductSKU);
+                    cmd.Parameters.AddWithValue("_ValidStatus", ViewModel.ValidStatus);
                     cmd.Parameters.AddWithValue("_Consumed_call", ViewModel.Consumed_call);
 
                     cmd.ExecuteNonQuery();

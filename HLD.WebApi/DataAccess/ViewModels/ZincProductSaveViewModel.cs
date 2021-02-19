@@ -28,6 +28,7 @@ namespace DataAccess.ViewModels
         public string Priorty { get; set; }
         public string max_price_limit { get; set; }
         public string primeAvailable { get; set; }
+        public string MessageWatchlist { get; set; }
         public DateTime updateDate { get; set; }
         public int ValidStatus { get; set; }
         public int Frequency { get; set; }
