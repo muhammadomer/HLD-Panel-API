@@ -208,6 +208,33 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+        public bool UpdateWatchlistLogs(ZincWatchlistLogsViewModel ViewModel)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_updateZincWatchlistlogsV1", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_JobID", ViewModel.jobID);
+                    cmd.Parameters.AddWithValue("_ASIN", ViewModel.ASIN);
+                    cmd.Parameters.AddWithValue("_SKU", ViewModel.ProductSKU);
+                    cmd.Parameters.AddWithValue("_ZincResponse", ViewModel.ZincResponse);
+                    cmd.Parameters.AddWithValue("_SellerName", ViewModel.SellerName);
+                    cmd.Parameters.AddWithValue("_AMZPrice", ViewModel.Amz_Price);
+                    cmd.Parameters.AddWithValue("_Prime", ViewModel.IsPrime);
+                    cmd.Parameters.AddWithValue("_FulfilledBy", ViewModel.FulfilledBY);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
 
         public bool SaveWatchlistLogsNew(ZincWatchlistLogsViewModel ViewModel)
         {
@@ -445,6 +472,7 @@ namespace DataAccess.DataAccess
                             model.Prime = Convert.ToInt32(dr["Prime"] != DBNull.Value ? dr["Prime"] : "0");
                             model.NoPrime = Convert.ToInt32(dr["NoPrime"] != DBNull.Value ? dr["NoPrime"] : "0");
                             model.Unavailable = Convert.ToInt32(dr["Unavailable"] != DBNull.Value ? dr["Unavailable"] : "0");
+                            model.Status = Convert.ToString(dr["Status"] != DBNull.Value ? dr["Status"] : "");
                             listModel.Add(model);
                         }
                     }

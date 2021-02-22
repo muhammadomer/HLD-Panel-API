@@ -1452,7 +1452,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_SaveZincWatchListJob", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_SaveZincWatchListJobV1", conn);
+                   // MySqlCommand cmd = new MySqlCommand("P_SaveZincWatchListJob", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     jobId = Convert.ToInt32(cmd.ExecuteScalar());
                    // status = true;
@@ -1464,7 +1465,8 @@ namespace DataAccess.DataAccess
                     using (MySqlConnection conn = new MySqlConnection(connStr))
                     {
                         conn.Open();
-                        MySqlCommand cmd = new MySqlCommand("P_SaveSkuInZincWatchList", conn);
+                        MySqlCommand cmd = new MySqlCommand("P_SaveSkuInZincWatchListV1", conn);
+                   //     MySqlCommand cmd = new MySqlCommand("P_SaveSkuInZincWatchList", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("_JobId", jobId);
                         cmd.Parameters.AddWithValue("_Sku",item.SKU);
@@ -1477,7 +1479,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_UpdateWatchListSummeryAsinCount", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_UpdateWatchListSummeryAsinCountV1", conn);
+                  //  MySqlCommand cmd = new MySqlCommand("P_UpdateWatchListSummeryAsinCount", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_JobId", jobId);
                     cmd.ExecuteNonQuery();

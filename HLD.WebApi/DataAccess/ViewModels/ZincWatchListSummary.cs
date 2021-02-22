@@ -16,5 +16,6 @@ namespace DataAccess.ViewModels
         public int Prime { get; set; }
         public int NoPrime { get; set; }
         public int Unavailable { get; set; }
+        public string Status { get; set; }
     }
 }

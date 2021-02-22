@@ -558,8 +558,8 @@ namespace HLD.WebApi.Controllers
         public IActionResult GetStausFromZinc([FromBody] List<GetStatusFromZincViewModel> ListViewModel)
         {
             var list = DataAccess.GetStausFromZinc(ListViewModel);
-            Thread emailThread = new Thread(() => TaskExecute(list));
-            emailThread.Start();
+            //Thread emailThread = new Thread(() => TaskExecute(list));
+            //emailThread.Start();
             return Ok(list);
         }
 
@@ -569,8 +569,8 @@ namespace HLD.WebApi.Controllers
         public IActionResult GetStausFromZincNew([FromBody] List<GetStatusFromZincViewModel> ListViewModel)
         {
             var list = DataAccess.GetStausFromZincNew(ListViewModel);
-            Thread emailThread = new Thread(() => TaskExecute(list));
-            emailThread.Start();
+          //  Thread emailThread = new Thread(() => TaskExecute(list));
+          //  emailThread.Start();
             return Ok(list);
         }
 
@@ -582,7 +582,25 @@ namespace HLD.WebApi.Controllers
             var list = QtyDataAccess.GetWareHousesQtyList(SKU);
             return Ok(list);
         }
+        [HttpPost]
+        [Authorize]
+        [Route("api/Product/ExecuteJob")]
+        public bool ExecuteJob(int JobId)
+        {
+            bool Status = false;
+            try
+            {
+                Thread emailThread = new Thread(() => TaskExecute(JobId));
+                emailThread.Start();
+                Status = true;
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+            return Status;
+        }
         public void TaskExecute(int Job_Id)
         {
             _getChannelCredViewModel = new GetChannelCredViewModel();
@@ -808,7 +826,8 @@ namespace HLD.WebApi.Controllers
                     }
 
                     // Save logs
-                    zincWathchlistDataAccess.SaveWatchlistLogs(zincWatchListlogs);
+                  //  zincWathchlistDataAccess.SaveWatchlistLogs(zincWatchListlogs);
+                    zincWathchlistDataAccess.UpdateWatchlistLogs(zincWatchListlogs);
                     if (zincWatchListlogs.ZincResponse == "Available")
                     {
 
