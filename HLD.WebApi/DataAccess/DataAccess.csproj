@@ -462,6 +462,7 @@
     <Compile Include="ViewModels\WatchListSummaryViewModel.cs" />
     <Compile Include="ViewModels\ZincAccountsViewModel.cs" />
     <Compile Include="ViewModels\ZincASINOfferDetail.cs" />
+    <Compile Include="ViewModels\ZincGetStatusFromZincViewModel.cs" />
     <Compile Include="ViewModels\ZincOrderIDModelforWebhooks.cs" />
     <Compile Include="ViewModels\ZincOrderInProcess_OrderRequestSentViewModel.cs" />
     <Compile Include="ViewModels\ZincOrderInProgressSuccessViewModel.cs" />

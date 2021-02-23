@@ -3005,6 +3005,99 @@ namespace DataAccess.DataAccess
                 throw ex;
             }
             return listModel;
-        } 
+        }
+
+        public int SelectAllForGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus)
+        {
+            int totalCount = 0;
+            
+            if (string.IsNullOrEmpty(dropshipsearch) || dropshipsearch == "undefined")
+                dropshipsearch = "ALL";
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();                    
+                    MySqlCommand cmd = new MySqlCommand("P_GetCountForSKUHavingASIN", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("dropship", dropship);
+                    cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
+                    cmd.Parameters.AddWithValue("sku", sku);
+                    //cmd.Parameters.AddWithValue("asin", "");
+                    cmd.Parameters.AddWithValue("tag", DStag);
+                    //cmd.Parameters.AddWithValue("ProductTitle", "");
+                    cmd.Parameters.AddWithValue("_TypeSearch", TypeSearch);
+                    cmd.Parameters.AddWithValue("_WHQStatus", WHQStatus);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                totalCount = Convert.ToInt32(reader[0]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return totalCount;
+       
+        }
+
+        public List<ZincGetStatusFromZincViewModel> SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus)
+        {
+            List<ZincGetStatusFromZincViewModel> _ViewModels = null;
+            // MySqlConnection mySqlConnection = null;
+            if (string.IsNullOrEmpty(TypeSearch) || TypeSearch == "undefined")
+                TypeSearch = "ALL";
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+
+                    conn.Open();
+                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumy", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCount", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_getSkuHavingNotAsin", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("dropship", dropship);
+                    cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
+                    cmd.Parameters.AddWithValue("sku", sku);
+                    //cmd.Parameters.AddWithValue("asin", "");
+                    cmd.Parameters.AddWithValue("tag", DStag);
+                    //cmd.Parameters.AddWithValue("ProductTitle", "");
+                    cmd.Parameters.AddWithValue("_TypeSearch", TypeSearch);
+                    cmd.Parameters.AddWithValue("_WHQStatus", WHQStatus);
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        //mySqlConnection = new MySqlConnection(connStr);
+                        //mySqlConnection.Open();
+                        _ViewModels = new List<ZincGetStatusFromZincViewModel>();
+
+                        foreach (DataRow reader in dt.Rows)
+                        {
+                            ZincGetStatusFromZincViewModel ViewModel = new ZincGetStatusFromZincViewModel();
+                            ViewModel.SKU = Convert.ToString(reader["BBSKU"] != DBNull.Value ? reader["BBSKU"] : "");
+                            ViewModel.ASIN = Convert.ToString(reader["BBASIN"] != DBNull.Value ? reader["BBASIN"] : "");
+                           
+
+                            _ViewModels.Add(ViewModel);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return _ViewModels;
+        }
     }
 }

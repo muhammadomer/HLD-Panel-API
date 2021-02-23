@@ -1281,6 +1281,16 @@ namespace HLD.WebApi.Controllers
                 return Ok(_ViewModels);
             }
         }
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/SelectAllForGetStatusFromZinc")]
+        public IActionResult SelectAllForGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus)
+        {
+            int count = 0;
+             count= DataAccess.SelectAllForGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus);
+            return Ok(count); 
+        }
+
         [HttpPost]
         [Authorize]
         [Route("api/Product/GetSinglePageExportResult")]
@@ -1292,6 +1302,24 @@ namespace HLD.WebApi.Controllers
            
                 return _ViewModels;
             
+        }
+
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/SelectAllSKUandASINGetStatusFromZinc")]
+        public IActionResult SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus)
+        {
+            List<ZincGetStatusFromZincViewModel> _ViewModels = null;
+            _ViewModels = DataAccess.SelectAllSKUandASINGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus);
+            if (_ViewModels == null)
+            {
+                return Ok(new List<ConditionViewModel>());
+            }
+            else
+            {
+                return Ok(_ViewModels);
+            }
         }
     }
 }
