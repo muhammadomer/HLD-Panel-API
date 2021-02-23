@@ -8,11 +8,11 @@ namespace DataAccess.ViewModels
 {
    public class ExportProductDataViewModel
     {
-        public string ImageURL { get; set; }
-        public bool dropship_status { get; set; }
-        public int dropship_Qty { get; set; }
+        public string ProductSKU { get; set; }
         public int best_buy_product_id { get; set; }
 
-        public string ProductSKU { get; set; }
+        public bool dropship_status { get; set; }
+        public int HLD_CA1 { get; set; }
+        public string ImageURL { get; set; }
     }
 }

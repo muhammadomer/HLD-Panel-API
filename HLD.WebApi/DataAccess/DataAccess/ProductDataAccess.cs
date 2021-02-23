@@ -595,7 +595,7 @@ namespace DataAccess.DataAccess
             return list;
         }
         //change
-        public List<ProductDisplayInventoryViewModel> GetAllProducts(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DStag, string TypeSearch)
+        public List<ProductDisplayInventoryViewModel> GetAllProducts(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DStag, string TypeSearch, string WHQStatus)
         {
             List<ProductDisplayInventoryViewModel> _ViewModels = null;
             // MySqlConnection mySqlConnection = null;
@@ -607,7 +607,8 @@ namespace DataAccess.DataAccess
                 {
 
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumy", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumy", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOne", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("startLimit", startLimit);
                     cmd.Parameters.AddWithValue("endLimit", endLimit);
@@ -619,6 +620,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("tag", DStag);
                     cmd.Parameters.AddWithValue("ProductTitle", Producttitle);
                     cmd.Parameters.AddWithValue("_TypeSearch", TypeSearch);
+                    cmd.Parameters.AddWithValue("_WHQStatus", WHQStatus);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -677,7 +679,7 @@ namespace DataAccess.DataAccess
             return _ViewModels;
         }
         //cahnge
-        public List<ExportProductDataViewModel> GetAllProductsForExport(string dropship, string dropshipstatusSearch, string sku)
+        public List<ExportProductDataViewModel> GetAllProductsForExport(string dropship, string dropshipstatusSearch, string Sku)
         {
             List<ExportProductDataViewModel> _ViewModels = null;
             //  MySqlConnection mySqlConnection = null;
@@ -688,11 +690,13 @@ namespace DataAccess.DataAccess
 
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_GetProductDataForExportFile", conn);
+                    //MySqlCommand cmd = new MySqlCommand("P_GetProductDataForExportFileCopy", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("dropship", dropship);
                     cmd.Parameters.AddWithValue("dropshipstatusSearch", dropshipstatusSearch);
-                    cmd.Parameters.AddWithValue("sku", sku);
+                    cmd.Parameters.AddWithValue("sku", Sku);
+
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -708,7 +712,7 @@ namespace DataAccess.DataAccess
 
                             ViewModel.ProductSKU = Convert.ToString(reader["sku"]);
 
-                            ViewModel.dropship_Qty = Convert.ToInt32(reader["HLD_CA1"] != DBNull.Value ? reader["HLD_CA1"] : 0);
+                            ViewModel.HLD_CA1 = Convert.ToInt32(reader["HLD_CA1"] != DBNull.Value ? reader["HLD_CA1"] : 0);
                             ViewModel.best_buy_product_id = Convert.ToInt32(reader["best_buy_product_id"] != DBNull.Value ? reader["best_buy_product_id"] : 0);
                             ViewModel.dropship_status = Convert.ToBoolean(reader["dropship_status"] != DBNull.Value ? reader["dropship_status"] : "false");
 
@@ -795,7 +799,7 @@ namespace DataAccess.DataAccess
                             //geting product warehouse quantity
 
                             //List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetProductQtyBySKU_ForOrdersPage(ViewModel.ProductSKU.Trim(), conn);
-                             List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetWareHousesQtyList(ViewModel.ProductSKU);
+                            List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetWareHousesQtyList(ViewModel.ProductSKU);
                             ViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
                             List<SkuTagOrderViewModel> skuTagOrders = _tagDataAccess.GetTagforSkubulk(ViewModel.ProductSKU, conn);
                             ViewModel.skuTags = skuTagOrders;
@@ -867,7 +871,7 @@ namespace DataAccess.DataAccess
         }
         public string GetParentOfThisSku(String SKU)
         {
-            
+
             try
             {
                 var getParentSku = "";
@@ -884,8 +888,8 @@ namespace DataAccess.DataAccess
                             while (reader.Read())
                             {
                                 getParentSku = Convert.ToString(reader["sku"]);
-                                
-                                
+
+
                             }
                         }
                     }
@@ -896,7 +900,7 @@ namespace DataAccess.DataAccess
             {
                 throw ex;
             }
-            
+
         }
 
         public List<AsinAmazonePriceViewModel> GetProductBySKuAmazoneprice(string sku)
@@ -939,17 +943,24 @@ namespace DataAccess.DataAccess
 
 
         //change
-        public int GetAllProductsCount(string dropship, string dropshipsearch, string sku, string skuList, string asin, string Producttitle, string DSTag, string TypeSearch)
+        public int GetAllProductsCount(string dropship, string dropshipsearch, string sku, string skuList, string asin, string Producttitle, string DSTag, string TypeSearch, string WHQStatus)
         {
             int totalCount = 0;
             if (string.IsNullOrEmpty(TypeSearch) || TypeSearch == "undefined")
                 TypeSearch = "ALL";
+            if (string.IsNullOrEmpty(DSTag) || DSTag == "undefined")
+                DSTag = "ALL";
+            if (string.IsNullOrEmpty(WHQStatus) || WHQStatus == "undefined")
+                WHQStatus = "ALL";
+            if (string.IsNullOrEmpty(dropshipsearch) || dropshipsearch == "undefined")
+                dropshipsearch = "ALL";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopy", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopy", conn);//adeel change sp name
+                    MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopyOne", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("filters", dropship);
                     cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
@@ -959,6 +970,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("tag", DSTag);
                     cmd.Parameters.AddWithValue("skuList", skuList);
                     cmd.Parameters.AddWithValue("_TypeSearch", TypeSearch);
+                    cmd.Parameters.AddWithValue("_WHQStatus", WHQStatus);
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)
@@ -1058,7 +1070,7 @@ namespace DataAccess.DataAccess
                                 ViewModel.Category = Convert.ToString(reader["category_name"] != DBNull.Value ? reader["category_name"] : "");
                                 ViewModel.Color = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
                                 ViewModel.ColorAlias = Convert.ToString(reader["color_alias"] != DBNull.Value ? reader["color_alias"] : "");
-                                
+
                                 ViewModel.ConditionId = Convert.ToInt32(reader["condition_id"] != DBNull.Value ? reader["condition_id"] : "0");
                                 if (!Convert.IsDBNull(reader["description"]))
                                 {
@@ -1456,7 +1468,7 @@ namespace DataAccess.DataAccess
                    // MySqlCommand cmd = new MySqlCommand("P_SaveZincWatchListJob", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     jobId = Convert.ToInt32(cmd.ExecuteScalar());
-                   // status = true;
+                    // status = true;
                     conn.Close();
 
                 }
@@ -1469,9 +1481,9 @@ namespace DataAccess.DataAccess
                    //     MySqlCommand cmd = new MySqlCommand("P_SaveSkuInZincWatchList", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("_JobId", jobId);
-                        cmd.Parameters.AddWithValue("_Sku",item.SKU);
+                        cmd.Parameters.AddWithValue("_Sku", item.SKU);
                         cmd.ExecuteNonQuery();
-                       // status = true;
+                        // status = true;
                         conn.Close();
 
                     }
@@ -1484,7 +1496,7 @@ namespace DataAccess.DataAccess
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_JobId", jobId);
                     cmd.ExecuteNonQuery();
-                   // status = true;
+                    // status = true;
                     conn.Close();
 
                 }
@@ -1566,15 +1578,15 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_ShipLt", model.ShipLt);
                     cmd.Parameters.AddWithValue("_ShipHt", model.ShipHt);
                     cmd.Parameters.AddWithValue("_Menufacture", model.ManufactureId);
-                  
+
                     cmd.Parameters.AddWithValue("_MenufactureModel", model.ManufactureModel);
                     cmd.Parameters.AddWithValue("_Style", model.Style);
                     cmd.Parameters.AddWithValue("_IsCreatedOnSC", model.IsCreatedOnSC);
                     cmd.Parameters.AddWithValue("_Feature", model.Feature);
                     cmd.Parameters.AddWithValue("_Description", model.Description);
                     cmd.Parameters.AddWithValue("_DeviceModel", model.DeviceModel);
-                    cmd.Parameters.AddWithValue("_productstatus", model.productstatus=1);
-                    cmd.Parameters.AddWithValue("_skuCreationDate", model.SkuCreationDate=DateTime.Now);
+                    cmd.Parameters.AddWithValue("_productstatus", model.productstatus = 1);
+                    cmd.Parameters.AddWithValue("_skuCreationDate", model.SkuCreationDate = DateTime.Now);
                     cmd.Parameters.AddWithValue("_brandId", model.BrandId);
                     cmd.Parameters.AddWithValue("_colorId", model.ColorId);
                     cmd.ExecuteNonQuery();
@@ -1591,7 +1603,7 @@ namespace DataAccess.DataAccess
         public List<SaveParentSkuVM> GetAllParentSKU()
         {
             List<SaveParentSkuVM> ViewModel = new List<SaveParentSkuVM>();
-            
+
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1743,13 +1755,13 @@ namespace DataAccess.DataAccess
                             //skuVM.IsCreatedOnSC = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
                             skuVM.Description = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "");
                             skuVM.Color = Convert.ToString(reader["color_name"] != DBNull.Value ? reader["color_name"] : "");
-                           // skuVM.ColorAlias = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
+                            // skuVM.ColorAlias = Convert.ToString(reader["condition_name"] != DBNull.Value ? reader["condition_name"] : "");
                             skuVM.ColorId = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
                             skuVM.Upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
                             //skuVM.SkuCreationDate = Convert.ToDateTime(reader["SkuCreationDate"] != DBNull.Value ? reader["SkuCreationDate"] : (DateTime?)null);
                             skuVM.BrandId = Convert.ToInt32(reader["brand_id"] != DBNull.Value ? reader["brand_id"] : 0);
                             skuVM.Brand = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] : "");
-                           
+
                             model = skuVM;
 
                         }
@@ -1768,10 +1780,10 @@ namespace DataAccess.DataAccess
             bool status = false;
             try
             {
-                
+
                 foreach (var item in ListViewModel)
                 {
-                    if (item.Childproduct_id==0) {
+                    if (item.Childproduct_id == 0) {
                         using (MySqlConnection conn = new MySqlConnection(connStr))
                         {
                             conn.Open();
@@ -1824,7 +1836,7 @@ namespace DataAccess.DataAccess
 
                         }
                     }
-                    
+
                 }
 
             }
@@ -1858,7 +1870,7 @@ namespace DataAccess.DataAccess
                                 skuVM.upc = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
                                 skuVM.productstatus = Convert.ToInt32(reader["productstatus"] != DBNull.Value ? reader["productstatus"] : "");
                                 skuVM.ColorIds = Convert.ToInt32(reader["color_id"] != DBNull.Value ? reader["color_id"] : 0);
-                                
+
                                 ViewModel.Add(skuVM);
                             }
                         }
@@ -1874,7 +1886,7 @@ namespace DataAccess.DataAccess
 
         public int DeleteChildSku(int child_id)
         {
-           
+
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1917,7 +1929,7 @@ namespace DataAccess.DataAccess
             return 0;
         }
         public List<GetChildSkuVM> GetChildSkuById(int id)
-        
+
         {
             List<GetChildSkuVM> listModel = new List<GetChildSkuVM>();
             try
@@ -1933,7 +1945,7 @@ namespace DataAccess.DataAccess
                     {
                         if (reader.HasRows)
                         {
-                           
+
                             while (reader.Read())
                             {
                                 GetChildSkuVM model = new GetChildSkuVM();
@@ -1984,17 +1996,17 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_EditChildSku", conn);
 
-                   
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("_productId", model.Childproduct_id);
-                        cmd.Parameters.AddWithValue("_sku", model.Sku);
-                        cmd.Parameters.AddWithValue("_productTitle", model.title);
-                        cmd.Parameters.AddWithValue("_upc", model.upc);
-                        cmd.Parameters.AddWithValue("_productStatus", model.productstatus);
-                        cmd.Parameters.AddWithValue("_colorId", model.ColorIds);
-                        cmd.ExecuteScalar();
-                        status = true;
-                        conn.Close();
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_productId", model.Childproduct_id);
+                    cmd.Parameters.AddWithValue("_sku", model.Sku);
+                    cmd.Parameters.AddWithValue("_productTitle", model.title);
+                    cmd.Parameters.AddWithValue("_upc", model.upc);
+                    cmd.Parameters.AddWithValue("_productStatus", model.productstatus);
+                    cmd.Parameters.AddWithValue("_colorId", model.ColorIds);
+                    cmd.ExecuteScalar();
+                    status = true;
+                    conn.Close();
 
 
 
@@ -2091,34 +2103,34 @@ namespace DataAccess.DataAccess
                 GetChildSkuImages getChildSkuImages = new GetChildSkuImages();
                 List<MarketPlaceShadowViewModel> marketplaceshadow = new List<MarketPlaceShadowViewModel>();
                 marketplaceshadow = GetMarketPlaceShadow();
-                
+
                 foreach (var childsku in model)
                 {
-                        foreach (var item in marketplaceshadow)
+                    foreach (var item in marketplaceshadow)
+                    {
+                        using (MySqlConnection conn = new MySqlConnection(connStr))
                         {
-                            using (MySqlConnection conn = new MySqlConnection(connStr))
-                            {
-                                conn.Open();
+                            conn.Open();
 
-                                MySqlCommand cmd = new MySqlCommand("P_SaveChildSkuShadow", conn);
-                                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                                cmd.Parameters.AddWithValue("_Parentproduct_id", childsku.ParentId);
-                                cmd.Parameters.AddWithValue("_ShadowSku", childsku.Sku + "-" + item.Shadow_Key);
-                                cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);                               
-                                cmd.Parameters.AddWithValue("_CompanyName", item.CompanyName);
-                                cmd.Parameters.AddWithValue("_CompanyId", item.CompanyId);
-                                cmd.Parameters.AddWithValue("_AmazonEnabled", item.AmazonEnabled);
-                                cmd.Parameters.AddWithValue("_FulfilledBy", item.FulfilledBy);
-                                cmd.Parameters.AddWithValue("_WebsiteEnabled", item.WebsiteEnabled);
-                                cmd.ExecuteNonQuery();
-                                status = true;
+                            MySqlCommand cmd = new MySqlCommand("P_SaveChildSkuShadow", conn);
+                            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("_Parentproduct_id", childsku.ParentId);
+                            cmd.Parameters.AddWithValue("_ShadowSku", childsku.Sku + "-" + item.Shadow_Key);
+                            cmd.Parameters.AddWithValue("_ChildSku", childsku.Sku);
+                            cmd.Parameters.AddWithValue("_CompanyName", item.CompanyName);
+                            cmd.Parameters.AddWithValue("_CompanyId", item.CompanyId);
+                            cmd.Parameters.AddWithValue("_AmazonEnabled", item.AmazonEnabled);
+                            cmd.Parameters.AddWithValue("_FulfilledBy", item.FulfilledBy);
+                            cmd.Parameters.AddWithValue("_WebsiteEnabled", item.WebsiteEnabled);
+                            cmd.ExecuteNonQuery();
+                            status = true;
 
                             // getChildSkuImages = GetChildSkuImages(childsku.ChildId);
                             //if (getChildSkuImages!=null)
                             //{  }
-                               
-                            }
+
                         }
+                    }
                     SaveShadowImages(childsku.Sku);
                 }
             }
@@ -2183,9 +2195,9 @@ namespace DataAccess.DataAccess
                         {
                             while (reader.Read())
                             {
-                               
-                                childSkuImages.ImageName = Convert.ToString(reader["image_name"] != DBNull.Value ? reader["image_name"] :"");
-                                
+
+                                childSkuImages.ImageName = Convert.ToString(reader["image_name"] != DBNull.Value ? reader["image_name"] : "");
+
                             }
                         }
                     }
@@ -2208,9 +2220,9 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_SaveShadowImages", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    
+
                     cmd.Parameters.AddWithValue("_ChildSku", shadow);
-                   // cmd.Parameters.AddWithValue("_ImageName", image);
+                    // cmd.Parameters.AddWithValue("_ImageName", image);
                     cmd.ExecuteNonQuery();
                     status = true;
                 }
@@ -2265,7 +2277,7 @@ namespace DataAccess.DataAccess
                     {
                         foreach (DataRow reader in dt.Rows)
                         {
-                           CheckChildOrShadowCreatedOnSCViewModel skuVM = new CheckChildOrShadowCreatedOnSCViewModel();
+                            CheckChildOrShadowCreatedOnSCViewModel skuVM = new CheckChildOrShadowCreatedOnSCViewModel();
 
                             skuVM.IsCreatedOnSC = Convert.ToInt32(reader["IsCreatedOnSC"] != DBNull.Value ? reader["IsCreatedOnSC"] : 0);
                             model = skuVM;
@@ -2382,7 +2394,7 @@ namespace DataAccess.DataAccess
                             }
                         }
                     }
-                   
+
                 }
             }
             catch (Exception ex)
@@ -2413,19 +2425,19 @@ namespace DataAccess.DataAccess
                                 while (reader.Read())
                                 {
                                     BulkUpdateFileContents model = new BulkUpdateFileContents();
-                                    model.BrandName = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] :"");
+                                    model.BrandName = Convert.ToString(reader["brand_name"] != DBNull.Value ? reader["brand_name"] : "");
                                     model.ProductID = Convert.ToString(reader["sku"] != DBNull.Value ? reader["sku"] : "");
                                     model.UPC = Convert.ToString(reader["upc"] != DBNull.Value ? reader["upc"] : "");
                                     model.Manufacturer = Convert.ToString(reader["Manufacturer"] != DBNull.Value ? reader["Manufacturer"] : "");
                                     model.PackageWeightOz = Convert.ToDecimal(reader["ship_weight_oz"] != DBNull.Value ? reader["ship_weight_oz"] : 0);
                                     model.ShippingWidth = Convert.ToDecimal(reader["ship_width"] != DBNull.Value ? reader["ship_width"] : 0);
-                                    model.ShippingHeight = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] :0);
+                                    model.ShippingHeight = Convert.ToDecimal(reader["ship_height"] != DBNull.Value ? reader["ship_height"] : 0);
                                     model.ShippingLength = Convert.ToDecimal(reader["ship_length"] != DBNull.Value ? reader["ship_length"] : 0);
                                     model.ShortDescription = Convert.ToString(reader["title"] != DBNull.Value ? reader["title"] : "");
                                     model.LongDescription = Convert.ToString(reader["description"] != DBNull.Value ? reader["description"] : "");
                                     model.AmazonEnabled = Convert.ToBoolean(reader["AmazonEnabled"] != DBNull.Value ? reader["AmazonEnabled"] : false);
                                     model.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
-                                    model.AmazonMerchantSKU = Convert.ToString(reader["AmazonMerchantSKU"] != DBNull.Value ? reader["AmazonMerchantSKU"] :"");
+                                    model.AmazonMerchantSKU = Convert.ToString(reader["AmazonMerchantSKU"] != DBNull.Value ? reader["AmazonMerchantSKU"] : "");
                                     model.FulfilledBy = Convert.ToString(reader["FulfilledBy"] != DBNull.Value ? reader["FulfilledBy"] : 0);
                                     model.AmazonFBASKU = Convert.ToString(reader["AmazonFBASKU"] != DBNull.Value ? reader["AmazonFBASKU"] : "");
                                     model.CompanyID = Convert.ToInt32(reader["CompanyId"] != DBNull.Value ? reader["CompanyId"] : 0);
@@ -2735,32 +2747,32 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                   
-                        MySqlCommand cmd = new MySqlCommand("P_GetDataForBulkUpdateJob", conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("_parentSKu", ParentID);
-                        using (var reader = cmd.ExecuteReader())
+
+                    MySqlCommand cmd = new MySqlCommand("P_GetDataForBulkUpdateJob", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_parentSKu", ParentID);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
                         {
-                            if (reader.HasRows)
+                            while (reader.Read())
                             {
-                                while (reader.Read())
-                                {
-                                    GetDataForBulkUpdateJobViewModel model = new GetDataForBulkUpdateJobViewModel();
-                                    model.BulkUpdateId = Convert.ToInt32(reader["BulkUpdateId"] != DBNull.Value ? reader["BulkUpdateId"] : 0);
-                                    model.ProductSku = Convert.ToString(reader["ProductSku"] != DBNull.Value ? reader["ProductSku"] : "");
-                                    model.FileDirectory = Convert.ToString(reader["FileDirectory"] != DBNull.Value ? reader["FileDirectory"] : "");
-                                    model.FileName = Convert.ToString(reader["FileName"] != DBNull.Value ? reader["FileName"] : "");
-                                    model.CreationDate = Convert.ToDateTime(reader["CreationDate"] != DBNull.Value ? reader["CreationDate"] : (DateTime?)null);
-                                    model.JobType = Convert.ToString(reader["JobType"] != DBNull.Value ? reader["JobType"] : "");
-                                    model.Status = Convert.ToString(reader["Status"] != DBNull.Value ? reader["Status"] : "");
-                                    model.QueuedJobLink = Convert.ToString(reader["QueuedJobLink"] != DBNull.Value ? reader["QueuedJobLink"] : "");
-                                    model.QueuedJobLinkId = Convert.ToInt32(reader["QueuedJobLinkId"] != DBNull.Value ? reader["QueuedJobLinkId"] : 0);
-                                   
-                                    listModel.Add(model);
-                                }
+                                GetDataForBulkUpdateJobViewModel model = new GetDataForBulkUpdateJobViewModel();
+                                model.BulkUpdateId = Convert.ToInt32(reader["BulkUpdateId"] != DBNull.Value ? reader["BulkUpdateId"] : 0);
+                                model.ProductSku = Convert.ToString(reader["ProductSku"] != DBNull.Value ? reader["ProductSku"] : "");
+                                model.FileDirectory = Convert.ToString(reader["FileDirectory"] != DBNull.Value ? reader["FileDirectory"] : "");
+                                model.FileName = Convert.ToString(reader["FileName"] != DBNull.Value ? reader["FileName"] : "");
+                                model.CreationDate = Convert.ToDateTime(reader["CreationDate"] != DBNull.Value ? reader["CreationDate"] : (DateTime?)null);
+                                model.JobType = Convert.ToString(reader["JobType"] != DBNull.Value ? reader["JobType"] : "");
+                                model.Status = Convert.ToString(reader["Status"] != DBNull.Value ? reader["Status"] : "");
+                                model.QueuedJobLink = Convert.ToString(reader["QueuedJobLink"] != DBNull.Value ? reader["QueuedJobLink"] : "");
+                                model.QueuedJobLinkId = Convert.ToInt32(reader["QueuedJobLinkId"] != DBNull.Value ? reader["QueuedJobLinkId"] : 0);
+
+                                listModel.Add(model);
                             }
                         }
-                    
+                    }
+
 
                 }
             }
@@ -2790,7 +2802,7 @@ namespace DataAccess.DataAccess
                             while (reader.Read())
                             {
                                 GetQuedJobStatusViewModel skuVM = new GetQuedJobStatusViewModel();
-                               skuVM.QuedJobId = Convert.ToInt32(reader["BulkUpdateId"] != DBNull.Value ? reader["BulkUpdateId"] : 0);
+                                skuVM.QuedJobId = Convert.ToInt32(reader["BulkUpdateId"] != DBNull.Value ? reader["BulkUpdateId"] : 0);
                                 skuVM.QuedJobLink = Convert.ToString(reader["QueuedJobLink"] != DBNull.Value ? reader["QueuedJobLink"] : "");
                                 ViewModel.Add(skuVM);
                             }
@@ -2805,7 +2817,7 @@ namespace DataAccess.DataAccess
             return ViewModel;
         }
 
-        public bool UpdateQuedJob(int Id,string Status)
+        public bool UpdateQuedJob(int Id, string Status)
         {
             bool status = false;
             try
@@ -2828,5 +2840,171 @@ namespace DataAccess.DataAccess
             }
             return status;
         }
+
+        public List<ExportProductDataViewModel> GetAllProductsForExportWithLimitCount(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus)
+        {
+            List<ExportProductDataViewModel> _ViewModels = null;
+            // MySqlConnection mySqlConnection = null;
+            if (string.IsNullOrEmpty(TypeSearch) || TypeSearch == "undefined")
+                TypeSearch = "ALL";
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+
+                    conn.Open();
+                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumy", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCount", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTest", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("dropship", dropship);
+                    cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
+                    cmd.Parameters.AddWithValue("sku", sku);
+                    //cmd.Parameters.AddWithValue("asin", "");
+                    cmd.Parameters.AddWithValue("tag", DStag);
+                    //cmd.Parameters.AddWithValue("ProductTitle", "");
+                    cmd.Parameters.AddWithValue("_TypeSearch", TypeSearch);
+                    cmd.Parameters.AddWithValue("_WHQStatus", WHQStatus);
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        //mySqlConnection = new MySqlConnection(connStr);
+                        //mySqlConnection.Open();
+                        _ViewModels = new List<ExportProductDataViewModel>();
+
+                        foreach (DataRow reader in dt.Rows)
+                        {
+                            ExportProductDataViewModel ViewModel = new ExportProductDataViewModel();
+                            ViewModel.ProductSKU = Convert.ToString(reader["sku"]);
+                            ViewModel.HLD_CA1 = Convert.ToInt32(reader["AggregatedQty"] != DBNull.Value ? reader["AggregatedQty"] : 0);
+                            ViewModel.best_buy_product_id = Convert.ToInt32(reader["best_buy_product_id"] != DBNull.Value ? reader["best_buy_product_id"] : 0);
+                            ViewModel.dropship_status = Convert.ToBoolean(reader["dropship_status"] != DBNull.Value ? reader["dropship_status"] : "false");
+                            if (!Convert.IsDBNull(reader["prouduct_image_url"]))
+                            {
+                                ViewModel.ImageURL = Convert.ToString(reader["prouduct_image_url"]);
+                            }
+                            else
+                            {
+                                ViewModel.ImageURL = "";
+                            }
+
+                            _ViewModels.Add(ViewModel);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return _ViewModels;
+        }
+        //public List<ExportProductDataViewModel> GetSinglePageExportResult(List<ExportProductDataViewModel> ListViewModel)
+        //{
+        //    List<ExportProductDataViewModel> _ViewModels = null;
+
+        //    try
+        //    {
+        //        foreach (var item in ListViewModel)
+        //        {
+        //            using (MySqlConnection conn = new MySqlConnection(connStr))
+        //            {
+
+        //                conn.Open();
+        //                //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumy", conn);
+        //                //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCount", conn);
+        //                MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTest", conn);
+        //                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+        //                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+        //                DataTable dt = new DataTable();
+        //                da.Fill(dt);
+        //                if (dt.Rows.Count > 0)
+        //                {
+        //                    //mySqlConnection = new MySqlConnection(connStr);
+        //                    //mySqlConnection.Open();
+        //                    _ViewModels = new List<ExportProductDataViewModel>();
+
+        //                    foreach (DataRow reader in dt.Rows)
+        //                    {
+        //                        ExportProductDataViewModel ViewModel = new ExportProductDataViewModel();
+        //                        item.ProductSKU = Convert.ToString(reader["sku"]);
+        //                        item.dropship_Qty = Convert.ToInt32(reader["AggregatedQty"] != DBNull.Value ? reader["AggregatedQty"] : 0);
+        //                        item.best_buy_product_id = Convert.ToInt32(reader["best_buy_product_id"] != DBNull.Value ? reader["best_buy_product_id"] : 0);
+        //                        item.dropship_status = Convert.ToBoolean(reader["dropship_status"] != DBNull.Value ? reader["dropship_status"] : "false");
+        //                        if (!Convert.IsDBNull(reader["prouduct_image_url"]))
+        //                        {
+        //                            item.ImageURL = Convert.ToString(reader["prouduct_image_url"]);
+        //                        }
+        //                        else
+        //                        {
+        //                            item.ImageURL = "";
+        //                        }
+
+        //                        _ViewModels.Add(item);
+        //                    }
+
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return _ViewModels;
+        //}
+        public List<ExportProductDataViewModel> GetSinglePageExportResult(List<ExportProductDataViewModel> Sku)
+        {
+            List<ExportProductDataViewModel> listModel = new List<ExportProductDataViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    foreach (var item in Sku)
+                    {
+                        MySqlCommand cmd = new MySqlCommand("p_GetSinglePageExportResult", conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_sku", item.ProductSKU);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    ExportProductDataViewModel model = new ExportProductDataViewModel();
+
+                                    model.ProductSKU = Convert.ToString(reader["sku"]);
+                                    model.HLD_CA1 = Convert.ToInt32(reader["AggregatedQty"] != DBNull.Value ? reader["AggregatedQty"] : 0);
+                                    model.best_buy_product_id = Convert.ToInt32(reader["best_buy_product_id"] != DBNull.Value ? reader["best_buy_product_id"] : 0);
+                                    model.dropship_status = Convert.ToBoolean(reader["dropship_status"] != DBNull.Value ? reader["dropship_status"] : "false");
+                                    if (!Convert.IsDBNull(reader["prouduct_image_url"]))
+                                    {
+                                        model.ImageURL = Convert.ToString(reader["prouduct_image_url"]);
+                                    }
+                                    else
+                                    {
+                                        model.ImageURL = "";
+                                    }
+                                    listModel.Add(model);
+                                }
+                               
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return listModel;
+        } 
     }
 }

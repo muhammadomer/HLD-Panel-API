@@ -27,7 +27,8 @@ namespace DataAccess.ViewModels
         public bool dropship_status { get; set; }
         public int dropship_Qty { get; set; }
         public bool Continue { get; set; }
-
+        public int best_buy_product_id { get; set; }
+        public int BBProductID { get; set; }
 
         public List<ProductWarehouseQtyViewModel> ProductrWarehouseQtyViewModel { get; set; }
         public List<SkuTagOrderViewModel> skuTags { get; set; }

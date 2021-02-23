@@ -160,11 +160,11 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("api/Product/{startLimit}/{endLimit}/{sort}/{dropship}/{dropshipsearch}/{sku}/{asin}/{Producttitle}/{DSTag}/{TypeSearch}")]
-        public IActionResult Get(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DSTag, string TypeSearch)
+        [Route("api/Product/{startLimit}/{endLimit}/{sort}/{dropship}/{dropshipsearch}/{sku}/{asin}/{Producttitle}/{DSTag}/{TypeSearch}/{WHQStatus}")]
+        public IActionResult Get(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DSTag, string TypeSearch,string WHQStatus)
         {
             List<ProductDisplayInventoryViewModel> _ViewModels = null;
-            _ViewModels = DataAccess.GetAllProducts(startLimit, endLimit, sort, dropshipsearch, dropship, sku, asin, Producttitle, DSTag, TypeSearch);
+            _ViewModels = DataAccess.GetAllProducts(startLimit, endLimit, sort, dropshipsearch, dropship, sku, asin, Producttitle, DSTag, TypeSearch,WHQStatus);
             if (_ViewModels == null)
             {
                 return Ok(new List<ConditionViewModel>());
@@ -177,7 +177,7 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("api/Product/Export/{dropship}/{dropshipstatusSearch}/{sku}")]
+        [Route("api/Product/Export/{dropship}/{dropshipstatusSearch}/{DSTag}")]
         public IActionResult GetDataforExport(string dropship, string dropshipstatusSearch, string sku)
         {
             List<ExportProductDataViewModel> _ViewModels = new List<ExportProductDataViewModel>();
@@ -187,6 +187,7 @@ namespace HLD.WebApi.Controllers
             return Ok(_ViewModels);
 
         }
+
 
         [HttpPost]
         [Authorize]
@@ -212,7 +213,7 @@ namespace HLD.WebApi.Controllers
         [Route("api/Product/TotalCountProductIn_inventory")]
         public IActionResult GetTotalCount([FromBody] ProductInventorySearchViewModel viewModel)
         {
-            return Ok(DataAccess.GetAllProductsCount(viewModel.dropshipstatus, viewModel.dropshipstatusSearch, viewModel.Sku, viewModel.SearchFromSkuList, viewModel.asin, viewModel.Producttitle, viewModel.DSTag, viewModel.TypeSearch));
+            return Ok(DataAccess.GetAllProductsCount(viewModel.dropshipstatus, viewModel.dropshipstatusSearch, viewModel.Sku, viewModel.SearchFromSkuList, viewModel.asin, viewModel.Producttitle, viewModel.DSTag, viewModel.TypeSearch,viewModel.WHQStatus));
         }
 
         [HttpGet]
@@ -1264,7 +1265,34 @@ namespace HLD.WebApi.Controllers
             return Ok(status);
 
         }
-       
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/{dropship}/{dropshipsearch}/{sku}/{DSTag}/{TypeSearch}/{WHQStatus}")]
+        public IActionResult GetAllProductsForExportWithLimitCount(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus)
+        {
+            List<ExportProductDataViewModel> _ViewModels = null;
+            _ViewModels = DataAccess.GetAllProductsForExportWithLimitCount( dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus);
+            if (_ViewModels == null)
+            {
+                return Ok(new List<ConditionViewModel>());
+            }
+            else
+            {
+                return Ok(_ViewModels);
+            }
+        }
+        [HttpPost]
+        [Authorize]
+        [Route("api/Product/GetSinglePageExportResult")]
+        public List<ExportProductDataViewModel> GetSinglePageExportResult([FromBody] List<ExportProductDataViewModel> data)
+        {
+            
+            List<ExportProductDataViewModel> _ViewModels = null;
+            _ViewModels = DataAccess.GetSinglePageExportResult(data);
+           
+                return _ViewModels;
+            
+        }
     }
 }
 

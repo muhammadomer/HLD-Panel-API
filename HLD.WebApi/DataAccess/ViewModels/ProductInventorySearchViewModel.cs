@@ -16,5 +16,6 @@ namespace DataAccess.ViewModels
         public string asin { get; set; }
         public string Producttitle { get; set; }
         public string TypeSearch { get; set; }
+        public string WHQStatus { get; set; }
     }
 }
