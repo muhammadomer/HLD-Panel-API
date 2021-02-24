@@ -616,9 +616,10 @@ namespace HLD.WebApi.Controllers
                 // get zinc key
                 _getChannelCredViewModel = _EncDecChannel.DecryptedData("Zinc");
                 // set job as start
-                //int JobID = zincWathchlistDataAccess.SaveWatchlistSummary();
+         
                 int JobID = Job_Id;
-                //ASInForJob = zincWathchlistDataAccess.GetWatchlistForJob(JobID);
+                zincWathchlistDataAccess.StartwatchlistJobWatchlistSummary(JobID);
+                ASInForJob = zincWathchlistDataAccess.GetWatchlistForJob(JobID);
 
                 if (JobID > 0)
                 {
@@ -663,7 +664,7 @@ namespace HLD.WebApi.Controllers
                         zincProductSaveViewModel = new ZincProductSaveViewModel();
                         zincProductSaveViewModel.timestemp = model.timestamp.HasValue ? model.timestamp.Value : 0;
                         zincProductSaveViewModel.status = model.status;
-                        zincProductSaveViewModel.ASIN = model.asin;
+                        zincProductSaveViewModel.ASIN = ASIN_List.ASIN;
                         zincProductSaveViewModel.Product_sku = ASIN_List.ProductSKU;
                         var status = model.status;
                         if (models != null && models.Count > 0)
@@ -715,14 +716,9 @@ namespace HLD.WebApi.Controllers
                             zincWatchListlogs.ZincResponse = "Listing Removed";
                         }
                     }
-
-                  //  SaveWatchlistForjobsViewModel saveWatchlistForjobs = new SaveWatchlistForjobsViewModel();
                     // if available
                     if (model.offers == null || (model.offers.Count > 0 && zincProductSaveViewModel.item_prime_badge == true))
                     {
-                        //saveWatchlistForjobs.ValidStatus = 0;
-                        //saveWatchlistForjobs.ASIN = ASIN_List.ASIN;
-                        //saveWatchlistForjobs.Consumed_call = ASIN_List.Consumed_call + 1;
                         if (model.offers != null)
                         {
                             zincWatchListSummary.Available += 1;
@@ -746,10 +742,6 @@ namespace HLD.WebApi.Controllers
                     }
                     else
                     {
-                        //saveWatchlistForjobs.ValidStatus = 1;
-                        //saveWatchlistForjobs.ASIN = ASIN_List.ASIN;
-                        //saveWatchlistForjobs.Consumed_call = ASIN_List.Consumed_call + 1;
-                        // dropship enable disable
                         DropShipQtyViewModal.dropship_status = false;
                         DropShipQtyViewModal.dropship_Qty = 0;
                         DropShipQtyViewModal.DropshipComments = "Zinc Update";
@@ -765,9 +757,7 @@ namespace HLD.WebApi.Controllers
                             zincWatchListSummary.Unavailable += 1;
                         }
                     }
-
                     // update qty and dropship status
-
                     if (DropShipQtyViewModal.dropship_status == false) // if not available
                     {
                         // check is there any available ASIN
@@ -806,33 +796,40 @@ namespace HLD.WebApi.Controllers
                             }
                         }
                     }
-
-                    if (ASIN_List.ASIN != zincProductSaveViewModel.ASIN)
+                    if (zincProductSaveViewModel.ASIN!=null && ASIN_List.ASIN != zincProductSaveViewModel.ASIN)
                     {
                         zincDataAccess.UpdateNewAsin(ASIN_List.ASIN, zincProductSaveViewModel.ASIN);
                     }
+                    zincWathchlistDataAccess.UpdateWatchlistLogs(zincWatchListlogs);
 
-                    // Save logs
-                  //  zincWathchlistDataAccess.SaveWatchlistLogs(zincWatchListlogs);
-                    //zincWathchlistDataAccess.UpdateWatchlistLogs(zincWatchListlogs);//my comment
                     if (zincWatchListlogs.ZincResponse == "Available")
                     {
-
                         zincDataAccess.UpdateZincProductASINDetailWatchList(zincProductSaveViewModel);
                     }
-
-                    // Set ASIN in watchLIst for next date
-                   // zincWathchlistDataAccess.UpdateWatchlistForJob(saveWatchlistForjobs);
+                    else {
+                        zincProductSaveViewModel.timestemp = 0;
+                        zincProductSaveViewModel.status = "";
+                        zincProductSaveViewModel.ASIN = ASIN_List.ASIN;
+                        zincProductSaveViewModel.Product_sku = ASIN_List.ProductSKU;
+                        zincProductSaveViewModel.sellerName = "";
+                        zincProductSaveViewModel.percent_positive = 0;
+                        zincProductSaveViewModel.itemprice = 0;
+                        zincProductSaveViewModel.itemavailable = false;
+                        zincProductSaveViewModel.handlingday_min = 0;
+                        zincProductSaveViewModel.handlingday_max = 0;
+                        zincProductSaveViewModel.item_prime_badge = false;
+                        zincProductSaveViewModel.delivery_days_max = 0;
+                        zincProductSaveViewModel.delivery_days_min = 0;
+                        zincProductSaveViewModel.item_condition = "";
+                        zincProductSaveViewModel.MessageWatchlist = "";
+                        zincDataAccess.UpdateZincProductASINDetailWatchList(zincProductSaveViewModel);
+                    }
                 }
                 catch (Exception ex)
                 {
-
                     continue;
                 }
-
-
             }
-
             // set job as completed
             zincWathchlistDataAccess.UpdateWatchlistSummary(zincWatchListSummary);
 

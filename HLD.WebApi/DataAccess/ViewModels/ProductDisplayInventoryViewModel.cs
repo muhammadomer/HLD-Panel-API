@@ -26,6 +26,7 @@ namespace DataAccess.ViewModels
         public string ImageURL { get; set; }
         public bool dropship_status { get; set; }
         public int dropship_Qty { get; set; }
+        public int AggregatedQty { get; set; }
         public bool Continue { get; set; }
         public int best_buy_product_id { get; set; }
         public int BBProductID { get; set; }

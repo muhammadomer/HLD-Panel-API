@@ -640,7 +640,7 @@ namespace DataAccess.DataAccess
                             ViewModel.ShipmentWeight = Convert.ToString(reader["ship_weight_oz"]);
 
                             ViewModel.AvgCost = Convert.ToString(reader["avg_cost"] != DBNull.Value ? reader["avg_cost"] : "0");
-                            //ViewModel.Asin = Convert.ToString(reader["AsinCount"] != DBNull.Value ? reader["AsinCount"] : "0");
+                            ViewModel.AggregatedQty = Convert.ToInt32(reader["AggregatedQty"] != DBNull.Value ? reader["AggregatedQty"] : 0);
 
                             ViewModel.ColorName = Convert.ToString(reader["color_name"]);
                             ViewModel.Continue = Convert.ToBoolean(reader["Continue"] != DBNull.Value ? reader["Continue"] : "false");
@@ -660,7 +660,8 @@ namespace DataAccess.DataAccess
                             }
 
                             //List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetProductQtyBySKU_ForOrdersPage(ViewModel.ProductSKU.Trim(), conn);
-                            List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetWareHousesQtyList(ViewModel.ProductSKU);
+                            List<ProductWarehouseQtyViewModel> warehouseQty = new List<ProductWarehouseQtyViewModel>();
+                                //ProductWHQtyDataAccess.GetWareHousesQtyList(ViewModel.ProductSKU);
                             ViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
                             List<SkuTagOrderViewModel> skuTagOrders = _tagDataAccess.GetTagforSkubulk(ViewModel.ProductSKU, conn);
                             ViewModel.skuTags = skuTagOrders;

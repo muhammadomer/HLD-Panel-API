@@ -299,7 +299,7 @@ namespace HLD.WebApi.Controllers
                             available_started = DateTime.Now.ToString("o", CultureInfo.CreateSpecificCulture("de-DE")),
                             description = "",
                             discount = discounts,
-                            internal_description = "",
+                            internal_description = item.ASIN,
                             logistic_class = "",
                             min_quantity_alert = 0,
                             offer_additional_fields = additionalFields,
