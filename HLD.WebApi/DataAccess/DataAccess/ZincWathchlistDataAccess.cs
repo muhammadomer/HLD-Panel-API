@@ -102,10 +102,10 @@ namespace DataAccess.DataAccess
             }
         }
 
-        public List<SaveWatchlistForjobsViewModel> GetWatchlistForJob(int JobId)
+        public List<SaveWatchlistForViewModel> GetWatchlistForJob(int JobId)
         {
 
-            List<SaveWatchlistForjobsViewModel> listViewModel = null;
+            List<SaveWatchlistForViewModel> listViewModel = null;
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -119,16 +119,13 @@ namespace DataAccess.DataAccess
                     {
                         if (reader.HasRows)
                         {
-                            listViewModel = new List<SaveWatchlistForjobsViewModel>();
+                            listViewModel = new List<SaveWatchlistForViewModel>();
                             while (reader.Read())
                             {
-                                SaveWatchlistForjobsViewModel ViewModel = new SaveWatchlistForjobsViewModel();
+                                SaveWatchlistForViewModel ViewModel = new SaveWatchlistForViewModel();
                                 ViewModel.ASIN = Convert.ToString(reader["ASIN"]!= DBNull.Value? reader["ASIN"]:"");
-                                ViewModel.ProductSKU = Convert.ToString(reader["ProductSKU"]!=DBNull.Value? reader["ProductSKU"]:"");
-                                ViewModel.frequency = Convert.ToInt32(reader["Frequency"]!=DBNull.Value? reader["Frequency"] :0);
-                                ViewModel.ValidStatus = Convert.ToInt32(reader["ValidStatus"]!= DBNull.Value ? reader["ValidStatus"] : 0);
-                                ViewModel.Consumed_call = Convert.ToInt32(reader["Consumed_call"]!= DBNull.Value ? reader["Consumed_call"] : 0);
-                                ViewModel.CheckafterDays = Convert.ToInt32(reader["CheckAfterDays"]!= DBNull.Value ? reader["CheckAfterDays"] : 0);
+                                ViewModel.ProductSKU = Convert.ToString(reader["SKU"] !=DBNull.Value? reader["SKU"] :"");
+                          
                                 listViewModel.Add(ViewModel);
                             }
                         }
@@ -874,7 +871,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_SaveBestBuyUpdateJob", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_SaveBestBuyUpdateListV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     jobId = Convert.ToInt32(cmd.ExecuteScalar());
                     conn.Close();
@@ -890,6 +887,7 @@ namespace DataAccess.DataAccess
                         cmd.Parameters.AddWithValue("_JobId", jobId);
                         cmd.Parameters.AddWithValue("_ZincJobId",item.ZincJobId);
                         cmd.Parameters.AddWithValue("_Sku", item.ProductSKU);
+                        cmd.Parameters.AddWithValue("_ASIN", item.ASIN);
                         cmd.Parameters.AddWithValue("_ProductId", item.BBProductId);
                         cmd.Parameters.AddWithValue("_MSRP", item.UnitOriginPrice_MSRP);
                         cmd.Parameters.AddWithValue("_UpdateSelllingPrice", item.UnitOriginPrice_Max/100);

@@ -27,4 +27,12 @@ namespace DataAccess.ViewModels
         public string ProductSKU { get; set; }
     
     }
+
+    public class SaveWatchlistForViewModel
+    {
+     
+        public string ASIN { get; set; }
+        public string ProductSKU { get; set; }
+
+    }
 }

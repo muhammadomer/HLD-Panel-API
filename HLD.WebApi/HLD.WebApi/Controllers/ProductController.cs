@@ -608,7 +608,7 @@ namespace HLD.WebApi.Controllers
             ZincWatchListSummaryViewModal zincWatchListSummary = new ZincWatchListSummaryViewModal();
             ZincWatchlistLogsViewModel zincWatchListlogs = new ZincWatchlistLogsViewModel();
 
-            List<SaveWatchlistForjobsViewModel> ASInForJob = new List<SaveWatchlistForjobsViewModel>();
+            List<SaveWatchlistForViewModel> ASInForJob = new List<SaveWatchlistForViewModel>();
             // get ASIN from local
 
             // if (ASInForJob.Count > 0)
@@ -645,7 +645,6 @@ namespace HLD.WebApi.Controllers
                     }
                     if ((model.status != "processing" || model.status != "failed") && model.offers != null && model.offers.Count > 0)
                     {
-
                         string greytext = "";
                         // getting all those offers which have fulfilled true
                         var offerids = model.offers.Where(e => e.marketplace_fulfilled.Equals(true)).Select(
@@ -654,8 +653,6 @@ namespace HLD.WebApi.Controllers
                             offerid = e.offer_id,
                             offerPrice = e.price
                         }).ToList();
-
-                        // based on offerid's list getting minimum price and then select offer from offer's list
 
                         if (offerids != null && offerids.Count > 0)
                         {
@@ -692,8 +689,6 @@ namespace HLD.WebApi.Controllers
                                 }
                                 zincProductSaveViewModel.item_condition = item.condition;
                                 greytext = item.greytext;
-
-
                             }
                         }
 
@@ -721,13 +716,13 @@ namespace HLD.WebApi.Controllers
                         }
                     }
 
-                    SaveWatchlistForjobsViewModel saveWatchlistForjobs = new SaveWatchlistForjobsViewModel();
+                  //  SaveWatchlistForjobsViewModel saveWatchlistForjobs = new SaveWatchlistForjobsViewModel();
                     // if available
                     if (model.offers == null || (model.offers.Count > 0 && zincProductSaveViewModel.item_prime_badge == true))
                     {
-                        saveWatchlistForjobs.ValidStatus = 0;
-                        saveWatchlistForjobs.ASIN = ASIN_List.ASIN;
-                        saveWatchlistForjobs.Consumed_call = ASIN_List.Consumed_call + 1;
+                        //saveWatchlistForjobs.ValidStatus = 0;
+                        //saveWatchlistForjobs.ASIN = ASIN_List.ASIN;
+                        //saveWatchlistForjobs.Consumed_call = ASIN_List.Consumed_call + 1;
                         if (model.offers != null)
                         {
                             zincWatchListSummary.Available += 1;
@@ -738,10 +733,6 @@ namespace HLD.WebApi.Controllers
                             DropShipQtyViewModal.dropship_Qty = 5;
                             DropShipQtyViewModal.DropshipComments = "Zinc Update";
                             DropShipQtyViewModal.ShopSKU_OfferSKU = ASIN_List.ProductSKU;
-
-
-
-
                         }
                         else
                         {
@@ -751,16 +742,13 @@ namespace HLD.WebApi.Controllers
                             DropShipQtyViewModal.dropship_Qty = 0;
                             DropShipQtyViewModal.DropshipComments = "Zinc Update";
                             DropShipQtyViewModal.ShopSKU_OfferSKU = ASIN_List.ProductSKU;
-
                         }
-
-
                     }
                     else
                     {
-                        saveWatchlistForjobs.ValidStatus = 1;
-                        saveWatchlistForjobs.ASIN = ASIN_List.ASIN;
-                        saveWatchlistForjobs.Consumed_call = ASIN_List.Consumed_call + 1;
+                        //saveWatchlistForjobs.ValidStatus = 1;
+                        //saveWatchlistForjobs.ASIN = ASIN_List.ASIN;
+                        //saveWatchlistForjobs.Consumed_call = ASIN_List.Consumed_call + 1;
                         // dropship enable disable
                         DropShipQtyViewModal.dropship_status = false;
                         DropShipQtyViewModal.dropship_Qty = 0;
@@ -817,8 +805,6 @@ namespace HLD.WebApi.Controllers
                                 QtyDataAccess.SaveBestBuyQtyMovementForDropshipNone_SKU(qtyViewModel);
                             }
                         }
-
-
                     }
 
                     if (ASIN_List.ASIN != zincProductSaveViewModel.ASIN)
@@ -836,9 +822,7 @@ namespace HLD.WebApi.Controllers
                     }
 
                     // Set ASIN in watchLIst for next date
-                    zincWathchlistDataAccess.UpdateWatchlistForJob(saveWatchlistForjobs);
-
-
+                   // zincWathchlistDataAccess.UpdateWatchlistForJob(saveWatchlistForjobs);
                 }
                 catch (Exception ex)
                 {
@@ -856,7 +840,7 @@ namespace HLD.WebApi.Controllers
         }
 
 
-        public ZincProductOfferViewModel.RootObject GetInfoFromZinc(SaveWatchlistForjobsViewModel watchASIN, string ZincUserName)
+        public ZincProductOfferViewModel.RootObject GetInfoFromZinc(SaveWatchlistForViewModel watchASIN, string ZincUserName)
         {
 
             ZincProductOfferViewModel.RootObject model = null;
