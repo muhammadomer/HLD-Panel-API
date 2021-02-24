@@ -618,7 +618,7 @@ namespace HLD.WebApi.Controllers
                 // set job as start
                 //int JobID = zincWathchlistDataAccess.SaveWatchlistSummary();
                 int JobID = Job_Id;
-                ASInForJob = zincWathchlistDataAccess.GetWatchlistForJob(JobID);
+                //ASInForJob = zincWathchlistDataAccess.GetWatchlistForJob(JobID);
 
                 if (JobID > 0)
                 {
@@ -814,7 +814,7 @@ namespace HLD.WebApi.Controllers
 
                     // Save logs
                   //  zincWathchlistDataAccess.SaveWatchlistLogs(zincWatchListlogs);
-                    zincWathchlistDataAccess.UpdateWatchlistLogs(zincWatchListlogs);
+                    //zincWathchlistDataAccess.UpdateWatchlistLogs(zincWatchListlogs);//my comment
                     if (zincWatchListlogs.ZincResponse == "Available")
                     {
 
