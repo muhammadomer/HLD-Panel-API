@@ -3047,9 +3047,9 @@ namespace DataAccess.DataAccess
        
         }
 
-        public List<ZincGetStatusFromZincViewModel> SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus)
+        public List<GetStatusFromZincViewModel> SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus)
         {
-            List<ZincGetStatusFromZincViewModel> _ViewModels = null;
+            List<GetStatusFromZincViewModel> _ViewModels = null;
             // MySqlConnection mySqlConnection = null;
             if (string.IsNullOrEmpty(TypeSearch) || TypeSearch == "undefined")
                 TypeSearch = "ALL";
@@ -3078,15 +3078,13 @@ namespace DataAccess.DataAccess
                     {
                         //mySqlConnection = new MySqlConnection(connStr);
                         //mySqlConnection.Open();
-                        _ViewModels = new List<ZincGetStatusFromZincViewModel>();
+                        _ViewModels = new List<GetStatusFromZincViewModel>();
 
                         foreach (DataRow reader in dt.Rows)
                         {
-                            ZincGetStatusFromZincViewModel ViewModel = new ZincGetStatusFromZincViewModel();
+                            GetStatusFromZincViewModel ViewModel = new GetStatusFromZincViewModel();
                             ViewModel.SKU = Convert.ToString(reader["BBSKU"] != DBNull.Value ? reader["BBSKU"] : "");
-                            ViewModel.ASIN = Convert.ToString(reader["BBASIN"] != DBNull.Value ? reader["BBASIN"] : "");
-                           
-
+                            //ViewModel.ASIN = Convert.ToString(reader["BBASIN"] != DBNull.Value ? reader["BBASIN"] : "");
                             _ViewModels.Add(ViewModel);
                         }
 

@@ -1310,7 +1310,7 @@ namespace HLD.WebApi.Controllers
         [Route("api/Product/SelectAllSKUandASINGetStatusFromZinc")]
         public IActionResult SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus)
         {
-            List<ZincGetStatusFromZincViewModel> _ViewModels = null;
+            List<GetStatusFromZincViewModel> _ViewModels = null;
             _ViewModels = DataAccess.SelectAllSKUandASINGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus);
             if (_ViewModels == null)
             {
@@ -1318,7 +1318,11 @@ namespace HLD.WebApi.Controllers
             }
             else
             {
-                return Ok(_ViewModels);
+                var list = DataAccess.GetStausFromZinc(_ViewModels);
+               
+                return Ok(list);
+                //return Ok(_ViewModels);
+
             }
         }
     }
