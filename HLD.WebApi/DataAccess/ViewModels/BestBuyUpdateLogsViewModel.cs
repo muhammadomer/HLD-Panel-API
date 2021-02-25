@@ -10,6 +10,7 @@ namespace DataAccess.ViewModels
     public class BestBuyUpdateLogsViewModel
     {
         public string SKU { get; set; }
+        public string ASIN { get; set; }
         public int ProductId { get; set; }
         public decimal UpdateSelllingPrice { get; set; }
         public decimal MSRP { get; set; }

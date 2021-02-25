@@ -47,7 +47,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("P_GetBestBuyUpdatelogs", conn);
+                    //MySqlCommand cmd = new MySqlCommand("P_GetBestBuyUpdatelogs", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_GetBestBuyUpdatelogsCopy", conn);//adeel changes sp name
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_JobId", JobId);
                     cmd.Parameters.AddWithValue("_offset", offset);
@@ -61,6 +62,7 @@ namespace DataAccess.DataAccess
                             {
                                 BestBuyUpdateLogsViewModel ViewModel = new BestBuyUpdateLogsViewModel();
                                 ViewModel.SKU= Convert.ToString(reader["SKU"]);
+                                ViewModel.ASIN= Convert.ToString(reader["z_asin_ca"]);
                                 ViewModel.ProductId = Convert.ToInt32(reader["ProductId"]);
                                 ViewModel.JobId = Convert.ToInt32(reader["JobId"]);
                                 ViewModel.MSRP = Convert.ToDecimal(reader["MSRP"]);

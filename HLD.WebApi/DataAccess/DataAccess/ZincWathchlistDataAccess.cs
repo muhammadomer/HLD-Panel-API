@@ -871,6 +871,7 @@ namespace DataAccess.DataAccess
                             {
                                 ZincWatchlistLogsViewModel ViewModel = new ZincWatchlistLogsViewModel();
                                 ViewModel.ProductSKU = Convert.ToString(reader["SKU"]);
+                                ViewModel.ASIN = Convert.ToString(reader["ASIN"]);
                                 ViewModel.jobID = Convert.ToInt32(reader["JobID"] != DBNull.Value ? reader["JobID"] : "0");
                                 ViewModel.BBProductId = Convert.ToString(reader["BBProductId"]);
                                 ViewModel.UnitOriginPrice_MSRP = Convert.ToDouble(reader["unit_origin_price_MSRP"] != DBNull.Value ? reader["unit_origin_price_MSRP"] : "0");
