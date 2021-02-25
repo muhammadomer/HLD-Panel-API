@@ -595,12 +595,16 @@ namespace DataAccess.DataAccess
             return list;
         }
         //change
-        public List<ProductDisplayInventoryViewModel> GetAllProducts(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DStag, string TypeSearch, string WHQStatus)
+        public List<ProductDisplayInventoryViewModel> GetAllProducts(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DStag, string TypeSearch, string WHQStatus,string BBProductID,string ASIN)
         {
             List<ProductDisplayInventoryViewModel> _ViewModels = null;
             // MySqlConnection mySqlConnection = null;
             if (string.IsNullOrEmpty(TypeSearch) || TypeSearch == "undefined")
                 TypeSearch = "ALL";
+            if (string.IsNullOrEmpty(BBProductID) || BBProductID == "undefined")
+                BBProductID = "ALL";
+            if (string.IsNullOrEmpty(ASIN) || ASIN == "undefined")
+                ASIN = "ALL";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -608,7 +612,8 @@ namespace DataAccess.DataAccess
 
                     conn.Open();
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumy", conn);
-                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOne", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOne", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("startLimit", startLimit);
                     cmd.Parameters.AddWithValue("endLimit", endLimit);
@@ -621,6 +626,8 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("ProductTitle", Producttitle);
                     cmd.Parameters.AddWithValue("_TypeSearch", TypeSearch);
                     cmd.Parameters.AddWithValue("_WHQStatus", WHQStatus);
+                    cmd.Parameters.AddWithValue("_BBProductID", BBProductID);
+                    cmd.Parameters.AddWithValue("_ASIN", ASIN);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -944,11 +951,15 @@ namespace DataAccess.DataAccess
 
 
         //change
-        public int GetAllProductsCount(string dropship, string dropshipsearch, string sku, string skuList, string asin, string Producttitle, string DSTag, string TypeSearch, string WHQStatus)
+        public int GetAllProductsCount(string dropship, string dropshipsearch, string sku, string skuList, string asin, string Producttitle, string DSTag, string TypeSearch, string WHQStatus,string BBProductID,string ASINS)
         {
             int totalCount = 0;
             if (string.IsNullOrEmpty(TypeSearch) || TypeSearch == "undefined")
                 TypeSearch = "ALL";
+            if (string.IsNullOrEmpty(BBProductID) || BBProductID == "undefined")
+                BBProductID = "ALL";
+            if (string.IsNullOrEmpty(ASINS) || ASINS == "undefined")
+                ASINS = "ALL";
             if (string.IsNullOrEmpty(DSTag) || DSTag == "undefined")
                 DSTag = "ALL";
             if (string.IsNullOrEmpty(WHQStatus) || WHQStatus == "undefined")
@@ -961,7 +972,8 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
                     //MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopy", conn);//adeel change sp name
-                    MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopyOne", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopyOne", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopyOneV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("filters", dropship);
                     cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
@@ -972,6 +984,8 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("skuList", skuList);
                     cmd.Parameters.AddWithValue("_TypeSearch", TypeSearch);
                     cmd.Parameters.AddWithValue("_WHQStatus", WHQStatus);
+                    cmd.Parameters.AddWithValue("_BBProductID", BBProductID);
+                    cmd.Parameters.AddWithValue("_ASIN", ASINS);
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)
