@@ -30,6 +30,7 @@ namespace DataAccess.ViewModels
         public bool Continue { get; set; }
         public int best_buy_product_id { get; set; }
         public int BBProductID { get; set; }
+        public decimal ApprovedUnitPrice { get; set; }
 
         public List<ProductWarehouseQtyViewModel> ProductrWarehouseQtyViewModel { get; set; }
         public List<SkuTagOrderViewModel> skuTags { get; set; }

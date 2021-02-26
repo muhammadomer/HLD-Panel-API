@@ -160,11 +160,11 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("api/Product/{startLimit}/{endLimit}/{sort}/{dropship}/{dropshipsearch}/{sku}/{asin}/{Producttitle}/{DSTag}/{TypeSearch}/{WHQStatus}/{BBProductID}/{ASINS}")]
-        public IActionResult Get(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DSTag, string TypeSearch,string WHQStatus,string BBProductID,string ASINS)
+        [Route("api/Product/{startLimit}/{endLimit}/{sort}/{dropship}/{dropshipsearch}/{sku}/{asin}/{Producttitle}/{DSTag}/{TypeSearch}/{WHQStatus}/{BBProductID}/{ASINS}/{ApprovedUnitPrice}")]
+        public IActionResult Get(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DSTag, string TypeSearch,string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice)
         {
             List<ProductDisplayInventoryViewModel> _ViewModels = null;
-            _ViewModels = DataAccess.GetAllProducts(startLimit, endLimit, sort, dropshipsearch, dropship, sku, asin, Producttitle, DSTag, TypeSearch,WHQStatus, BBProductID,ASINS);
+            _ViewModels = DataAccess.GetAllProducts(startLimit, endLimit, sort, dropshipsearch, dropship, sku, asin, Producttitle, DSTag, TypeSearch,WHQStatus, BBProductID,ASINS, ApprovedUnitPrice);
             if (_ViewModels == null)
             {
                 return Ok(new List<ConditionViewModel>());
@@ -213,7 +213,7 @@ namespace HLD.WebApi.Controllers
         [Route("api/Product/TotalCountProductIn_inventory")]
         public IActionResult GetTotalCount([FromBody] ProductInventorySearchViewModel viewModel)
         {
-            return Ok(DataAccess.GetAllProductsCount(viewModel.dropshipstatus, viewModel.dropshipstatusSearch, viewModel.Sku, viewModel.SearchFromSkuList, viewModel.asin, viewModel.Producttitle, viewModel.DSTag, viewModel.TypeSearch,viewModel.WHQStatus,viewModel.BBProductID,viewModel.ASINS));
+            return Ok(DataAccess.GetAllProductsCount(viewModel.dropshipstatus, viewModel.dropshipstatusSearch, viewModel.Sku, viewModel.SearchFromSkuList, viewModel.asin, viewModel.Producttitle, viewModel.DSTag, viewModel.TypeSearch,viewModel.WHQStatus,viewModel.BBProductID,viewModel.ASINS,viewModel.ApprovedUnitPrice));
         }
 
         [HttpGet]

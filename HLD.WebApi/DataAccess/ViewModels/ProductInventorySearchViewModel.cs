@@ -19,5 +19,6 @@ namespace DataAccess.ViewModels
         public string WHQStatus { get; set; }
         public string BBProductID { get; set; }
         public string ASINS { get; set; }
+        public string ApprovedUnitPrice { get; set; }
     }
 }

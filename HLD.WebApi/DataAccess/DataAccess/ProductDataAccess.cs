@@ -595,7 +595,7 @@ namespace DataAccess.DataAccess
             return list;
         }
         //change
-        public List<ProductDisplayInventoryViewModel> GetAllProducts(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DStag, string TypeSearch, string WHQStatus,string BBProductID,string ASIN)
+        public List<ProductDisplayInventoryViewModel> GetAllProducts(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DStag, string TypeSearch, string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice)
         {
             List<ProductDisplayInventoryViewModel> _ViewModels = null;
             // MySqlConnection mySqlConnection = null;
@@ -603,8 +603,10 @@ namespace DataAccess.DataAccess
                 TypeSearch = "ALL";
             if (string.IsNullOrEmpty(BBProductID) || BBProductID == "undefined")
                 BBProductID = "ALL";
-            if (string.IsNullOrEmpty(ASIN) || ASIN == "undefined")
-                ASIN = "ALL";
+            if (string.IsNullOrEmpty(ASINS) || ASINS == "undefined")
+                ASINS = "ALL";
+            if (string.IsNullOrEmpty(ApprovedUnitPrice) || ApprovedUnitPrice == "undefined")
+                ApprovedUnitPrice = "ALL";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -627,7 +629,8 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_TypeSearch", TypeSearch);
                     cmd.Parameters.AddWithValue("_WHQStatus", WHQStatus);
                     cmd.Parameters.AddWithValue("_BBProductID", BBProductID);
-                    cmd.Parameters.AddWithValue("_ASIN", ASIN);
+                    cmd.Parameters.AddWithValue("_ASIN", ASINS);
+                    cmd.Parameters.AddWithValue("_ApprovedUnitPrice", ApprovedUnitPrice);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -657,6 +660,7 @@ namespace DataAccess.DataAccess
                             ViewModel.BestBuyProductSKU = Convert.ToString(reader["product_sku"]);
                             ViewModel.dropship_Qty = Convert.ToInt32(reader["dropship_Qty"] != DBNull.Value ? reader["dropship_Qty"] : 0);
                             ViewModel.dropship_status = Convert.ToBoolean(reader["dropship_status"] != DBNull.Value ? reader["dropship_status"] : "false");
+                            ViewModel.ApprovedUnitPrice = Convert.ToDecimal(reader["ApprovedUnitPrice"] != DBNull.Value ? reader["ApprovedUnitPrice"] : "0");
                             if (!Convert.IsDBNull(reader["image_name"]))
                             {
                                 ViewModel.ImageURL = Convert.ToString(reader["image_name"]);
@@ -951,7 +955,7 @@ namespace DataAccess.DataAccess
 
 
         //change
-        public int GetAllProductsCount(string dropship, string dropshipsearch, string sku, string skuList, string asin, string Producttitle, string DSTag, string TypeSearch, string WHQStatus,string BBProductID,string ASINS)
+        public int GetAllProductsCount(string dropship, string dropshipsearch, string sku, string skuList, string asin, string Producttitle, string DSTag, string TypeSearch, string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice)
         {
             int totalCount = 0;
             if (string.IsNullOrEmpty(TypeSearch) || TypeSearch == "undefined")
@@ -966,6 +970,8 @@ namespace DataAccess.DataAccess
                 WHQStatus = "ALL";
             if (string.IsNullOrEmpty(dropshipsearch) || dropshipsearch == "undefined")
                 dropshipsearch = "ALL";
+            if (string.IsNullOrEmpty(ApprovedUnitPrice) || ApprovedUnitPrice == "undefined")
+                ApprovedUnitPrice = "ALL";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -986,6 +992,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_WHQStatus", WHQStatus);
                     cmd.Parameters.AddWithValue("_BBProductID", BBProductID);
                     cmd.Parameters.AddWithValue("_ASIN", ASINS);
+                    cmd.Parameters.AddWithValue("_ApprovedUnitPrice", ApprovedUnitPrice);
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)
