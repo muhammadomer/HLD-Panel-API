@@ -1008,7 +1008,7 @@ namespace DataAccess.DataAccess
             catch (Exception ex)
             {
             }
-            return totalCount;
+           return totalCount;
         }
 
 
@@ -2863,12 +2863,24 @@ namespace DataAccess.DataAccess
             return status;
         }
 
-        public List<ExportProductDataViewModel> GetAllProductsForExportWithLimitCount(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus)
+        public List<ExportProductDataViewModel> GetAllProductsForExportWithLimitCount(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice)
         {
             List<ExportProductDataViewModel> _ViewModels = null;
             // MySqlConnection mySqlConnection = null;
             if (string.IsNullOrEmpty(TypeSearch) || TypeSearch == "undefined")
                 TypeSearch = "ALL";
+            if (string.IsNullOrEmpty(BBProductID) || BBProductID == "undefined")
+                BBProductID = "ALL";
+            if (string.IsNullOrEmpty(ASINS) || ASINS == "undefined")
+                ASINS = "ALL";
+            if (string.IsNullOrEmpty(DStag) || DStag == "undefined")
+                DStag = "ALL";
+            if (string.IsNullOrEmpty(WHQStatus) || WHQStatus == "undefined")
+                WHQStatus = "ALL";
+            if (string.IsNullOrEmpty(dropshipsearch) || dropshipsearch == "undefined")
+                dropshipsearch = "ALL";
+            if (string.IsNullOrEmpty(ApprovedUnitPrice) || ApprovedUnitPrice == "undefined")
+                ApprovedUnitPrice = "ALL";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -2877,7 +2889,8 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumy", conn);
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCount", conn);
-                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTest", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTest", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTestV1", conn);///my change adeel
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("dropship", dropship);
                     cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
@@ -2887,6 +2900,9 @@ namespace DataAccess.DataAccess
                     //cmd.Parameters.AddWithValue("ProductTitle", "");
                     cmd.Parameters.AddWithValue("_TypeSearch", TypeSearch);
                     cmd.Parameters.AddWithValue("_WHQStatus", WHQStatus);
+                    cmd.Parameters.AddWithValue("_BBProductID", BBProductID);
+                    cmd.Parameters.AddWithValue("_ASIN", ASINS);
+                    cmd.Parameters.AddWithValue("_ApprovedUnitPrice", ApprovedUnitPrice);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);

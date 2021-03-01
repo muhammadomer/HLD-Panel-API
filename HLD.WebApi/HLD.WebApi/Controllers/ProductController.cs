@@ -1248,11 +1248,11 @@ namespace HLD.WebApi.Controllers
         }
         [HttpGet]
         [Authorize]
-        [Route("api/Product/{dropship}/{dropshipsearch}/{sku}/{DSTag}/{TypeSearch}/{WHQStatus}")]
-        public IActionResult GetAllProductsForExportWithLimitCount(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus)
+        [Route("api/Product/{dropship}/{dropshipsearch}/{sku}/{DSTag}/{TypeSearch}/{WHQStatus}/{BBProductID}/{ASINS}/{ApprovedUnitPrice}")]
+        public IActionResult GetAllProductsForExportWithLimitCount(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice)
         {
             List<ExportProductDataViewModel> _ViewModels = null;
-            _ViewModels = DataAccess.GetAllProductsForExportWithLimitCount( dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus);
+            _ViewModels = DataAccess.GetAllProductsForExportWithLimitCount( dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus, BBProductID, ASINS, ApprovedUnitPrice);
             if (_ViewModels == null)
             {
                 return Ok(new List<ConditionViewModel>());
