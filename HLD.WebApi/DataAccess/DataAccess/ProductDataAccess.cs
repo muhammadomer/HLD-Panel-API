@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -1493,17 +1494,59 @@ namespace DataAccess.DataAccess
                    // MySqlCommand cmd = new MySqlCommand("P_SaveZincWatchListJob", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     jobId = Convert.ToInt32(cmd.ExecuteScalar());
+                    
                     // status = true;
                     conn.Close();
-
+                      Thread updatejobId = new Thread(() => updateJobId(ListViewModel,jobId));
+                      updatejobId.Start();
+                    return jobId;
                 }
+                //foreach (var item in ListViewModel)
+                //{
+                //    using (MySqlConnection conn = new MySqlConnection(connStr))
+                //    {
+                //        conn.Open();
+                //        MySqlCommand cmd = new MySqlCommand("P_SaveSkuInZincWatchListV1", conn);
+                //   //     MySqlCommand cmd = new MySqlCommand("P_SaveSkuInZincWatchList", conn);
+                //        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                //        cmd.Parameters.AddWithValue("_JobId", jobId);
+                //        cmd.Parameters.AddWithValue("_Sku", item.SKU);
+                //        cmd.ExecuteNonQuery();
+                //        // status = true;
+                //        conn.Close();
+
+                //    }
+                //}
+                //using (MySqlConnection conn = new MySqlConnection(connStr))
+                //{
+                //    conn.Open();
+                //    MySqlCommand cmd = new MySqlCommand("P_UpdateWatchListSummeryAsinCountV1", conn);
+                //  //  MySqlCommand cmd = new MySqlCommand("P_UpdateWatchListSummeryAsinCount", conn);
+                //    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                //    cmd.Parameters.AddWithValue("_JobId", jobId);
+                //    cmd.ExecuteNonQuery();
+                //    // status = true;
+                //    conn.Close();
+
+                //}
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+           // return jobId;
+        }
+         public void updateJobId(List<GetStatusFromZincViewModel> ListViewModel,int jobId)
+        {
+            try
+            {
                 foreach (var item in ListViewModel)
                 {
                     using (MySqlConnection conn = new MySqlConnection(connStr))
                     {
                         conn.Open();
                         MySqlCommand cmd = new MySqlCommand("P_SaveSkuInZincWatchListV1", conn);
-                   //     MySqlCommand cmd = new MySqlCommand("P_SaveSkuInZincWatchList", conn);
+                        //     MySqlCommand cmd = new MySqlCommand("P_SaveSkuInZincWatchList", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("_JobId", jobId);
                         cmd.Parameters.AddWithValue("_Sku", item.SKU);
@@ -1517,7 +1560,7 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("P_UpdateWatchListSummeryAsinCountV1", conn);
-                  //  MySqlCommand cmd = new MySqlCommand("P_UpdateWatchListSummeryAsinCount", conn);
+                    //  MySqlCommand cmd = new MySqlCommand("P_UpdateWatchListSummeryAsinCount", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_JobId", jobId);
                     cmd.ExecuteNonQuery();
@@ -1529,10 +1572,9 @@ namespace DataAccess.DataAccess
             catch (Exception ex)
             {
 
+                throw ex;
             }
-            return jobId;
         }
-
         public int GetStausFromZincNew(List<GetStatusFromZincViewModel> ListViewModel)
         {
             bool status = false;
