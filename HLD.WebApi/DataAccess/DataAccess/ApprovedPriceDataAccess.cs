@@ -183,7 +183,59 @@ namespace DataAccess.DataAccess
             }
             return list;
         }
+        public List<ApprovedPriceForInventoryViewModel> GetApprovedPricesListForInvenotry(int VendorId, int Limit, int Offset, string SKU, string Title, string skuList)
+        {
+            List<ApprovedPriceForInventoryViewModel> list = new List<ApprovedPriceForInventoryViewModel>();
+            if (SKU == null)
+                SKU = "";
+            if (Title == null)
+                Title = "";
+            if (string.IsNullOrEmpty(skuList) || skuList == "undefined")
+                skuList = "Nill";
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_GetApprovedPricesCopy", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_VendorId", VendorId);
+                    cmd.Parameters.AddWithValue("_Limit", Limit);
+                    cmd.Parameters.AddWithValue("_OffSet", Offset);
+                    cmd.Parameters.AddWithValue("_SKU", SKU);
+                    cmd.Parameters.AddWithValue("_Title", Title);
+                    cmd.Parameters.AddWithValue("skuList", skuList);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                ApprovedPriceForInventoryViewModel viewModel = new ApprovedPriceForInventoryViewModel
+                                {
+                                    idApprovedPrice = (int)reader["idApprovedPrice"],                           
+                                    VendorId = (int)reader["VendorId"],
+                                    VendorAlias = (string)reader["VendorAlias"],
+                                    ApprovedUnitPrice = (decimal)reader["ApprovedUnitPrice"],
+                                    USD = (decimal)reader["USD"],
+                                    CAD = (decimal)reader["CAD"],
+                                    YEN = (decimal)reader["CNY"],
+                                    Currency = reader["Currency"] != DBNull.Value ? (string)reader["Currency"] : "",
+                                
+                                };                              
+                                list.Add(viewModel);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
 
+            }
+            return list;
+        }
         public List<ApprovedPriceViewModel> GetApprovedPricesLog(int VendorId, string SKU)
         {
             List<ApprovedPriceViewModel> list = new List<ApprovedPriceViewModel>();

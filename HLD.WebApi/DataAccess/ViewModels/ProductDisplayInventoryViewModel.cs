@@ -34,6 +34,7 @@ namespace DataAccess.ViewModels
 
         public List<ProductWarehouseQtyViewModel> ProductrWarehouseQtyViewModel { get; set; }
         public List<SkuTagOrderViewModel> skuTags { get; set; }
+        public List<ApprovedPriceForInventoryViewModel> ApprovedPriceList { get; set; }
 
 
     }

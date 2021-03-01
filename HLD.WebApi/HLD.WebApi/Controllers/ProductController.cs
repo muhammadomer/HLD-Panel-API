@@ -1265,10 +1265,10 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/Product/SelectAllForGetStatusFromZinc")]
-        public IActionResult SelectAllForGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus)
+        public IActionResult SelectAllForGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice)
         {
             int count = 0;
-             count= DataAccess.SelectAllForGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus);
+             count= DataAccess.SelectAllForGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus, BBProductID, ASINS, ApprovedUnitPrice);
             return Ok(count); 
         }
 
@@ -1289,10 +1289,10 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/Product/SelectAllSKUandASINGetStatusFromZinc")]
-        public IActionResult SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus)
+        public IActionResult SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice)
         {
             List<GetStatusFromZincViewModel> _ViewModels = null;
-            _ViewModels = DataAccess.SelectAllSKUandASINGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus);
+            _ViewModels = DataAccess.SelectAllSKUandASINGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus,BBProductID, ASINS, ApprovedUnitPrice);
             if (_ViewModels == null)
             {
                 return Ok(new List<ConditionViewModel>());
