@@ -619,6 +619,7 @@ namespace DataAccess.DataAccess
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumy", conn);
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOne", conn);
                     MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV1", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV2", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("startLimit", startLimit);
                     cmd.Parameters.AddWithValue("endLimit", endLimit);
@@ -655,7 +656,7 @@ namespace DataAccess.DataAccess
                             ViewModel.AvgCost = Convert.ToString(reader["avg_cost"] != DBNull.Value ? reader["avg_cost"] : "0");
                             ViewModel.AggregatedQty = Convert.ToInt32(reader["AggregatedQty"] != DBNull.Value ? reader["AggregatedQty"] : 0);
 
-                            ViewModel.ColorName = Convert.ToString(reader["color_name"]);
+                            //ViewModel.ColorName = Convert.ToString(reader["color_name"]);
                             ViewModel.Continue = Convert.ToBoolean(reader["Continue"] != DBNull.Value ? reader["Continue"] : "false");
                             ViewModel.BBMSRP = Convert.ToDecimal(reader["unit_origin_price_MSRP"] != DBNull.Value ? reader["unit_origin_price_MSRP"] : "0");
                             ViewModel.BBSellingPrice = Convert.ToDecimal(reader["unit_discount_price_selling_price"] != DBNull.Value ? reader["unit_discount_price_selling_price"] : "0");

@@ -197,7 +197,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetApprovedPricesCopy", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_GetApprovedPricesCopy", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetApprovedPricesCopyV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_VendorId", VendorId);
                     cmd.Parameters.AddWithValue("_Limit", Limit);
@@ -205,7 +206,9 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_SKU", SKU);
                     cmd.Parameters.AddWithValue("_Title", Title);
                     cmd.Parameters.AddWithValue("skuList", skuList);
-                    using (var reader = cmd.ExecuteReader())
+                    using (
+                        
+                        var reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)
                         {
@@ -213,7 +216,8 @@ namespace DataAccess.DataAccess
                             {
                                 ApprovedPriceForInventoryViewModel viewModel = new ApprovedPriceForInventoryViewModel
                                 {
-                                    idApprovedPrice = (int)reader["idApprovedPrice"],                           
+                                    idApprovedPrice = (int)reader["idApprovedPrice"],
+                                    SKU = (string)reader["SKU"],
                                     VendorId = (int)reader["VendorId"],
                                     VendorAlias = (string)reader["VendorAlias"],
                                     ApprovedUnitPrice = (decimal)reader["ApprovedUnitPrice"],
