@@ -157,14 +157,32 @@ namespace HLD.WebApi.Controllers
             }
 
         }
+        [HttpGet]
+        [Authorize]
+        [Route("api/Product/GetApprovedPrice/{sku}")]
+        public List<ApprovedPriceForInventoryPageViewModel> GetApprovedPrice(string sku)
+        {
+            List<ApprovedPriceForInventoryPageViewModel> viewlList = new List<ApprovedPriceForInventoryPageViewModel>();
+            try
+            {
+                viewlList = DataAccess.GetApprovedPrice(sku);
+                return viewlList;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
 
         [HttpGet]
         [Authorize]
-        [Route("api/Product/{startLimit}/{endLimit}/{sort}/{dropship}/{dropshipsearch}/{sku}/{asin}/{Producttitle}/{DSTag}/{TypeSearch}/{WHQStatus}/{BBProductID}/{ASINS}/{ApprovedUnitPrice}")]
-        public IActionResult Get(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DSTag, string TypeSearch,string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice)
+        [Route("api/Product/{startLimit}/{endLimit}/{sort}/{dropship}/{dropshipsearch}/{sku}/{asin}/{Producttitle}/{DSTag}/{TypeSearch}/{WHQStatus}/{BBProductID}/{ASINS}/{ApprovedUnitPrice}/{ASINListingRemoved}")]
+        public IActionResult Get(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DSTag, string TypeSearch,string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice,string ASINListingRemoved)
         {
             List<ProductDisplayInventoryViewModel> _ViewModels = null;
-            _ViewModels = DataAccess.GetAllProducts(startLimit, endLimit, sort, dropshipsearch, dropship, sku, asin, Producttitle, DSTag, TypeSearch,WHQStatus, BBProductID,ASINS, ApprovedUnitPrice);
+            _ViewModels = DataAccess.GetAllProducts(startLimit, endLimit, sort, dropshipsearch, dropship, sku, asin, Producttitle, DSTag, TypeSearch,WHQStatus, BBProductID,ASINS, ApprovedUnitPrice, ASINListingRemoved);
             if (_ViewModels == null)
             {
                 return Ok(new List<ConditionViewModel>());
@@ -213,7 +231,7 @@ namespace HLD.WebApi.Controllers
         [Route("api/Product/TotalCountProductIn_inventory")]
         public IActionResult GetTotalCount([FromBody] ProductInventorySearchViewModel viewModel)
         {
-            return Ok(DataAccess.GetAllProductsCount(viewModel.dropshipstatus, viewModel.dropshipstatusSearch, viewModel.Sku, viewModel.SearchFromSkuList, viewModel.asin, viewModel.Producttitle, viewModel.DSTag, viewModel.TypeSearch,viewModel.WHQStatus,viewModel.BBProductID,viewModel.ASINS,viewModel.ApprovedUnitPrice));
+            return Ok(DataAccess.GetAllProductsCount(viewModel.dropshipstatus, viewModel.dropshipstatusSearch, viewModel.Sku, viewModel.SearchFromSkuList, viewModel.asin, viewModel.Producttitle, viewModel.DSTag, viewModel.TypeSearch,viewModel.WHQStatus,viewModel.BBProductID,viewModel.ASINS,viewModel.ApprovedUnitPrice,viewModel.ASINListingRemoved));
         }
 
         [HttpGet]

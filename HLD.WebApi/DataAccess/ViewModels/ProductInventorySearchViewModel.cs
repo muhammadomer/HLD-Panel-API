@@ -20,5 +20,6 @@ namespace DataAccess.ViewModels
         public string BBProductID { get; set; }
         public string ASINS { get; set; }
         public string ApprovedUnitPrice { get; set; }
+        public string ASINListingRemoved { get; set; }
     }
 }

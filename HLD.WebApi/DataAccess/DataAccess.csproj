@@ -254,6 +254,7 @@
     <Compile Include="ViewModels\AddStyleViewModel.cs" />
     <Compile Include="ViewModels\AdjustPhysicalInventoryVM.cs" />
     <Compile Include="ViewModels\AliasViewModel.cs" />
+    <Compile Include="ViewModels\ApprovedPriceForInventoryPageViewModel.cs" />
     <Compile Include="ViewModels\ApprovedPriceForInventoryViewModel.cs" />
     <Compile Include="ViewModels\ApprovedPriceViewModel.cs" />
     <Compile Include="ViewModels\ASINActiveStatusViewModel.cs" />
