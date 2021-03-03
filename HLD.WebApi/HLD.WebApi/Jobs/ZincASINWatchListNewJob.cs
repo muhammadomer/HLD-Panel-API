@@ -116,6 +116,7 @@ namespace HLD.WebApi.Jobs
                         zincProductSaveViewModel.delivery_days_max = 0;
                         zincProductSaveViewModel.delivery_days_min = 0;
                         zincProductSaveViewModel.item_condition = "";
+                        zincProductSaveViewModel.IsListingRemove=true;
                         zincProductSaveViewModel.MessageWatchlist = ASIN_List.ASIN + " has been Listing removed on " + DateTime.Now + " by watchlist";
                         zincDataAccess.UpdateZincProductASINDetailWatchList(zincProductSaveViewModel);
                         zincWatchListSummary.Unavailable += 1;

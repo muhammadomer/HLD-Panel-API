@@ -252,7 +252,8 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
                     //MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyProductZincASIN", conn);
-                    MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyProductZincASINCopy", conn);
+                  //  MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyProductZincASINCopy", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyProductZincASINCopyV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_z_asin_ca", ViewModel.ASIN);
                     cmd.Parameters.AddWithValue("_available_quantity", 0);
@@ -273,6 +274,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_percent_poistive_feedback", ViewModel.percent_positive);
                     cmd.Parameters.AddWithValue("_updateDate", DateTime.Now);
                     cmd.Parameters.AddWithValue("_bb_product_zinc_id", ViewModel.bb_product_zinc_id);
+                    cmd.Parameters.AddWithValue("_Remark", ViewModel.Remark);
 
                     cmd.ExecuteNonQuery();
                     status = true;
@@ -293,7 +295,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyProductZincASIN", conn);
+                  //  MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyProductZincASIN", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateBestBuyProductZincASINV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_z_asin_ca", ViewModel.ASIN);
                     cmd.Parameters.AddWithValue("_available_quantity", 0);
@@ -313,6 +316,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_deleivery_days_max", ViewModel.delivery_days_max);
                     cmd.Parameters.AddWithValue("_condition", ViewModel.item_condition);
                     cmd.Parameters.AddWithValue("_percent_poistive_feedback", ViewModel.percent_positive);
+                        cmd.Parameters.AddWithValue("_IsListingRemoved", ViewModel.IsListingRemove);
                     cmd.Parameters.AddWithValue("_MessageWatchlist", ViewModel.MessageWatchlist);
                     cmd.Parameters.AddWithValue("_updateDate", DateTime.Now);
                     cmd.ExecuteNonQuery();
