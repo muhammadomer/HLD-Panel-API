@@ -45,16 +45,16 @@ namespace HLD.WebApi.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            int status = channelDecrytionDataAccess.CheckZincJobsStatus("ReadExcelFile");
-            if (status == 1)
-            {
-                logger.LogInformation("ReadExcelFile Job Started At =>" + DateTime.Now.ToString());
-                Downloadfile("Predict US ASIN FNSKU.xlsx");
-                Downloadfile("Predict CA ASIN FNSKU.xlsx");
-                logger.LogInformation("ReadExcelFile Job Stopped At =>" + DateTime.Now.ToString());
-            }
+            //int status = channelDecrytionDataAccess.CheckZincJobsStatus("ReadExcelFile");
+            //if (status == 1)
+            //{
+            //    logger.LogInformation("ReadExcelFile Job Started At =>" + DateTime.Now.ToString());
+            //    Downloadfile("Predict US ASIN FNSKU.xlsx");
+            //    Downloadfile("Predict CA ASIN FNSKU.xlsx");
+            //    logger.LogInformation("ReadExcelFile Job Stopped At =>" + DateTime.Now.ToString());
+            //}
 
-            await Task.CompletedTask;
+            //await Task.CompletedTask;
         }
 
 

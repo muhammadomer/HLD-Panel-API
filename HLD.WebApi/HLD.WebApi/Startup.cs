@@ -99,34 +99,34 @@ namespace HLD.WebApi
             //services.UseQuartz(typeof(ProductWarehouseQtyJob));
             #region Uncomment Before Publish
 
-            ////order
-            //services.UseQuartz(typeof(ReadExcelFile));
-            //services.UseQuartz(typeof(WarehouseProductQtyJob));
-            //services.UseQuartz(typeof(GetProductCatalogDetail));
-            ////  update dashboard data
-            //services.UseQuartz(typeof(InsertOrderSKU_ProfitHistory));
-            ////  update Local sellercloud order status and payment status
-            //services.UseQuartz(typeof(UpdateSCOrderStatusNewJob));
-            //services.UseQuartz(typeof(UpdateQueuedJobLinkStatus));
-            ////  to get sku qty for dropship none sku.from seller cloud
-            //services.UseQuartz(typeof(BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job));
-            ////  to update qty on bestbuy
-            //services.UseQuartz(typeof(BestBuyQuantityUpdateJob)); //never comment
+            //order
+            services.UseQuartz(typeof(ReadExcelFile));
+            services.UseQuartz(typeof(WarehouseProductQtyJob));
+            services.UseQuartz(typeof(GetProductCatalogDetail));
+            //  update dashboard data
+            services.UseQuartz(typeof(InsertOrderSKU_ProfitHistory));
+            //  update Local sellercloud order status and payment status
+            services.UseQuartz(typeof(UpdateSCOrderStatusNewJob));
+            services.UseQuartz(typeof(UpdateQueuedJobLinkStatus));
+            //  to get sku qty for dropship none sku.from seller cloud
+            services.UseQuartz(typeof(BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job));
+            //  to update qty on bestbuy
+            services.UseQuartz(typeof(BestBuyQuantityUpdateJob)); //never comment
 
-            //services.UseQuartz(typeof(UpdateOrdersFromBestBuyJob));
-            //services.UseQuartz(typeof(GetOrdersFromBestBuyJob));
-            ////  tracking
+            services.UseQuartz(typeof(UpdateOrdersFromBestBuyJob));
+            services.UseQuartz(typeof(GetOrdersFromBestBuyJob));
+            //  tracking
 
-            //services.UseQuartz(typeof(BestBuyTrackingExportJob));
-            //services.UseQuartz(typeof(S3FileReadingJob));
-            //services.UseQuartz(typeof(GetSellerOrderNotes));
+            services.UseQuartz(typeof(BestBuyTrackingExportJob));
+            services.UseQuartz(typeof(S3FileReadingJob));
+            services.UseQuartz(typeof(GetSellerOrderNotes));
 
             services.UseQuartz(typeof(ShipmentHistoryReportJob));
-            //services.UseQuartz(typeof(ZincASINWatchListNewJob));
+            services.UseQuartz(typeof(ZincASINWatchListNewJob));
 
-            //services.UseQuartz(typeof(UpdateOrdersFromBestBuyNewJob));
-            //services.UseQuartz(typeof(GetOrdersFromBestBuyNewJob));
-            //services.UseQuartz(typeof(CreateOrderInSellerCloudNewJob));
+            services.UseQuartz(typeof(UpdateOrdersFromBestBuyNewJob));
+            services.UseQuartz(typeof(GetOrdersFromBestBuyNewJob));
+            services.UseQuartz(typeof(CreateOrderInSellerCloudNewJob));
 
 
             #endregion
@@ -166,27 +166,27 @@ namespace HLD.WebApi
             var schedulerr = app.ApplicationServices.GetService<IScheduler>();
             //QuartzServicesUtilities.StartJob<ProductWarehouseQtyJob>(schedulerr, "");
             #region Un comment before Publish
-            //QuartzServicesUtilities.StartJob<ReadExcelFile>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<WarehouseProductQtyJob>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<GetProductCatalogDetail>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<InsertOrderSKU_ProfitHistory>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<UpdateSCOrderStatusNewJob>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<UpdateQueuedJobLinkStatus>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<UpdateOrdersFromBestBuyJob>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<BestBuyQuantityUpdateJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<ReadExcelFile>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<WarehouseProductQtyJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<GetProductCatalogDetail>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<InsertOrderSKU_ProfitHistory>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<UpdateSCOrderStatusNewJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<UpdateQueuedJobLinkStatus>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<UpdateOrdersFromBestBuyJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<BestBuyQuantityUpdateJob>(schedulerr, "");
 
-            //QuartzServicesUtilities.StartJob<BestBuyTrackingExportJob>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<S3FileReadingJob>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<GetSellerOrderNotes>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<BestBuyTrackingExportJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<S3FileReadingJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<GetSellerOrderNotes>(schedulerr, "");
             QuartzServicesUtilities.StartJob<ShipmentHistoryReportJob>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<GetOrdersFromBestBuyNewJob>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<UpdateOrdersFromBestBuyNewJob>(schedulerr, "");
-            //QuartzServicesUtilities.StartJob<CreateOrderInSellerCloud>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<GetOrdersFromBestBuyNewJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<UpdateOrdersFromBestBuyNewJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<CreateOrderInSellerCloud>(schedulerr, "");
 
-            //QuartzServicesUtilities.StartJob<ZincASINWatchListNewJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<ZincASINWatchListNewJob>(schedulerr, "");
 
-            //QuartzServicesUtilities.StartJob<CreateOrderInSellerCloudNewJob>(schedulerr, "");
+            QuartzServicesUtilities.StartJob<CreateOrderInSellerCloudNewJob>(schedulerr, "");
 
 
             #endregion
