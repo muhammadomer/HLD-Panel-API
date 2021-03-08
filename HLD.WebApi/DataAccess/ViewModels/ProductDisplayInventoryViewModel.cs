@@ -32,6 +32,7 @@ namespace DataAccess.ViewModels
         public int BBProductID { get; set; }
         public decimal ApprovedUnitPrice { get; set; }
         public bool Remark { get; set; }
+        public DateTime? BBPriceUpdate { get; set; }
         public List<ProductWarehouseQtyViewModel> ProductrWarehouseQtyViewModel { get; set; }
         public List<SkuTagOrderViewModel> skuTags { get; set; }
         public List<ApprovedPriceForInventoryViewModel> ApprovedPriceList { get; set; }

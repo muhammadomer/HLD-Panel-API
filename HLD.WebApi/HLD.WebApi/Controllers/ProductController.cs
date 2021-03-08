@@ -178,11 +178,11 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("api/Product/{startLimit}/{endLimit}/{sort}/{dropship}/{dropshipsearch}/{sku}/{asin}/{Producttitle}/{DSTag}/{TypeSearch}/{WHQStatus}/{BBProductID}/{ASINS}/{ApprovedUnitPrice}/{ASINListingRemoved}")]
-        public IActionResult Get(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DSTag, string TypeSearch,string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice,string ASINListingRemoved)
+        [Route("api/Product/{startLimit}/{endLimit}/{sort}/{dropship}/{dropshipsearch}/{sku}/{asin}/{Producttitle}/{DSTag}/{TypeSearch}/{WHQStatus}/{BBProductID}/{ASINS}/{ApprovedUnitPrice}/{ASINListingRemoved}/{BBPriceUpdate}")]
+        public IActionResult Get(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DSTag, string TypeSearch,string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate)
         {
             List<ProductDisplayInventoryViewModel> _ViewModels = null;
-            _ViewModels = DataAccess.GetAllProducts(startLimit, endLimit, sort, dropshipsearch, dropship, sku, asin, Producttitle, DSTag, TypeSearch,WHQStatus, BBProductID,ASINS, ApprovedUnitPrice, ASINListingRemoved);
+            _ViewModels = DataAccess.GetAllProducts(startLimit, endLimit, sort, dropshipsearch, dropship, sku, asin, Producttitle, DSTag, TypeSearch,WHQStatus, BBProductID,ASINS, ApprovedUnitPrice, ASINListingRemoved, BBPriceUpdate);
             if (_ViewModels == null)
             {
                 return Ok(new List<ConditionViewModel>());
@@ -231,7 +231,7 @@ namespace HLD.WebApi.Controllers
         [Route("api/Product/TotalCountProductIn_inventory")]
         public IActionResult GetTotalCount([FromBody] ProductInventorySearchViewModel viewModel)
         {
-            return Ok(DataAccess.GetAllProductsCount(viewModel.dropshipstatus, viewModel.dropshipstatusSearch, viewModel.Sku, viewModel.SearchFromSkuList, viewModel.asin, viewModel.Producttitle, viewModel.DSTag, viewModel.TypeSearch,viewModel.WHQStatus,viewModel.BBProductID,viewModel.ASINS,viewModel.ApprovedUnitPrice,viewModel.ASINListingRemoved));
+            return Ok(DataAccess.GetAllProductsCount(viewModel.dropshipstatus, viewModel.dropshipstatusSearch, viewModel.Sku, viewModel.SearchFromSkuList, viewModel.asin, viewModel.Producttitle, viewModel.DSTag, viewModel.TypeSearch,viewModel.WHQStatus,viewModel.BBProductID,viewModel.ASINS,viewModel.ApprovedUnitPrice,viewModel.ASINListingRemoved,viewModel.BBPriceUpdate));
         }
 
         [HttpGet]
@@ -1266,11 +1266,11 @@ namespace HLD.WebApi.Controllers
         }
         [HttpGet]
         [Authorize]
-        [Route("api/Product/{dropship}/{dropshipsearch}/{sku}/{DSTag}/{TypeSearch}/{WHQStatus}/{BBProductID}/{ASINS}/{ApprovedUnitPrice}/{ASINListingRemoved}")]
-        public IActionResult GetAllProductsForExportWithLimitCount(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved)
+        [Route("api/Product/{dropship}/{dropshipsearch}/{sku}/{DSTag}/{TypeSearch}/{WHQStatus}/{BBProductID}/{ASINS}/{ApprovedUnitPrice}/{ASINListingRemoved}/{BBPriceUpdate}")]
+        public IActionResult GetAllProductsForExportWithLimitCount(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate)
         {
             List<ExportProductDataViewModel> _ViewModels = null;
-            _ViewModels = DataAccess.GetAllProductsForExportWithLimitCount( dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus, BBProductID, ASINS, ApprovedUnitPrice, ASINListingRemoved);
+            _ViewModels = DataAccess.GetAllProductsForExportWithLimitCount( dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus, BBProductID, ASINS, ApprovedUnitPrice, ASINListingRemoved, BBPriceUpdate);
             if (_ViewModels == null)
             {
                 return Ok(new List<ConditionViewModel>());
@@ -1283,10 +1283,10 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/Product/SelectAllForGetStatusFromZinc")]
-        public IActionResult SelectAllForGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved)
+        public IActionResult SelectAllForGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate)
         {
             int count = 0;
-             count= DataAccess.SelectAllForGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus, BBProductID, ASINS, ApprovedUnitPrice,ASINListingRemoved);
+             count= DataAccess.SelectAllForGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus, BBProductID, ASINS, ApprovedUnitPrice,ASINListingRemoved, BBPriceUpdate);
             return Ok(count); 
         }
 
@@ -1307,10 +1307,10 @@ namespace HLD.WebApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/Product/SelectAllSKUandASINGetStatusFromZinc")]
-        public IActionResult SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved)
+        public IActionResult SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DSTag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate)
         {
             List<GetStatusFromZincViewModel> _ViewModels = null;
-            _ViewModels = DataAccess.SelectAllSKUandASINGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus,BBProductID, ASINS, ApprovedUnitPrice, ASINListingRemoved);
+            _ViewModels = DataAccess.SelectAllSKUandASINGetStatusFromZinc(dropship, dropshipsearch, sku, DSTag, TypeSearch, WHQStatus,BBProductID, ASINS, ApprovedUnitPrice, ASINListingRemoved, BBPriceUpdate);
             if (_ViewModels == null)
             {
                 return Ok(new List<ConditionViewModel>());
