@@ -112,7 +112,7 @@ namespace HLD.WebApi
             //services.UseQuartz(typeof(BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job));
             //  to update qty on bestbuy
             services.UseQuartz(typeof(BestBuyQuantityUpdateJob)); //never comment
-
+            // services.UseQuartz(typeof(UpdateLimitedRecordOnBestBuy));
             //services.UseQuartz(typeof(UpdateOrdersFromBestBuyJob));
             //services.UseQuartz(typeof(GetOrdersFromBestBuyJob));
             ////  tracking
@@ -175,7 +175,7 @@ namespace HLD.WebApi
             //QuartzServicesUtilities.StartJob<UpdateOrdersFromBestBuyJob>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<BestBuyDropshipNoneWarehouseQtyFromSC_insert_Job>(schedulerr, "");
               QuartzServicesUtilities.StartJob<BestBuyQuantityUpdateJob>(schedulerr, "");
-
+            //QuartzServicesUtilities.StartJob<UpdateLimitedRecordOnBestBuy>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<BestBuyTrackingExportJob>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<S3FileReadingJob>(schedulerr, "");
             //QuartzServicesUtilities.StartJob<GetSellerOrderNotes>(schedulerr, "");

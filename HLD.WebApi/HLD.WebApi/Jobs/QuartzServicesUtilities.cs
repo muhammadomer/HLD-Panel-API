@@ -132,7 +132,7 @@ namespace HLD.WebApi.Jobs
 
             }
 
-            if (jobName == "HLD.WebApi.Jobs.GetSellerOrderNotes")
+            if (jobName == "HLD.WebApi.Jobs.GetSellerOrderNotes" || jobName == "HLD.WebApi.Jobs.UpdateLimitedRecordOnBestBuy")
             {
                 var trigger = TriggerBuilder.Create()
              .ForJob(job)

@@ -503,7 +503,8 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
                     //MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopyPrime", conn);//my comment adeel
-                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopyPrimeOne", conn);
+                    //MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopyPrimeOne", conn);
+                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopyPrimeOne1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_ASIN", searchViewModel.ASIN);
                     cmd.Parameters.AddWithValue("_JobID", searchViewModel.JobID);
@@ -1630,6 +1631,96 @@ namespace DataAccess.DataAccess
             {
             }
             return ViewModel;
+        }
+        public int GetNotCompletedTimeJobId()
+        {
+            int jobID = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetNotCompletedTimeJobId", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    jobID = Convert.ToInt32(cmd.ExecuteScalar());
+                    // cmd.ExecuteNonQuery();
+                    // jobID = Convert.ToInt32(cmd.Parameters["JobId"].Value != DBNull.Value ? cmd.Parameters["JobId"].Value : 0);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return jobID;
+        }
+        public List<BestBuyUpdatePriceJobViewModel> GetNotCompletedTimeJobData(int JobId)
+        {
+
+            List<BestBuyUpdatePriceJobViewModel> listViewModel = new List<BestBuyUpdatePriceJobViewModel>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetNotCompletedTimeJobData", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_JobId", JobId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                BestBuyUpdatePriceJobViewModel ViewModel = new BestBuyUpdatePriceJobViewModel();
+                                ViewModel.SKU = Convert.ToString(reader["SKU"] != DBNull.Value ? reader["SKU"] : "");
+                                ViewModel.ASIN = Convert.ToString(reader["ASIN"] != DBNull.Value ? reader["ASIN"] : "");
+                                ViewModel.ProductId = Convert.ToInt32(reader["ProductId"] != DBNull.Value ? reader["ProductId"] : "");
+                                ViewModel.MSRP = Convert.ToDecimal(reader["MSRP"] != DBNull.Value ? reader["MSRP"] : 0);
+                                ViewModel.UpdateSelllingPrice = Convert.ToDecimal(reader["UpdateSelllingPrice"] != DBNull.Value ? reader["UpdateSelllingPrice"] : 0);
+
+                                ViewModel.ZincJobID = Convert.ToInt32(reader["ZincJobId"] != DBNull.Value ? reader["ZincJobId"] : 0);
+                                listViewModel.Add(ViewModel);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return listViewModel;
+
+        }
+        public int GetNotCompletedTimeJobCount(int JobId)
+        {
+            int count = 0;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("P_GetNotCompletedTimeJobCount", conn);
+                    cmd.Parameters.AddWithValue("_JobId", JobId);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+
+                            while (reader.Read())
+                            {
+                                count = Convert.ToInt32(reader["updatedRecord"] != DBNull.Value ? reader["updatedRecord"] : 0);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return count;
         }
     }
 }
