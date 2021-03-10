@@ -30,7 +30,7 @@ namespace DataAccess.DataAccess
                     MySqlCommand cmd = new MySqlCommand("p_SaveEmployeeRecord", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_Id", employeeViewModel.Id);
-                    cmd.Parameters.AddWithValue("_EployeeId", employeeViewModel.EmployeeId);
+                    cmd.Parameters.AddWithValue("_EmployeeId", employeeViewModel.EmployeeId);
                     cmd.Parameters.AddWithValue("_EmployeeRole", employeeViewModel.EmployeeRole);
                     cmd.Parameters.AddWithValue("_Active", employeeViewModel.Active);
                     cmd.Parameters.AddWithValue("_CreatedOn", employeeViewModel.CreatedOn);
