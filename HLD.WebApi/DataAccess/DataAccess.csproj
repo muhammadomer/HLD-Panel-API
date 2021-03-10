@@ -197,6 +197,8 @@
     <Compile Include="DataAccess\CreditCardDetailDataAccess.cs" />
     <Compile Include="DataAccess\CurrencyExchangeDataAccess.cs" />
     <Compile Include="DataAccess\DropShipEnableDisableLogDataAccess.cs" />
+    <Compile Include="DataAccess\EmployeeDataAccess.cs" />
+    <Compile Include="DataAccess\EmployeeRoleDataAccess.cs" />
     <Compile Include="DataAccess\ExportSkuImgUrlDataAccess.cs" />
     <Compile Include="DataAccess\FileUploadDataAccess.cs" />
     <Compile Include="DataAccess\HelpDataAccess.cs" />
@@ -315,6 +317,8 @@
     <Compile Include="ViewModels\EditManufactureListModelView.cs" />
     <Compile Include="ViewModels\EditParentViewModel.cs" />
     <Compile Include="ViewModels\EmailJobDetailViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeRoleViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\Expected_Delivery_Shipped_POViewModel.cs" />
     <Compile Include="ViewModels\ExportProductDataViewModel.cs" />
     <Compile Include="ViewModels\ExportSkuImgUrlViewModel.cs" />
