@@ -24,12 +24,12 @@ namespace HLD.WebApi.Controllers
 
         [HttpGet]
         [Route("api/PredictionSummaryCount")]
-        public IActionResult PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, bool Excluded, bool KitShadowStatus, bool Continue,  int Type = 0)  // get list of job summary
+        public IActionResult PredictionSummaryCount(int VendorId, string SKU, string Title, bool Approved, bool Excluded, bool KitShadowStatus, bool Continue, string SearchFromSkuListPredict, int Type = 0 )  // get list of job summary
         {
             int count = 0;
             try
             {
-                count = _predictionDataAccess.PredictionSummaryCount(VendorId, SKU, Title, Approved, Excluded, KitShadowStatus, Continue,  Type);
+                count = _predictionDataAccess.PredictionSummaryCount(VendorId, SKU, Title, Approved, Excluded, KitShadowStatus, Continue, SearchFromSkuListPredict, Type);
                 return Ok(count);
             }
             catch (Exception)
@@ -70,6 +70,22 @@ namespace HLD.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("api/PredictionHistroy/GetPredictionDetailCopy")]
+        public IActionResult GetCopyForMultipleskulist(int startLimit, int offset, string SearchFromSkuListPredict)
+        {
+            List<PredictionHistroyViewModel> _ViewModels = new List<PredictionHistroyViewModel>();
+            try
+            {
+                _ViewModels = _predictionDataAccess.GetAllPredictionCopy(startLimit, offset, SearchFromSkuListPredict);
+                return Ok(_ViewModels);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         [HttpGet]
         [Route("api/PredictionHistroy")]
         public IActionResult Get(int startLimit, int offset, int VendorId, string SKU, string Title, bool Approved, bool Excluded,bool KitShadowStatus, bool Continue, string Sort, string SortedType, int Type = 0)
@@ -77,7 +93,7 @@ namespace HLD.WebApi.Controllers
             List<PredictionHistroyViewModel> _ViewModels = new List<PredictionHistroyViewModel>();
             try
             {
-                _ViewModels = _predictionDataAccess.GetAllPrediction(startLimit, offset, VendorId, SKU, Title, Approved, Excluded, KitShadowStatus, Continue, Sort, SortedType, Type);
+                _ViewModels = _predictionDataAccess.GetAllPrediction(startLimit, offset, VendorId, SKU, Title, Approved, Excluded, KitShadowStatus, Continue, Sort,SortedType,Type);
                 return Ok(_ViewModels);
             }
             catch (Exception)
