@@ -15,7 +15,7 @@ namespace DataAccess.DataAccess
         public string connStr { get; set; }
         public BestBuyTrackingExportDataAccess(IConnectionString connectionString)
         {
-            connStr = connectionString.GetPhpConnectionString();
+            connStr = connectionString.GetConnectionString();
         }
 
         public List<UpdateTrackingBestbuyViewModel> GetDataUpdateTracking()

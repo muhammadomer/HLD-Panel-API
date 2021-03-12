@@ -245,7 +245,7 @@ namespace HLD.WebApi.Jobs
                     EnableSsl = true,
                     Credentials = credentials
                 };
-              //  client.Send(mail);
+                client.Send(mail);
                 //return "Email Sent Successfully!";
 
             }

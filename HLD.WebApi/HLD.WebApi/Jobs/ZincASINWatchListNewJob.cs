@@ -192,6 +192,7 @@ namespace HLD.WebApi.Jobs
                             zincWathchlistDataAccess.SaveWatchlistLogsNew(zincWatchListlogs);
                             // update in zinc Product table
                             zincProductSaveViewModel.MessageWatchlist = ASIN_List.ASIN + " is Available on " + DateTime.Now + " by watchlist";
+                            zincProductSaveViewModel.IsListingRemove = false;
                             zincDataAccess.UpdateZincProductASINDetailWatchList(zincProductSaveViewModel);
                             // dropship enable disable
                             DropShipQtyViewModal.dropship_status = true;
@@ -251,6 +252,7 @@ namespace HLD.WebApi.Jobs
                             zincProductSaveViewModel.delivery_days_max = 0;
                             zincProductSaveViewModel.delivery_days_min = 0;
                             zincProductSaveViewModel.item_condition = "";
+                            zincProductSaveViewModel.IsListingRemove = false;
                             zincProductSaveViewModel.MessageWatchlist = ASIN_List.ASIN + " is unavailable on " + DateTime.Now + " by watchlist";
                             zincDataAccess.UpdateZincProductASINDetailWatchList(zincProductSaveViewModel);
 
@@ -315,6 +317,7 @@ namespace HLD.WebApi.Jobs
                         zincProductSaveViewModel.item_prime_badge = false;
                         zincProductSaveViewModel.delivery_days_max = 0;
                         zincProductSaveViewModel.delivery_days_min = 0;
+                        zincProductSaveViewModel.IsListingRemove = false;
                         zincProductSaveViewModel.item_condition = "";
                         zincProductSaveViewModel.MessageWatchlist = ASIN_List.ASIN + " is unavailable on " + DateTime.Now + " by watchlist";
                         zincDataAccess.UpdateZincProductASINDetailWatchList(zincProductSaveViewModel);

@@ -624,7 +624,7 @@ namespace DataAccess.DataAccess
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOne", conn);
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV1", conn);
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV2", conn);
-                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV3", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV4", conn);
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("startLimit", startLimit);

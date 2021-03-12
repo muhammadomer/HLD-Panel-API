@@ -1086,7 +1086,8 @@ namespace DataAccess.DataAccess
                     using (MySqlConnection conn = new MySqlConnection(connStr))
                     {
                         conn.Open();
-                        MySqlCommand cmd = new MySqlCommand("P_SaveBestBuyUpdatelogs", conn);
+                      //  MySqlCommand cmd = new MySqlCommand("P_SaveBestBuyUpdatelogs", conn);
+                        MySqlCommand cmd = new MySqlCommand("P_SaveBestBuyUpdatelogsV1", conn);
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("_JobId", jobId);
                         cmd.Parameters.AddWithValue("_Sku", ViewModel.SKU);

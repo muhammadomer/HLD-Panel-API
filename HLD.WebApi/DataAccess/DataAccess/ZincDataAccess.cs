@@ -316,7 +316,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_deleivery_days_max", ViewModel.delivery_days_max);
                     cmd.Parameters.AddWithValue("_condition", ViewModel.item_condition);
                     cmd.Parameters.AddWithValue("_percent_poistive_feedback", ViewModel.percent_positive);
-                        cmd.Parameters.AddWithValue("_IsListingRemoved", ViewModel.IsListingRemove);
+                    cmd.Parameters.AddWithValue("_IsListingRemoved", ViewModel.IsListingRemove);
                     cmd.Parameters.AddWithValue("_MessageWatchlist", ViewModel.MessageWatchlist);
                     cmd.Parameters.AddWithValue("_updateDate", DateTime.Now);
                     cmd.ExecuteNonQuery();
@@ -964,7 +964,7 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetAsinProductDetailDumy", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetAsinProductDetailDumyV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_ASIN", ASIN);
                     cmd.Parameters.AddWithValue("_Title", Title);

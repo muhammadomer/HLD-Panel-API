@@ -718,6 +718,8 @@ namespace HLD.WebApi.Controllers
                         zincWatchListlogs.FulfilledBY = greytext;
                         zincWatchListlogs.ZincResponse = "Available";
                         zincWatchListlogs.IsPrime = zincProductSaveViewModel.item_prime_badge == true ? 1 : 0;
+                       
+                        
                     }
                     else
                     {
@@ -822,6 +824,7 @@ namespace HLD.WebApi.Controllers
 
                     if (zincWatchListlogs.ZincResponse == "Available")
                     {
+                        zincProductSaveViewModel.IsListingRemove = false;
                         zincDataAccess.UpdateZincProductASINDetailWatchList(zincProductSaveViewModel);
                     }
                     else {
@@ -840,6 +843,13 @@ namespace HLD.WebApi.Controllers
                         zincProductSaveViewModel.delivery_days_min = 0;
                         zincProductSaveViewModel.item_condition = "";
                         zincProductSaveViewModel.MessageWatchlist = "";
+                        if (zincWatchListlogs.ZincResponse == "Listing Removed")
+                        {
+                            zincProductSaveViewModel.IsListingRemove = true;
+                        }
+                        else {
+                            zincProductSaveViewModel.IsListingRemove = false;
+                        }
                         zincDataAccess.UpdateZincProductASINDetailWatchList(zincProductSaveViewModel);
                     }
                 }

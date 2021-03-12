@@ -16,8 +16,8 @@ namespace DataAccess.DataAccess
         public BestBuyTrackingUpdateLogDataAccess(IConnectionString connectionString)
         {
 
-           connStr = connectionString.GetPhpConnectionString();
-            //  connStr = connectionString.GetConnectionString();
+          
+              connStr = connectionString.GetConnectionString();
 
         }
         public List<BestBuyTrackingUpdate> GetAllBestBuyUpdateLog()
