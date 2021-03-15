@@ -32,7 +32,7 @@ namespace HLD.WebApi.Controllers
             }
             else
             {
-                return Ok(new { Status = status });
+                return Ok(status);
             }
         }
 
@@ -88,6 +88,40 @@ namespace HLD.WebApi.Controllers
                 throw;
             }
 
+        }
+
+        [HttpPut]
+        //[Authorize]
+        [Route("api/Employee/UpdateEmployee")]
+        public IActionResult Put(EmployeeViewModel ViewModel)
+        {
+            bool status = false;
+            if (_employeeDataAccess.UpdateEmployeeById(ViewModel))
+            {
+                status = true;
+                return Ok(status);
+            }
+            else
+            {
+                return Ok(status);
+            }
+        }
+
+        [HttpPut]
+        //[Authorize]
+        [Route("api/Employee/UpdateEmpActiveStatusById")]
+        public IActionResult UpdateEmpActiveStatusById(EmployeeViewModel ViewModel)
+        {
+            bool status = false;
+            if (_employeeDataAccess.UpdateEmpActiveStatusById(ViewModel))
+            {
+                status = true;
+                return Ok(status);
+            }
+            else
+            {
+                return Ok(status);
+            }
         }
     }
 }

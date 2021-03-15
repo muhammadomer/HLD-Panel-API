@@ -32,7 +32,7 @@ namespace HLD.WebApi.Controllers
             }
             else
             {
-                return Ok(new { Status = status });
+                return Ok(status);
             }
         }
 
@@ -51,6 +51,41 @@ namespace HLD.WebApi.Controllers
             else
             {
                 return Ok(_ViewModels);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/EmployeeRole/GetEmployeeRoleByRollId/{id}")]
+        public IActionResult GetEmployeeById(int id)
+        {
+            EmployeeRoleViewModel ViewModel = new EmployeeRoleViewModel();
+            try
+            {
+                ViewModel = _employeeRoleDataAccess.GetEmployeeRollByRollId(id);
+                return Ok(ViewModel);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [HttpPut]
+        //[Authorize]
+        [Route("api/EmployeeRole/UpdateEmployeeRoleByRoleId")]
+        public IActionResult Put(EmployeeRoleViewModel ViewModel)
+        {
+            bool status = false;
+            if (_employeeRoleDataAccess.UpdateEmployeeRollByRollId(ViewModel))
+            {
+                status = true;
+                return Ok(status);
+            }
+            else
+            {
+                return Ok(status);
             }
         }
     }

@@ -159,5 +159,55 @@ namespace DataAccess.DataAccess
             }
 
         }
+
+        public bool UpdateEmployeeById(EmployeeViewModel model)
+
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateEmployeeById", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Id", model.Id);
+                    cmd.Parameters.AddWithValue("_EmployeeName", model.EmployeeName);
+                    cmd.Parameters.AddWithValue("_EmployeeRole", model.EmployeeRole);
+                    cmd.Parameters.AddWithValue("_Active", model.Active);
+                    cmd.Parameters.AddWithValue("_EmployeeId", model.EmployeeId);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
+
+        public bool UpdateEmpActiveStatusById(EmployeeViewModel model)
+        {
+            bool status = false;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("p_UpdateEmpActiveStatusById", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_Id", model.Id);
+                    //cmd.Parameters.AddWithValue("_EmployeeName", model.EmployeeName);
+                    //cmd.Parameters.AddWithValue("_EmployeeRole", model.EmployeeRole);
+                    cmd.Parameters.AddWithValue("_Active", model.Active);
+                    cmd.ExecuteNonQuery();
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return status;
+        }
     }
 }
