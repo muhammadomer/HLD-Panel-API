@@ -81,7 +81,8 @@ namespace DataAccess.DataAccess
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetSkuSalesHistoryFromOrders", conn);
+                   // MySqlCommand cmd = new MySqlCommand("p_GetSkuSalesHistoryFromOrders", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetSCSkuSalesHistoryFromOrders", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("productSKU", productSKU);
                     using (var reader = cmd.ExecuteReader())
@@ -92,17 +93,18 @@ namespace DataAccess.DataAccess
                             while (reader.Read())
                             {
                                 SKUSalesHistoryFromOrders model = new SKUSalesHistoryFromOrders();
-                                model.SellerCloudID = Convert.ToString(reader["sellerCloudID"] != DBNull.Value ? reader["sellerCloudID"] : string.Empty);
+                                model.SellerCloudID = Convert.ToString(reader["seller_cloud_order_id"] != DBNull.Value ? reader["seller_cloud_order_id"] : string.Empty);
                                 model.MPID = Convert.ToString(reader["order_id"] != DBNull.Value ? reader["order_id"] : string.Empty);
-                                model.InSellerCloud = Convert.ToDateTime(reader["inSellerCloud"] != DBNull.Value ? reader["inSellerCloud"] : DateTime.Now);
+                                model.InSellerCloud = Convert.ToDateTime(reader["last_update"] != DBNull.Value ? reader["last_update"] : DateTime.Now);
                                 model.TotalQuantity = Convert.ToInt32(reader["quantity"] != DBNull.Value ? reader["quantity"] : 0);
                                 model.TotalPrice = Convert.ToDecimal(reader["total_price"] != DBNull.Value ? reader["total_price"] : 0);
-                                model.TotalComission = Convert.ToDecimal(reader["total_commission"] != DBNull.Value ? reader["total_commission"] : 0);
+                                model.TotalComission = Convert.ToDecimal(reader["Commission_Fee"] != DBNull.Value ? reader["Commission_Fee"] : 0);
                                 model.TaxGST = Convert.ToDecimal(reader["TaxGST"] != DBNull.Value ? reader["TaxGST"] : 0);
                                 model.TaxPst = Convert.ToDecimal(reader["TaxPST"] != DBNull.Value ? reader["TaxPST"] : 0);
                                 model.AverageCost = Convert.ToDecimal(reader["avg_cost"] != DBNull.Value ? reader["avg_cost"] : 0);
                                 model.RowID = Convert.ToInt32(reader["TotalRecords"] != DBNull.Value ? reader["TotalRecords"] : 0);
                                 model.ProductAvgCost = Convert.ToDecimal(reader["avg_cost"] != DBNull.Value ? reader["avg_cost"] : 0);
+                                model.ShippingFee = Convert.ToDecimal(reader["ShippingFee"] != DBNull.Value ? reader["ShippingFee"] : 0);
 
 
                                 model.UnitPrice = Math.Round(model.TotalPrice / model.TotalQuantity, 2);
@@ -111,11 +113,11 @@ namespace DataAccess.DataAccess
                                 model.calculation_TotalAvgCost = model.TotalQuantity * model.ProductAvgCost; 
                                 model.calculation_TotalTax = model.TaxGST + model.TaxPst;
                                 model.calculation_TotalTacPercentage = Math.Round((model.calculation_TotalTax / model.calculation_TotalAmountOfUnitPrice) * 100, 2);
-                                model.calculation_Comission = Math.Round((model.TotalComission) / (1 + model.calculation_TotalTacPercentage / 100), 2);
+                                model.calculation_Comission = Math.Round((model.TotalComission), 2);
                                 model.caculation_TotalAvgCost = Math.Round(Math.Round(Convert.ToDecimal(model.AverageCost), 2) * model.TotalQuantity, 2);
                                 model.calculation_SumTotal = Math.Round(model.calculation_TotalTax + model.calculation_TotalAmountOfUnitPrice, 2);
                                 model.calculation_comissionPercentage = Math.Round(((model.calculation_Comission / model.calculation_TotalAmountOfUnitPrice) * 100), 2);
-                                model.calculation_ProfitLoss = Math.Round(model.calculation_TotalAmountOfUnitPrice - 0 - model.caculation_TotalAvgCost - model.calculation_Comission, 2);
+                                model.calculation_ProfitLoss = Math.Round((model.calculation_TotalAmountOfUnitPrice+model.ShippingFee) - model.caculation_TotalAvgCost - model.calculation_Comission, 2);
                                 model.calculation_ProfitLossPercentage = Math.Round((model.calculation_ProfitLoss / model.calculation_TotalAmountOfUnitPrice) * 100, 2);
 
                                 listSkuSlaesHistory.Add(model);

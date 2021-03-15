@@ -34,5 +34,6 @@ namespace DataAccess.ViewModels
         public decimal calculation_ProfitLoss { get; set; }
         public decimal calculation_ProfitLossPercentage { get; set; }
         public decimal calculation_SumTotal { get; set; }
+        public decimal ShippingFee { get; internal set; }
     }
 }
