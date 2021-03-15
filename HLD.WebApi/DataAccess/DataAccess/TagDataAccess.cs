@@ -265,5 +265,44 @@ namespace DataAccess.DataAccess
             }
 
         }
+
+        public List<SkuTagOrderViewModel> GetTags(string sku)
+        {
+            List<SkuTagOrderViewModel> listModel = null;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    MySqlCommand cmdd = new MySqlCommand(@"SELECT Sku_Tag.sku,Sku_Tag.tag_id,Tags.tag_color,Tags.tag FROM bestBuyE2.Sku_Tag inner join Tags on Sku_Tag.tag_id = Tags.tag_id where sku=" + "'" + sku + "'", conn);
+                    cmdd.CommandType = System.Data.CommandType.Text;
+                    MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(cmdd);
+                    DataTable dt = new DataTable();
+                    mySqlDataAdapter.Fill(dt);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        listModel = new List<SkuTagOrderViewModel>();
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            SkuTagOrderViewModel model = new SkuTagOrderViewModel();
+                            model.TagColor = Convert.ToString(dr["tag_color"]);
+                            model.TagName = Convert.ToString(dr["tag"]);
+                            model.TagId = Convert.ToInt32(dr["tag_id"]);
+                            listModel.Add(model);
+                        }
+                    }
+
+
+                }
+                return listModel;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

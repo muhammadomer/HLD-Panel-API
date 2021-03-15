@@ -598,7 +598,7 @@ namespace DataAccess.DataAccess
             return list;
         }
         //change
-        public List<ProductDisplayInventoryViewModel> GetAllProducts(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DStag, string TypeSearch, string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate)
+        public List<ProductDisplayInventoryViewModel> GetAllProducts(int startLimit, int endLimit, string sort, string dropship, string dropshipsearch, string sku, string asin, string Producttitle, string DStag, string TypeSearch, string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate,string BBInternalDescription)
         {
             List<ProductDisplayInventoryViewModel> _ViewModels = null;
             // MySqlConnection mySqlConnection = null;
@@ -614,6 +614,8 @@ namespace DataAccess.DataAccess
                 ASINListingRemoved = "ALL";
             if (string.IsNullOrEmpty(BBPriceUpdate) || BBPriceUpdate == "undefined")
                 BBPriceUpdate = "ALL";
+            if (string.IsNullOrEmpty(BBInternalDescription) || BBInternalDescription == "undefined")
+                BBInternalDescription = "ALL";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -623,8 +625,8 @@ namespace DataAccess.DataAccess
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumy", conn);
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOne", conn);
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV1", conn);
-                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV2", conn);
-                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV4", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV3", conn);
+                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsAsinSkuDumyOneV4", conn);//this sp on live
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("startLimit", startLimit);
@@ -643,6 +645,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_ApprovedUnitPrice", ApprovedUnitPrice);
                     cmd.Parameters.AddWithValue("_ListingRemoved", ASINListingRemoved);             
                     cmd.Parameters.AddWithValue("_BBPriceUpdate", BBPriceUpdate);
+                    cmd.Parameters.AddWithValue("_bbInternalDescription", BBInternalDescription);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -675,6 +678,8 @@ namespace DataAccess.DataAccess
                             ViewModel.Remark = Convert.ToBoolean(reader["IsListingRemoved"] != DBNull.Value ? reader["IsListingRemoved"] : "false");
                             ViewModel.BBPriceUpdate = reader["BBPriceUpdate"] != DBNull.Value ? Convert.ToDateTime(reader["BBPriceUpdate"]) : DateTime.MinValue;
                             //ViewModel.ApprovedUnitPrice = Convert.ToDecimal(reader["ApprovedUnitPrice"] != DBNull.Value ? reader["ApprovedUnitPrice"] : "0");
+                            ViewModel.LocationNotes = Convert.ToString(reader["LocationNotes"] != DBNull.Value ? reader["LocationNotes"] : "");
+                            ViewModel.BBInternalDescription = Convert.ToString(reader["BBInternalDescription"] != DBNull.Value ? reader["BBInternalDescription"] : "");
                             if (!Convert.IsDBNull(reader["image_name"]))
                             {
                                 ViewModel.ImageURL = Convert.ToString(reader["image_name"]);
@@ -689,8 +694,10 @@ namespace DataAccess.DataAccess
                             //ProductWHQtyDataAccess.GetWareHousesQtyList(ViewModel.ProductSKU);
                             //List<ApprovedPriceForInventoryViewModel> list = ApprovedPriceDataAccess.GetApprovedPricesListForInvenotry(1278, 30, 0, ViewModel.ProductSKU,"","");
                             ViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
-                            List<SkuTagOrderViewModel> skuTagOrders = _tagDataAccess.GetTagforSkubulk(ViewModel.ProductSKU, conn);
-                            ViewModel.skuTags = skuTagOrders;
+
+                            //List<SkuTagOrderViewModel> skuTagOrders = _tagDataAccess.GetTagforSkubulk(ViewModel.ProductSKU, conn);
+                            //ViewModel.skuTags = skuTagOrders;
+
                             //ViewModel.ApprovedPriceList = list;
 
                             _ViewModels.Add(ViewModel);
@@ -764,7 +771,7 @@ namespace DataAccess.DataAccess
             return _ViewModels;
         }
         //change
-        public List<ProductDisplayInventoryViewModel> GetAllProductsWithoutPageLimit(string dropship, string dropshipsearch, string sku, string skulist)
+        public List<ProductDisplayInventoryViewModel> GetAllProductsWithoutPageLimit(string seltedtaglist, string dropship, string dropshipsearch, string sku, string skulist)
         {
             List<ProductDisplayInventoryViewModel> _ViewModels = null;
             MySqlConnection mySqlConnection = null;
@@ -774,8 +781,10 @@ namespace DataAccess.DataAccess
                 {
 
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("p_GetAllProducts_WithoutPage_Limit_testCopy1", conn);
+                    MySqlCommand cmd = new MySqlCommand("p_GetAllProducts_WithoutPage_Limit_testCopy1", conn);//my change adeel
+                   // MySqlCommand cmd = new MySqlCommand("p_GetAllProducts_WithoutPage_Limit_testCopyV1", conn);//live sp 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_selectTag", seltedtaglist);
                     cmd.Parameters.AddWithValue("dropship", dropship);
                     cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
                     cmd.Parameters.AddWithValue("sku", sku);
@@ -804,7 +813,7 @@ namespace DataAccess.DataAccess
                             //ViewModel.Asin = Convert.ToString(reader["AsinCount"] != DBNull.Value ? reader["AsinCount"] : "0");
                             //ViewModel.BrandName = Convert.ToString(reader["brand_name"]);
                             //ViewModel.CategoryName = Convert.ToString(reader["category_name"]);
-                            ViewModel.ColorName = Convert.ToString(reader["color_name"]);
+                            //ViewModel.ColorName = Convert.ToString(reader["color_name"]);
                             //ViewModel.ConditionName = Convert.ToString(reader["condition_name"]);
                             //ViewModel.Description = Convert.ToString(reader["description"]);
                             ViewModel.BBMSRP = Convert.ToDecimal(reader["unit_origin_price_MSRP"] != DBNull.Value ? reader["unit_origin_price_MSRP"] : "0");
@@ -814,6 +823,7 @@ namespace DataAccess.DataAccess
                             ViewModel.BestBuyProductSKU = Convert.ToString(reader["product_sku"]);
                             ViewModel.dropship_Qty = Convert.ToInt32(reader["dropship_Qty"] != DBNull.Value ? reader["dropship_Qty"] : 0);
                             ViewModel.dropship_status = Convert.ToBoolean(reader["dropship_status"] != DBNull.Value ? reader["dropship_status"] : "false");
+                            ViewModel.AggregatedQty = Convert.ToInt32(reader["AggregatedQty"] != DBNull.Value ? reader["AggregatedQty"] : 0);
                             if (!Convert.IsDBNull(reader["image_name"]))
                             {
                                 ViewModel.ImageURL = Convert.ToString(reader["image_name"]);
@@ -826,10 +836,12 @@ namespace DataAccess.DataAccess
                             //geting product warehouse quantity
 
                             //List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetProductQtyBySKU_ForOrdersPage(ViewModel.ProductSKU.Trim(), conn);
-                            List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetWareHousesQtyList(ViewModel.ProductSKU);
-                            ViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
-                            List<SkuTagOrderViewModel> skuTagOrders = _tagDataAccess.GetTagforSkubulk(ViewModel.ProductSKU, conn);
-                            ViewModel.skuTags = skuTagOrders;
+
+
+                            //List<ProductWarehouseQtyViewModel> warehouseQty = ProductWHQtyDataAccess.GetWareHousesQtyList(ViewModel.ProductSKU);
+                            //ViewModel.ProductrWarehouseQtyViewModel = warehouseQty;
+                            //List<SkuTagOrderViewModel> skuTagOrders = _tagDataAccess.GetTagforSkubulk(ViewModel.ProductSKU, conn);
+                            //ViewModel.skuTags = skuTagOrders;
                             _ViewModels.Add(ViewModel);
                         }
                     }
@@ -1006,11 +1018,13 @@ namespace DataAccess.DataAccess
             }
             return listModel;
         }
-
+     
         //change
-        public int GetAllProductsCount(string dropship, string dropshipsearch, string sku, string skuList, string asin, string Producttitle, string DSTag, string TypeSearch, string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate)
+        public int GetAllProductsCount(string seltedtaglist, string dropship, string dropshipsearch, string sku, string skuList, string asin, string Producttitle, string DSTag, string TypeSearch, string WHQStatus,string BBProductID,string ASINS,string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate,string BBInternalDescription)
         {
             int totalCount = 0;
+            if (string.IsNullOrEmpty(seltedtaglist) || seltedtaglist == "undefined")
+                seltedtaglist = "ALL";
             if (string.IsNullOrEmpty(TypeSearch) || TypeSearch == "undefined")
                 TypeSearch = "ALL";
             if (string.IsNullOrEmpty(BBProductID) || BBProductID == "undefined")
@@ -1029,6 +1043,15 @@ namespace DataAccess.DataAccess
                 ASINListingRemoved = "ALL";
             if (string.IsNullOrEmpty(BBPriceUpdate) || BBPriceUpdate == "undefined")
                 BBPriceUpdate = "ALL";
+            if (string.IsNullOrEmpty(BBInternalDescription) || BBInternalDescription == "undefined")
+                BBInternalDescription = "ALL";
+            //
+            //if (string.IsNullOrEmpty(sku) || sku == "Nill")
+            //    sku = "ALL";
+            //if (string.IsNullOrEmpty(asin) || asin == "Nill")
+            //    asin = "ALL";
+            //if (string.IsNullOrEmpty(Producttitle) || Producttitle == "Nill")
+            //    Producttitle = "ALL";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -1038,8 +1061,11 @@ namespace DataAccess.DataAccess
                     //MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopyOne", conn);
                     //MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopyOneV1", conn);
                     //MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopyOneV2", conn);
-                    MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopyOneV3", conn);
+                   MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopyOneV4", conn);//my change adeel
+                     //MySqlCommand cmd = new MySqlCommand("p_countTotalProductsIn_InventoryCountAsinDumyCopyOneV5", conn);//my change adeel this sp on line from date- 12-3-2021
+                    
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_selectTag", seltedtaglist);
                     cmd.Parameters.AddWithValue("filters", dropship);
                     cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
                     cmd.Parameters.AddWithValue("sku", sku);
@@ -1054,6 +1080,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_ApprovedUnitPrice", ApprovedUnitPrice);
                     cmd.Parameters.AddWithValue("_ListingRemoved", ASINListingRemoved);
                     cmd.Parameters.AddWithValue("_BBPriceUpdate", BBPriceUpdate);
+                    cmd.Parameters.AddWithValue("_bbInternalDescription", BBInternalDescription);
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)
@@ -2965,7 +2992,7 @@ namespace DataAccess.DataAccess
             return status;
         }
 
-        public List<ExportProductDataViewModel> GetAllProductsForExportWithLimitCount(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate)
+        public List<ExportProductDataViewModel> GetAllProductsForExportWithLimitCount(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate,string BBInternalDescription)
         {
             List<ExportProductDataViewModel> _ViewModels = null;
             // MySqlConnection mySqlConnection = null;
@@ -2987,6 +3014,8 @@ namespace DataAccess.DataAccess
                 ASINListingRemoved = "ALL";
             if (string.IsNullOrEmpty(BBPriceUpdate) || BBPriceUpdate == "undefined")
                 BBPriceUpdate = "ALL";
+            if (string.IsNullOrEmpty(BBInternalDescription) || BBInternalDescription == "undefined")
+                BBInternalDescription = "ALL";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -2998,7 +3027,8 @@ namespace DataAccess.DataAccess
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTest", conn);
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTestV1", conn);///my change adeel
                     //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTestV2", conn);///my change adeel
-                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTestV3", conn);///my change adeel
+                    //MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTestV3", conn);///my change adeel
+                    MySqlCommand cmd = new MySqlCommand("p_GetAllProductsForExportWithLimitCountTestV4", conn);///my change adeel
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("dropship", dropship);
                     cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
@@ -3013,6 +3043,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_ApprovedUnitPrice", ApprovedUnitPrice);
                     cmd.Parameters.AddWithValue("_ListingRemoved", ASINListingRemoved);
                     cmd.Parameters.AddWithValue("_BBPriceUpdate", BBPriceUpdate);
+                    cmd.Parameters.AddWithValue("_bbInternalDescription", BBInternalDescription);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -3155,7 +3186,7 @@ namespace DataAccess.DataAccess
             return listModel;
         }
 
-        public int SelectAllForGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate)
+        public int SelectAllForGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate,string BBInternalDescription)
         {
             int totalCount = 0;
             
@@ -3177,6 +3208,8 @@ namespace DataAccess.DataAccess
                 ASINListingRemoved = "ALL";
             if (string.IsNullOrEmpty(BBPriceUpdate) || BBPriceUpdate == "undefined")
                 BBPriceUpdate = "ALL";
+            if (string.IsNullOrEmpty(BBInternalDescription) || BBInternalDescription == "undefined")
+                BBInternalDescription = "ALL";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -3185,7 +3218,8 @@ namespace DataAccess.DataAccess
                     //MySqlCommand cmd = new MySqlCommand("P_GetCountForSKUHavingASIN", conn);//my change adeel
                     //MySqlCommand cmd = new MySqlCommand("P_GetCountForSKUHavingASINV1", conn);
                     //MySqlCommand cmd = new MySqlCommand("P_GetCountForSKUHavingASINV2", conn);
-                    MySqlCommand cmd = new MySqlCommand("P_GetCountForSKUHavingASINV3", conn);
+                   // MySqlCommand cmd = new MySqlCommand("P_GetCountForSKUHavingASINV3", conn);//my change adeel
+                    MySqlCommand cmd = new MySqlCommand("P_GetCountForSKUHavingASINV4", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("dropship", dropship);
                     cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
@@ -3200,6 +3234,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_ApprovedUnitPrice", ApprovedUnitPrice);
                     cmd.Parameters.AddWithValue("_ListingRemoved", ASINListingRemoved);
                     cmd.Parameters.AddWithValue("_BBPriceUpdate", BBPriceUpdate);
+                    cmd.Parameters.AddWithValue("_bbInternalDescription", BBInternalDescription);
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)
@@ -3219,7 +3254,7 @@ namespace DataAccess.DataAccess
        
         }
 
-        public List<GetStatusFromZincViewModel> SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate)
+        public List<GetStatusFromZincViewModel> SelectAllSKUandASINGetStatusFromZinc(string dropship, string dropshipsearch, string sku, string DStag, string TypeSearch, string WHQStatus, string BBProductID, string ASINS, string ApprovedUnitPrice,string ASINListingRemoved,string BBPriceUpdate,string BBInternalDescription)
         {
             List<GetStatusFromZincViewModel> _ViewModels = null;
             // MySqlConnection mySqlConnection = null;
@@ -3241,6 +3276,8 @@ namespace DataAccess.DataAccess
                 ASINListingRemoved = "ALL";
             if (string.IsNullOrEmpty(BBPriceUpdate) || BBPriceUpdate == "undefined")
                 BBPriceUpdate = "ALL";
+            if (string.IsNullOrEmpty(BBInternalDescription) || BBInternalDescription == "undefined")
+                BBInternalDescription = "ALL";
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -3252,7 +3289,8 @@ namespace DataAccess.DataAccess
                     //MySqlCommand cmd = new MySqlCommand("P_getSkuHavingNotAsin", conn);
                     //MySqlCommand cmd = new MySqlCommand("P_getSkuHavingNotAsinV1", conn);//my change adeel
                     //MySqlCommand cmd = new MySqlCommand("P_getSkuHavingNotAsinV2", conn);//my change adeel
-                    MySqlCommand cmd = new MySqlCommand("P_getSkuHavingNotAsinV3", conn);//my change adeel
+                   // MySqlCommand cmd = new MySqlCommand("P_getSkuHavingNotAsinV3", conn);//my change adeel
+                    MySqlCommand cmd = new MySqlCommand("P_getSkuHavingNotAsinV4", conn);//my change adeel
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("dropship", dropship);
                     cmd.Parameters.AddWithValue("dropshipsearch", dropshipsearch);
@@ -3267,6 +3305,7 @@ namespace DataAccess.DataAccess
                     cmd.Parameters.AddWithValue("_ApprovedUnitPrice", ApprovedUnitPrice);
                     cmd.Parameters.AddWithValue("_ListingRemoved", ASINListingRemoved);
                     cmd.Parameters.AddWithValue("_BBPriceUpdate", BBPriceUpdate);
+                    cmd.Parameters.AddWithValue("_bbInternalDescription", BBInternalDescription);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);

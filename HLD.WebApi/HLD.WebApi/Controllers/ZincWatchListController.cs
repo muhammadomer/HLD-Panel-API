@@ -321,11 +321,13 @@ namespace HLD.WebApi.Controllers
                         zincWathchlistDataAccess.SaveBestBuyUpdateLogs(item, JobID, ImportId);
                         //Code here for submission sp
                         UpdateImportIdInZincLogViewModel model = new UpdateImportIdInZincLogViewModel();
-                        model.SKU = SKUsForJob.FirstOrDefault().SKU;
+                      //  model.SKU = SKUsForJob.FirstOrDefault().SKU;
+                        model.SKU = item.SKU;
                         model.ImportId =Convert.ToInt32( ImportId);
                         model.price = bestBuyPrice.offers.FirstOrDefault().discount.price;
                         model.JobID = JobID;
-                        model.ZincJobID = SKUsForJob.FirstOrDefault().ZincJobID;
+                        //model.ZincJobID = SKUsForJob.FirstOrDefault().ZincJobID;
+                        model.ZincJobID = item.ZincJobID;
                         zincWathchlistDataAccess.UpdateImportIdInZincLog(model);
                     }
 

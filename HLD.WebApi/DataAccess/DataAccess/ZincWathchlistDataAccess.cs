@@ -504,9 +504,11 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     //MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopyPrime", conn);//my comment adeel
                     //MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopyPrimeOne", conn);
-                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopyPrimeOne1", conn);
+                    //MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopyPrimeOne1", conn);//live sp
+                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCopyPrimeOne2", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_ASIN", searchViewModel.ASIN);
+                    cmd.Parameters.AddWithValue("_ASIN", searchViewModel.ASINFilter);
+                    cmd.Parameters.AddWithValue("_SKU", searchViewModel.SKU);
                     cmd.Parameters.AddWithValue("_JobID", searchViewModel.JobID);
                     cmd.Parameters.AddWithValue("_Available", searchViewModel.Available);
                     cmd.Parameters.AddWithValue("_IsPrime", searchViewModel.IsPrime);
@@ -627,9 +629,11 @@ namespace DataAccess.DataAccess
                 {
                     conn.Open();
                     //MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCountPrime", conn);
-                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCountPrimeCopy", conn);
+                    //MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCountPrimeCopy", conn);//live sp
+                    MySqlCommand cmd = new MySqlCommand("P_GetZincWatchlistLogsCountPrimeV1", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("_ASIN", searchViewModel.ASIN);
+                    cmd.Parameters.AddWithValue("_ASIN", searchViewModel.ASINFilter);
+                    cmd.Parameters.AddWithValue("_SKU", searchViewModel.SKU);
                     cmd.Parameters.AddWithValue("_JobID", searchViewModel.JobID);
                     cmd.Parameters.AddWithValue("_Available", searchViewModel.Available);
                     cmd.Parameters.AddWithValue("_IsPrime", searchViewModel.IsPrime);
@@ -1086,15 +1090,16 @@ namespace DataAccess.DataAccess
                     using (MySqlConnection conn = new MySqlConnection(connStr))
                     {
                         conn.Open();
-                      //  MySqlCommand cmd = new MySqlCommand("P_SaveBestBuyUpdatelogs", conn);
-                        MySqlCommand cmd = new MySqlCommand("P_SaveBestBuyUpdatelogsV1", conn);
+                       MySqlCommand cmd = new MySqlCommand("P_SaveBestBuyUpdatelogs", conn);
+                       // MySqlCommand cmd = new MySqlCommand("P_SaveBestBuyUpdatelogsV1", conn);//this sp on live
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("_JobId", jobId);
                         cmd.Parameters.AddWithValue("_Sku", ViewModel.SKU);
                         cmd.Parameters.AddWithValue("_ProductId", ViewModel.ProductId);
                         cmd.Parameters.AddWithValue("_MSRP", ViewModel.MSRP);
                         cmd.Parameters.AddWithValue("_ImportId", ImportId);
-                        cmd.Parameters.AddWithValue("_UpdateSellingPrice", ViewModel.UpdateSelllingPrice);
+                    cmd.Parameters.AddWithValue("_Asin", ViewModel.ASIN);
+                    cmd.Parameters.AddWithValue("_UpdateSellingPrice", ViewModel.UpdateSelllingPrice);
                         cmd.ExecuteNonQuery();
                         conn.Close();
 

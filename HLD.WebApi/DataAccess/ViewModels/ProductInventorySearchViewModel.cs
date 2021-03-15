@@ -22,5 +22,7 @@ namespace DataAccess.ViewModels
         public string ApprovedUnitPrice { get; set; }
         public string ASINListingRemoved { get; set; }
         public string BBPriceUpdate { get; set; }
+        public string seltedtaglist { get; set; }
+        public string BBInternalDescription { get; set; }
     }
 }
