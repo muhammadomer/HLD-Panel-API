@@ -118,8 +118,12 @@ namespace DataAccess.DataAccess
                                 model.calculation_SumTotal = Math.Round(model.calculation_TotalTax + model.calculation_TotalAmountOfUnitPrice, 2);
                                 model.calculation_comissionPercentage = Math.Round(((model.calculation_Comission / model.calculation_TotalAmountOfUnitPrice) * 100), 2);
                                 model.calculation_ProfitLoss = Math.Round((model.calculation_TotalAmountOfUnitPrice+model.ShippingFee) - model.caculation_TotalAvgCost - model.calculation_Comission, 2);
+                              
                                 model.calculation_ProfitLossPercentage = Math.Round((model.calculation_ProfitLoss / model.calculation_TotalAmountOfUnitPrice) * 100, 2);
-
+                                decimal result = Math.Round(model.calculation_ProfitLossPercentage, 2);
+                                model.calculation_ProfitLossPercentage = Math.Round(result);
+                                //var calculation_ProfitLossPercentage= Convert.ToString(model.calculation_ProfitLossPercentage);
+                                //calculation_ProfitLossPercentage += calculation_ProfitLossPercentage + "%";
                                 listSkuSlaesHistory.Add(model);
                             }
                         }

@@ -824,6 +824,9 @@ namespace DataAccess.DataAccess
                             ViewModel.dropship_Qty = Convert.ToInt32(reader["dropship_Qty"] != DBNull.Value ? reader["dropship_Qty"] : 0);
                             ViewModel.dropship_status = Convert.ToBoolean(reader["dropship_status"] != DBNull.Value ? reader["dropship_status"] : "false");
                             ViewModel.AggregatedQty = Convert.ToInt32(reader["AggregatedQty"] != DBNull.Value ? reader["AggregatedQty"] : 0);
+                            ViewModel.LocationNotes = Convert.ToString(reader["LocationNotes"] != DBNull.Value ? reader["LocationNotes"] : "");
+                            ViewModel.BBInternalDescription = Convert.ToString(reader["BBInternalDescription"] != DBNull.Value ? reader["BBInternalDescription"] : "");
+                            ViewModel.BBPriceUpdate = reader["BBPriceUpdate"] != DBNull.Value ? Convert.ToDateTime(reader["BBPriceUpdate"]) : DateTime.MinValue;
                             if (!Convert.IsDBNull(reader["image_name"]))
                             {
                                 ViewModel.ImageURL = Convert.ToString(reader["image_name"]);
