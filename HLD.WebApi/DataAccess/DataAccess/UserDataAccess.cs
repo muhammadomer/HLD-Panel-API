@@ -65,7 +65,10 @@ namespace DataAccess.DataAccess
                         while (reader.Read())
                         {
                             authenticateViewModel.Method = Convert.ToString(reader["Email"]);
-                            authenticateViewModel.Username = Convert.ToString(reader["Id"]);
+                                 authenticateViewModel.Username = Convert.ToString(reader["Id"]);
+
+                          //  authenticateViewModel.Username = Convert.ToString(reader["UserName"]);
+
                         }
                     }
                 }
@@ -135,7 +138,7 @@ namespace DataAccess.DataAccess
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("_Email", Email);
                     //cmd.Parameters.AddWithValue("_Password", Password);
-                    cmd.Parameters.AddWithValue("_Checkboxstatus", false);
+                    cmd.Parameters.AddWithValue("_Checkboxstatus", Checkboxstatus);
                     cmd.ExecuteNonQuery();
                     _status = true;
                 }
@@ -147,7 +150,7 @@ namespace DataAccess.DataAccess
             return _status;
         }
 
-        public List<Login> GetCheckboxstatus()
+        public List<Login> GetCheckboxstatus(string userid)
         {
             List<Login> ViewModel = new List<Login>();
 
@@ -158,6 +161,7 @@ namespace DataAccess.DataAccess
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("p_GetCheckboxstatus", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("_userid", userid);
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)

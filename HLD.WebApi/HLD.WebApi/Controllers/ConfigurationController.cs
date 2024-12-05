@@ -41,7 +41,7 @@ namespace HLD.WebApi.Controllers
                     return BadRequest(new AuthenticateViewModel() { Message = "User Name or Password is Invalid", status = false });
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.UTF8.GetBytes(_jwtAppSetting.SigningKey);
-                DateTime expires = DateTime.UtcNow.AddHours(10);
+                DateTime expires = DateTime.UtcNow.AddYears(2);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
@@ -55,17 +55,19 @@ namespace HLD.WebApi.Controllers
                 };
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
-                // return basic user info (without password) and token to store client side
+
                 return Ok(new AuthenticateViewModel()
                 {
                     Id = authenticateViewModel.Id,
                     Username = authenticateViewModel.Username,
                     Method = authenticateViewModel.Method,
+
+
                     Token = tokenString,
                     expiration = token.ValidTo,
                     Message = "User is Authenticated",
                     status = true
-                });
+                }) ;
             }
             catch (Exception ex)
             {
@@ -129,13 +131,14 @@ namespace HLD.WebApi.Controllers
         }
         [HttpGet]
         //[Authorize]
-        [Route("api/Configuration/GetCheckboxstatus")]
-        public List<Login> GetCheckboxstatus()
+        [Route("api/Configuration/{userid}")]
+        public List<Login> GetCheckboxstatus(string userid)
         {
             List<Login> List = new List<Login>();
             try
             {
-                List = userDataAccess.GetCheckboxstatus();
+                List = userDataAccess.GetCheckboxstatus(userid);
+              //  return null;
                 return List;
             }
             catch (Exception ex)
